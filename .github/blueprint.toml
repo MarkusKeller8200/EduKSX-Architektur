@@ -240,7 +240,7 @@ code_scanning = "auto"            # CodeQL Standard-Setup; auto: öffentlich an 
 private_meldungen = true          # öffentlich: «Report a vulnerability» einschalten
 
 [dependabot]
-oekosysteme = ["github-actions", "pip", "npm", "composer"] # z. B. ["github-actions", "composer", "npm", "pip", "docker"]
+oekosysteme = ["github-actions"] # z. B. ["github-actions", "composer", "npm", "pip", "docker"]
 intervall = "weekly"
 # Neue Paketversionen erst nach so vielen Tagen vorschlagen (Schutz vor frisch veröffentlichten, kompromittierten
 # Paketen); Sicherheits-Updates kommen trotzdem sofort. 0 = aus
