@@ -8,4 +8,4 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
-- **DB-Entwickler-Guideline (#9):** Regeln für Datenbank, Migrationen und Modelle aller Module als Entwurf zur Abnahme (`docs/KONZEPT-DB-GUIDELINE.md`), verlinkt aus der Prüfliste der Plattform.
+- **DB-Entwickler-Guideline (#9):** Regeln für Datenbank, Migrationen und Modelle aller Module abgenommen (`docs/KONZEPT-DB-GUIDELINE.md`), verlinkt aus der Prüfliste der Plattform.
