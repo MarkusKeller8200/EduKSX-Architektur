@@ -1,16 +1,15 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11)
 
-Stand: 12.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **ENTWURF** (Version 1.0 abgenommen am
-12.11.2026)
+Stand: 12.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am 12.11.2026
+(Version 1.0 ebenfalls am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
 modulspezifische Entscheide stehen im Datenmodell des jeweiligen Moduls, das auf diesen Standard verweist (für das
 Glossary: `docs/KONZEPT-DB-GUIDELINE.md` im Repo EduKSX-Glossary).
 
-**Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): **BESCHLOSSEN** = Version 1.0 bzw.
-Vorgabe von Projektverantwortlicher:m mit Datum · **EMPFOHLEN** = neu in 1.1 aus dem Architekturreview vom 12.11.2026,
-noch nicht bestätigt · **OFFEN** = vor der Umsetzung zu entscheiden.
+**Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): Alle Regeln sind **BESCHLOSSEN**
+(12.11.2026), ausser sie sind ausdrücklich als **ZU PRÜFEN** gekennzeichnet.
 
 Der Standard ist in vier Teile gegliedert:
 
@@ -26,10 +25,10 @@ Der Standard ist in vier Teile gegliedert:
 1. **Technik englisch, Anzeige deutsch** – übersetzt wird nur über Labels im Code, nie in der Datenbank. BESCHLOSSEN
 2. **Kein Datenverlust** – jede Änderung überführt bestehende Daten, zählt vorher und nachher und bricht bei Abweichung
    ab. BESCHLOSSEN
-3. **Öffentlich, Organisation und persönlich strikt getrennt** – technisch, nicht nur per Konvention. EMPFOHLEN
+3. **Öffentlich, Organisation und persönlich strikt getrennt** – technisch, nicht nur per Konvention. BESCHLOSSEN
 4. **Nachvollziehbar** – jede Datenänderung ist mit wer, wann, was belegt. BESCHLOSSEN
 5. **Ein fachliches Modell, datenbankspezifische Umsetzung erlaubt** – SQLite und PostgreSQL werden beide geprüft.
-   EMPFOHLEN
+   BESCHLOSSEN
 6. **Konzept vor Code** – Schemaänderungen, die vom Standard abweichen, kommen zuerst als Konzept-PR zur Abnahme.
    BESCHLOSSEN
 
@@ -99,7 +98,7 @@ ersetzen aber nie die `id`. Dass UUID v7 den Erstellungszeitpunkt erkennen läss
 Wo der Bezug ohne Constraint bleibt, wird die Person zusätzlich als Text gespeichert (`actor_label`), damit der Eintrag
 nach der Pseudonymisierung lesbar bleibt.
 
-**Zugehörigkeit absichern (EMPFOHLEN):** Zeigt ein Verweis auf einen Datensatz, der zum **selben** übergeordneten Objekt
+**Zugehörigkeit absichern (BESCHLOSSEN):** Zeigt ein Verweis auf einen Datensatz, der zum **selben** übergeordneten Objekt
 gehören muss (z. B. «veröffentlichte Revision» eines Dokuments, Kind einer Organisation), wird das mit einem
 zusammengesetzten Fremdschlüssel gesichert – `(document_id, published_revision_id)` → `revisions(document_id, id)` mit
 UNIQUE auf `revisions(document_id, id)`. Wo das nicht geht, prüft der Service und ein Test.
@@ -135,24 +134,24 @@ ungenutzte werden entfernt – BESCHLOSSEN.
 - **Erweitern – umstellen – aufräumen** über zwei Versionen: in Version n nichts entfernen oder umbenennen, was Version
   n−1 noch liest. Ein Test pro Modul prüft das; bewusste Ausnahmen tragen den Vermerk
   `abwaertskompatibel: <Grund>`. BESCHLOSSEN
-- **Ausnahme vor dem ersten produktiven Release (EMPFOHLEN):** Solange ein Modul nie produktiv ausgeliefert war, darf es
+- **Ausnahme vor dem ersten produktiven Release (BESCHLOSSEN):** Solange ein Modul nie produktiv ausgeliefert war, darf es
   seine Migrationen einmal zu einem bereinigten Anfangsstand zusammenfassen und direkt umbenennen – nur mit Vermerk und
   Überführung der bestehenden Test-/dev-Daten. Danach gilt die Regel ohne Ausnahme.
 - Pflichtteile jeder Migration: Sicherung und Probelauf auf einer Kopie; Datenüberführung zählt vorher/nachher und bricht
   bei Abweichung ab; entfallende Daten werden archiviert (siehe B3, Archiv); `down()` stellt Struktur und Daten wieder
   her, soweit möglich; keine Modellklassen in Migrationen; Daten in Blöcken (`chunkById`); ein Test je Migration.
   BESCHLOSSEN
-- **Datenbankspezifisch erlaubt (EMPFOHLEN):** Das fachliche Modell ist eines; die Umsetzung darf je Datenbank abweichen
+- **Datenbankspezifisch erlaubt (BESCHLOSSEN):** Das fachliche Modell ist eines; die Umsetzung darf je Datenbank abweichen
   (z. B. STRICT nur SQLite, `uuid`/`timestamptz`/RLS nur PostgreSQL). Abweichungen stehen gebündelt im Helfer bzw. in
   einer Weiche `if ($driver === 'pgsql')` mit Kommentar – nicht verstreut.
 
-### A6 Transaktionen und konkurrierende Speicherung (BESCHLOSSEN, Obergrenzen EMPFOHLEN)
+### A6 Transaktionen und konkurrierende Speicherung (BESCHLOSSEN)
 
 - Alles, was zusammengehört, läuft in **einer** Transaktion; bei einem Fehler wird die **gesamte** Transaktion
   zurückgerollt. Seiteneffekte (Mails, Webhooks, Dateien, Jobs) erst nach dem Commit (`afterCommit`).
 - **Obergrenzen:** eine Transaktion bleibt unter rund **5 Sekunden** bzw. **10 000 geänderten Zeilen**. Was grösser ist,
   läuft über Staging-Tabellen (prüfen, dann in einer Transaktion übernehmen) oder in Blöcken mit eigenem
-  Fortschrittsprotokoll, das sich fortsetzen oder vollständig zurücknehmen lässt. EMPFOHLEN
+  Fortschrittsprotokoll, das sich fortsetzen oder vollständig zurücknehmen lässt. BESCHLOSSEN
 - **Optimistisches Sperren:** änderbare Fachtabellen haben `lock_version`; gespeichert wird mit
   `WHERE id = ? AND lock_version = ?`; 0 getroffene Zeilen ergibt Konflikt (HTTP 409), nichts wird überschrieben.
   Umsetzung als kleines Trait in `eduksx/core`, kein Fremdpaket.
@@ -160,7 +159,7 @@ ungenutzte werden entfernt – BESCHLOSSEN.
 - SQLite: WAL, `busy_timeout` 5000 ms, kurze Schreibtransaktionen; bei `database is locked` den ganzen Ablauf
   wiederholen.
 
-### A7 Änderungshistorie (BESCHLOSSEN, Erweiterungen EMPFOHLEN)
+### A7 Änderungshistorie (BESCHLOSSEN)
 
 Jede Datenänderung – Anlegen, Ändern, Löschen, Wiederherstellen – wird mit wer, wann, was festgehalten, in **derselben
 Transaktion** wie die Änderung. Module mit eigenem Revisionssystem nutzen dieses; alle anderen Tabellen schreiben in eine
@@ -169,33 +168,33 @@ zentrale Tabelle `data_changes`.
 | Spalte | Inhalt | Stufe |
 | --- | --- | --- |
 | `id` | fortlaufende Zahl | BESCHLOSSEN |
-| `event_id` | UUID, eindeutig auch über Module und Exporte hinweg | EMPFOHLEN |
+| `event_id` | UUID, eindeutig auch über Module und Exporte hinweg | BESCHLOSSEN |
 | `subject_type`, `subject_id` | Tabelle und `id` des Datensatzes (ohne Constraint, mit Index) | BESCHLOSSEN |
-| `organization_id` | Mandant des Datensatzes, leer bei globalen Daten | EMPFOHLEN |
+| `organization_id` | Mandant des Datensatzes, leer bei globalen Daten | BESCHLOSSEN |
 | `action` | `created`, `updated`, `deleted`, `restored` | BESCHLOSSEN |
 | `changes` | Feld → `{old, new}` nach den Regeln der Datenklasse (B2) | BESCHLOSSEN, angepasst |
 | `actor_type`, `actor_id`, `actor_label` | wer | BESCHLOSSEN |
-| `source` | `web`, `api`, `import`, `mcp`, `job`, `system`, `migration` | EMPFOHLEN |
-| `transaction_id` | gemeinsame Kennung aller Einträge einer Transaktion | EMPFOHLEN |
-| `request_id` | Anfrage-ID aus dem Protokoll | EMPFOHLEN |
-| `schema_version` | Stand des Schemas, um alte Einträge richtig zu lesen | EMPFOHLEN |
+| `source` | `web`, `api`, `import`, `mcp`, `job`, `system`, `migration` | BESCHLOSSEN |
+| `transaction_id` | gemeinsame Kennung aller Einträge einer Transaktion | BESCHLOSSEN |
+| `request_id` | Anfrage-ID aus dem Protokoll | BESCHLOSSEN |
+| `schema_version` | Stand des Schemas, um alte Einträge richtig zu lesen | BESCHLOSSEN |
 | `occurred_at` | wann, UTC | BESCHLOSSEN |
 
 - **Erfassung:** über ein Trait im Modell **und** verbindlich über die Service-Schicht. Schreibende Zugriffe am Service
   vorbei (`DB::table()->update()`, Migrationen, Importe) schreiben die Historie selbst oder einen Sammeleintrag mit
-  Anzahl. Ein Test pro Modul sucht nach Schreibzugriffen ausserhalb der Services. BESCHLOSSEN/EMPFOHLEN
+  Anzahl. Ein Test pro Modul sucht nach Schreibzugriffen ausserhalb der Services. BESCHLOSSEN
 - **Trigger** nur, wenn ein Weg am Code vorbei anders nicht abzusichern ist – dann für beide Datenbanken, dokumentiert,
   getestet und gepflegt. BESCHLOSSEN
 - **Manipulationsschutz:** Einträge sind unveränderlich (keine Updates ausser Pseudonymisierung). Für das
   **Sicherheitsprotokoll** (Rollen, Rechte, Anmeldungen, Löschungen) zusätzlich eine Hash-Verkettung, deren Prüfpunkte
   täglich ausserhalb der Datenbank abgelegt werden (Protokollierung im Leitstand). Für fachliche Historie keine
-  Hash-Verkettung. EMPFOHLEN
+  Hash-Verkettung. BESCHLOSSEN
 
 ---
 
 ## B · Sicherheit und Datenschutz
 
-### B1 Geltungsbereiche und Mandantentrennung (EMPFOHLEN)
+### B1 Geltungsbereiche und Mandantentrennung (BESCHLOSSEN)
 
 Jede Tabelle hat genau einen Geltungsbereich; er steht im Datenmodell des Moduls.
 
@@ -226,7 +225,7 @@ Spalte `organization_id` dort, wo Daten mit dem zentralen Dienst abgeglichen wer
 Ob persönliche Anpassungen organisationsübergreifend gelten oder je Organisation verschieden sein dürfen, entscheidet
 jedes Modul und hält es im Datenmodell fest.
 
-### B2 Datenklassen je Feld (EMPFOHLEN)
+### B2 Datenklassen je Feld (BESCHLOSSEN)
 
 Jede Spalte bekommt im Datenmodell des Moduls eine Datenklasse; daraus folgen Historie, Export und Löschung.
 
@@ -243,7 +242,7 @@ Stand» bei `deleted`. Abbilder (Revisionen, Snapshots als JSON) enthalten nur F
 
 ### B3 Löschen, Wiederherstellungsfrist und Löschregister
 
-**Papierkorb (BESCHLOSSEN 12.11.2026, Geltung EMPFOHLEN präzisiert):** Hauptobjekte der Fachdaten und
+**Papierkorb (BESCHLOSSEN 12.11.2026, Geltung präzisiert in 1.1):** Hauptobjekte der Fachdaten und
 Organisationsdaten werden zuerst vorläufig gelöscht (`deleted_at`, `deleted_by_id`) und nach einer Frist endgültig.
 **Nicht** im Papierkorb: Verknüpfungs-, Hilfs- und Protokolltabellen – sie folgen ihrem Hauptobjekt. Fristen und das
 Recht zum Wiederherstellen stellen **nur Super-Admins** ein; Vorgabe [30 Tage].
@@ -252,7 +251,7 @@ Recht zum Wiederherstellen stellen **nur Super-Admins** ein; Vorgabe [30 Tage].
 beendet), Wiederherstellung während der Frist durch Super-Admins. **Ausnahme:** Verlangt eine Person die sofortige
 Löschung nach Datenschutzrecht, wird sofort gelöscht. Fristen rechtlich prüfen (ZU PRÜFEN).
 
-**Löschregister (EMPFOHLEN):** Ein Zurückspielen einer Sicherung darf gelöschte Personen nicht wiederbeleben.
+**Löschregister (BESCHLOSSEN):** Ein Zurückspielen einer Sicherung darf gelöschte Personen nicht wiederbeleben.
 
 1. Jede endgültige Löschung von Personendaten wird zusätzlich in ein **Löschregister ausserhalb der Datenbank**
    geschrieben: nur Art, `id`, Zeitpunkt und Grund – keine Personendaten.
@@ -266,10 +265,10 @@ Löschung nach Datenschutzrecht, wird sofort gelöscht. Fristen rechtlich prüfe
 **Überall löschen:** Löschpflichtige Daten werden auch aus Archiven, Exporten, Staging-Tabellen, Caches und
 Suchindizes entfernt. In Sicherungen bleiben sie bis zu deren Ablauf, unbenutzt; das Register verhindert ihre Rückkehr.
 
-**Archive (EMPFOHLEN):** Archivierte Daten (z. B. bei Migrationen entfallende Werte) tragen ihre Datenklasse, eine Frist
+**Archive (BESCHLOSSEN):** Archivierte Daten (z. B. bei Migrationen entfallende Werte) tragen ihre Datenklasse, eine Frist
 und werden verschlüsselt abgelegt; personenbezogene Werte nur, wenn nötig und mit Löschregel.
 
-### B4 Identitäten und Rechte (EMPFOHLEN)
+### B4 Identitäten und Rechte (BESCHLOSSEN)
 
 - **Plattformidentität** kommt aus EduKSX-Ident (OIDC). Ein Modul speichert sie als `issuer` + `subject` (zusammen
   eindeutig) – nie die E-Mail als Schlüssel, nie `subject` allein.
@@ -282,7 +281,7 @@ und werden verschlüsselt abgelegt; personenbezogene Werte nur, wenn nötig und 
   Developer). BESCHLOSSEN 12.11.2026
 - **Servicekonten** sind eigene Identitäten (Client-Credentials), nie Benutzerkonten.
 
-### B5 Datenbankzugänge (EMPFOHLEN, PostgreSQL)
+### B5 Datenbankzugänge (BESCHLOSSEN, PostgreSQL)
 
 | Zugang | Rechte | Verwendet von |
 | --- | --- | --- |
@@ -293,16 +292,16 @@ und werden verschlüsselt abgelegt; personenbezogene Werte nur, wenn nötig und 
 Jedes Modul hat eine eigene Datenbank bzw. ein eigenes Schema; kein Modul liest Tabellen eines anderen (Austausch nur
 über APIs). Für SQLite entfällt dieser Abschnitt – die Datei ist nur für den Dienst lesbar.
 
-### B6 Geheimnisse und Verschlüsselung (BESCHLOSSEN/EMPFOHLEN)
+### B6 Geheimnisse und Verschlüsselung (BESCHLOSSEN)
 
 Tokens nur gehasht, 2FA-Geheimnisse und Zugangsdaten verschlüsselt (Laravel-Cast `encrypted`); Felder der Klasse
-«besonders schützenswert» zusätzlich verschlüsselt gespeichert (EMPFOHLEN).
+«besonders schützenswert» zusätzlich verschlüsselt gespeichert (BESCHLOSSEN).
 
 ---
 
 ## C · Betrieb
 
-### C1 SQLite und PostgreSQL (EMPFOHLEN)
+### C1 SQLite und PostgreSQL (BESCHLOSSEN)
 
 | Thema | SQLite (isolierte, kleine Instanzen; Glossary bis zum Wechsel) | PostgreSQL (zentrale Dienste) |
 | --- | --- | --- |
@@ -323,12 +322,12 @@ Migrationen in der CI gegen SQLite **und** PostgreSQL laufen – nicht erst beim
 
 | Regel | Umsetzung | Stufe |
 | --- | --- | --- |
-| Laufend | SQLite: Litestream in einen S3-kompatiblen Speicher (z. B. Swiss Backup). PostgreSQL: Base Backup + WAL-Archivierung (z. B. CloudNativePG/Barman) | BESCHLOSSEN / EMPFOHLEN |
-| Zeitpunkt wählbar | Wiederherstellung auf jeden Zeitpunkt der Aufbewahrung (PITR) – `pg_dump` allein genügt dafür nicht | EMPFOHLEN |
+| Laufend | SQLite: Litestream in einen S3-kompatiblen Speicher (z. B. Swiss Backup). PostgreSQL: Base Backup + WAL-Archivierung (z. B. CloudNativePG/Barman) | BESCHLOSSEN |
+| Zeitpunkt wählbar | Wiederherstellung auf jeden Zeitpunkt der Aufbewahrung (PITR) – `pg_dump` allein genügt dafür nicht | BESCHLOSSEN |
 | Einzelsnapshot | vor jedem Update, jeder Migration, grossen Importen; Dateiname mit Zeitstempel und Version; Prüfsumme und Zeilen je Tabelle | BESCHLOSSEN |
-| Verschlüsselt | alle Sicherungen verschlüsselt; Schlüssel getrennt vom gesicherten System und von der Sicherung aufbewahrt (Geheimnisspeicher), Notfallkopie offline | EMPFOHLEN |
+| Verschlüsselt | alle Sicherungen verschlüsselt; Schlüssel getrennt vom gesicherten System und von der Sicherung aufbewahrt (Geheimnisspeicher), Notfallkopie offline | BESCHLOSSEN |
 | Getestet | Wiederherstellung mindestens monatlich auf einer Kopie, Dauer messen und mit RTO vergleichen | BESCHLOSSEN |
-| Nach dem Zurückspielen | Migrationen, Löschregister (B3), Löschfristen – erst dann Anfragen annehmen | EMPFOHLEN |
+| Nach dem Zurückspielen | Migrationen, Löschregister (B3), Löschfristen – erst dann Anfragen annehmen | BESCHLOSSEN |
 
 **RPO und RTO (BESCHLOSSEN 12.11.2026):** verbindliche Ziele je Dienstart:
 
@@ -365,7 +364,7 @@ Fehlt eine Übersetzung, gilt die Grundsprache (`de`). Sprachcodes nach ISO 639-
 Anzeige für Menschen: Datum `DD.MM.YYYY`, Uhrzeit `HH:MM:SS` (24 Stunden), Zeitzone Europe/Zurich. Gespeichert und in
 Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie in der Abfrage.
 
-### D3 Sortierung, Suche, Unicode (EMPFOHLEN)
+### D3 Sortierung, Suche, Unicode (BESCHLOSSEN)
 
 - Texte werden beim Speichern in **Unicode NFC** normalisiert.
 - Für die Suche führt jede durchsuchte Tabelle eine normalisierte Suchspalte (klein, NFC, ohne Akzente – «Ecole» findet
@@ -403,10 +402,11 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 | E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
 | E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Aufwand mit Laravel und Verbindungspool prüfen (Entscheid 12.11.2026) | ZU PRÜFEN |
 | E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
-| E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | Vorschlag in A7 | EMPFOHLEN |
+| E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
+| E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |
 
 ## Verlauf
 
 - 12.11.2026: Version 1.0 (DB-Entwickler-Guideline, aus dem Glossary) abgenommen (#9).
-- 12.11.2026: Version 1.1 nach Architekturreview: Aufteilung Plattform/Modul, Mandantentrennung, Datenklassen,
+- 12.11.2026: Version 1.1 nach Architekturreview abgenommen: Aufteilung Plattform/Modul, Mandantentrennung, Datenklassen,
   Löschregister, Identitäten, Datenbankzugänge, PITR/RPO/RTO, Sprachregeln (#11).
