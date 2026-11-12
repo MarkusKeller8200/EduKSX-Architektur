@@ -278,7 +278,8 @@ und werden verschlüsselt abgelegt; personenbezogene Werte nur, wenn nötig und 
 - **Rollen und Rechte gelten je Modul und Organisation:** Zuordnung mit `(user_id, organization_id, role)` im Modul;
   Admin im Glossary ist nicht Admin in der Rechtssammlung. Geprüft wird auf Rechte, nicht auf Rollennamen.
 - **Super-Admin** ist eine Plattformrolle aus Ident mit zweitem Faktor; welche Rechte sie im Modul gibt, legt das Modul
-  fest. OFFEN: Verhältnis zur Rolle «Developer» im Glossary.
+  fest. Bis ein Modul an Ident angeschlossen ist, übernimmt seine höchste geschützte Rolle diese Aufgabe (im Glossary:
+  Developer). BESCHLOSSEN 12.11.2026
 - **Servicekonten** sind eigene Identitäten (Client-Credentials), nie Benutzerkonten.
 
 ### B5 Datenbankzugänge (EMPFOHLEN, PostgreSQL)
@@ -329,7 +330,7 @@ Migrationen in der CI gegen SQLite **und** PostgreSQL laufen – nicht erst beim
 | Getestet | Wiederherstellung mindestens monatlich auf einer Kopie, Dauer messen und mit RTO vergleichen | BESCHLOSSEN |
 | Nach dem Zurückspielen | Migrationen, Löschregister (B3), Löschfristen – erst dann Anfragen annehmen | EMPFOHLEN |
 
-**RPO und RTO (OFFEN):** verbindliche Ziele je Dienstart. Vorschlag:
+**RPO und RTO (BESCHLOSSEN 12.11.2026):** verbindliche Ziele je Dienstart:
 
 | Dienstart | RPO (höchster Datenverlust) | RTO (höchste Ausfallzeit) |
 | --- | --- | --- |
@@ -399,9 +400,9 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 | E1 | Aufteilung in Plattform-Standard und Modul-Datenmodell | Standard hier, Fachliches im Modul | BESCHLOSSEN 12.11.2026 |
 | E2 | Mehrsprachigkeit für persönliche Daten | nein | BESCHLOSSEN 12.11.2026 |
 | E3 | UUID v7 trotz erkennbarem Erstellungszeitpunkt | ja | BESCHLOSSEN 12.11.2026 |
-| E4 | RPO/RTO je Dienstart | Vorschlag in C2 | OFFEN |
-| E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen | ZU PRÜFEN |
-| E6 | Super-Admin als Plattformrolle aus Ident | Vorschlag in B4 | OFFEN |
+| E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
+| E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Aufwand mit Laravel und Verbindungspool prüfen (Entscheid 12.11.2026) | ZU PRÜFEN |
+| E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
 | E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | Vorschlag in A7 | EMPFOHLEN |
 
 ## Verlauf
