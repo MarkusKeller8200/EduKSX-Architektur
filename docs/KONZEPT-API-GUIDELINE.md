@@ -1,6 +1,6 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15)
 
-Stand: 12.11.2026 (Version 0.4) · Verantwortlich: Markus Keller · Status: **ENTWURF** – zur Abnahme (alle Entscheide getroffen)
+Stand: 12.11.2026 (Version 1.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.0 abgenommen am 12.11.2026
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -10,9 +10,9 @@ Glossary: `docs/KONZEPT-API.md`, für das Intranet: `App\Support\OpenApi` und `d
 Er ergänzt den [DB-Standard](KONZEPT-DB-GUIDELINE.md) (Verweise A1 … D3) und konkretisiert die Schnittstellen S1–S8 aus
 [KONZEPT-PLATTFORM.md](KONZEPT-PLATTFORM.md).
 
-**Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): **BESCHLOSSEN** = bereits in Plattform,
-DB-Standard oder Glossary entschieden (Quelle in Klammern) · **EMPFOHLEN** = neu in diesem Entwurf · **ZU PRÜFEN** = technisch zu klären (Liste
-am Schluss).
+**Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): Alle Regeln sind **BESCHLOSSEN**
+(12.11.2026, Abnahme Version 1.0) – auch die im Text als EMPFOHLEN bezeichneten –, ausser sie sind ausdrücklich als
+**ZU PRÜFEN** gekennzeichnet. Quellen der übernommenen Regeln stehen in Klammern.
 
 **Grundlagen:** Der Standard folgt in den meisten Punkten den Zalando RESTful API Guidelines (auch Vorbild für OTTO,
 SBB und die REST-Guidelines des Bundes), den Empfehlungen der API-Architektur Bund (Security Guideline 1.0, 08/2025;
@@ -597,3 +597,4 @@ Alle Punkte entschieden am 12.11.2026 (Chat mit Projektverantwortliche:r; E14–
   OWASP-Abgleich, Linter, Mass Assignment, SSRF, Abweichungen und Quellen ergänzt.
 - 12.11.2026: Version 0.3 – offene Punkte entschieden (E4–E13); DPoP/mTLS bleibt ZU PRÜFEN mit Ident.
 - 12.11.2026: Version 0.4 – Durchsicht PR #17: E14–E17 (PATCH-Content-Type, Personensuche, Doku-Seiten, Tests abgestuft).
+- 12.11.2026: Version 1.0 abgenommen (#15, PR #17).
