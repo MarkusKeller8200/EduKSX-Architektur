@@ -1,6 +1,6 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15)
 
-Stand: 12.11.2026 (Version 0.3) · Verantwortlich: Markus Keller · Status: **ENTWURF** – zur Abnahme (alle Entscheide getroffen)
+Stand: 12.11.2026 (Version 0.4) · Verantwortlich: Markus Keller · Status: **ENTWURF** – zur Abnahme (alle Entscheide getroffen)
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -189,6 +189,8 @@ Alle Fehler unter `/api/` als **`application/problem+json` nach RFC 9457**:
 
 - `POST` legt an, `PATCH` ändert einzelne Felder (JSON Merge Patch, RFC 7396: fehlendes Feld = unverändert,
   `null` = leeren), `PUT` nur, wo ein Objekt bewusst als Ganzes ersetzt wird, `DELETE` löscht.
+- `PATCH` akzeptiert `application/merge-patch+json` und `application/json` und behandelt beide gleich; andere Typen
+  ergeben `415` (BESCHLOSSEN 12.11.2026, E14).
 - Validierung im Service, nicht im Controller – dieselbe für Website, API, Import und MCP. Nicht beschreibbare Felder
   (`id`, `created_at`, berechnete Werte) im Body ergeben `422`, sie werden nicht still ignoriert.
 - Jede Änderung läuft in **einer** Transaktion (DB A6); Mails, Webhooks und Aufträge erst nach dem Commit.
@@ -355,8 +357,9 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
   berechtigte Operationen änderbar (OWASP API3, Mass Assignment).
 - Ein Test füllt Testdaten mit privaten Werten und Geheimnissen und prüft, dass sie in keiner öffentlichen Antwort,
   keinem Export, keinem Feed, keinem Beispiel der Beschreibung und keinem Pages-Build erscheinen.
-- Personendaten nie in URLs (keine E-Mail als Pfad oder Filter in Logs): Suche nach Personen per `POST /people/search`
-  oder `q` mit Protokollmaskierung.
+- Personendaten nie als Pfad (keine E-Mail als ID). Suche nach Personen mit `GET /people?q=` ist erlaubt; Protokolle,
+  Fehlermeldungen und Weiterleitungen **maskieren** die Werte von `q`/`search` und Filtern mit Personendaten.
+  Browser-Clients nutzen `POST /people/search`, damit Suchbegriffe nicht im Verlauf landen (BESCHLOSSEN 12.11.2026, E15).
 - Personendaten über MCP an externe KI-Anbieter nur mit Vertrag zur Auftragsbearbeitung (Intranet KONZEPT-MCP, IDG ZH).
 
 ### C5 Abruflimits und Missbrauch (BESCHLOSSEN 120/Min., Glossary; Rest EMPFOHLEN)
@@ -461,8 +464,9 @@ Stabilität».
 
 ### D4 Doku und Werkzeuge (BESCHLOSSEN, Plattform S8)
 
-- `/api/docs` mit **Scalar** (ohne Telemetrie, ohne fremde Schriften), `/api/swagger` mit «Try it out»,
-  `/api/postman.json` (Postman v2.1, aus der Beschreibung erzeugt, Prüfung in der CI).
+- **Pflicht:** `/api/docs` mit **Scalar** (ohne Telemetrie, ohne fremde Schriften, mit Ausprobieren) und
+  `/api/postman.json` (Postman v2.1, aus der Beschreibung erzeugt, Prüfung in der CI). **Freiwillig:** `/api/swagger`
+  (BESCHLOSSEN 12.11.2026, E16; ändert Plattform S8).
 - Die Doku enthält: Anmeldung und Token-Anlage, Abruflimits, Nutzung und Stabilität, Lizenz der Daten,
   Synchronisationsablauf mit Beispiel, Fehlerschlüssel.
 - Änderungen an der API stehen im CHANGELOG des Moduls unter «Unveröffentlicht» (Abschnitt «API»).
@@ -482,9 +486,12 @@ Stabilität».
 `/up`, `/health`, `/metrics` (nur mit Berechtigung), Steckbrief `/.well-known/eduksx-module.json` mit API-Versionen
 und Scopes; JSON-Protokolle mit `request_id`; sauberes Herunterfahren; Wartung mit `503` und `Retry-After`.
 
-### D7 Tests (EMPFOHLEN)
+### D7 Tests (BESCHLOSSEN 12.11.2026, E17 – abgestuft)
 
-Jedes Modul hat mindestens: Route ↔ Beschreibung vollständig; Antworten gegen Schema; Fehlerformat für 401, 403, 404,
+**Prototypen** (z. B. Intranet mit JSON-Speicher) haben mindestens: Route ↔ Beschreibung; Fehlerformat; Scope **und**
+Recht; Veröffentlichungsgrenze mit privaten Testdaten (C4); Schutz der schreibbaren Felder (Mass Assignment).
+
+**Vor dem produktiven Betrieb** hat jedes Modul zusätzlich: Route ↔ Beschreibung vollständig; Antworten gegen Schema; Fehlerformat für 401, 403, 404,
 409/412, 422, 429; Scope **und** Recht (Token mit zu wenig Scope, Person ohne Recht); **Mandantentrennung** mit zwei
 Organisationen über alle Endpunkte, Exporte und Feeds (DB B1); Veröffentlichungsgrenze mit privaten Testdaten (C4);
 ETag/304 und `If-Match`/412; Idempotency-Key (alle fünf Fälle aus B3); wiederholtes `DELETE` → `204`;
@@ -515,7 +522,7 @@ Wiederaufnahme nach Ausfall; Historie mit `source = api`; Abruflimit; keine Toke
 
 ## Entscheide
 
-Alle Punkte entschieden am 12.11.2026 (Chat mit Projektverantwortliche:r).
+Alle Punkte entschieden am 12.11.2026 (Chat mit Projektverantwortliche:r; E14–E17 bei der Durchsicht des PR).
 
 | Nr. | Frage | Entscheid | Abschnitt |
 | --- | --- | --- | --- |
@@ -532,6 +539,10 @@ Alle Punkte entschieden am 12.11.2026 (Chat mit Projektverantwortliche:r).
 | E11 | Entstehung der Beschreibung | Vertrag zuerst für neue Module; Intranet bis zum Umbau aus dem Code | D3 |
 | E12 | Linter | eigener Spectral-Regelsatz `eduksx` in `eduksx/core`, zuerst Warnung, dann Fehler | D3 |
 | E13 | Brüche erkennen | `oasdiff` in der CI nach Lizenzprüfung; während der Vorschau Warnung | D3 |
+| E14 | Content-Type bei `PATCH` | `application/merge-patch+json` und `application/json` gleich | B1 |
+| E15 | Personensuche | `GET ?q=` erlaubt, Protokoll maskiert; Browser nutzen `POST …/search` | C4 |
+| E16 | Doku-Seiten | Scalar und Postman Pflicht, Swagger freiwillig (Plattform S8 angepasst) | D4 |
+| E17 | Tests | abgestuft: Mindestumfang für Prototypen, volle Liste vor produktivem Betrieb | D7 |
 | – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16) | C1 – ZU PRÜFEN |
 
 ## Abweichungen heute (Ist-Stand 12.11.2026)
@@ -585,3 +596,4 @@ Alle Punkte entschieden am 12.11.2026 (Chat mit Projektverantwortliche:r).
   IETF-Entwürfen. Entscheide E1–E3 (Pagination, `DELETE`, Token-Laufzeiten); RateLimit-Kopfzeilen korrigiert;
   OWASP-Abgleich, Linter, Mass Assignment, SSRF, Abweichungen und Quellen ergänzt.
 - 12.11.2026: Version 0.3 – offene Punkte entschieden (E4–E13); DPoP/mTLS bleibt ZU PRÜFEN mit Ident.
+- 12.11.2026: Version 0.4 – Durchsicht PR #17: E14–E17 (PATCH-Content-Type, Personensuche, Doku-Seiten, Tests abgestuft).
