@@ -156,7 +156,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### S8 · Öffentliche Daten-APIs der Module
 
-- REST unter `/api/v1`, OpenAPI 3.1, ETag/304, Abruflimits, CORS nur lesend, Swagger-Seite und Postman-Sammlung,
+- Regeln für alle APIs: [API-Standard](KONZEPT-API-GUIDELINE.md).
+- REST unter `/api/v1`, OpenAPI 3.1, ETag/304, Abruflimits, CORS nur lesend, Doku-Seite (Scalar) und Postman-Sammlung,
   Daten unter klarer Lizenz (Glossary: CC BY 4.0).
 - Module verweisen aufeinander über Permalinks (z. B. Glossary `/g/{code}`) und die Einbindung
   (`<glossary-term>`), nicht über Datenbankzugriffe.
@@ -209,7 +210,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### API
 
-- [ ] S8: versioniert, OpenAPI, ETag, Abruflimits, Swagger, Postman
+- [ ] S8: versioniert, OpenAPI, ETag, Abruflimits, Scalar, Postman (Swagger freiwillig)
+- [ ] Schnittstellen nach dem [API-Standard](KONZEPT-API-GUIDELINE.md): Fehler als `problem+json`, Cursor, `If-Match`, Idempotenz, Scopes und Mandanten, OWASP-Abgleich, Linter
 
 ### Ablauf
 
