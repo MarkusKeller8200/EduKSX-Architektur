@@ -176,7 +176,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### Datenbank
 
-- [ ] Datenbank, Migrationen und Modelle nach der [DB-Entwickler-Guideline](KONZEPT-DB-GUIDELINE.md) (Namen, Normalisierung, Mehrsprachigkeit ab Start, Historie, Löschen mit Frist, Sperren, Snapshots)
+- [ ] Datenbank, Migrationen und Modelle nach dem [DB-Standard](KONZEPT-DB-GUIDELINE.md): Grundregeln, Mandantentrennung und Datenklassen, Löschregister, Sicherung mit RPO/RTO, Mehrsprachigkeit
 
 ### Identität und Rechte
 
