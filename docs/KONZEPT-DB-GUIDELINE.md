@@ -214,7 +214,7 @@ Technische Absicherung in **zentralen** Diensten (eine Datenbank für viele Orga
 3. **Kinder einer Organisation** verweisen über zusammengesetzte Fremdschlüssel `(organization_id, parent_id)`, damit
    ein Datensatz nie an ein Objekt einer anderen Organisation gehängt werden kann.
 4. **PostgreSQL Row-Level Security** als zweite Schicht auf allen Tabellen «Organisation»: die Anwendung setzt je Anfrage
-   `SET LOCAL app.organization_id`, die Richtlinie lässt nur passende Zeilen zu. ZU PRÜFEN: Aufwand mit Laravel und
+   `SET LOCAL app.organization_id`, die Richtlinie lässt nur passende Zeilen zu. ZU PRÜFEN (Prototyp, #13): Aufwand mit Laravel und
    Verbindungspool.
 5. Ein Test je Modul legt zwei Organisationen an und prüft, dass keine Abfrage, kein Export und kein Job Daten der
    anderen liefert.
@@ -400,7 +400,7 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 | E2 | Mehrsprachigkeit für persönliche Daten | nein | BESCHLOSSEN 12.11.2026 |
 | E3 | UUID v7 trotz erkennbarem Erstellungszeitpunkt | ja | BESCHLOSSEN 12.11.2026 |
 | E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
-| E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Aufwand mit Laravel und Verbindungspool prüfen (Entscheid 12.11.2026) | ZU PRÜFEN |
+| E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Prototyp mit PostgreSQL, Laravel und Verbindungspool (Entscheid 12.11.2026, #13) | ZU PRÜFEN |
 | E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
 | E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
 | E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |
