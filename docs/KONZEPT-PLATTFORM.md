@@ -174,6 +174,10 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - [ ] Sicherung vor Update, Wiederherstellung dokumentiert und getestet; Update-Dienst-tauglich (S6)
 - [ ] Sauberes Herunterfahren (laufende Anfragen und Aufträge beenden)
 
+### Datenbank
+
+- [ ] Datenbank, Migrationen und Modelle nach der [DB-Entwickler-Guideline](KONZEPT-DB-GUIDELINE.md) (Namen, Normalisierung, Mehrsprachigkeit ab Start, Historie, Löschen mit Frist, Sperren, Snapshots)
+
 ### Identität und Rechte
 
 - [ ] Anmeldung nur über Ident (S1) via `eduksx/core`; lokale Passwörter nur als Notfallkonto

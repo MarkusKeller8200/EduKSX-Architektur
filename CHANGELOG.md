@@ -5,3 +5,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 **Unveröffentlicht**; `python3 .github/blueprint/release.py set X.Y.Z --commit` macht daraus eine Version.
 
 ## [Unveröffentlicht]
+
+### Neu
+
+- **DB-Entwickler-Guideline (#9):** Regeln für Datenbank, Migrationen und Modelle aller Module abgenommen (`docs/KONZEPT-DB-GUIDELINE.md`), verlinkt aus der Prüfliste der Plattform.
