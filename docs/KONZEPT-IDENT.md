@@ -1,7 +1,7 @@
 # Konzept: EduKSX-Ident mit Zitadel und Proof of Concept (#25)
 
-Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **ENTWURF** – Grundlage für den Proof of
-Concept #25; abgenommen wird mit dessen Ergebnis.
+Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN als Drehbuch** (#25, 13.11.2026) –
+I2–I11 bleiben Empfehlungen bzw. Prüfpunkte, bis der Proof of Concept (#36) sie bestätigt.
 
 Konkretisiert [Plattform 4.1, §5 S1–S4, S7 und §9.1](KONZEPT-PLATTFORM.md). Modulschlüssel `ident` laut
 [Modulregister](REGISTER-MODULE.md). Schemas der Schnittstellen: [spec/](../spec/README.md).
@@ -126,9 +126,10 @@ Fehlt nur DPoP (P8), ist das **kein** Abbruchgrund; Entscheid im Prüfauftrag #1
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #25 | PoC Zitadel nach §4 | `_2 in Arbeit` (Konzept), Durchführung offen |
+| #25 | Konzept und Drehbuch | `_3 Beta-Test` |
+| #36 (0.3.0) | Durchführung des PoC nach §4 | `triage` |
 | #16, #35 | Prüfauftrag DPoP/mTLS (I9); Entscheid nach P8 in #35 | Empfehlung im Beta-Test, #35 `triage` |
-| #3 | Schemas S1, S4, S5, S6 | `_2 in Arbeit` |
+| #3 | Schemas S1, S4, S5, S6 | `_3 Beta-Test` |
 | Glossary #185–#189 | Anmeldung, Rollen, Logout/Ereignisse, Client Credentials, Steckbrief | `triage` |
 | (folgt) | Repo EduKSX-Ident mit der Brücke | nach bestandenem PoC |
 | (Projektverantwortliche:r) | Testzugang Edulog bei der Geschäftsstelle anfragen | offen |
@@ -147,4 +148,5 @@ Fehlt nur DPoP (P8), ist das **kein** Abbruchgrund; Entscheid im Prüfauftrag #1
 
 ## 7. Verlauf
 
+- 13.11.2026: Als Drehbuch abgenommen; I2–I11 bleiben empfohlen, Durchführung in #36.
 - 13.11.2026: Konzept und PoC-Drehbuch angelegt (Recherche Zitadel, Edulog, Keycloak).

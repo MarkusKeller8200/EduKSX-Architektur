@@ -1,7 +1,7 @@
 # Schnittstellen der EduKSX-Plattform als Schemas (#3)
 
-Stand: 13.11.2026 (Meilenstein 0.2.0) · Status: **EMPFOHLEN** – Schemas v1 als Entwurf; verbindlich erst mit der
-Abnahme von #3. Grundlage: [Plattform §5](../docs/KONZEPT-PLATTFORM.md), [API-Standard](../docs/KONZEPT-API-GUIDELINE.md)
+Stand: 13.11.2026 (Meilenstein 0.2.0) · Status: **BESCHLOSSEN** – Schemas v1 und Festlegungen SP1–SP8 abgenommen am
+13.11.2026 (#3). Grundlage: [Plattform §5](../docs/KONZEPT-PLATTFORM.md), [API-Standard](../docs/KONZEPT-API-GUIDELINE.md)
 B7, C1, D3, D6.
 
 Die Schnittstellen S1–S8 sind im Plattform-Konzept beschrieben. Hier stehen die Teile, die zwischen Ident, Leitstand
@@ -20,7 +20,7 @@ für einzelne Module.
 | [v1/ops-instances.openapi.json](v1/ops-instances.openapi.json) | S6 | Heartbeat und Aufträge zwischen Instanz und Leitstand (OpenAPI 3.1) |
 
 Beispiele liegen unter `v1/examples/<name>/valid|invalid/` (bei OpenAPI `v1/examples/<datei>/<Schema>/…`). Alle Werte sind
-erfunden; Adressen nur unter `.example`. Der Steckbrief des Glossary ist ein **Entwurf** – die Werte (Version, Rollen,
+erfunden; Adressen nur unter `.example`. Der Steckbrief des Glossary bleibt ein **Entwurf** – die Werte (Version, Rollen,
 Ereignisse) übernimmt das Glossary mit Glossary #189.
 
 S2 (Client Credentials, JWT) und S3 (SCIM 2.0) sind Standards ohne eigene Erweiterung; ihre Profile folgen mit dem
@@ -31,14 +31,14 @@ jeweils das anbietende Modul in seiner eigenen OpenAPI-Datei (API D3).
 
 | Nr. | Frage | Entscheid | Status |
 | --- | --- | --- | --- |
-| SP1 | Ablage | Quelle der Plattform-Schemas ist dieses Verzeichnis; `eduksx/core` übernimmt die Dateien je Release unverändert (Core C11). Das präzisiert API D3 («gemeinsame Schemas in `eduksx/core`»): Core liefert aus, hier wird gepflegt. | EMPFOHLEN |
-| SP2 | Format | JSON Schema Draft 2020-12; HTTP-Schnittstellen als OpenAPI 3.1 (dessen Schemas sind JSON Schema 2020-12) | EMPFOHLEN |
+| SP1 | Ablage | Quelle der Plattform-Schemas ist dieses Verzeichnis; `eduksx/core` übernimmt die Dateien je Release unverändert (Core C11). Das präzisiert API D3 («gemeinsame Schemas in `eduksx/core`»): Core liefert aus, hier wird gepflegt. | BESCHLOSSEN 13.11.2026 |
+| SP2 | Format | JSON Schema Draft 2020-12; HTTP-Schnittstellen als OpenAPI 3.1 (dessen Schemas sind JSON Schema 2020-12) | BESCHLOSSEN 13.11.2026 |
 | SP3 | Namen | Felder englisch, `snake_case` (API A2); Arten der Ereignisse `<modul>.<objekt>.<verb>` (API B7) | BESCHLOSSEN (API A2, B7) |
-| SP4 | Ereignisarten von Ident | mit Modulschlüssel: `ident.user.*`, `ident.organization.*`, `ident.membership.*`, `ident.role.changed`. Plattform S4 nannte sie ohne Präfix; angeglichen an API B7 | EMPFOHLEN |
-| SP5 | Rolle in `eduksx_orgs` | Feld heisst `role` (Plattform S1 schrieb «rolle»); Werte `admin`, `member` | EMPFOHLEN |
-| SP6 | Signatur S4 | `EduKSX-Signature: t=<Unix-Sekunden>,v1=<hex>`; HMAC-SHA256 über `<t>.<roher Body>`; mehrere `v1=` beim Schlüsselwechsel; Abweisung nach 300 s; Vergleich in konstanter Zeit | EMPFOHLEN |
+| SP4 | Ereignisarten von Ident | mit Modulschlüssel: `ident.user.*`, `ident.organization.*`, `ident.membership.*`, `ident.role.changed`. Plattform S4 nannte sie ohne Präfix; angeglichen an API B7 | BESCHLOSSEN 13.11.2026 |
+| SP5 | Rolle in `eduksx_orgs` | Feld heisst `role` (Plattform S1 schrieb «rolle»); Werte `admin`, `member` | BESCHLOSSEN 13.11.2026 |
+| SP6 | Signatur S4 | `EduKSX-Signature: t=<Unix-Sekunden>,v1=<hex>`; HMAC-SHA256 über `<t>.<roher Body>`; mehrere `v1=` beim Schlüsselwechsel; Abweisung nach 300 s; Vergleich in konstanter Zeit | BESCHLOSSEN 13.11.2026 |
 | SP7 | Personendaten in Ereignissen und Heartbeat | keine – nur IDs; Schemas verbieten zusätzliche Felder (`additionalProperties: false`) | BESCHLOSSEN (API B7, Plattform S6) |
-| SP8 | Aufträge S6 | signiert als JWS mit abgetrenntem Inhalt; Images nur mit `@sha256:`-Digest | EMPFOHLEN |
+| SP8 | Aufträge S6 | signiert als JWS mit abgetrenntem Inhalt; Images nur mit `@sha256:`-Digest | BESCHLOSSEN 13.11.2026 |
 
 ## Versionierung
 

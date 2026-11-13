@@ -14,15 +14,15 @@
 | Modulregister (englische Schlüssel) | abgenommen | 0.1.0 | `docs/REGISTER-MODULE.md` |
 | Identity-Provider Zitadel | entschieden, PoC offen (#25) | 0.1.0 | `docs/KONZEPT-PLATTFORM.md` 4.1, §9.1 |
 | Konzept Core (`eduksx/core` 0.1) | abgenommen | unveröffentlicht | `docs/KONZEPT-CORE.md` |
-| Konzept Ident, PoC-Drehbuch | Entwurf, PoC offen | unveröffentlicht | `docs/KONZEPT-IDENT.md` |
-| Schemas S1, S4, S5, S6 | Entwurf mit Tests | unveröffentlicht | `spec/README.md` |
-| Modulvorlage, Datenschutz-Vorlagen | Entwurf | unveröffentlicht | `docs/KONZEPT-MODULVORLAGE.md` |
+| Konzept Ident, PoC-Drehbuch | Drehbuch abgenommen, PoC offen (#36) | unveröffentlicht | `docs/KONZEPT-IDENT.md` |
+| Schemas S1, S4, S5, S6 | beschlossen, mit Tests | unveröffentlicht | `spec/README.md` |
+| Modulvorlage, Datenschutz-Vorlagen | beschlossen, Probe-Modul offen (#37) | unveröffentlicht | `docs/KONZEPT-MODULVORLAGE.md` |
 | Prüfaufträge RLS, DPoP/mTLS | Empfehlung, Entscheid nach Prototyp/PoC | unveröffentlicht | `docs/PRUEFAUFTRAG-*.md` |
 
 ## Offen bzw. geplant
 
-- Meilenstein «0.2.0 – Core und Ident»: #27 im Beta-Test; #25, #3, #28 Konzepte im Beta-Test – Durchführung des PoC
-  (#25) und Abnahme der Schemas (#3) stehen aus
+- Meilenstein «0.2.0 – Core und Ident»: #3, #13, #16, #25, #27, #28 im Beta-Test (nur Konzepte)
+- Meilenstein «0.3.0»: dazu #36 PoC Zitadel durchführen, #37 Blueprint-Profil und Probe-Modul
 - Meilenstein «0.3.0 – Betrieb Stufe 1»: #29 Hosting und Geheimnisse, #30 Sicherung und Überwachung, #22 Datenschutz C9
 - Ebenfalls in 0.2.0 (seit 13.11.2026): #13 RLS, #16 DPoP/mTLS – Empfehlungen; Entscheide in 0.3.0 als #34 (RLS nach
   Prototyp) und #35 (DPoP/mTLS nach PoC P8)

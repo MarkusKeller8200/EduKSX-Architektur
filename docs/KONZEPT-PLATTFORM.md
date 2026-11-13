@@ -113,7 +113,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
   | `email`, `email_verified` | Adresse und Bestätigung |
   | `given_name`, `family_name`, `name`, `locale` | Anzeige |
   | `acr`, `amr` | Stärke der Anmeldung (z. B. `mfa`) |
-  | `eduksx_orgs` | Liste `{id, name, rolle}` der Organisationen (`admin`, `member`) |
+  | `eduksx_orgs` | Liste `{id, name, role}` der Organisationen (`admin`, `member`) |
   | `eduksx_roles` | Rollen je Modul, z. B. `{"glossary": ["moderator"]}` |
 
 - **Lebensdauer:** ID/Access-Token 5–10 Minuten, Refresh nur serverseitig; Sitzung im Modul höchstens so lange wie
@@ -139,11 +139,13 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 - **Webhooks**, signiert (HMAC-SHA256 über Zeitstempel + Inhalt, Kopfzeile `EduKSX-Signature`), Format
   **CloudEvents 1.0** JSON, Zustellung mit Wiederholung und Ausgangswarteschlange.
-- Arten: `user.updated`, `user.disabled`, `user.deleted`, `org.created`, `org.updated`, `org.deleted`,
-  `membership.added`, `membership.removed`, `role.changed`.
+- Arten (mit Modulschlüssel nach API B7): `ident.user.updated`, `ident.user.disabled`, `ident.user.deleted`,
+  `ident.organization.created`, `ident.organization.updated`, `ident.organization.deleted`, `ident.membership.added`,
+  `ident.membership.removed`, `ident.role.changed`.
 - Module verarbeiten idempotent (Ereignis-ID), weisen Ereignisse älter als 5 Minuten ab.
-- Maschinenlesbar in [`spec/`](../spec/README.md) (#3). Dort tragen die Arten den Modulschlüssel (`ident.user.deleted`,
-  `ident.organization.created` …) wie im API-Standard B7, und das Feld in `eduksx_orgs` heisst `role` (EMPFOHLEN, SP4/SP5).
+- Maschinenlesbar in [`spec/`](../spec/README.md) (#3). Signatur: `EduKSX-Signature: t=<Unix-Sekunden>,v1=<hex>`
+  über `<t>.<Body>` (SP6). Arten mit Präfix und Feld `role` (S1) BESCHLOSSEN 13.11.2026 (SP4/SP5; vorher ohne Präfix
+  bzw. «rolle»).
 
 ### S5 · Modul-Steckbrief und Zustand (Modul → Leitstand, Plattform)
 
@@ -319,7 +321,7 @@ Dazu im Glossary bereits geplant: Selbst hosten und Updates (Konzept DEC-027, #1
    (#25). Gründe: Mandanten (Organisationen) eingebaut, Erweiterung über Webhooks in PHP statt Java, schlanker
    Betrieb, Änderungen als Ereignisse. Zu prüfen im PoC: Anbindung Edulog mit Attributen für Rollen, Umfang der
    Actions/Webhooks, Lizenz AGPL-3.0 (unveränderter Betrieb, Portal nur über API), Sicherung mit PostgreSQL.
-   Fällt ein Punkt durch: Keycloak. Aufbau und Drehbuch des PoC: [KONZEPT-IDENT.md](KONZEPT-IDENT.md).
+   Fällt ein Punkt durch: Keycloak. Aufbau und Drehbuch des PoC: [KONZEPT-IDENT.md](KONZEPT-IDENT.md); Durchführung #36.
 2. Ident zentral für alle oder getrennte Bereiche je Kunde ab einer bestimmten Klassifizierung?
 3. Leitstand als eigene interne Anwendung (Vorschlag) oder Teil von Ident?
 4. Zuerst zentral mit Organisationen, isolierte Instanzen nur auf Wunsch (Vorschlag)?

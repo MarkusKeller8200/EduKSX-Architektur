@@ -1,6 +1,7 @@
 # Konzept: Vorlage für neue Module (#28)
 
-Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **ENTWURF**
+Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – abgenommen am 13.11.2026 (#28); Blueprint-Profil und
+Probe-Modul folgen mit #37
 
 Ein neues Modul soll nicht bei null beginnen und vom ersten Commit an die [Prüfliste der Plattform](KONZEPT-PLATTFORM.md)
 §6, den [DB-Standard](KONZEPT-DB-GUIDELINE.md) und den [API-Standard](KONZEPT-API-GUIDELINE.md) (Stufe 1 «Kern»)
@@ -39,11 +40,11 @@ Modulregister eingetragen ist – ohne Fachcode.
 
 | Nr. | Frage | Optionen | Entscheid | Status |
 |---|---|---|---|---|
-| M1 | Wo liegt die Vorlage? | eigenes Template-Repo / Profil im my-github-blueprint + Befehl in Core | **Profil `eduksx-modul` im my-github-blueprint** (Ablauf, CI, Repo-Regeln) **plus** `php artisan eduksx:module-init` in Core (Laravel-Teile); kein drittes Template-Repo, das veraltet | EMPFOHLEN |
-| M2 | Datenschutz-Vorlagen | im Blueprint / hier | hier unter `docs/vorlagen/` (plattformweit gleich), das Profil kopiert sie ins Modul | EMPFOHLEN |
-| M3 | Erster Stand des Konformitätstests | alle Stufen / Stufe 1 | Stufe 1 «Kern» Pflicht, Stufe 2 als Warnung bis vor dem ersten produktiven Release | EMPFOHLEN |
-| M4 | Datenbank im neuen Modul | SQLite / PostgreSQL | SQLite für Entwicklung und kleine isolierte Instanzen, Tests in der CI gegen **beide** (DB C1); `central` startet mit PostgreSQL | EMPFOHLEN |
-| M5 | Probe-Modul für den Test der Vorlage | eigenes Repo / temporär in der CI | temporär: ein Workflow im Blueprint erzeugt `probe` und lässt dessen Tests laufen; kein dauerhaftes Repo | EMPFOHLEN |
+| M1 | Wo liegt die Vorlage? | eigenes Template-Repo / Profil im my-github-blueprint + Befehl in Core | **Profil `eduksx-modul` im my-github-blueprint** (Ablauf, CI, Repo-Regeln) **plus** `php artisan eduksx:module-init` in Core (Laravel-Teile); kein drittes Template-Repo, das veraltet | BESCHLOSSEN 13.11.2026 |
+| M2 | Datenschutz-Vorlagen | im Blueprint / hier | hier unter `docs/vorlagen/` (plattformweit gleich), das Profil kopiert sie ins Modul | BESCHLOSSEN 13.11.2026 |
+| M3 | Erster Stand des Konformitätstests | alle Stufen / Stufe 1 | Stufe 1 «Kern» Pflicht, Stufe 2 als Warnung bis vor dem ersten produktiven Release | BESCHLOSSEN 13.11.2026 |
+| M4 | Datenbank im neuen Modul | SQLite / PostgreSQL | SQLite für Entwicklung und kleine isolierte Instanzen, Tests in der CI gegen **beide** (DB C1); `central` startet mit PostgreSQL | BESCHLOSSEN 13.11.2026 |
+| M5 | Probe-Modul für den Test der Vorlage | eigenes Repo / temporär in der CI | temporär: ein Workflow im Blueprint erzeugt `probe` und lässt dessen Tests laufen; kein dauerhaftes Repo | BESCHLOSSEN 13.11.2026 |
 
 ## 4. Umsetzung
 
@@ -89,10 +90,11 @@ Die Vorlagen sind Arbeitshilfen, keine Rechtsberatung; die Prüfung durch eine F
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #28 | Dieses Konzept und die Datenschutz-Vorlagen | `_2 in Arbeit` |
-| (folgt, my-github-blueprint) | Profil `eduksx-modul` und Probe-Workflow (M1, M5) | nach Abnahme |
+| #28 | Dieses Konzept und die Datenschutz-Vorlagen | `_3 Beta-Test` |
+| #37 (0.3.0) | Profil `eduksx-modul` im my-github-blueprint und Probe-Modul (M1, M5) | `triage` |
 | (folgt, EduKSX-Core) | Befehl `eduksx:module-init` (4.2) | mit dem ersten neuen Modul |
 
 ## 6. Verlauf
 
+- 13.11.2026: Abgenommen, M1–M5 beschlossen; Probe-Modul nach #37 abgespalten.
 - 13.11.2026: Konzept angelegt mit Ablauf, Inhalt und Datenschutz-Vorlagen.

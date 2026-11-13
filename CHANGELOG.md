@@ -8,10 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
-- **Konzept Core abgenommen (#27):** `docs/KONZEPT-CORE.md` – Umfang `eduksx/core` 0.1, Herauslöse-Plan aus dem Glossary, Entscheide C1–C10 beschlossen; C11 (Schemas aus `spec/`) empfohlen.
-- **Schnittstellen als Schemas (#3):** `spec/v1/` – JSON Schemas für Claims (S1), Ereignisse und Signatur (S4), Steckbrief und `/health` (S5), OpenAPI 3.1 für Heartbeat und Aufträge (S6), je mit gültigen und ungültigen Beispielen; Versionierung in `spec/README.md`. Ereignisarten von Ident mit Modulschlüssel (`ident.user.deleted`), Feld `role` in `eduksx_orgs` (Entwurf).
-- **Konzept Ident (#25):** `docs/KONZEPT-IDENT.md` – Aufbau mit Zitadel und Ident-Brücke, Anbindung Edulog (SAML, Attribute, Rollen), Entscheide I1–I11, Drehbuch für den Proof of Concept mit Abbruchkriterien (Entwurf).
-- **Konzept Modulvorlage (#28):** `docs/KONZEPT-MODULVORLAGE.md` – Ablauf «neues Modul anlegen», Inhalt eines neuen Moduls; Vorlagen für Verzeichnis der Bearbeitungen und Datenschutz-Folgenabschätzung unter `docs/vorlagen/` (Entwurf).
+- **Konzept Core abgenommen (#27):** `docs/KONZEPT-CORE.md` – Umfang `eduksx/core` 0.1, Herauslöse-Plan aus dem Glossary, Entscheide C1–C11 beschlossen (C11: Schemas aus `spec/`).
+- **Schnittstellen als Schemas (#3):** `spec/v1/` – JSON Schemas für Claims (S1), Ereignisse und Signatur (S4), Steckbrief und `/health` (S5), OpenAPI 3.1 für Heartbeat und Aufträge (S6), je mit gültigen und ungültigen Beispielen; Versionierung in `spec/README.md`. Festlegungen SP1–SP8 beschlossen: Ereignisarten von Ident mit Modulschlüssel (`ident.user.deleted`), Feld `role` in `eduksx_orgs`, Signaturformat `t=…,v1=…`; Plattform S1/S4 angeglichen.
+- **Konzept Ident (#25):** `docs/KONZEPT-IDENT.md` – Aufbau mit Zitadel und Ident-Brücke, Anbindung Edulog (SAML, Attribute, Rollen), Entscheide I1–I11, Drehbuch für den Proof of Concept mit Abbruchkriterien; als Drehbuch abgenommen, Durchführung in #36.
+- **Konzept Modulvorlage (#28):** `docs/KONZEPT-MODULVORLAGE.md` – Ablauf «neues Modul anlegen», Inhalt eines neuen Moduls; Vorlagen für Verzeichnis der Bearbeitungen und Datenschutz-Folgenabschätzung unter `docs/vorlagen/`; M1–M5 beschlossen, Probe-Modul in #37.
 - **Prüfaufträge (#13, #16):** `docs/PRUEFAUFTRAG-RLS.md` (Vorgehen und Prototyp für Row-Level Security) und `docs/PRUEFAUFTRAG-DPOP-MTLS.md` (Variantenvergleich, Empfehlung: kurze JWT mit `private_key_jwt`, DPoP vor mTLS); Entscheide bleiben ZU PRÜFEN.
 
 ### Geändert

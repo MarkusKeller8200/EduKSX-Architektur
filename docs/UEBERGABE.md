@@ -21,19 +21,21 @@ Stand: **13.11.2026 (20:45)** – Release 0.1.0 «Grundgerüst»; laufender Meil
 | Issue | Meilenstein | Status | Inhalt |
 |---|---|---|---|
 | #27 | 0.2.0 – Core und Ident | `_3 Beta-Test` | Konzept Core abgenommen (C5–C10 beschlossen) – schliessen nach Test |
-| #25 | 0.2.0 – Core und Ident | `_3 Beta-Test` (Konzept) | KONZEPT-IDENT.md mit PoC-Drehbuch; Durchführung P1–P10 offen, Edulog-Testzugang anfragen |
-| #3 | 0.2.0 – Core und Ident | `_3 Beta-Test` | Schemas unter `spec/v1/` mit Tests |
-| #28 | 0.2.0 – Core und Ident | `_3 Beta-Test` | KONZEPT-MODULVORLAGE.md, Datenschutz-Vorlagen; Probe-Modul erst mit Blueprint-Profil |
+| #25 | 0.2.0 – Core und Ident | `_3 Beta-Test` | KONZEPT-IDENT.md als Drehbuch abgenommen |
+| #3 | 0.2.0 – Core und Ident | `_3 Beta-Test` | Schemas unter `spec/v1/` mit Tests; SP1–SP8 beschlossen |
+| #28 | 0.2.0 – Core und Ident | `_3 Beta-Test` | KONZEPT-MODULVORLAGE.md (M1–M5 beschlossen), Datenschutz-Vorlagen |
 | #29, #30, #22 | 0.3.0 – Betrieb Stufe 1 | `triage` | Hosting, Sicherung/Überwachung, Datenschutz C9 |
 | #13, #16 | 0.2.0 – Core und Ident | `_3 Beta-Test` | Prüfaufträge RLS, DPoP/mTLS – abgenommen wird die Empfehlung |
 | #34, #35 | 0.3.0 – Betrieb Stufe 1 | `triage` | Entscheid RLS nach Prototyp (DB-E5), Entscheid DPoP/mTLS nach PoC P8 (API C1) |
+| #36, #37 | 0.3.0 – Betrieb Stufe 1 | `triage` | PoC Zitadel durchführen (Edulog-Testzugang anfragen), Blueprint-Profil und Probe-Modul |
 
 **Hinweise für die Arbeit**
 - Modulschlüssel nur aus `docs/REGISTER-MODULE.md`; Entscheide heissen `DB-E<n>` bzw. `API-E<n>`, in Konzepten
   `C<n>` (Core), `I<n>` (Ident), `M<n>` (Modulvorlage), `SP<n>` (Schemas).
-- Noch EMPFOHLEN, nicht beschlossen: Core C11, Ident I2–I11, Modulvorlage M1–M5, Schemas SP1, SP2, SP4–SP6, SP8.
-- Die Testlisten von #25 und #28 enthalten Punkte, die erst mit PoC bzw. Blueprint-Profil erfüllbar sind – nicht
-  schliessen, bevor das erledigt ist (oder Restpunkte als neues Issue abspalten).
+- Noch EMPFOHLEN bzw. ZU PRÜFEN: Ident I2–I11 (Entscheid mit #36). Beschlossen 13.11.2026: Core C1–C11, Schemas
+  SP1–SP8, Modulvorlage M1–M5.
+- 0.2.0 enthält nur noch Konzepte (#3, #13, #16, #25, #27, #28, alle `_3 Beta-Test`); sind sie abgenommen und PR #33
+  gemergt, kann das Release 0.2.0 vorgeschlagen werden.
 - Glossary-Guideline zitiert noch «Plattform-Entscheid E4» (gemeint DB-E4) – im Glossary korrigieren.
 
 **Arbeitsregeln** (siehe AGENTS.md)
@@ -51,6 +53,8 @@ Stand: **13.11.2026 (20:45)** – Release 0.1.0 «Grundgerüst»; laufender Meil
   Prüfaufträge RLS (#13) und DPoP/mTLS (#16) mit Empfehlung.
 - #13 und #16 auf Wunsch in den Meilenstein 0.2.0 verschoben (vorher Sammlung «Verbesserungen»); abgenommen wird dort
   die Empfehlung, die Entscheide nach Prototyp bzw. PoC sind als #34 und #35 in 0.3.0 abgespalten.
+- Abnahme-Runde im Chat: SP1–SP8, C11, M1–M5 beschlossen; I2–I11 bleiben empfohlen; Durchführung PoC (#36) und
+  Probe-Modul (#37) nach 0.3.0 abgespalten.
 
 ### Sitzung 13.11.2026 (15:05–16:55) – Register, Core, Ident, Meilensteine
 
@@ -63,6 +67,8 @@ Stand: **13.11.2026 (20:45)** – Release 0.1.0 «Grundgerüst»; laufender Meil
 - Entscheid 13.11.2026: Core C5–C10 übernommen (Packagist, `EduKSX\Core`, Standardtabellen mit Ident in Core 0.2,
   Übernahme-Migration, Standards in `composer.json`, UI-Paket später).
 - Entscheid 13.11.2026: Prüf-Abhängigkeit `jsonschema` (MIT) für die Schema-Tests.
+- Entscheid 13.11.2026: Schemas SP1–SP8 (u. a. Ereignisse `ident.*`, Feld `role`, Signatur `t=…,v1=…`), Core C11 und
+  Modulvorlage M1–M5 beschlossen.
 
 - Entscheid 13.11.2026: Interne Bezeichnungen englisch, Marketingnamen situativ (REGISTER-MODULE.md).
 - Entscheid 13.11.2026: `eduksx/core` ist eine Bibliothek, kein Dienst; Standardtabellen je Modul-Schema, Stammdaten in Ident (DB-E12).

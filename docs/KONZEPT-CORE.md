@@ -49,7 +49,7 @@ So arbeitet ein Modul mit Core:
 | C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | BESCHLOSSEN 13.11.2026 |
 | C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | BESCHLOSSEN 13.11.2026 |
 | C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | BESCHLOSSEN 13.11.2026 |
-| C11 | Schemas der Plattform-Schnittstellen (S1, S4–S6) | in Core / im Architektur-Repo | Quelle ist `spec/` in EduKSX-Architektur ([spec/README.md](../spec/README.md)); Core übernimmt die Dateien je Release unverändert und prüft Module dagegen | EMPFOHLEN (#3) |
+| C11 | Schemas der Plattform-Schnittstellen (S1, S4–S6) | in Core / im Architektur-Repo | Quelle ist `spec/` in EduKSX-Architektur ([spec/README.md](../spec/README.md)); Core übernimmt die Dateien je Release unverändert und prüft Module dagegen | BESCHLOSSEN 13.11.2026 (#3) |
 
 ## 4. Umsetzung
 
@@ -111,5 +111,5 @@ Erst wenn beide Module Core 0.1 nutzen, gilt ein Baustein als bewährt; Ausnahme
 
 ## 6. Verlauf
 
-- 13.11.2026: Abgenommen; C5–C10 im Chat beschlossen, C11 (Schemas in `spec/`) neu als Empfehlung aus #3.
+- 13.11.2026: Abgenommen; C5–C10 im Chat beschlossen, C11 (Schemas in `spec/`) aus #3 beschlossen.
 - 13.11.2026: Entwurf angelegt; C1–C4 im Chat entschieden.
