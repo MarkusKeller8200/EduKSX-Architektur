@@ -16,19 +16,21 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Branch `konzepte-0.2.0` ist gemergt; Löschen nur nach Rückfrage.
 - Prüfen: `python3 -m pip install -r requirements-pruefung.txt`, dann `python3 -m unittest discover -s tests`.
 
-**Offene Issues und ihr Status** (Meilenstein «0.3.0 – Betrieb Stufe 1», alle `triage`)
+**Konzept eingefroren (ab 0.3.0)** – Änderungen nur über Issue mit Label `konzept-anpassung` und Freigabe
+(README). Weiterarbeit in den Modul-Repos (Core, Glossary, Intranet, Codex, Suite, Operation).
 
-| Issue | Inhalt |
-|---|---|
-| #29, #30 | Hosting und Geheimnisse, Sicherung und Überwachung – Werkzeuge entschieden (Plattform §7.3a), Umsetzung offen |
-| #22 | Datenschutz C9 rechtlich gegenlesen (Fachperson) |
-| #43 | Konzept connect (Stammdaten/Sync, UUID-Hoheit, IDA, licence) – **wartet bis Core so weit ist** |
-| #44, #48, #40 | Konzepte Plugins, Leitstand, Selbst-Hosting – geschrieben, Grundsätze beschlossen, `_2 in Arbeit` |
-| #40 | Konzept Selbst-Hosting: Suite-Paket, Installer + VM-Vorlage, Anmeldung ohne Ident, Mindestanforderungen |
-| #36 | PoC Zitadel durchführen – **auf dem Rechner von Projektverantwortliche:r** (Docker Desktop, Steuerung über die Verbindung zum Rechner); Edulog-Testzugang anfragen |
-| #35 | Entscheid DPoP/mTLS nach PoC P8 (API C1) |
-| #34 | Entscheid RLS nach Prototyp (DB-E5) |
-| #37 | Blueprint-Profil `eduksx-modul` und Probe-Modul |
+**Offene Issues** (Meilenstein «Anpassungen aus der Umsetzung», alle von der Umsetzung abhängig)
+
+| Issue | Inhalt | wartet auf |
+|---|---|---|
+| #36 | PoC Zitadel (`_2 in Arbeit`, eigene Sitzung) | Durchführung; danach I1-Vorbehalt, I8, I9, I13, I14 |
+| #35 | Entscheid DPoP/mTLS (API C1) | PoC P8 |
+| #34 | Entscheid RLS (DB-E5) | Prototyp (Glossary PostgreSQL) |
+| #43 | Konzept connect (UUID-Hoheit, IDA, licence) | Core so weit (Entscheid 13.11.2026) |
+| #37 | Blueprint-Profil und Probe-Modul | my-github-blueprint |
+| #51 | Repo EduKSX-Suite: Installer, Update-Dienst, VM-Vorlage | Repo anlegen |
+| #52 | Probe Glossary-Plugin im Intranet | Glossary, Intranet |
+| #22 | Datenschutz C9 gegenlesen | Fachperson |
 
 **Hinweise für die Arbeit**
 - Modulschlüssel nur aus `docs/REGISTER-MODULE.md`; Entscheide heissen `DB-E<n>` bzw. `API-E<n>`, in Konzepten
@@ -45,6 +47,11 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Releases nur nach ausdrücklicher Freigabe; Löschen nur nach Rückfrage.
 
 ## Sitzungen
+
+### Sitzung 13.11.2026 (23:17–23:50) – Konzeptabschluss
+
+- Konzepte Leitstand, Selbst-Hosting, Plugins; Icons freigegeben (markussxch #13); Operation #27 freigegeben.
+- Alle nicht PoC-abhängigen Empfehlungen beschlossen; Meilenstein «Anpassungen aus der Umsetzung»; Release 0.3.0.
 
 ### Sitzung 13.11.2026 (21:08–21:30) – Offene Entscheide
 
@@ -71,6 +78,9 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Meilensteine 0.2.0 und 0.3.0 angelegt, #27–#30 erfasst; 0.1.0 abgenommen und released.
 
 ## Entscheide
+
+- Entscheid 13.11.2026 (23:45): **Konzept abgeschlossen und eingefroren** mit Release 0.3.0; Empfehlungen einzeln
+  übernommen (L3–L6, SH-E9–SH-E12, P3–P8, I2–I4, I6, I7, I11); #29/#30 geschlossen (Operation zuständig).
 
 - Entscheid 13.11.2026 (23:25): ops = Kunden und Kundeninstanzen (L1), Updates beim Kunden über eigenen Update-Dienst
   (L2); Selbst-Hosting SH-E1–SH-E8 (u. a. Repo EduKSX-Suite, SQLite je Modul, nur Korrekturen automatisch, tägliche

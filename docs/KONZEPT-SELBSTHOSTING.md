@@ -1,7 +1,6 @@
 # Konzept: Selbst-Hosting mit dem Suite-Paket (#40)
 
-Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **IN ARBEIT** – Grundsätze SH-E1–SH-E9
-BESCHLOSSEN im Chat 13.11.2026; Details EMPFOHLEN.
+Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 13.11.2026 (eingefroren mit 0.3.0; Änderungen nur über `konzept-anpassung`).
 
 **Leitsatz (Chat 13.11.2026):** Selbst-Hosting darf nicht kompliziert sein, sonst nutzt es niemand.
 
@@ -42,10 +41,10 @@ Eine Schule oder Gemeinde betreibt die gewünschten EduKSX-Module auf **einem ei
 | SH-E6 | Sicherung | **täglich und vor jedem Update**, verschlüsselt mit restic (lokal, NAS oder S3 in der Schweiz), monatlicher Wiederherstellungstest; laufende Sicherung (Litestream bzw. WAL) als Schalter | BESCHLOSSEN 13.11.2026 |
 | SH-E7 | Verantwortung für RPO/RTO | beim Kunden; die Werte des DB-Standards C2 gelten für unseren Betrieb, beim Selbst-Hosting sind sie Empfehlung | BESCHLOSSEN 13.11.2026 |
 | SH-E8 | Meldung an den Leitstand | Heartbeat freiwillig (Opt-in beim Installieren), ohne Personendaten (S6) | BESCHLOSSEN 13.11.2026 (L2) |
-| SH-E9 | Reverse Proxy | Caddy mit automatischem HTTPS (wie Glossary und Operation); Alternative «hinter vorhandenem Proxy» | EMPFOHLEN |
-| SH-E10 | Suite-Version | eine Versionsnummer je Paket (z. B. `2026.11`), die alle Module mit Digest festlegt; Module einzeln aktualisierbar nur innerhalb der Korrekturen | EMPFOHLEN |
-| SH-E11 | VM-Vorlage | Ubuntu LTS, gebaut mit Packer in der CI; Formate OVA (VMware), VHDX (Hyper-V), qcow2 (Proxmox); erster Start fragt im Browser statt in der Konsole | EMPFOHLEN |
-| SH-E12 | Inhalte zentraler Module | Glossary und Codex müssen nicht selbst gehostet werden: lokale Module binden sie über Plugins aus dem zentralen Dienst ein ([Plugins](KONZEPT-PLUGINS.md)); ein selbst gehostetes Glossary gleicht Begriffe ab (Glossary U11) | EMPFOHLEN |
+| SH-E9 | Reverse Proxy | Caddy mit automatischem HTTPS (wie Glossary und Operation); Alternative «hinter vorhandenem Proxy» | BESCHLOSSEN 13.11.2026 |
+| SH-E10 | Suite-Version | eine Versionsnummer je Paket (z. B. `2026.11`), die alle Module mit Digest festlegt; Module einzeln aktualisierbar nur innerhalb der Korrekturen | BESCHLOSSEN 13.11.2026 |
+| SH-E11 | VM-Vorlage | Ubuntu LTS, gebaut mit Packer in der CI; Formate OVA (VMware), VHDX (Hyper-V), qcow2 (Proxmox); erster Start fragt im Browser statt in der Konsole | BESCHLOSSEN 13.11.2026 |
+| SH-E12 | Inhalte zentraler Module | Glossary und Codex müssen nicht selbst gehostet werden: lokale Module binden sie über Plugins aus dem zentralen Dienst ein ([Plugins](KONZEPT-PLUGINS.md)); ein selbst gehostetes Glossary gleicht Begriffe ab (Glossary U11) | BESCHLOSSEN 13.11.2026 |
 
 ## 4. Umsetzung
 
@@ -97,11 +96,12 @@ der VM.
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #40 | Dieses Konzept | `_2 in Arbeit` |
-| #48 | Leitstand, Update-Ringe, Heartbeat | `_2 in Arbeit` |
-| (folgt) | Repo EduKSX-Suite anlegen (Projektverantwortliche:r), Installer und Update-Dienst aus dem Glossary übernehmen | nach Abnahme |
+| #40 | Dieses Konzept | abgenommen 13.11.2026 |
+| #48 | Leitstand, Update-Ringe, Heartbeat | abgenommen 13.11.2026 |
+| #51 | Repo EduKSX-Suite anlegen (Projektverantwortliche:r), Installer, Update-Dienst, VM-Vorlage; Proben | `triage`, Meilenstein «Anpassungen aus der Umsetzung» |
 | (folgt, EduKSX-Core) | lokale Anmeldung mit zweitem Faktor, OIDC Entra/Google | mit dem ersten Modul, das selbst gehostet wird |
 
 ## 6. Verlauf
 
+- 13.11.2026: Konzeptabschluss – alle Entscheide ausser den vom PoC abhängigen beschlossen; eingefroren mit 0.3.0.
 - 13.11.2026: Konzept angelegt; SH-E1–SH-E8 im Chat beschlossen.

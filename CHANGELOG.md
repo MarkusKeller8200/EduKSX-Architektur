@@ -8,6 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Konzept abgeschlossen und eingefroren:** Leitstand L3–L6, Selbst-Hosting SH-E9–SH-E12, Plugins P3–P8, Ident I2–I4, I6, I7, I11 beschlossen; Änderungen ab jetzt nur über Issues mit Label `konzept-anpassung` und Freigabe (README, CONTRIBUTING). Offene Punkte aus der Umsetzung im Meilenstein «Anpassungen aus der Umsetzung» (#22, #34–#37, #43, #51, #52); #29/#30 an MarKusSX-Operation übergeben.
+
+### Neu
+
 - **PoC Ident mit Zitadel, Durchgang 1 (#36):** Werkzeuge in `poc/ident-zitadel/`, Ergebnisse in KONZEPT-IDENT §4.3.
 
 ### Geändert
