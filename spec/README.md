@@ -27,6 +27,12 @@ S2 (Client Credentials, JWT) und S3 (SCIM 2.0) sind Standards ohne eigene Erweit
 Konzept Ident ([KONZEPT-IDENT.md](../docs/KONZEPT-IDENT.md)). S7 (`/api/v1/me/modules`) und S8 (Daten-APIs) beschreibt
 jeweils das anbietende Modul in seiner eigenen OpenAPI-Datei (API D3).
 
+## Lizenz
+
+`spec/` steht zusätzlich zur GPL-3.0-or-later des Repositorys unter **MIT** ([LICENSE](LICENSE), Doppellizenz
+`GPL-3.0-or-later OR MIT`), für alle Versionen. So können `eduksx/core` (MIT) und die Module die Schemas unverändert
+ausliefern (Core C11). Angaben `license` in den OpenAPI-Dateien bleiben; die MIT-Lizenz gilt daneben.
+
 ## Festlegungen
 
 | Nr. | Frage | Entscheid | Status |
