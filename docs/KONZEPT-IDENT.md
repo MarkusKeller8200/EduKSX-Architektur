@@ -85,6 +85,21 @@ Ident von Edulog erhält, und für die Testkonten im PoC (P5):
 (`go.edulog.ch`); die Integration kann jederzeit neue Versionen erhalten und Daten löschen. Ident wird zuerst dort als
 Dienstleistungsanbieter angeschlossen (dev), Produktion erst nach dem Go (Edulog-API-Referenz 1.4, 17.01.2022).
 
+### 2.3 Sicherheitsanforderungen von Edulog an Ident
+
+Nach «Sicherheitsanforderungen für IdP und SP für die Integration in Edulog» (Version 1.2, 5.2023) prüft die
+Geschäftsstelle vor dem Anschluss. Abgleich mit dem PoC (Zitadel v4.20.3 als Dienstleistungsanbieter, Stand 13.11.2026):
+
+| Anforderung | Edulog | Ident / Zitadel | Massnahme |
+| --- | --- | --- | --- |
+| TLS | nur TLS 1.2/1.3, Mozilla «Intermediate» | Sache des vorgeschalteten Proxys (Traefik) | Proxy so konfigurieren |
+| Website-Zertifikat | kommerzielle CA, CN und SAN = FQDN, höchstens 2 Jahre, möglichst kein Wildcard | Proxy | ZU PRÜFEN: genügt Let's Encrypt? |
+| Sicherheitskopfzeilen | CSP, X-Frame-Options, nosniff, HSTS, Permissions-Policy, Referrer-Policy, `X-Powered-By` entfernen; zusätzlich `X-XSS-Protection` empfohlen | Module über `eduksx/core`; Login-Seiten über den Proxy | `X-XSS-Protection` gilt heute als überholt (OWASP) – nur setzen, falls die Prüfung es verlangt |
+| SAML: AuthnRequest signiert | Pflicht | `AuthnRequestsSigned="true"`, SHA-256 | erfüllt |
+| SAML: Signaturzertifikat | eigenes Zertifikat (nicht TLS), höchstens 3 Jahre, RSA 2048/3072, SHA-2, **CN und SAN = FQDN, kein Wildcard** | von Zitadel je Anbieter erzeugt: RSA 4096, rund 1 Jahr, **CN «ZITADEL SP <id>»** (kein FQDN) | **Abweichung** – mit der Geschäftsstelle klären oder OIDC nutzen (I13) |
+| SAML: Metadaten | `Extensions` mit zulässigen Digest- und Signaturverfahren; nur HTTP-POST und HTTP-Redirect | ohne `Extensions`; ACS zusätzlich mit HTTP-Artifact | Metadaten für Edulog von Hand ergänzen bzw. kürzen (werden ohnehin per Datei ausgetauscht) |
+| OIDC (seit 1.2) | etablierte, zertifizierte Software statt Eigenbau | Zitadel als Client | erfüllt, falls Edulog OIDC für Dienstleistungsanbieter anbietet |
+
 ### 2.2 Ereignisse
 
 Zitadel signiert Aufrufe aus Actions v2 mit der Kopfzeile `ZITADEL-Signature` (HMAC über Inhalt und Zeitstempel). Die
@@ -107,6 +122,7 @@ Zitadel-Format nie.
 | I9 | An den Absender gebundene Tokens (#16) | DPoP / mTLS / keine | siehe [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md) | ZU PRÜFEN |
 | I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
 | I12 | Edulog-API (Föderieren von Identitäten) | Ident nur als Dienstleistungsanbieter / zusätzlich als Identitätsanbieter gegenüber Edulog | nur Dienstleistungsanbieter: Die Edulog-API (Version 1.4) richtet sich an Identitätsanbieter und verlangt je Person die AHV-Nummer (AHVN13); deren systematische Verwendung braucht eine gesetzliche Grundlage und wäre «besonders schützenswert». Konten bringen die Kantone bzw. Schulen über ihren eigenen Identitätsanbieter | EMPFOHLEN |
+| I13 | Protokoll zwischen Edulog und Ident | SAML 2.0 / OpenID Connect | OpenID Connect, falls Edulog es Dienstleistungsanbietern anbietet (seit Sicherheitsanforderungen 1.2 vorgesehen): vermeidet die Abweichungen beim SAML-Signaturzertifikat (2.3); sonst SAML mit von Hand ergänzten Metadaten und geklärtem Zertifikat | EMPFOHLEN; bei der Geschäftsstelle ZU PRÜFEN |
 | I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | EMPFOHLEN |
 
 ## 4. Proof of Concept (#25)
@@ -181,7 +197,8 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 - Zitadel Actions v2 und Signatur – <https://zitadel.com/docs/guides/integrate/actions/usage>,
   Umstieg von v1 <https://zitadel.com/docs/guides/integrate/actions/migrate-from-v1>
 - Zitadel mit SAML-Anbieter und Attribut-Abbildung – <https://zitadel.com/docs/guides/integrate/identity-providers/mocksaml>
-- Edulog: API-Referenz 1.4 (ELCA, 17.01.2022, von Projektverantwortliche:r bereitgestellt) – Föderieren für
+- Edulog: Sicherheitsanforderungen für IdP und SP 1.2 (5.2023); Leitfaden Hybrid-Infrastruktur AD/Azure AD für IdP 1.0
+  (22.3.2021) – beide von Projektverantwortliche:r bereitgestellt; API-Referenz 1.4 (ELCA, 17.01.2022, von Projektverantwortliche:r bereitgestellt) – Föderieren für
   Identitätsanbieter, Integrations- und Produktionsumgebung; Leitfaden zu den Attributen für Identitätsanbieter, Version 1.2.1 (10.09.2020, von Projektverantwortliche:r
   bereitgestellt); Attribute für Dienstleistungsanbieter – <https://www.edulog.ch/sites/default/files/2021-07/Leitfaden_Attribute_Dienstleistungsanbieter_0.pdf>,
   Datenschutz <https://www.edulog.ch/de/was-ist-edulog/umgang-mit-daten-und-datenschutz>
@@ -190,6 +207,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: Sicherheitsanforderungen Edulog 1.2 mit Zitadel abgeglichen (2.3): Signaturzertifikat und Metadaten weichen ab; I13 (OIDC bevorzugt) empfohlen.
 - 13.11.2026: Edulog-API-Referenz 1.4 ausgewertet: Integrationsumgebung für dev; I12 (Ident nicht als Identitätsanbieter) empfohlen.
 - 13.11.2026: Edulog-Formate nach dem Leitfaden für Identitätsanbieter 1.2.1 ergänzt (2.1).
 - 13.11.2026: Edulog vorbereiten, auf dev testen, produktiv erst nach Go (Schalter je Umgebung).
