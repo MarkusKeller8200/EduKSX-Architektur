@@ -83,7 +83,7 @@ Zitadel-Format nie.
 | I7 | Rollen aus Edulog | automatisch / Vorschlag mit Bestätigung | Vorschlag, Bestätigung durch Organisations-Admin (2.1) | EMPFOHLEN |
 | I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | ZU PRÜFEN im PoC, ob Zitadel SCIM an Anwendungen ausliefert; sonst sendet die Brücke SCIM, ausgelöst durch Ereignisse | ZU PRÜFEN |
 | I9 | An den Absender gebundene Tokens (#16) | DPoP / mTLS / keine | siehe [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md) | ZU PRÜFEN |
-| I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus | ZU PRÜFEN (Fachperson) |
+| I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
 | I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | EMPFOHLEN |
 
 ## 4. Proof of Concept (#25)
@@ -132,8 +132,8 @@ Glossary selbst (#185–#187) folgt.
 | P6 | 13.11.2026 | **teilweise** | Ereignisse `user.human.added` und `user.removed` kommen signiert an; falsche Signatur und über 5 Min. alter Zeitstempel werden abgewiesen. Offen: Empfänger in Laravel und Umsetzung in S4/CloudEvent (`event.schema.json`) in der Brücke. Befund: Zitadel sperrt Ziele im privaten Netz ab Werk (`ZITADEL_HTTPCLIENT_DENYLIST`) – im PoC gelockert, im Betrieb so lassen |
 | P7 | 13.11.2026 | **bestanden** | `pg_dumpall` in eine leere Umgebung zurückgespielt: Zitadel nach **8 s** bereit, Anmeldung ok, Signaturschlüssel unverändert (ausgestellte Tokens bleiben gültig). Mit falschem Masterkey startet Zitadel, stellt aber keine Tokens aus → I11 bestätigt |
 | P8 | 13.11.2026 | **festgehalten** | `private_key_jwt` angeboten; **DPoP nicht** angeboten (Discovery); SCIM nur als Server (eingehend), kein ausgehendes Provisioning an Anwendungen gefunden → I8: Brücke sendet SCIM |
-| P9 | – | offen | Auslegung AGPL durch Fachperson bzw. schriftliche Auskunft von Zitadel |
-| P10 | – | offen | nach P5 und P9 |
+| P9 | 13.11.2026 | **angenommen** | Entscheid Projektverantwortliche:r: Auslegung I10 gilt als positiv (unveränderter Betrieb, eigene Teile über API; Module ohnehin AGPL, Plattform §9.7). Restrisiko akzeptiert – im schlimmsten Fall wird Zitadel ersetzt (Plan B Keycloak); deshalb sprechen Module Ident nur über Standards an. Schriftliche Anfrage an Zitadel optional |
+| P10 | – | offen | nach P5 (Edulog) |
 
 Weitere Befunde: Zwei-Faktor-Pflicht lässt sich je Organisation per Richtlinie setzen (API angenommen; Wirkung im
 Durchgang nicht abschliessend geprüft). Back-Channel-Logout-Adressen auf `localhost` lehnt Zitadel ab der
@@ -165,6 +165,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: P9 als positiv angenommen, I10 beschlossen (Restrisiko akzeptiert, Rückfall: Komponente ersetzen).
 - 13.11.2026: PoC Durchgang 1 (Cloud-Umgebung): P2, P3, P4, P7 bestanden, P1 und P6 teilweise, P8 festgehalten; offen P5, P9, P10 (#36).
 - 13.11.2026: Als Drehbuch abgenommen; I2–I11 bleiben empfohlen, Durchführung in #36.
 - 13.11.2026: Konzept und PoC-Drehbuch angelegt (Recherche Zitadel, Edulog, Keycloak).
