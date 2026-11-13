@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = [p for p in ROOT.rglob("*.md") if ".git" not in p.parts]
 
-LINK = re.compile(r"\]\(([^)#\s]+)(?:#[^)]*)?\)")
+LINK = re.compile(r"\]\(([^)#\s]+)(?:#[^)]*)?\)|<img src=\"([^\"]+)\"")
 SECRET = re.compile(
     r"(-----BEGIN [A-Z ]*PRIVATE KEY-----|gls_[A-Za-z0-9]{40}|ghp_[A-Za-z0-9]{36}|"
     r"(?i:password|passwort|secret)\s*[:=]\s*['\"]?[^\s'\"…]{8,})"
@@ -23,7 +23,8 @@ class Dokumente(unittest.TestCase):
     def test_relative_verweise_existieren(self) -> None:
         fehlend = []
         for doc in DOCS:
-            for ziel in LINK.findall(doc.read_text(encoding="utf-8")):
+            for treffer in LINK.findall(doc.read_text(encoding="utf-8")):
+                ziel = treffer[0] or treffer[1]
                 if re.match(r"^[a-z]+:", ziel):
                     continue
                 if not (doc.parent / ziel).resolve().exists():
@@ -34,7 +35,7 @@ class Dokumente(unittest.TestCase):
         pflicht = [
             "docs/KONZEPT-CORE.md", "docs/KONZEPT-IDENT.md", "docs/KONZEPT-MODULVORLAGE.md",
             "docs/vorlagen/DATENSCHUTZ-VERZEICHNIS.md", "docs/vorlagen/DATENSCHUTZ-FOLGENABSCHAETZUNG.md",
-            "docs/PRUEFAUFTRAG-RLS.md", "docs/PRUEFAUFTRAG-DPOP-MTLS.md", "spec/README.md",
+            "docs/PRUEFAUFTRAG-RLS.md", "docs/PRUEFAUFTRAG-DPOP-MTLS.md", "spec/README.md", "docs/MODULE-UEBERSICHT.md",
         ]
         self.assertEqual([], [d for d in pflicht if not (ROOT / d).is_file()], "Dokumente fehlen")
 

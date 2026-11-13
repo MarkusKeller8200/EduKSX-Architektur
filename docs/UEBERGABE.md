@@ -22,6 +22,7 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 |---|---|
 | #29, #30 | Hosting und Geheimnisse, Sicherung und Überwachung – Werkzeuge entschieden (Plattform §7.3a), Umsetzung offen |
 | #22 | Datenschutz C9 rechtlich gegenlesen (Fachperson) |
+| #43, #44 | Konzept connect (Stammdaten/Sync, Abgrenzung licence) – offen; Konzept Plugins für Intranet/Portal |
 | #40 | Konzept Selbst-Hosting: Suite-Paket, Installer + VM-Vorlage, Anmeldung ohne Ident, Mindestanforderungen |
 | #36 | PoC Zitadel durchführen – **auf dem Rechner von Projektverantwortliche:r** (Docker Desktop, Steuerung über die Verbindung zum Rechner); Edulog-Testzugang anfragen |
 | #35 | Entscheid DPoP/mTLS nach PoC P8 (API C1) |
@@ -69,6 +70,9 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Meilensteine 0.2.0 und 0.3.0 angelegt, #27–#30 erfasst; 0.1.0 abgenommen und released.
 
 ## Entscheide
+
+- Entscheid 13.11.2026 (22:52): Zweck aller Module festgelegt (MODULE-UEBERSICHT.md); Einsatzplanung = `staffing`,
+  Stundenplan bleibt `timetable`; Icon-Entwürfe für intranet, timetable, staffing, ops (markussxch PR #13, Freigabe offen).
 
 - Entscheid 13.11.2026 (22:24): Selbst-Hosting ohne Ident – lokale Konten mit eigenem zweitem Faktor, optional
   Entra/Google per OIDC; kein Zitadel vor Ort, kein Edulog (auch nicht über das zentrale Ident, 22:27). Installation per Befehl und als VM-Vorlage (#40).
