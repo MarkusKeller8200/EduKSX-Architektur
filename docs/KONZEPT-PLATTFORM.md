@@ -1,7 +1,7 @@
 # Konzept: EduKSX-Plattform – Architektur, Schnittstellen, Betrieb
 
-Stand: 13.11.2026 · Status: **BESCHLOSSEN** – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Punkte in §9
-ausser 9.1 bleiben **OFFEN**. Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
+Stand: 13.11.2026 · Status: **BESCHLOSSEN** – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Entscheide in §9
+sind seit 13.11.2026 alle getroffen (9.1 vorbehaltlich PoC #36). Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
 Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
 
 ## 1. Zweck
@@ -267,6 +267,19 @@ Container, ≈ 60–100 GB RAM, 4–8 Knoten mit 16–32 GB.
 Schweiz (z. B. Infomaniak), Hauptstandort und zweiter Standort für Sicherungen und Notfall; öffentliche Dienste hinter
 CDN (z. B. Cloudflare); isolierte Instanzen wahlweise bei uns oder beim Kunden.
 
+### 7.3a Anbieter und Werkzeuge Stufe 1 (BESCHLOSSEN 13.11.2026, #29, #30)
+
+| Bereich | Entscheid |
+| --- | --- |
+| Hosting | **Infomaniak** (Schweiz): VPS «Zentral» und «Kunden», Object Storage für Dateien und Sicherungen; zweiter Standort für Sicherungen bei Infomaniak in einem anderen Rechenzentrum bzw. Swiss Backup |
+| Geheimnisse | **SOPS mit age**: verschlüsselt im Infrastruktur-Repo, Schlüssel nur bei Projektverantwortliche:r und auf den Servern; Rotation dokumentiert; Wechsel zu OpenBao erst mit Stufe 2 prüfen |
+| Sicherung PostgreSQL | **pgBackRest** mit WAL-Archiv (Wiederherstellung auf Zeitpunkt), Ziel Object Storage, Verschlüsselung |
+| Sicherung SQLite | **Litestream** in Object Storage (isolierte Instanzen) |
+| Überwachung | **Prometheus, Grafana, Loki** (Metriken, Dashboards, Protokolle), **Uptime Kuma** für Erreichbarkeit von aussen; Alarm per E-Mail und Push |
+| Wiederherstellungstest | monatlich automatisiert für eine Datenbank je Art, vierteljährlich vollständig (Ident + ein Modul) |
+
+Werkzeuge mit Lizenz und Pflege werden im Repo der Infrastruktur in `third-party.json` geführt.
+
 ### 7.4 Automatisch aktualisieren
 
 | Was | Wie |
@@ -315,16 +328,24 @@ CDN (z. B. Cloudflare); isolierte Instanzen wahlweise bei uns oder beim Kunden.
 
 Dazu im Glossary bereits geplant: Selbst hosten und Updates (Konzept DEC-027, #174–#184).
 
-## 9. Offene Entscheide
+## 9. Entscheide (früher offen)
 
 1. ~~Identity-Provider: Keycloak oder Zitadel?~~ → **Zitadel**, BESCHLOSSEN 13.11.2026 vorbehaltlich Proof of Concept
    (#25). Gründe: Mandanten (Organisationen) eingebaut, Erweiterung über Webhooks in PHP statt Java, schlanker
    Betrieb, Änderungen als Ereignisse. Zu prüfen im PoC: Anbindung Edulog mit Attributen für Rollen, Umfang der
    Actions/Webhooks, Lizenz AGPL-3.0 (unveränderter Betrieb, Portal nur über API), Sicherung mit PostgreSQL.
    Fällt ein Punkt durch: Keycloak. Aufbau und Drehbuch des PoC: [KONZEPT-IDENT.md](KONZEPT-IDENT.md); Durchführung #36.
-2. Ident zentral für alle oder getrennte Bereiche je Kunde ab einer bestimmten Klassifizierung?
-3. Leitstand als eigene interne Anwendung (Vorschlag) oder Teil von Ident?
-4. Zuerst zentral mit Organisationen, isolierte Instanzen nur auf Wunsch (Vorschlag)?
-5. Zeitpunkt für Stufe 2 (Kubernetes) – Kriterium z. B. > 30 isolierte Instanzen?
-6. Domains: Unterdomain je Kunde (`schule-x.intranet.eduksx.ch`) und/oder eigene Domain des Kunden?
-7. Lizenzmodell der Plattform-Module (offen wie das Glossary oder teilweise geschlossen)?
+2. **Ident zentral, Trennung auf Wunsch** – BESCHLOSSEN 13.11.2026: eine Zitadel-Instanz für alle, Kunde = Organisation. Eine
+   eigene Instanz (bzw. direkte Anbindung an das Entra des Kunden) nur für Kunden mit Daten «besonders
+   schützenswert» oder auf vertraglichen Wunsch; für Module unsichtbar (4.1).
+3. **Leitstand als eigene interne Anwendung** (Modul `ops`, nicht Teil von Ident) – BESCHLOSSEN 13.11.2026.
+4. **Zuerst zentral mit Organisationen, isolierte Instanzen nur auf Wunsch** – BESCHLOSSEN 13.11.2026. Module der Betriebsart
+   «isoliert» (Intranet, Stundenplan) bleiben isoliert (4.2); für alle übrigen ist «zentral» der Normalfall.
+5. **Stufe 2 (Kubernetes) ab mehr als 30 isolierten Instanzen** – BESCHLOSSEN 13.11.2026; früher, wenn Updates und Betrieb mit
+   einzelnen VPS mehr als etwa einen Arbeitstag pro Monat kosten.
+6. **Domains: Unterdomain als Standard, eigene Domain optional** – BESCHLOSSEN 13.11.2026: `schule-x.intranet.eduksx.ch` für jede
+   Instanz; eine eigene Domain des Kunden zusätzlich per CNAME, Zertifikat automatisch (7.4).
+7. **Lizenzmodell: Bibliotheken MIT, Module AGPL-3.0** – BESCHLOSSEN 13.11.2026: gemeinsame Bibliotheken und Pakete (`eduksx/core`,
+   später `@eduksx/ui`) unter MIT; Module (Glossary, Codex, Intranet, Stundenplan …) unter AGPL-3.0, damit Änderungen
+   an gehosteten Modulen offen bleiben. Das Glossary wechselt von MIT zu AGPL-3.0 ab seiner nächsten Version; frühere
+   Versionen bleiben MIT. Daten unter eigener Lizenz (Glossary: CC BY 4.0, S8).

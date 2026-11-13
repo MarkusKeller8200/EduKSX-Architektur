@@ -2,6 +2,12 @@
 
 Ältere Sitzungen aus [PROJEKTSTAND.md](PROJEKTSTAND.md), gekürzt. Neueste oben.
 
+
+## 13.11.2026 (21:00)
+
+> Stand 13.11.2026 (21:00): Release 0.2.0 «Core und Ident» – Konzepte Core, Ident (Drehbuch), Schemas S1/S4/S5/S6,
+> Modulvorlage und Prüfaufträge abgenommen. Als Nächstes Meilenstein 0.3.0 «Betrieb Stufe 1» mit PoC Zitadel (#36).
+
 ## 13.11.2026 (16:55)
 
 > Stand 13.11.2026 (16:55): Release 0.1.0 «Grundgerüst» – Plattform-Konzept, DB-Standard 1.2.1, API-Standard 1.1.1 und
