@@ -86,6 +86,7 @@ Core 0.1.0 ist veröffentlicht (Repo EduKSX-Core). Weiter ohne auf Ident zu wart
 | | Schemas aus `spec/` unverändert ausliefern; Konformitätstest prüft den Steckbrief | alle Module | C11 |
 | **0.3** (nach PoC #36) | OIDC-Client und Abmelden, JWT-/Scope-Prüfung (S2), Standardtabellen (C7) | Glossary #185, #186, #188 | S1, S2, Ident |
 | später | RLS-Helfer (nach #34), DPoP-Prüfung (nach #35) | zentrale Module | DB-E5, API C1 |
+| mit #40 | Anmeldung ohne Ident für Selbst-Hosting: lokale Konten mit zweitem Faktor, OIDC-Anbindung an Entra/Google | selbst gehostete Module | Plattform S1 (Ausnahme) |
 
 ### 4.2 Herauslöse-Plan
 
