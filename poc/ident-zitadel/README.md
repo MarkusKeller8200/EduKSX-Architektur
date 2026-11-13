@@ -17,6 +17,7 @@ kein Betrieb. Ergebnisse stehen in KONZEPT-IDENT §4.3.
 | `proxy.conf` | nginx: eine Adresse (Port 8090) für Zitadel und Login V2, wie Traefik im Betrieb | P1 |
 | `login_v2.py` | Anmeldung über Login V2 mit Passwort oder Edulog | P1, P5 |
 | `bridge_intent.php` | Brücke für Login V2: Antwort von `RetrieveIdentityProviderIntent` (Actions v2) – Edulog-Attribute abbilden, Lernende abweisen | P5 |
+| `branding.py` | EduKSX-Gestaltung für Login V2 über Einstellungen: Farben, Logo, Texte, keine Selbstregistrierung (Bilder in `bilder/`) | P1 |
 | `verify.php` | Prüft ein JWT ohne Zusatzpaket (JWKS, RS256, iss, aud, exp) – Vorlage für `eduksx/core` | P3 |
 
 Ablauf (Python 3 mit `requests` und `playwright`, PHP 8.4, Docker):
