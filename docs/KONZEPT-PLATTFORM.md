@@ -124,7 +124,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - **Rückfall:** je Modul ein lokales Notfallkonto (Break-Glass) für den Betrieb, protokolliert.
 - **Ausnahme Selbst-Hosting** (BESCHLOSSEN 13.11.2026, #40): Beim Betrieb durch den Kunden gibt es kein Ident. Die
   Module melden selbst an – lokale Konten mit zweitem Faktor (TOTP/Passkey) – und binden optional Microsoft 365
-  (Entra ID) oder Google per OIDC an; Edulog nur über unser zentrales Ident. Details: Konzept Selbst-Hosting (#40).
+  (Entra ID) oder Google per OIDC an; Edulog wird beim Selbst-Hosting nicht angeboten. Details: Konzept Selbst-Hosting (#40).
 
 ### S2 · Dienst zu Dienst
 

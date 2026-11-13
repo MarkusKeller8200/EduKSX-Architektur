@@ -71,7 +71,7 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 ## Entscheide
 
 - Entscheid 13.11.2026 (22:24): Selbst-Hosting ohne Ident – lokale Konten mit eigenem zweitem Faktor, optional
-  Entra/Google per OIDC; kein Zitadel vor Ort, kein Edulog. Installation per Befehl und als VM-Vorlage (#40).
+  Entra/Google per OIDC; kein Zitadel vor Ort, kein Edulog (auch nicht über das zentrale Ident, 22:27). Installation per Befehl und als VM-Vorlage (#40).
 
 - Entscheid 13.11.2026 (21:30): Plattform §9.2–9.7 (siehe Konzept), Betrieb Stufe 1 mit Infomaniak, SOPS/age,
   pgBackRest, Litestream, Prometheus/Grafana/Loki, Uptime Kuma; Core 0.2 ohne Ident, Ident-Teile in Core 0.3;
