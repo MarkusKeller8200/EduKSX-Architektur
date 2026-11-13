@@ -37,6 +37,9 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
+**Kein Modul:** Repo **EduKSX-Suite** (geplant) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
+VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält keinen Modulschlüssel.
+
 ## Umbenennungen
 
 | Datum | bisher | neu | Grund |

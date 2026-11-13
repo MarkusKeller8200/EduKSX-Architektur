@@ -60,8 +60,10 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   Inhalte der Module. Beim Selbst-Hosting gibt es kein Ident (#40).
 
 ### ops – Leitstand
-- **Macht:** Kunden, Instanzen, Versionen, Update-Ringe, Wartungsfenster, Zustand (S6).
-- **Nicht:** keine Inhalte und keine Personendaten der Kunden (nur Heartbeat).
+- **Macht:** Kunden, Verträge, Module und Versionen je Kunde, selbst gehostete Instanzen mit Heartbeat und
+  Update-Ringen (S6) – [KONZEPT-LEITSTAND.md](KONZEPT-LEITSTAND.md).
+- **Nicht:** keine Technik unserer Server (→ MarKusSX-Operation mit Komodo), keine Inhalte und keine Personendaten
+  der Kunden.
 
 ### glossary – Begriffe und Abkürzungen
 - **Macht:** zentrales Verzeichnis mit Erklärungen, Kategorien, Vorschlägen; öffentlich lesbar, Daten CC BY 4.0.
@@ -119,7 +121,7 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   über Plugins (§4).
 - **Nicht:** übernimmt keine Fachdaten anderer Module; zeigt sie über deren API an.
 
-## 4. Integration über Plugins (EMPFOHLEN, Konzept folgt)
+## 4. Integration über Plugins (Konzept: [KONZEPT-PLUGINS.md](KONZEPT-PLUGINS.md))
 
 Das Intranet – später auch das Portal – bindet Module und Fremdsysteme über **Plugins** an:
 

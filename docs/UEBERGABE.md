@@ -22,7 +22,8 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 |---|---|
 | #29, #30 | Hosting und Geheimnisse, Sicherung und Überwachung – Werkzeuge entschieden (Plattform §7.3a), Umsetzung offen |
 | #22 | Datenschutz C9 rechtlich gegenlesen (Fachperson) |
-| #43, #44 | Konzept connect (Stammdaten/Sync, Abgrenzung licence) – offen; Konzept Plugins für Intranet/Portal |
+| #43 | Konzept connect (Stammdaten/Sync, UUID-Hoheit, IDA, licence) – **wartet bis Core so weit ist** |
+| #44, #48, #40 | Konzepte Plugins, Leitstand, Selbst-Hosting – geschrieben, Grundsätze beschlossen, `_2 in Arbeit` |
 | #40 | Konzept Selbst-Hosting: Suite-Paket, Installer + VM-Vorlage, Anmeldung ohne Ident, Mindestanforderungen |
 | #36 | PoC Zitadel durchführen – **auf dem Rechner von Projektverantwortliche:r** (Docker Desktop, Steuerung über die Verbindung zum Rechner); Edulog-Testzugang anfragen |
 | #35 | Entscheid DPoP/mTLS nach PoC P8 (API C1) |
@@ -70,6 +71,10 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Meilensteine 0.2.0 und 0.3.0 angelegt, #27–#30 erfasst; 0.1.0 abgenommen und released.
 
 ## Entscheide
+
+- Entscheid 13.11.2026 (23:25): ops = Kunden und Kundeninstanzen (L1), Updates beim Kunden über eigenen Update-Dienst
+  (L2); Selbst-Hosting SH-E1–SH-E8 (u. a. Repo EduKSX-Suite, SQLite je Modul, nur Korrekturen automatisch, tägliche
+  Sicherung); Plugins als Manifest + Web-Komponenten, Stufe 1 eigene Module (P1, P2). PoC und connect warten auf Core.
 
 - Entscheid 13.11.2026 (23:06): **MarKusSX-Operation ist die Quelle für den Betrieb** (Komodo, Caddy, 1Password,
   VictoriaLogs, Backrest/restic, Headscale, Cloudflare Access). Plattform §7.3a verweist nur noch darauf; die um 21:30

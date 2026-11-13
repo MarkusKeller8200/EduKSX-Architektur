@@ -16,6 +16,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 - **Betrieb Stufe 1 (§7.3a, #29, #30):** Quelle ist das Repo MarKusSX-Operation (Komodo, Caddy, 1Password, VictoriaLogs, Backrest); Widerspruch zum DB-Standard C2 (PITR, RPO) als Prüfauftrag festgehalten.
 - **Core-Fahrplan (KONZEPT-CORE 4.1a):** 0.2 ohne Ident (Steckbrief/`/health`, S4-Empfang, `data_changes`, Schemas), 0.3 nach dem PoC (OIDC, JWT, Standardtabellen); Issues EduKSX-Core #13–#16.
 - **Modulregister:** `core` aktiv (0.1.0), `codex` aktiv (Repo EduKSX-Codex).
+- **Konzepte Leitstand (#48), Selbst-Hosting (#40), Plugins (#44):** ops = Kunden und Kundeninstanzen, Technik bei MarKusSX-Operation; Suite-Paket in neuem Repo EduKSX-Suite (SQLite je Modul, Update-Dienst mit «nur Korrekturen automatisch», tägliche Sicherung, VM-Vorlage); Plugins als Manifest im Steckbrief plus Web-Komponenten. Schema: Abschnitt `ui` im Steckbrief, Instanz-Token in S6 (abwärtskompatibel).
 - **Modulübersicht:** `docs/MODULE-UEBERSICHT.md` – Zweck, Kurzbeschreibung, Systemgrenzen und Icons aller Module, Gruppen, Integration über Plugins (Entwurf); Register mit `connect`, `licence`, `portal`, `shop`, `sign`, `time` und neu `staffing` (Einsatzplanung) als geplant.
 - **Selbst-Hosting (#40):** Anmeldung ohne Ident – lokale Konten mit zweitem Faktor, optional Entra/Google per OIDC; Ausnahme in Plattform S1, Baustein im Core-Fahrplan.
 
