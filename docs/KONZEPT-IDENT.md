@@ -63,6 +63,24 @@ Föderationsvertrag mit der Geschäftsstelle Edulog je Zweck.
 | `EdulogPersonRole` = `teacher`, `technician` | Org-Rolle `member` | Modulrollen vergibt die Organisation |
 | `EdulogPersonRole` = `pupil`, `legal_guardian`, `other`, leer | kein Zugang | bis ein Modul für diese Gruppe freigegeben ist (Datenschutz, Minderjährige) |
 
+**Formate nach dem Leitfaden für Identitätsanbieter** (Edulog, Version 1.2.1 vom 10.09.2020) – gelten für das, was
+Ident von Edulog erhält, und für die Testkonten im PoC (P5):
+
+| Attribut | Werte | Regel für Ident |
+| --- | --- | --- |
+| alle | SAML-Profil «basic», Namen mit genauer Gross- und Kleinschreibung | Abbildung in Zitadel exakt auf diese Namen |
+| mehrwertige (`EdulogPersonRole`, `o`, `EdulogPersonLevel`, `EdulogPersonCycle`) | je Wert ein `AttributeValue` **oder** ein Wert mit `##` getrennt (z. B. Entra: `teacher##principal`) | die Brücke liest beide Formen und trennt an `##` |
+| `EdulogPersonTechID` | von der Föderation erzeugt, bis 36 Zeichen (UUID-Form), nie leer, nie geändert | einziger Schlüssel des externen Kontos |
+| `uid` | Kennung im Kantons-IdP, kann einer E-Mail-Adresse gleichen; ändert sich bei Neu-Föderation | nie als Schlüssel; höchstens zur Anzeige |
+| `EdulogPersonRole` | `pupil`, `teacher`, `administration`, `principal`, `legal_guardian`, `technician`, `other`, leer; `pupil`, `legal_guardian`, `other` und leer stehen allein; `administration` und `principal` schliessen sich aus | wie Tabelle oben; leer = unbekannt = kein Zugang |
+| `o` | Name(n) der Institution, oft Kürzel, bei Lehrpersonen häufig mehrere | ein Vorschlag je Wert; Abgleich über Namen **und** Kürzel der Organisation (Alias-Liste in Ident) |
+| `EdulogPersonCanton` | Kürzel nach Art. 84 VZV, dazu `FL` (Liechtenstein) und `XX` (Ausland), leer | Hilfe beim Abgleich der Organisation |
+| `preferredLanguage` | `de-CH`, `fr-CH`, `it-CH`, `rm-CH`, `en`; fehlt er, setzt die Föderation die Kantonssprache | Vorgabe für `locale`; Sprachen ohne Übersetzung fallen auf `de-CH` zurück |
+| `EdulogPersonLevel` | `primary`, `secondary1`, `secondary2`, `tertiary`, leer | nur Information für Module, kein Recht |
+| `EdulogPersonCycle` | `0` (nicht zutreffend), `1`–`3`, leer | nur Information für Module, kein Recht |
+| `title` | frei gewählte Funktion, nur Nicht-Lernende | nicht anfordern (frei, kantonal verschieden) |
+| `EdulogPersonBirthDate` | `JJJJMMTT`; an Dienste geht statt dessen die Altersklasse; fehlt sie bei Lernenden, gilt die jüngste Altersklasse | nicht anfordern; Minderjährige sind über `pupil` ohnehin ausgeschlossen |
+
 ### 2.2 Ereignisse
 
 Zitadel signiert Aufrufe aus Actions v2 mit der Kopfzeile `ZITADEL-Signature` (HMAC über Inhalt und Zeitstempel). Die
@@ -158,13 +176,15 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 - Zitadel Actions v2 und Signatur – <https://zitadel.com/docs/guides/integrate/actions/usage>,
   Umstieg von v1 <https://zitadel.com/docs/guides/integrate/actions/migrate-from-v1>
 - Zitadel mit SAML-Anbieter und Attribut-Abbildung – <https://zitadel.com/docs/guides/integrate/identity-providers/mocksaml>
-- Edulog: Attribute für Dienstleistungsanbieter – <https://www.edulog.ch/sites/default/files/2021-07/Leitfaden_Attribute_Dienstleistungsanbieter_0.pdf>,
+- Edulog: Leitfaden zu den Attributen für Identitätsanbieter, Version 1.2.1 (10.09.2020, von Projektverantwortliche:r
+  bereitgestellt); Attribute für Dienstleistungsanbieter – <https://www.edulog.ch/sites/default/files/2021-07/Leitfaden_Attribute_Dienstleistungsanbieter_0.pdf>,
   Datenschutz <https://www.edulog.ch/de/was-ist-edulog/umgang-mit-daten-und-datenschutz>
 - Keycloak (Plan B): Organisationen ab 26.0 <https://www.keycloak.org/2024/10/keycloak-2600-released.html>, DPoP ab 26.4
   unterstützt <https://www.keycloak.org/2025/10/dpop-support-26-4>
 
 ## 7. Verlauf
 
+- 13.11.2026: Edulog-Formate nach dem Leitfaden für Identitätsanbieter 1.2.1 ergänzt (2.1).
 - 13.11.2026: Edulog vorbereiten, auf dev testen, produktiv erst nach Go (Schalter je Umgebung).
 - 13.11.2026: P9 als positiv angenommen, I10 beschlossen (Restrisiko akzeptiert, Rückfall: Komponente ersetzen).
 - 13.11.2026: PoC Durchgang 1 (Cloud-Umgebung): P2, P3, P4, P7 bestanden, P1 und P6 teilweise, P8 festgehalten; offen P5, P9, P10 (#36).
