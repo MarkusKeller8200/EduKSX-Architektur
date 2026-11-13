@@ -16,6 +16,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 - **Betrieb Stufe 1 (§7.3a, #29, #30):** Infomaniak, SOPS mit age, pgBackRest, Litestream, Prometheus/Grafana/Loki, Uptime Kuma.
 - **Core-Fahrplan (KONZEPT-CORE 4.1a):** 0.2 ohne Ident (Steckbrief/`/health`, S4-Empfang, `data_changes`, Schemas), 0.3 nach dem PoC (OIDC, JWT, Standardtabellen); Issues EduKSX-Core #13–#16.
 - **Modulregister:** `core` aktiv (0.1.0), `codex` aktiv (Repo EduKSX-Codex).
+- **Modulübersicht:** `docs/MODULE-UEBERSICHT.md` – Zweck, Kurzbeschreibung, Systemgrenzen und Icons aller Module, Gruppen, Integration über Plugins (Entwurf); Register mit `connect`, `licence`, `portal`, `shop`, `sign`, `time` und neu `staffing` (Einsatzplanung) als geplant.
 - **Selbst-Hosting (#40):** Anmeldung ohne Ident – lokale Konten mit zweitem Faktor, optional Entra/Google per OIDC; Ausnahme in Plattform S1, Baustein im Core-Fahrplan.
 
 ## [0.2.0] – 2026-11-13

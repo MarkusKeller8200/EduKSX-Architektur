@@ -17,6 +17,8 @@ Pull Request.
 
 ## Register
 
+Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBERSICHT.md).
+
 | Schlüssel | Modul (intern) | Marketingname (Stand) | Repo | Betriebsart | Status |
 | --- | --- | --- | --- | --- | --- |
 | `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.1.0) |
@@ -26,7 +28,14 @@ Pull Request.
 | `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |
 | `intranet` | Intranet einer Schule | Intranet | sek-intranet | isoliert | aktiv |
 | `timetable` | Stundenplan | Stundenplan | – | isoliert | geplant |
-| `portal`, `connect`, `licence`, `shop`, `sign`, `time`, `services` | Produktfamilie | – | – | – | reserviert |
+| `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | – | offen | geplant (#43) |
+| `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | EduKSX-Licence | – | offen | geplant (#43: eigenständig oder Teil von `connect`) |
+| `portal` | Self-Service-Portal für Eltern, Ärztinnen, Zahnärzte und alle Externen der Schule | EduKSX-Portal | – | offen | geplant |
+| `shop` | interner Shop für Mitarbeitende und Lehrpersonen (Hard- und Software, Klassenbestellungen) | EduKSX-Shop | – | offen | geplant |
+| `sign` | Dokumente unterschreiben über Anbieter (z. B. Deepsign, SwissSign) | EduKSX-Sign | – | offen | geplant |
+| `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | – | offen | geplant |
+| `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
+| `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 ## Umbenennungen
 
