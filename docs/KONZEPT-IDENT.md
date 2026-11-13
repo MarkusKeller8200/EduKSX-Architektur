@@ -145,6 +145,19 @@ Zeitbedarf geschätzt 3–5 Arbeitstage ohne Wartezeit auf Edulog. Ergebnis je S
 | P9 | Lizenz: Auslegung I10 mit Fachperson bzw. schriftlicher Auskunft von Zitadel festhalten | Notiz mit Datum | «Lizenzfrage dokumentiert» |
 | P10 | Ergebnis in Plattform §9.1 eintragen: Vorbehalt aufgehoben oder Plan B | Pull Request | «Ergebnis … nachgetragen» |
 
+### 4.1a Fragen an die Geschäftsstelle Edulog (vorbereitet, noch nicht gestellt)
+
+Entscheid 13.11.2026: Ident wird so weit wie möglich integriert und gegen einen Edulog-Ersatz getestet; die Fragen werden
+gestellt, wenn der Anschluss ansteht.
+
+1. Anschluss als Dienstleistungsanbieter zuerst an die Integrationsumgebung (`go.int.edulog.ch`)?
+2. OpenID Connect für Dienstleistungsanbieter möglich (I13)? Kommen die Edulog-Attribute dann als Claims?
+3. Falls nur SAML: Wird ein Signaturzertifikat ohne FQDN im CN (von Zitadel erzeugt) und mit RSA 4096 akzeptiert (2.3)?
+4. Genügt ein Website-Zertifikat von Let's Encrypt?
+5. Anforderungskatalog für Dienstleistungsanbieter und Föderationsvertrag (Ablauf, Fristen, Kosten).
+6. Attribute (Datensparsamkeit): `EdulogPersonTechID`, `EdulogPersonRole`, `o`, `EdulogPersonCanton`, `givenName`, `sn`,
+   `mail`, `preferredLanguage`; `EdulogPersonLevel` und `EdulogPersonCycle` nur bei Bedarf eines Moduls.
+
 ### 4.2 Abbruch und Plan B
 
 Der PoC gilt als **nicht bestanden**, wenn eines davon eintritt; dann wird Keycloak mit denselben Schritten geprüft:
