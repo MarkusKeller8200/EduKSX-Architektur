@@ -72,7 +72,14 @@ Gleicher Quellcode und gleiches Image für alle Kunden; Unterschiede nur über K
 
 ### 4.3 Gemeinsamer Unterbau «eduksx/core»
 
-Composer- und npm-Paket, von jedem Modul eingebunden (Herkunft: heutiges Glossary):
+Composer- und npm-Paket, von jedem Modul eingebunden (Herkunft: heutiges Glossary). **Entscheid 13.11.2026:** Core ist
+eine **Bibliothek, kein Dienst** und hat keine eigene Datenbank. Core bringt Migrationen für gemeinsame Standardtabellen
+mit (lokale Personenreferenz mit `issuer`/`subject`/`platform_id`, Organisationen, Mitgliedschaften, `data_changes`,
+Einstellungen); jedes Modul legt sie in seinem eigenen Schema an (DB-Standard E2, DB-E12). Wird ein Modul ausgekoppelt,
+nimmt es seinen Core-Teil als Code mit und läuft weiter. Die Stammdaten von Personen und Organisationen führt
+**Ident** (4.1); Module halten nur, was sie brauchen. Gemeinsame Fachdaten über Personen (z. B. Klassen, Schülerinnen
+und Schüler für Stundenplan und Lizenzen) wären ein eigenes Modul mit API, nicht Teil von Core. Modulschlüssel:
+[REGISTER-MODULE.md](REGISTER-MODULE.md).
 
 - Anmeldung als OIDC-Client, Abmelden, Rollen aus Ident plus feine Rechte im Modul, zweiter Faktor über `acr`
 - Protokoll, Einstellungen, Gesundheit (`/up`, `/health`), Steckbrief, Metriken, strukturierte Protokolle

@@ -1,7 +1,7 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15, #18)
 
-Stand: 13.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am
-13.11.2026 (Version 1.0 am 12.11.2026)
+Stand: 13.11.2026 (Version 1.1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am
+13.11.2026 (Version 1.0 am 12.11.2026); 1.1.1 redaktionell
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -13,7 +13,7 @@ Er ergänzt den [DB-Standard](KONZEPT-DB-GUIDELINE.md) (Verweise A1 … D3) und 
 
 **Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): Alle Regeln sind **BESCHLOSSEN**
 (12.11.2026, Abnahme Version 1.0) – auch die im Text als EMPFOHLEN bezeichneten –, ausser sie sind ausdrücklich als
-**ZU PRÜFEN** gekennzeichnet. Quellen der übernommenen Regeln stehen in Klammern. Neu in 1.1 (Entscheide E18–E35 vom
+**ZU PRÜFEN** gekennzeichnet. Quellen der übernommenen Regeln stehen in Klammern. Neu in 1.1 (Entscheide API-E18–API-E35 vom
 13.11.2026, nach dem Architektur-Review): schlanke Umsetzung in **Stufen**, **Modulschlüssel** für die Suite,
 Korrekturen K1–K3, Datenschutz nach DSGVO/IDG und nachweisbare Sicherheit.
 
@@ -47,20 +47,20 @@ API-01 und SEC-01 (externe Clients) im WebApplicationProgrammingGuide.
    hat nie mehr Rechte als seine Besitzerin oder sein Besitzer. BESCHLOSSEN (Intranet KONZEPT-MCP, Glossary DEC-017)
 7. **Schlank** – der Standard ist kein Aufwandgenerator: Regeln gelten nach **Stufen** (ab Tag 1, vor dem Betrieb,
    nur bei Bedarf), und was jede API gleich macht, kommt fertig aus `eduksx/core`; Module konfigurieren, statt zu
-   bauen. BESCHLOSSEN 13.11.2026 (E18)
+   bauen. BESCHLOSSEN 13.11.2026 (API-E18)
 8. **Eine Suite, eigenständige Repos** – jedes Modul hat einen registrierten **Modulschlüssel**; daran ist überall
    erkennbar, woher eine API, ein Scope, ein Ereignis oder ein Fehler stammt, und Namen kollidieren nie.
-   BESCHLOSSEN 13.11.2026 (E19)
+   BESCHLOSSEN 13.11.2026 (API-E19)
 9. **DSGVO und IDG** – Datenschutz ist eingebaut, nicht nachgerüstet: Datenklassen und Zweck je Operation, Auskunft,
-   Fristen, Datenort Schweiz/EU (C9). BESCHLOSSEN 13.11.2026 (E26–E29)
+   Fristen, Datenort Schweiz/EU (C9). BESCHLOSSEN 13.11.2026 (API-E26–API-E29)
 10. **Sicherheit nachweisbar** – Prüfziel OWASP ASVS Level 2, automatischer Scan und Penetrationstest vor dem ersten
-    produktiven Release; ein Pentest darf keine offenen Befunde ergeben (C10). BESCHLOSSEN 13.11.2026 (E30)
+    produktiven Release; ein Pentest darf keine offenen Befunde ergeben (C10). BESCHLOSSEN 13.11.2026 (API-E30)
 
 ---
 
 ## Stufen und Suite
 
-### G1 Stufen (BESCHLOSSEN 13.11.2026, E18, E31)
+### G1 Stufen (BESCHLOSSEN 13.11.2026, API-E18, API-E31)
 
 Jede Regel gehört zu einer Stufe. Ein Modul erfüllt **Stufe 1 ab der ersten API**, **Stufe 2 vor dem produktiven
 Betrieb** und **Stufe 3 nur für die Funktionen, die es tatsächlich anbietet**.
@@ -71,7 +71,7 @@ Betrieb** und **Stufe 3 nur für die Funktionen, die es tatsächlich anbietet**.
 | **2 · Betrieb** | vor dem ersten produktiven Release | `If-Match` (B2), Idempotenz wo Pflicht (B3), Papierkorb-Regeln (B4), Caching (B5), Datenklassen und Zweck je Operation, Auskunft/Export, Fristen (C9), ASVS L2, Scan, Pentest (C10), `oasdiff` und Versionierung (D1, D3), Doku (D4), Betrieb (D6), Tests «produktiv» (D7), Konformitätstest (D8) |
 | **3 · Bei Bedarf** | nur wenn das Modul die Funktion anbietet | Synchronisation (B6), Ereignisse und Webhooks (B7), MCP (D5), Sammeländerungen und Aufträge (B1), alle Sprachen mit `?locale=*` (A4), Organisations-API (C3) |
 
-### G2 Modulschlüssel und Namensräume (BESCHLOSSEN 13.11.2026, E19)
+### G2 Modulschlüssel und Namensräume (BESCHLOSSEN 13.11.2026, API-E19)
 
 Jedes Modul hat einen **Modulschlüssel**: englisch, klein, ein Wort (`[a-z][a-z0-9]{1,15}`), einmalig in der Suite und
 unveränderlich. Er steht im Register unten; ein neues Modul trägt sich per Pull Request ein. Der Schlüssel bildet den
@@ -88,18 +88,10 @@ Namensraum überall dort, wo Module zusammentreffen – innerhalb eines Moduls s
 | MCP-Werkzeuge | `<modul>_<operation>` | `glossary_list_terms` |
 | Kopfzeilen | nur die Plattform: `EduKSX-<Name>` (B5); Module definieren keine eigenen | `EduKSX-Release` |
 
-**Register** (gepflegt hier; Änderungen nur per Pull Request):
+**Register:** Schlüssel, Repos und Status aller Module stehen nur noch im [Modulregister](REGISTER-MODULE.md)
+(Änderungen nur per Pull Request). Schlüssel sind englisch und ändern nie; Marketingnamen sind frei.
 
-| Schlüssel | Modul | Repo |
-| --- | --- | --- |
-| `core` | gemeinsames Paket `eduksx/core` | – |
-| `ident` | Anmeldung, Konten, Organisationen | – |
-| `glossary` | EduKSX-Glossary | EduKSX-Glossary |
-| `codex` | EduKSX-Codex (Rechtssammlung) | EduKSX-Codex |
-| `intranet` | Intranet (Instanz einer Schule) | sek-intranet |
-| `portal`, `connect`, `licence`, `shop`, `sign`, `time`, `services` | reserviert für die Produktfamilie | – |
-
-### G3 Gemeinsame Bausteine in `eduksx/core` (BESCHLOSSEN 13.11.2026, E20)
+### G3 Gemeinsame Bausteine in `eduksx/core` (BESCHLOSSEN 13.11.2026, API-E20)
 
 Was jede API gleich macht, baut kein Modul selbst. `eduksx/core` liefert die Bausteine **in dieser Reihenfolge und erst,
 wenn das erste Modul sie braucht** – nichts auf Vorrat:
@@ -151,21 +143,21 @@ Plattform S5): `/up`, `/health`, `/metrics`, `/.well-known/eduksx-module.json`, 
   Einzelobjekt und Listen immer in `data`; Zusatzinformationen in `meta`, Navigation in `links`. Glossary und Intranet
   nutzen `data` bereits; das Antwortbeispiel in der KONZEPT-API des Glossary zeigt das Objekt noch ohne Hülle.
 - Werte von Status und Arten kommen englisch wie in der Datenbank; für Menschen zusätzlich das Label in der gewählten
-  Sprache als `<feld>_label` (`"status": "current", "status_label": "aktuell"`) – BESCHLOSSEN 12.11.2026, E9.
+  Sprache als `<feld>_label` (`"status": "current", "status_label": "aktuell"`) – BESCHLOSSEN 12.11.2026, API-E9.
 - Auf oberster Ebene steht immer ein JSON-Objekt, nie eine Liste oder ein Wert (Zalando #110).
 - Fehlende Werte als `null`, nie als leerer String; `null` und fehlendes Feld bedeuten dasselbe (ausser bei `PATCH`,
   B1). Ein Feld ist entweder «darf leer sein» (dann heisst `null` leer) oder Pflicht (dann ergibt `null` `422`) –
-  einen dritten Zustand «bewusst `null` gesetzt» gibt es nicht (E32). Leere Listen als `[]`, nie `null`; Ja/Nein-Felder sind nie `null` – wo es drei Zustände gibt, ist es eine
+  einen dritten Zustand «bewusst `null` gesetzt» gibt es nicht (API-E32). Leere Listen als `[]`, nie `null`; Ja/Nein-Felder sind nie `null` – wo es drei Zustände gibt, ist es eine
   Aufzählung (Zalando #122–#124).
 - Unbekannte Felder in Anfragen werden mit `422` abgelehnt, unbekannte Felder in Antworten ignorieren Abnehmer (D2).
 - Aufzählungen sind **erweiterbar**: In OpenAPI als `type: string` mit `x-extensible-enum` (bzw. `examples`), damit
   neue Werte keine brechende Änderung sind. Ein geschlossenes `enum` nur für Eingaben, die der Dienst selbst prüft.
   Ein **unbekannter Wert** wird bei Entscheiden über Zugriff, Freigabe oder Sichtbarkeit wie «verweigert» behandelt,
-  nie wie «erlaubt» (E32).
+  nie wie «erlaubt» (API-E32).
 - Jede Zahl hat in der Beschreibung ein `format` (`int32`, `int64`); Fliesskommazahlen (`double`) nur für Messwerte.
 - Geldbeträge als ganze Zahl in Rappen mit Feld `currency` (DB A4). Andere exakte Dezimalzahlen (z. B. Pensen,
   Prozentsätze mit fester Stellenzahl) als **String** mit `format: decimal` und `pattern`
-  (`^-?\d+(\.\d{1,4})?$`). Sonst Zahlen nie als String; IDs immer als String (E32).
+  (`^-?\d+(\.\d{1,4})?$`). Sonst Zahlen nie als String; IDs immer als String (API-E32).
 - **Datensparsam:** Antworten enthalten die für den Zweck nötigen Felder. Mehr nur mit `?fields=` und nur aus der
   Positivliste mit Recht (C4, C9).
 - Verweise als `<ziel>_id`; eingebettete Objekte nur auf Anfrage (`?include=categories`) oder wenn das Konzept des
@@ -186,7 +178,7 @@ Plattform S5): `/up`, `/health`, `/metrics`, `/.well-known/eduksx-module.json`, 
 - Fehlt eine Übersetzung, kommt die Grundsprache `de` mit `"locale": "de"` – Abnehmer erkennen so den Rückfall.
 - Für Synchronisation und Redaktion: `?locale=*` liefert alle Sprachen als
   `"translations": { "fr": { "name": "…" }, "it": { … } }`.
-- Antworten, die von der Sprache abhängen, senden `Vary: Accept-Language`; Caches trennen nach `locale` (E32).
+- Antworten, die von der Sprache abhängen, senden `Vary: Accept-Language`; Caches trennen nach `locale` (API-E32).
 - Persönliche Freitexte werden nie übersetzt (DB D1). Fehlermeldungen (`title`, `detail`) folgen der gewählten Sprache;
   `type` und `code` sind sprachneutral.
 
@@ -213,7 +205,7 @@ Plattform S5): `/up`, `/health`, `/metrics`, `/.well-known/eduksx-module.json`, 
   nach Schweizer Regeln (DB D3).
 - Ungültige Werte (`per_page=0`, unbekanntes Sortierfeld) ergeben `422`, nicht stilles Korrigieren.
 
-### A6 Fehler (BESCHLOSSEN 12.11.2026, E5)
+### A6 Fehler (BESCHLOSSEN 12.11.2026, API-E5)
 
 Alle Fehler unter `/api/` als **`application/problem+json` nach RFC 9457**:
 
@@ -271,7 +263,7 @@ Alle Fehler unter `/api/` als **`application/problem+json` nach RFC 9457**:
   `null` = leeren, für Pflichtfelder `422`), `PUT` nur, wo ein Objekt bewusst als Ganzes ersetzt wird, `DELETE` löscht.
   Komplexe Änderungen (Reihenfolge, Verschieben, Zusammenführen) sind eigene Operationen (U5), kein JSON Patch.
 - `PATCH` akzeptiert `application/merge-patch+json` und `application/json` und behandelt beide gleich; andere Typen
-  ergeben `415` (BESCHLOSSEN 12.11.2026, E14).
+  ergeben `415` (BESCHLOSSEN 12.11.2026, API-E14).
 - Validierung im Service, nicht im Controller – dieselbe für Website, API, Import und MCP. Nicht beschreibbare Felder
   (`id`, `created_at`, berechnete Werte) im Body ergeben `422`, sie werden nicht still ignoriert.
 - Jede Änderung läuft in **einer** Transaktion (DB A6); Mails, Webhooks und Aufträge erst nach dem Commit.
@@ -284,10 +276,10 @@ Alle Fehler unter `/api/` als **`application/problem+json` nach RFC 9457**:
 - Mehrfachänderungen (`POST /…/batch`) nur, wenn ein Modul sie braucht; dann **alles oder nichts** und höchstens
   1000 Einträge.
 
-### B2 Konkurrierende Änderungen (BESCHLOSSEN 12.11.2026, E6; Grundlage DB A6)
+### B2 Konkurrierende Änderungen (BESCHLOSSEN 12.11.2026, API-E6; Grundlage DB A6)
 
 - Änderbare Objekte liefern `lock_version` im Body und einen **starken** `ETag` in der Kopfzeile:
-  `ETag: "<id>.<lock_version>"` – nie `W/…`, weil `If-Match` nach RFC 9110 nur starke ETags vergleicht (K1, E21).
+  `ETag: "<id>.<lock_version>"` – nie `W/…`, weil `If-Match` nach RFC 9110 nur starke ETags vergleicht (K1, API-E21).
 - Der ETag steht für den **Stand des Objekts**, nicht für eine bestimmte Darstellung: Sprache, gewählte Felder oder
   Rechte ändern ihn nicht. Der Dienst vergleicht `If-Match` gegen `id` und `lock_version`.
 - `PATCH`, `PUT` und `DELETE` verlangen `If-Match` mit dem ETag (fehlt er: `428`); passt er nicht: `412` mit dem
@@ -312,7 +304,7 @@ Nach Bund AP10 und dem IETF-Entwurf «Idempotency-Key» (noch kein RFC, ZU PRÜF
   | Schlüssel bekannt, anderer Body | `422` |
   | Schlüssel fehlt, wo das Modul ihn verlangt | `400` |
 
-- **Bereich** eines Schlüssels (E22): Organisation + Identität (Person bzw. Servicekonto, nicht das Token) + Methode
+- **Bereich** eines Schlüssels (API-E22): Organisation + Identität (Person bzw. Servicekonto, nicht das Token) + Methode
   und Pfad-Vorlage. Ein erneuertes Token führt denselben Auftrag also nicht zweimal aus; ein fremder Schlüssel liefert
   nie die Antwort einer anderen Identität.
 - **Fingerabdruck:** SHA-256 über Methode, Pfad und den normalisierten Body (JSON mit sortierten Schlüsseln, ohne
@@ -325,7 +317,7 @@ Nach Bund AP10 und dem IETF-Entwurf «Idempotency-Key» (noch kein RFC, ZU PRÜF
 ### B4 Löschen (EMPFOHLEN, Grundlage DB B3)
 
 - `DELETE` auf ein Hauptobjekt löscht vorläufig (Papierkorb); die Antwort ist `204`. Der Papierkorb behält den ETag,
-  mit dem gelöscht wurde. Damit gilt (K2, E23):
+  mit dem gelöscht wurde. Damit gilt (K2, API-E23):
 
   | Fall | Antwort |
   | --- | --- |
@@ -350,11 +342,11 @@ Nach Bund AP10 und dem IETF-Entwurf «Idempotency-Key» (noch kein RFC, ZU PRÜF
 - Antworten mit Organisations- oder Personendaten: `Cache-Control: private, no-store`, kein öffentlicher ETag
   (Glossary DEC-018).
 - Öffentliche Antworten, die von der Sprache abhängen, senden `Vary: Accept-Language`; der Cache-Schlüssel enthält
-  `locale` (E32).
+  `locale` (API-E32).
 - Datenstand als Kopfzeile `EduKSX-Release`, wo ein Modul Veröffentlichungen kennt.
 - **Eigene Kopfzeilen der Plattform** heissen `EduKSX-<Name>` ohne `X-`-Präfix (RFC 6648): `EduKSX-Release`,
   `EduKSX-Organization`, `EduKSX-Signature`. Modul-eigene Kopfzeilen gibt es nicht; das Glossary sendet
-  `X-Glossary-Release` bis 1.0 parallel (BESCHLOSSEN 12.11.2026, E7).
+  `X-Glossary-Release` bis 1.0 parallel (BESCHLOSSEN 12.11.2026, API-E7).
 
 ### B6 Synchronisationsvertrag (BESCHLOSSEN im Glossary, für alle Module mit Abnehmern EMPFOHLEN)
 
@@ -367,7 +359,7 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 4. Abnehmer halten einen lokalen Stand, laufen bei Ausfall weiter und ziehen danach lückenlos nach (Referenz:
    Intranet ↔ Glossary, `SYNC-INTRANET.md`).
 
-**Ablauf ohne Lücken (K3, E24)** – kein Snapshot auf dem Server nötig, funktioniert auch mit SQLite:
+**Ablauf ohne Lücken (K3, API-E24)** – kein Snapshot auf dem Server nötig, funktioniert auch mit SQLite:
 
 1. **Grenze merken:** Der Abnehmer holt zuerst den aktuellen Cursor (`/releases/latest` bzw. erste Seite von
    `/exports`) und speichert ihn.
@@ -407,7 +399,7 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 | Person über Oberfläche oder KI-Client | OIDC über Ident (Plattform S1); MCP mit OAuth 2.1 + PKCE + dynamischer Registrierung | BESCHLOSSEN (Ziel) |
 | Dienst zu Dienst | OAuth2 Client Credentials, JWT, Prüfung über JWKS, `aud` = Modul (Plattform S2) | BESCHLOSSEN (Ziel) |
 | Übergang: Servicekonto des Moduls | eigenes Token (`Bearer`) mit Scopes | BESCHLOSSEN bis Plattform S2 steht |
-| Übergang: persönliches Token (Intranet) | Token handelt im Namen der Person, mit Ablauf (E3) und feinen Scopes statt `read`/`write`; läuft aus, sobald Ident steht | BESCHLOSSEN 12.11.2026, E8 |
+| Übergang: persönliches Token (Intranet) | Token handelt im Namen der Person, mit Ablauf (API-E3) und feinen Scopes statt `read`/`write`; läuft aus, sobald Ident steht | BESCHLOSSEN 12.11.2026, API-E8 |
 
 - Tokens nur im Kopf `Authorization: Bearer …`, nie in URL, Query oder Cookie für die API.
 - **Lesbare Präfixe** je Modul und Art, damit Geheimnis-Scanner sie finden: `<modulschlüssel>_<art>_<zufall>`
@@ -429,19 +421,19 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
   An den Absender gebundene Tokens (DPoP, RFC 9449, oder mTLS, RFC 8705) für Dienst-zu-Dienst-Zugriffe mit
   Personendaten: ZU PRÜFEN mit Ident (Entscheid beim Bau von Ident, #16).
 - Ein statisches Token allein reicht nie für privilegierte Vorgänge (Konten, Rollen, Löschen nach Datenschutzrecht,
-  Plattform-Administration). Dafür gilt (W4, E25):
+  Plattform-Administration). Dafür gilt (W4, API-E25):
   - **Menschen:** zweiter Faktor, der **höchstens 15 Minuten** alt ist (`auth_time`, sonst Neuanmeldung über Ident mit
     `max_age`/`acr_values` – Step-up).
   - **Servicekonten:** eine eigene technische Identität nur für diesen Zweck, eigener Scope, Laufzeit höchstens
     90 Tage, jeder Aufruf im Sicherheitsprotokoll. Vier-Augen-Freigabe legt das Modul fest, wo es nötig ist.
   - **Bis Ident steht:** privilegierte Vorgänge nur in der Oberfläche mit Anmeldung, **nicht per API-Token**
-    (BESCHLOSSEN 13.11.2026, E34). Bestehende API-Endpunkte für Konten und Rollen werden bis dahin auf Recht und Scope
+    (BESCHLOSSEN 13.11.2026, API-E34). Bestehende API-Endpunkte für Konten und Rollen werden bis dahin auf Recht und Scope
     beschränkt oder abgeschaltet.
 - Servicekonten sind eigene Identitäten, nie Benutzerkonten (DB B4).
 
 ### C2 Rechte und Scopes (EMPFOHLEN, Grundlage DB B4 und Plattform S2)
 
-- Scopes heissen **`<modul>:<ressource>.<aktion>`** (W6, E19): Modulschlüssel (G2), Ressource wie im Pfad (Plural,
+- Scopes heissen **`<modul>:<ressource>.<aktion>`** (W6, API-E19): Modulschlüssel (G2), Ressource wie im Pfad (Plural,
   `kebab-case`), Aktion **nur** `read`, `write`, `delete` oder `admin`. Beispiele: `glossary:terms.read`,
   `glossary:proposals.write`, `intranet:people.delete`.
 - Die **Organisation steckt nicht im Scope-Namen**: `glossary:terms.read` mit dem Token einer Organisation liefert deren
@@ -466,7 +458,7 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
   ergeben `404`.
 - Öffentliche Endpunkte enthalten nie Organisations- oder persönliche Anpassungen (Glossary DEC-018).
 - Plattform-Administration über einen eigenen, protokollierten Weg (`/api/v1/admin/…`), nicht über Parameter.
-- **Mandantenkontext** (W1, E32): Die Middleware leitet aus der geprüften Identität einen unveränderlichen Kontext ab
+- **Mandantenkontext** (W1, API-E32): Die Middleware leitet aus der geprüften Identität einen unveränderlichen Kontext ab
   (Organisation, Identität, Scopes); er gilt für die ganze Anfrage. Die Organisation gehört in **jeden** Schlüssel, der
   Daten trennt: Cache, Idempotenz (B3), Cursor (B6), Export und Audit. Aufträge tragen sie in ihrer Nutzlast;
   Datenbankzugriffe ohne Kontext werfen eine Exception (DB B1).
@@ -490,8 +482,8 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
   keinem Export, keinem Feed, keinem Beispiel der Beschreibung und keinem Pages-Build erscheinen.
 - Personendaten nie als Pfad (keine E-Mail als ID). Suche nach Personen mit `GET /people?q=` ist erlaubt; Protokolle,
   Fehlermeldungen und Weiterleitungen **maskieren** die Werte von `q`/`search` und Filtern mit Personendaten.
-  Browser-Clients nutzen `POST /people/search`, damit Suchbegriffe nicht im Verlauf landen (BESCHLOSSEN 12.11.2026, E15).
-- **Datenklassen je Operation** (W3, E26): Jede Operation nennt in der Beschreibung die Datenklassen, die sie liest
+  Browser-Clients nutzen `POST /people/search`, damit Suchbegriffe nicht im Verlauf landen (BESCHLOSSEN 12.11.2026, API-E15).
+- **Datenklassen je Operation** (W3, API-E26): Jede Operation nennt in der Beschreibung die Datenklassen, die sie liest
   oder schreibt (`x-eduksx-data-classes: [public, internal, personal]`). Der Linter verlangt die Angabe ab Stufe 2.
 - **MCP und externe KI:** Ein MCP-Werkzeug übernimmt die Datenklassen seiner Operation. An externe KI-Anbieter dürfen
   `public` und `internal`; `personal` nur mit Vertrag zur Auftragsbearbeitung **und** Freigabe je Werkzeug;
@@ -543,7 +535,7 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 | API9 Fehlende Übersicht über APIs | Steckbrief `/.well-known/eduksx-module.json`, OpenAPI je Version, Abschaltung alter Versionen mit Sunset und Nutzungsmessung (D1, D6) |
 | API10 Unsicherer Umgang mit fremden APIs | Antworten fremder Systeme (Plugins, Sync) gegen Schema prüfen, Zeitlimits, keine Weiterleitungen über fremde Hosts, Daten als nicht vertrauenswürdig behandeln |
 
-### C9 Datenschutz nach DSGVO und IDG (BESCHLOSSEN 13.11.2026, E26–E29)
+### C9 Datenschutz nach DSGVO und IDG (BESCHLOSSEN 13.11.2026, API-E26–API-E29)
 
 Die API ist so gebaut, dass ein Modul die Pflichten nach DSGVO und IDG (Kanton Zürich) erfüllen kann, ohne sie nachzurüsten.
 Vor dem ersten produktiven Release liest die bzw. der Datenschutzverantwortliche diese Regeln gegen (ZU PRÜFEN, #22).
@@ -559,7 +551,7 @@ Vor dem ersten produktiven Release liest die bzw. der Datenschutzverantwortliche
 | Datenschutz durch Technik | Positivlisten (C4), Maskierung im Protokoll (C7), keine Personendaten in Ereignissen (B7), Mandantentrennung (C3) |
 | Folgenabschätzung | Für Operationen mit `sensitive` hält das Modul eine Datenschutz-Folgenabschätzung bzw. Vorabkontrolle (IDG) fest, bevor sie produktiv geht |
 
-### C10 Sicherheitsnachweis und Penetrationstest (BESCHLOSSEN 13.11.2026, E30)
+### C10 Sicherheitsnachweis und Penetrationstest (BESCHLOSSEN 13.11.2026, API-E30)
 
 Ziel: Ein Penetrationstest ergibt **keine offenen Befunde**. Der Weg dorthin ist so gebaut, dass Befunde früh und
 automatisch auffallen:
@@ -605,7 +597,7 @@ Stabilität».
 
 - **OpenAPI 3.1**, ausgeliefert unter `/api/openapi.json` (JSON ist gültiges YAML), als **eine** eigenständige Datei
   ohne externe Verweise (Zalando #101).
-- **Vertrag zuerst** (BESCHLOSSEN 12.11.2026, E11): Neue Module schreiben die Beschreibung als Datei
+- **Vertrag zuerst** (BESCHLOSSEN 12.11.2026, API-E11): Neue Module schreiben die Beschreibung als Datei
   (`openapi/<modul>-v1.json` bzw. `.yaml`) vor dem Code und prüfen den Code dagegen. Das Intranet erzeugt sie bis zu
   einem Umbau weiter aus `App\Support\OpenApi`. In beiden Fällen gelten die Prüfung Route ↔ Beschreibung und der
   Linter.
@@ -622,10 +614,10 @@ Stabilität».
 - **Linter in der CI:** Spectral (bzw. Redocly CLI) mit einem gemeinsamen Regelsatz `eduksx` in `eduksx/core`, der
   diesen Standard prüft (Namen, `operationId`, Beispiele, `security`, `format`, Problem-Antworten). Ausgangspunkt:
   offene Regelsätze nach Zalando/OTTO, angepasst an die Abweichungen unten. Zuerst als Warnung, ab dem folgenden
-  Release als Fehler. Neue Abhängigkeit → Eintrag in `third-party.json` (BESCHLOSSEN 12.11.2026, E12).
+  Release als Fehler. Neue Abhängigkeit → Eintrag in `third-party.json` (BESCHLOSSEN 12.11.2026, API-E12).
 - **Brechende Änderungen automatisch erkennen:** die Beschreibung jedes Pull Requests wird mit `main` verglichen
   mit `oasdiff breaking`; ein Bruch in einer bestehenden Version lässt die CI scheitern, während der Vorschau nur
-  Warnung. Vor dem Einsatz Lizenz und Pflege prüfen und in `third-party.json` eintragen (BESCHLOSSEN 12.11.2026, E13).
+  Warnung. Vor dem Einsatz Lizenz und Pflege prüfen und in `third-party.json` eintragen (BESCHLOSSEN 12.11.2026, API-E13).
 - **Client:** Für eigene Oberflächen wird aus der Beschreibung ein TypeScript-Client erzeugt
   (WebApplicationProgrammingGuide); Vertrag und Client werden im selben Pull Request geprüft.
 - Gemeinsame Schemas (Problem, Pagination, Ereignis, Lizenz) liegen zentral in `eduksx/core` und werden nicht je Modul
@@ -635,7 +627,7 @@ Stabilität».
 
 - **Pflicht:** `/api/docs` mit **Scalar** (ohne Telemetrie, ohne fremde Schriften, mit Ausprobieren) und
   `/api/postman.json` (Postman v2.1, aus der Beschreibung erzeugt, Prüfung in der CI). **Freiwillig:** `/api/swagger`
-  (BESCHLOSSEN 12.11.2026, E16; ändert Plattform S8).
+  (BESCHLOSSEN 12.11.2026, API-E16; ändert Plattform S8).
 - Die Doku enthält: Anmeldung und Token-Anlage, Abruflimits, Nutzung und Stabilität, Lizenz der Daten,
   Synchronisationsablauf mit Beispiel, Fehlerschlüssel.
 - Änderungen an der API stehen im CHANGELOG des Moduls unter «Unveröffentlicht» (Abschnitt «API»).
@@ -663,7 +655,7 @@ Stabilität».
 - Wiederanlauf, Sicherung, RPO/RTO und Löschregister nach DB C2 und B3; nach einer Wiederherstellung meldet `/health`
   erst «bereit», wenn das Löschregister angewendet ist.
 
-### D7 Tests (BESCHLOSSEN 12.11.2026, E17 – abgestuft)
+### D7 Tests (BESCHLOSSEN 12.11.2026, API-E17 – abgestuft)
 
 **Prototypen und Stufe 1** (z. B. Intranet mit JSON-Speicher) haben mindestens: Route ↔ Beschreibung; Fehlerformat; Scope **und**
 Recht; Veröffentlichungsgrenze mit privaten Testdaten (C4); Schutz der schreibbaren Felder (Mass Assignment).
@@ -678,7 +670,7 @@ Seiten; Synchronisation mit Rückzug und
 Wiederaufnahme nach Ausfall und abgelaufenem Cursor (B6); Historie mit `source = api`; Abruflimit; keine Tokens und
 Personendaten im Protokoll; Auskunft `/me/data-export` vollständig; ZAP-Scan ohne Befunde «hoch»/«mittel» (C10).
 
-### D8 Konformität und Governance (BESCHLOSSEN 13.11.2026, E33)
+### D8 Konformität und Governance (BESCHLOSSEN 13.11.2026, API-E33)
 
 Schlank gehalten – keine Gremien, sondern Prüfungen, die automatisch laufen:
 
@@ -695,8 +687,8 @@ Schlank gehalten – keine Gremien, sondern Prüfungen, die automatisch laufen:
 
 | Modul | Regel | Grund | Bis | Zuständig |
 | --- | --- | --- | --- | --- |
-| `intranet` | D3 Vertrag zuerst | Beschreibung wird aus dem Code erzeugt (E11) | Umbau des Intranets | Projektverantwortliche:r |
-| `glossary` | B5 Kopfzeilen | `X-Glossary-Release` parallel zu `EduKSX-Release` (E7) | Release 1.0 | Projektverantwortliche:r |
+| `intranet` | D3 Vertrag zuerst | Beschreibung wird aus dem Code erzeugt (API-E11) | Umbau des Intranets | Projektverantwortliche:r |
+| `glossary` | B5 Kopfzeilen | `X-Glossary-Release` parallel zu `EduKSX-Release` (API-E7) | Release 1.0 | Projektverantwortliche:r |
 
 ---
 
@@ -726,45 +718,46 @@ markierten Punkte (⚙) automatisch ab.
 
 ## Entscheide
 
-E1–E17 entschieden am 12.11.2026, E18–E35 am 13.11.2026 nach dem Architektur-Review (Chat mit Projektverantwortliche:r).
+API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach dem Architektur-Review (Chat mit Projektverantwortliche:r).
 
 | Nr. | Frage | Entscheid | Abschnitt |
 | --- | --- | --- | --- |
-| E1 | Pagination | Cursor Standard, Seiten für kleine Admin-Listen, `total` nur auf Anfrage | A5 |
-| E2 | Wiederholtes `DELETE` | `204` (idempotent, Bund AP10) | B4 |
-| E3 | Laufzeit von Tokens | kurz (10 Min. / 30 / 90 Tage); bis 12 Monate nur, wenn der Abnehmer nicht automatisch erneuern kann | C1 |
-| E4 | Umstellung Pagination | Intranet und Glossary `/terms` auf Cursor; Intranet sofort, Glossary in der Vorschau vor 1.0 | A5 |
-| E5 | Fehlerformat | `problem+json` überall, Intranet stellt um (ohne v2, Prototyp) | A6 |
-| E6 | Gleichzeitige Änderungen | `If-Match` Standard (412/428), `lock_version` im Body erlaubt (409) | B2 |
-| E7 | Kopfzeilen | einheitlich `EduKSX-*`; `X-Glossary-Release` bis 1.0 parallel | B5 |
-| E8 | Persönliche Tokens | bleiben bis Ident steht, mit Ablauf und feinen Scopes | C1 |
-| E9 | Statuswerte | englischer Wert wie in der Datenbank, dazu `<feld>_label`; Glossary passt Beispiel und API an | A2 |
-| E10 | Ablage | EduKSX-Architektur `docs/KONZEPT-API-GUIDELINE.md` (Quelle); Verweise aus Glossary, Intranet und WebApplicationProgrammingGuide (schliesst dort API-01, SEC-01 für externe Clients); Kopie im claude.ai-Projekt | – |
-| E11 | Entstehung der Beschreibung | Vertrag zuerst für neue Module; Intranet bis zum Umbau aus dem Code | D3 |
-| E12 | Linter | eigener Spectral-Regelsatz `eduksx` in `eduksx/core`, zuerst Warnung, dann Fehler | D3 |
-| E13 | Brüche erkennen | `oasdiff` in der CI nach Lizenzprüfung; während der Vorschau Warnung | D3 |
-| E14 | Content-Type bei `PATCH` | `application/merge-patch+json` und `application/json` gleich | B1 |
-| E15 | Personensuche | `GET ?q=` erlaubt, Protokoll maskiert; Browser nutzen `POST …/search` | C4 |
-| E16 | Doku-Seiten | Scalar und Postman Pflicht, Swagger freiwillig (Plattform S8 angepasst) | D4 |
-| E17 | Tests | abgestuft: Mindestumfang für Prototypen, volle Liste vor produktivem Betrieb | D7 |
-| E18 | Schlanke Umsetzung | Stufen (Kern, Betrieb, bei Bedarf) und gemeinsame Bausteine | Grundsatz 7, G1 |
-| E19 | Suite und Namen | registrierter Modulschlüssel als Namensraum; Scopes `<modul>:<ressource>.<aktion>` (ersetzt `read-org`) | G2, C2 |
-| E20 | `eduksx/core` | vier Bausteingruppen, jeweils erst beim ersten Bedarf | G3 |
-| E21 | ETag (K1) | starker ETag `"<id>.<lock_version>"` = Stand des Objekts | B2 |
-| E22 | Idempotenz-Bereich (W2) | Organisation + Identität + Operation; Fingerabdruck SHA-256 | B3 |
-| E23 | `DELETE` (K2) | Wiederholung mit gleichem ETag → `204`, anderer ETag → `412` | B4 |
-| E24 | Sync (K3) | Grenze merken, Vollstand, idempotent nachziehen, atomar umschalten; Cursor 30 Tage | B6 |
-| E25 | Privilegierte Zugriffe (W4) | zweiter Faktor höchstens 15 Min. alt; eigene Servicekonten; Vier-Augen je Modul | C1 |
-| E26 | Datenklassen und MCP (W3) | `x-eduksx-data-classes` je Operation; extern nur `public`/`internal`, `personal` mit AVV und Freigabe | C4, C9 |
-| E27 | Verzeichnis | aus OpenAPI erzeugt | C9 |
-| E28 | Auskunft | `GET /api/v1/me/data-export` je Modul mit Personendaten | C9 |
-| E29 | Fristen, Datenort, Sparsamkeit | Protokolle 90 Tage; CH/EU; `?fields=` | C9, A2 |
-| E30 | Sicherheitsnachweis | ASVS 5.0 L2, ZAP-Scan in der CI, externer Pentest vor erstem Release | C10 |
-| E31 | Stufen-Einteilung | wie Tabelle G1 | G1 |
-| E32 | Kleine Korrekturen | Mandantenkontext, `null`/Aufzählungen, `Vary`, `301`/`308`, Dezimalzahlen, Betrieb | A2, A4, A7, B5, C3, D6 |
-| E33 | Governance | Konformitätstest, Register für Module und Ausnahmen, Version im Steckbrief | D8 |
-| E34 | Privilegierte Vorgänge vor Ident | nur in der Oberfläche, nicht per API-Token | C1 |
-| E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
+| API-E1 | Pagination | Cursor Standard, Seiten für kleine Admin-Listen, `total` nur auf Anfrage | A5 |
+| API-E2 | Wiederholtes `DELETE` | `204` (idempotent, Bund AP10) | B4 |
+| API-E3 | Laufzeit von Tokens | kurz (10 Min. / 30 / 90 Tage); bis 12 Monate nur, wenn der Abnehmer nicht automatisch erneuern kann | C1 |
+| API-E4 | Umstellung Pagination | Intranet und Glossary `/terms` auf Cursor; Intranet sofort, Glossary in der Vorschau vor 1.0 | A5 |
+| API-E5 | Fehlerformat | `problem+json` überall, Intranet stellt um (ohne v2, Prototyp) | A6 |
+| API-E6 | Gleichzeitige Änderungen | `If-Match` Standard (412/428), `lock_version` im Body erlaubt (409) | B2 |
+| API-E7 | Kopfzeilen | einheitlich `EduKSX-*`; `X-Glossary-Release` bis 1.0 parallel | B5 |
+| API-E8 | Persönliche Tokens | bleiben bis Ident steht, mit Ablauf und feinen Scopes | C1 |
+| API-E9 | Statuswerte | englischer Wert wie in der Datenbank, dazu `<feld>_label`; Glossary passt Beispiel und API an | A2 |
+| API-E10 | Ablage | EduKSX-Architektur `docs/KONZEPT-API-GUIDELINE.md` (Quelle); Verweise aus Glossary, Intranet und WebApplicationProgrammingGuide (schliesst dort API-01, SEC-01 für externe Clients); Kopie im claude.ai-Projekt | – |
+| API-E11 | Entstehung der Beschreibung | Vertrag zuerst für neue Module; Intranet bis zum Umbau aus dem Code | D3 |
+| API-E12 | Linter | eigener Spectral-Regelsatz `eduksx` in `eduksx/core`, zuerst Warnung, dann Fehler | D3 |
+| API-E13 | Brüche erkennen | `oasdiff` in der CI nach Lizenzprüfung; während der Vorschau Warnung | D3 |
+| API-E14 | Content-Type bei `PATCH` | `application/merge-patch+json` und `application/json` gleich | B1 |
+| API-E15 | Personensuche | `GET ?q=` erlaubt, Protokoll maskiert; Browser nutzen `POST …/search` | C4 |
+| API-E16 | Doku-Seiten | Scalar und Postman Pflicht, Swagger freiwillig (Plattform S8 angepasst) | D4 |
+| API-E17 | Tests | abgestuft: Mindestumfang für Prototypen, volle Liste vor produktivem Betrieb | D7 |
+| API-E18 | Schlanke Umsetzung | Stufen (Kern, Betrieb, bei Bedarf) und gemeinsame Bausteine | Grundsatz 7, G1 |
+| API-E19 | Suite und Namen | registrierter Modulschlüssel als Namensraum; Scopes `<modul>:<ressource>.<aktion>` (ersetzt `read-org`) | G2, C2 |
+| API-E20 | `eduksx/core` | vier Bausteingruppen, jeweils erst beim ersten Bedarf | G3 |
+| API-E21 | ETag (K1) | starker ETag `"<id>.<lock_version>"` = Stand des Objekts | B2 |
+| API-E22 | Idempotenz-Bereich (W2) | Organisation + Identität + Operation; Fingerabdruck SHA-256 | B3 |
+| API-E23 | `DELETE` (K2) | Wiederholung mit gleichem ETag → `204`, anderer ETag → `412` | B4 |
+| API-E24 | Sync (K3) | Grenze merken, Vollstand, idempotent nachziehen, atomar umschalten; Cursor 30 Tage | B6 |
+| API-E25 | Privilegierte Zugriffe (W4) | zweiter Faktor höchstens 15 Min. alt; eigene Servicekonten; Vier-Augen je Modul | C1 |
+| API-E26 | Datenklassen und MCP (W3) | `x-eduksx-data-classes` je Operation; extern nur `public`/`internal`, `personal` mit AVV und Freigabe | C4, C9 |
+| API-E27 | Verzeichnis | aus OpenAPI erzeugt | C9 |
+| API-E28 | Auskunft | `GET /api/v1/me/data-export` je Modul mit Personendaten | C9 |
+| API-E29 | Fristen, Datenort, Sparsamkeit | Protokolle 90 Tage; CH/EU; `?fields=` | C9, A2 |
+| API-E30 | Sicherheitsnachweis | ASVS 5.0 L2, ZAP-Scan in der CI, externer Pentest vor erstem Release | C10 |
+| API-E31 | Stufen-Einteilung | wie Tabelle G1 | G1 |
+| API-E32 | Kleine Korrekturen | Mandantenkontext, `null`/Aufzählungen, `Vary`, `301`/`308`, Dezimalzahlen, Betrieb | A2, A4, A7, B5, C3, D6 |
+| API-E33 | Governance | Konformitätstest, Register für Module und Ausnahmen, Version im Steckbrief | D8 |
+| API-E34 | Privilegierte Vorgänge vor Ident | nur in der Oberfläche, nicht per API-Token | C1 |
+| API-E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
+| API-E36 | Ein Register für DB und API | [REGISTER-MODULE.md](REGISTER-MODULE.md); Schlüssel englisch, Marketingnamen frei; `timetable`, `ops` neu vergeben | G2 |
 | – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
 | – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16) | C1 – ZU PRÜFEN |
 
@@ -772,21 +765,21 @@ E1–E17 entschieden am 12.11.2026, E18–E35 am 13.11.2026 nach dem Architektur
 
 | Thema | Glossary | Intranet | Standard |
 | --- | --- | --- | --- |
-| Fehler | `problem+json` ✓ | `{"message": …}` | `problem+json` (E5) |
+| Fehler | `problem+json` ✓ | `{"message": …}` | `problem+json` (API-E5) |
 | Hülle | `{"data": …}` ✓ (Beispiel im Konzept veraltet) | `{"data": …}` ✓ | `{"data": …}` |
-| Pagination | `page`/`per_page` mit `total`; Cursor im Feed ✓ | `limit`/`offset`, `meta.total` | Cursor (E1, E4) |
-| Statuswerte | Beispiel zeigt `"aktuell"` | – | englisch + `_label` (E9) |
-| Kopfzeilen | `X-Glossary-Release` | – | `EduKSX-Release` (E7) |
-| Konflikte | – | – | `If-Match` (E6) |
-| Wiederholtes `DELETE` | – | `404` | `204` (E2) |
-| Token-Laufzeit | Servicekonten mit Ablauf | persönliche Tokens | C1 (E3) |
+| Pagination | `page`/`per_page` mit `total`; Cursor im Feed ✓ | `limit`/`offset`, `meta.total` | Cursor (API-E1, API-E4) |
+| Statuswerte | Beispiel zeigt `"aktuell"` | – | englisch + `_label` (API-E9) |
+| Kopfzeilen | `X-Glossary-Release` | – | `EduKSX-Release` (API-E7) |
+| Konflikte | – | – | `If-Match` (API-E6) |
+| Wiederholtes `DELETE` | – | `404` | `204` (API-E2) |
+| Token-Laufzeit | Servicekonten mit Ablauf | persönliche Tokens | C1 (API-E3) |
 | ETag/304 | ✓ | – | öffentliche Lese-Endpunkte |
 | Anmeldung | anonym lesen, Servicekonten mit Scope ✓ | persönliche Tokens `sbi_`, `read`/`write` | C1/C2 |
 | Abruflimit | 120/Min. ✓ | 120/Min. ✓ | C5 |
 | Doku | Scalar, Swagger, Postman ✓ | API-Tester, Scalar | D4 |
 | Beispiele | – | je Parameter ✓ | D3 |
 | `If-Match` / Idempotency-Key | – | – | B2/B3 |
-| Scopes | `read-org` | `read`/`write` | `<modul>:<ressource>.<aktion>` (E19) |
+| Scopes | `read-org` | `read`/`write` | `<modul>:<ressource>.<aktion>` (API-E19) |
 | Token-Präfix | eigenes | `sbi_` | `<modulschlüssel>_<art>_` (G2) |
 | Datenklassen, Zweck, Auskunft | Datenklassen je Spalte (DB) | – | je Operation, `/me/data-export` (C9) |
 
@@ -821,12 +814,14 @@ E1–E17 entschieden am 12.11.2026, E18–E35 am 13.11.2026 nach dem Architektur
 - 12.11.2026: Entwurf 0.1 aus Plattform-Konzept (S1–S8), DB-Standard 1.1, Glossary (KONZEPT-API, -MCP, -ORGANISATION)
   und Intranet (REST-API v1, KONZEPT-MCP) erstellt.
 - 12.11.2026: Version 0.2 – Abgleich mit Zalando, Bund (Security Guideline, AP10), OWASP API Top 10, RFC 9700/9745 und
-  IETF-Entwürfen. Entscheide E1–E3 (Pagination, `DELETE`, Token-Laufzeiten); RateLimit-Kopfzeilen korrigiert;
+  IETF-Entwürfen. Entscheide API-E1–API-E3 (Pagination, `DELETE`, Token-Laufzeiten); RateLimit-Kopfzeilen korrigiert;
   OWASP-Abgleich, Linter, Mass Assignment, SSRF, Abweichungen und Quellen ergänzt.
-- 12.11.2026: Version 0.3 – offene Punkte entschieden (E4–E13); DPoP/mTLS bleibt ZU PRÜFEN mit Ident.
-- 12.11.2026: Version 0.4 – Durchsicht PR #17: E14–E17 (PATCH-Content-Type, Personensuche, Doku-Seiten, Tests abgestuft).
+- 12.11.2026: Version 0.3 – offene Punkte entschieden (API-E4–API-E13); DPoP/mTLS bleibt ZU PRÜFEN mit Ident.
+- 12.11.2026: Version 0.4 – Durchsicht PR #17: API-E14–API-E17 (PATCH-Content-Type, Personensuche, Doku-Seiten, Tests abgestuft).
 - 12.11.2026: Version 1.0 abgenommen (#15, PR #17).
 - 13.11.2026: Entwurf 1.1 nach Architektur-Review (#18): Stufen, Modulschlüssel und Register, `eduksx/core`, starker
   ETag, `DELETE`-Fälle, Sync ohne Lücken, Idempotenz-Bereich, privilegierte Zugriffe, DSGVO/IDG (C9),
-  Sicherheitsnachweis (C10), Konformität (D8); Entscheide E18–E35.
+  Sicherheitsnachweis (C10), Konformität (D8); Entscheide API-E18–API-E35.
 - 13.11.2026: Version 1.1 abgenommen (#18, PR #19).
+- 13.11.2026: Version 1.1.1 redaktionell – Register nach [REGISTER-MODULE.md](REGISTER-MODULE.md) verschoben (API-E36),
+  Entscheide als `API-E<n>` nummeriert.

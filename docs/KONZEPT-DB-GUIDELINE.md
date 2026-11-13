@@ -1,7 +1,7 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 13.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am 13.11.2026
-(Version 1.0 und 1.1 am 12.11.2026)
+Stand: 13.11.2026 (Version 1.2.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am 13.11.2026
+(Version 1.0 und 1.1 am 12.11.2026); 1.2.1 redaktionell
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -463,14 +463,8 @@ zusammengelegt werden können, gelten diese Regeln (alle BESCHLOSSEN 13.11.2026)
 Jedes Modul hat einen festen, kurzen **Modulschlüssel** (Kleinbuchstaben, ohne Bindestrich), vergeben in der Tabelle
 unten und nie geändert. Er benennt Schema, Datenbankzugänge (B5), Einträge im Löschregister und Ereignisse.
 
-| Modul | Schlüssel | Repo |
-| --- | --- | --- |
-| Glossary | `glossary` | EduKSX-Glossary |
-| Rechtssammlung | `recht` | – |
-| Intranet | `intranet` | – |
-| Stundenplan | `stundenplan` | – |
-| Ident | `ident` | – |
-| Leitstand | `leitstand` | – |
+Die Schlüssel stehen im [Modulregister](REGISTER-MODULE.md); es gilt für DB- und API-Standard gemeinsam.
+Schlüssel sind englisch (A1) und unabhängig vom Marketingnamen des Moduls.
 
 ### E2 Schema je Modul
 
@@ -541,16 +535,21 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 
 | Nr. | Frage | Entscheid | Status |
 | --- | --- | --- | --- |
-| E1 | Aufteilung in Plattform-Standard und Modul-Datenmodell | Standard hier, Fachliches im Modul | BESCHLOSSEN 12.11.2026 |
-| E2 | Mehrsprachigkeit für persönliche Daten | nein | BESCHLOSSEN 12.11.2026 |
-| E3 | UUID v7 trotz erkennbarem Erstellungszeitpunkt | ja | BESCHLOSSEN 12.11.2026 |
-| E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
-| E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Prototyp mit PostgreSQL, Laravel und Verbindungspool (Entscheid 12.11.2026, #13) | ZU PRÜFEN |
-| E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
-| E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
-| E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |
-| E9 | Module eigenständig in eigenen Repos, später zusammenlegbar | Teil E: Modulschlüssel, Schema je Modul, Plattform-IDs, Versionsbindung, Konformitätstests | BESCHLOSSEN 13.11.2026 |
-| E10 | Datenschutz nach IDG, DSG und DSGVO | strengste Regel; B7–B14 | BESCHLOSSEN 13.11.2026 |
+| DB-E1 | Aufteilung in Plattform-Standard und Modul-Datenmodell | Standard hier, Fachliches im Modul | BESCHLOSSEN 12.11.2026 |
+| DB-E2 | Mehrsprachigkeit für persönliche Daten | nein | BESCHLOSSEN 12.11.2026 |
+| DB-E3 | UUID v7 trotz erkennbarem Erstellungszeitpunkt | ja | BESCHLOSSEN 12.11.2026 |
+| DB-E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
+| DB-E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Prototyp mit PostgreSQL, Laravel und Verbindungspool (Entscheid 12.11.2026, #13) | ZU PRÜFEN |
+| DB-E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
+| DB-E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
+| DB-E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |
+| DB-E9 | Module eigenständig in eigenen Repos, später zusammenlegbar | Teil E: Modulschlüssel, Schema je Modul, Plattform-IDs, Versionsbindung, Konformitätstests | BESCHLOSSEN 13.11.2026 |
+| DB-E10 | Datenschutz nach IDG, DSG und DSGVO | strengste Regel; B7–B14 | BESCHLOSSEN 13.11.2026 |
+| DB-E11 | Modulschlüssel englisch, ein gemeinsames Register | [REGISTER-MODULE.md](REGISTER-MODULE.md); `recht` → `codex`, `stundenplan` → `timetable`, `leitstand` → `ops` | BESCHLOSSEN 13.11.2026 |
+| DB-E12 | Gemeinsame Tabellen über `eduksx/core` | Core liefert Migrationen für Standardtabellen (z. B. lokale Personenreferenz, Organisationen, Mitgliedschaften, `data_changes`, Einstellungen); jedes Modul installiert sie im eigenen Schema (E2); Stammdaten von Personen und Organisationen führt Ident | BESCHLOSSEN 13.11.2026 |
+
+Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–E6 und den Entscheiden des API-Standards
+(`API-E<n>`) verwechselt werden.
 
 ## Verlauf
 
@@ -559,3 +558,5 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
   Löschregister, Identitäten, Datenbankzugänge, PITR/RPO/RTO, Sprachregeln (#11).
 - 13.11.2026: Version 1.2 abgenommen – Teil E (Modularität und Zusammenführbarkeit) und B7–B14 (Rechtsrahmen, Auskunft,
   Zweck je Tabelle, Folgenabschätzung, Lesezugriffe, anonymisierte Kopien, Einschränkung, Zusammenlegen) (#20).
+- 13.11.2026: Version 1.2.1 redaktionell – Modulschlüssel ins gemeinsame [Modulregister](REGISTER-MODULE.md) verschoben
+  und englisch (DB-E11), Entscheide als `DB-E<n>` nummeriert, Core-Tabellen festgehalten (DB-E12).
