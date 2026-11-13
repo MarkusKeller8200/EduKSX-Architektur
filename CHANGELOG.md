@@ -8,6 +8,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Ident mit Zitadel:** Identity-Provider entschieden (Plattform 4.1, §9.1), vorbehaltlich Proof of Concept (#25); Plan B Keycloak.
 - **Modulregister:** `docs/REGISTER-MODULE.md` als einzige Quelle der Modulschlüssel für DB- und API-Standard; interne Schlüssel englisch (`recht` → `codex`, `stundenplan` → `timetable`, `leitstand` → `ops`), Marketingnamen frei. DB-Standard 1.2.1, API-Standard 1.1.1 (redaktionell), Entscheide als `DB-E<n>` bzw. `API-E<n>`.
 - **Core als Bibliothek:** Plattform 4.3 – `eduksx/core` ist kein Dienst; bringt Standardtabellen je Modul-Schema mit, Stammdaten in Ident (DB-E12).
 - **API-Standard 1.1 (#18):** nach Architektur-Review – Stufen für schlanke Umsetzung, Modulschlüssel als Namensraum der Suite, gemeinsame Bausteine, korrigierte ETag-, Lösch- und Sync-Regeln, Datenschutz nach DSGVO/IDG, Sicherheitsnachweis mit ASVS, Scan und Pentest, Konformitätstest.
