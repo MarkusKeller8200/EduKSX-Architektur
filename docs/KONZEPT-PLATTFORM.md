@@ -1,7 +1,8 @@
 # Konzept: EduKSX-Plattform – Architektur, Schnittstellen, Betrieb
 
-Stand: Entwurf 08.11.2026 zur Abnahme durch Projektverantwortliche:r. Grundlage: Gespräche zum EduKSX-Glossary
-(Organisationen, Einbindung, Updates). Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
+Stand: 13.11.2026 · Status: **BESCHLOSSEN** – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Punkte in §9
+ausser 9.1 bleiben **OFFEN**. Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
+Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
 
 ## 1. Zweck
 
