@@ -6,6 +6,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Neu
+
+- **PoC Ident mit Zitadel, Durchgang 1 (#36):** Werkzeuge in `poc/ident-zitadel/`, Ergebnisse in KONZEPT-IDENT §4.3.
+
 ### Geändert
 
 - **Plattform §9.2–9.7 entschieden:** Ident zentral mit Trennung auf Wunsch, Leitstand als eigene Anwendung, zuerst zentral, Kubernetes ab > 30 isolierten Instanzen, Unterdomain mit optionaler eigener Domain, Lizenz «Bibliotheken MIT, Module AGPL-3.0» (Glossary wechselt, Glossary #336).

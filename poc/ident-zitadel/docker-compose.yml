@@ -1,0 +1,59 @@
+# Proof of Concept Ident mit Zitadel (EduKSX-Architektur #25). Nur lokal, nur erfundene Testdaten.
+# Vorher: head -c 24 /dev/urandom | base64 | head -c 32 > masterkey.txt
+# Start: docker compose up -d  ·  Konsole: http://localhost:8080/ui/console  ·  Admin-Token: ./pat/admin.pat
+name: eduksx-ident-poc
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: poc-postgres
+      POSTGRES_DB: zitadel
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d zitadel"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:v4.20.3
+    command: start-from-init --masterkeyFile /masterkey/masterkey.txt --tlsMode disabled
+    environment:
+      ZITADEL_EXTERNALDOMAIN: localhost
+      ZITADEL_EXTERNALPORT: 8090   # öffentliche Adresse über den Proxy (proxy.conf): API und Login V2 gemeinsam
+      ZITADEL_EXTERNALSECURE: "false"
+      ZITADEL_DATABASE_POSTGRES_HOST: db
+      ZITADEL_DATABASE_POSTGRES_PORT: 5432
+      ZITADEL_DATABASE_POSTGRES_DATABASE: zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: poc-zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: postgres
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: poc-postgres
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: disable
+      ZITADEL_FIRSTINSTANCE_ORG_NAME: EduKSX Plattform
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_USERNAME: plattform-admin
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_PASSWORD: "Poc-Admin-2026!"
+      ZITADEL_FIRSTINSTANCE_ORG_HUMAN_PASSWORDCHANGEREQUIRED: "false"
+      ZITADEL_FIRSTINSTANCE_ORG_MACHINE_MACHINE_USERNAME: poc-admin-sa
+      ZITADEL_FIRSTINSTANCE_ORG_MACHINE_MACHINE_NAME: PoC Admin Dienstkonto
+      ZITADEL_FIRSTINSTANCE_ORG_MACHINE_PAT_EXPIRATIONDATE: "2027-01-31T00:00:00Z"
+      ZITADEL_FIRSTINSTANCE_PATPATH: /pat/admin.pat
+      ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_REQUIRED: "false"
+      # Nur PoC: Webhook-Empfänger im lokalen Netz erlauben (Standard sperrt private Adressen – im Betrieb so lassen)
+      ZITADEL_HTTPCLIENT_DENYLIST: "169.254.0.0/16"
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # PoC: Webhook-Empfänger auf dem Host
+    volumes:
+      - ./pat:/pat
+      - ./masterkey.txt:/masterkey/masterkey.txt:ro   # 32 Zeichen, nicht im Repository (I11)
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db:

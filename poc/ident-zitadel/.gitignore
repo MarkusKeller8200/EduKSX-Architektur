@@ -1,0 +1,17 @@
+pat/
+state.json
+tokens-*.json
+backup.sql
+webhook.log
+login-fehler.png
+target.json
+masterkey.txt
+edulog-*.png
+edulog-user.json
+edulog-idp.json
+bridge-target.json
+bridge-request.json
+logout-token.txt
+loginseite.png
+nach-edulog-klick.png
+edulog-mock/*.xml
