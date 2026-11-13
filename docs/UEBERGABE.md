@@ -48,6 +48,12 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 
 ## Sitzungen
 
+### Sitzung 14.11.2026 (00:00) – Merge Ident, Prüfung der Umsetzung
+
+- EdukSX-Ident PR #7 (Brücke 0.1) und PR #46 (Login V2 mit EduKSX-Gestaltung) gemergt; Ident #2–#6 im Beta-Test.
+- Umsetzung gegen die Konzepte geprüft; redaktionell nachgeführt: Register, Modulübersicht, Issue-Tabellen Core/Ident.
+- Nächste Schritte: Core 0.2 (#13–#16), Glossary #335 mergen, Ident 0.2 (S4-Zustellung, Prüfung gegen spec/), PoC #36 abschliessen.
+
 ### Sitzung 13.11.2026 (23:17–23:50) – Konzeptabschluss
 
 - Konzepte Leitstand, Selbst-Hosting, Plugins; Icons freigegeben (markussxch #13); Operation #27 freigegeben.

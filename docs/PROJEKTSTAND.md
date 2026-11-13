@@ -11,13 +11,19 @@
 | DB-Standard | 1.2.1 abgenommen | 0.1.0 | `docs/KONZEPT-DB-GUIDELINE.md` |
 | API-Standard | 1.1.1 abgenommen | 0.1.0 | `docs/KONZEPT-API-GUIDELINE.md` |
 | Modulregister (englische Schlüssel) | abgenommen | 0.1.0 | `docs/REGISTER-MODULE.md` |
-| Identity-Provider Zitadel | entschieden, PoC offen (#25) | 0.1.0 | `docs/KONZEPT-PLATTFORM.md` 4.1, §9.1 |
+| Identity-Provider Zitadel | entschieden, PoC läuft (#36): P2–P4, P6–P9 bestanden, P5 mit Edulog-Ersatz; offen Admin-MFA, echter Edulog-Anschluss, P10 | 0.1.0 | `docs/KONZEPT-PLATTFORM.md` 4.1, §9.1 |
 | Konzept Core (`eduksx/core` 0.1) | abgenommen | 0.2.0 | `docs/KONZEPT-CORE.md` |
 | Konzept Ident, PoC-Drehbuch | beschlossen bis auf PoC-Punkte (#36) | 0.2.0 | `docs/KONZEPT-IDENT.md` |
 | Schemas S1, S4, S5, S6 | beschlossen, mit Tests | 0.2.0 | `spec/README.md` |
 | Modulvorlage, Datenschutz-Vorlagen | beschlossen, Probe-Modul offen (#37) | 0.2.0 | `docs/KONZEPT-MODULVORLAGE.md` |
 | Prüfaufträge RLS, DPoP/mTLS | Empfehlung, Entscheid nach Prototyp/PoC | 0.2.0 | `docs/PRUEFAUFTRAG-*.md` |
 | Konzepte Leitstand, Selbst-Hosting, Plugins, Modulübersicht | beschlossen, eingefroren | 0.3.0 | `docs/KONZEPT-*.md`, `docs/MODULE-UEBERSICHT.md` |
+
+## Umsetzung in den Modul-Repos (Stand 14.11.2026)
+
+- EduKSX-Core 0.1.1 veröffentlicht; 0.2 (#13–#16) freigegeben.
+- EdukSX-Ident: Brücke 0.1 gemergt (#2–#6 im Beta-Test), unveröffentlicht.
+- EduKSX-Glossary: Umstellung auf Core 0.1 als PR #335 bereit (#334).
 
 ## Offen bzw. geplant
 

@@ -198,11 +198,11 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 | Issue | Inhalt | Status |
 |---|---|---|
 | #25 | Konzept und Drehbuch | `_3 Beta-Test` |
-| #36 (0.3.0) | Durchführung des PoC nach §4 | `triage` |
+| #36 | Durchführung des PoC nach §4 | `_2 in Arbeit` |
 | #16, #35 | Prüfauftrag DPoP/mTLS (I9); Entscheid nach P8 in #35 | Empfehlung im Beta-Test, #35 `triage` |
 | #3 | Schemas S1, S4, S5, S6 | `_3 Beta-Test` |
 | Glossary #185–#189 | Anmeldung, Rollen, Logout/Ereignisse, Client Credentials, Steckbrief | `triage` |
-| (folgt) | Repo EduKSX-Ident mit der Brücke | nach bestandenem PoC |
+| EdukSX-Ident #2–#6 | Brücke 0.1: Datenmodell, Claims, Edulog-Abbildung, Ereignisse aus Zitadel | `_3 Beta-Test` |
 | (Projektverantwortliche:r) | Testzugang Edulog bei der Geschäftsstelle anfragen | offen |
 
 ## 6. Quellen (Stand 13.11.2026)

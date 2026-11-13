@@ -31,7 +31,7 @@ So arbeitet ein Modul mit Core:
 2. Das Modul setzt seinen Schlüssel aus dem Register: `EDUKSX_MODULE=glossary`. Daraus leitet Core Präfixe für
    Fehlertypen, Tokens, Ereignisse und MCP-Werkzeuge ab.
 3. Migrationen nutzen die Helfer (`StrictSchema`), Controller die Antwort-Bausteine (Fehler, Cursor, ETag).
-4. In der CI läuft der Konformitätstest aus Core (`EduKSX\Core\Testing\ConformanceTest`) und der Spectral-Regelsatz
+4. In der CI läuft der Konformitätstest aus Core (Trait `EduKSX\Core\Testing\AssertsConformance` in einem Test des Moduls) und der Spectral-Regelsatz
    gegen die OpenAPI-Beschreibung des Moduls.
 5. Ein neues Core-Release wird per Dependabot vorgeschlagen; Minor-Versionen sind abwärtskompatibel (SemVer).
 
@@ -118,7 +118,8 @@ Erst wenn beide Module Core 0.1 nutzen, gilt ein Baustein als bewährt; Ausnahme
 | Issue | Inhalt | Status |
 |---|---|---|
 | #27 | Dieses Konzept | abgenommen 13.11.2026 |
-| (folgt, im Repo EduKSX-Core) | Grundgerüst und Bausteine 0.1 nach 4.1/4.2 | anzulegen, sobald das Repo besteht |
+| EduKSX-Core #2–#6, #11 | Grundgerüst und Bausteine 0.1 nach 4.1/4.2 | veröffentlicht als 0.1.0 und 0.1.1 |
+| EduKSX-Core #13–#16 | Fahrplan 0.2 (4.1a) | `_1 bereit` |
 | Glossary #193 | Bausteine abgrenzen – wird zur Umstellung auf Core 0.1 | `triage` |
 
 ## 6. Verlauf

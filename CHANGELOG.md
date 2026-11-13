@@ -6,6 +6,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- **Redaktionell:** Repo EdukSX-Ident im Register und in der Modulübersicht; Issue-Tabellen in KONZEPT-CORE und KONZEPT-IDENT nachgeführt; Name des Konformitätstests in KONZEPT-CORE korrigiert (`AssertsConformance`).
+
 ## [0.3.0] – 2026-11-13
 
 ### Neu
