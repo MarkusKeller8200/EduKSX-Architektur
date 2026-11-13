@@ -71,14 +71,19 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 
 ## Entscheide
 
+- Entscheid 13.11.2026 (23:06): **MarKusSX-Operation ist die Quelle für den Betrieb** (Komodo, Caddy, 1Password,
+  VictoriaLogs, Backrest/restic, Headscale, Cloudflare Access). Plattform §7.3a verweist nur noch darauf; die um 21:30
+  beschlossenen Werkzeuge (SOPS/age, pgBackRest, Litestream, Prometheus/Grafana/Loki) sind aufgehoben. Widerspruch
+  DB-Standard C2 (PITR, RPO 1 bzw. 15 Min.) ↔ Operation (täglicher Dump) als Prüfauftrag an Operation (MarKusSX-Operation #27).
+
 - Entscheid 13.11.2026 (22:52): Zweck aller Module festgelegt (MODULE-UEBERSICHT.md); Einsatzplanung = `staffing`,
   Stundenplan bleibt `timetable`; Icon-Entwürfe für intranet, timetable, staffing, ops (markussxch PR #13, Freigabe offen).
 
 - Entscheid 13.11.2026 (22:24): Selbst-Hosting ohne Ident – lokale Konten mit eigenem zweitem Faktor, optional
   Entra/Google per OIDC; kein Zitadel vor Ort, kein Edulog (auch nicht über das zentrale Ident, 22:27). Installation per Befehl und als VM-Vorlage (#40).
 
-- Entscheid 13.11.2026 (21:30): Plattform §9.2–9.7 (siehe Konzept), Betrieb Stufe 1 mit Infomaniak, SOPS/age,
-  pgBackRest, Litestream, Prometheus/Grafana/Loki, Uptime Kuma; Core 0.2 ohne Ident, Ident-Teile in Core 0.3;
+- Entscheid 13.11.2026 (21:30): Plattform §9.2–9.7 (siehe Konzept), Betrieb Stufe 1 mit Infomaniak (Werkzeuge
+  am 13.11. 23:06 durch MarKusSX-Operation ersetzt, siehe unten); Core 0.2 ohne Ident, Ident-Teile in Core 0.3;
   PoC #36 auf dem Rechner von Projektverantwortliche:r; Module AGPL-3.0, Glossary wechselt.
 
 - Entscheid 13.11.2026: Core C5–C10 übernommen (Packagist, `EduKSX\Core`, Standardtabellen mit Ident in Core 0.2,

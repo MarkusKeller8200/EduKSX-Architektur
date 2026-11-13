@@ -92,7 +92,7 @@ Geschäftsstelle vor dem Anschluss. Abgleich mit dem PoC (Zitadel v4.20.3 als Di
 
 | Anforderung | Edulog | Ident / Zitadel | Massnahme |
 | --- | --- | --- | --- |
-| TLS | nur TLS 1.2/1.3, Mozilla «Intermediate» | Sache des vorgeschalteten Proxys (Traefik) | Proxy so konfigurieren |
+| TLS | nur TLS 1.2/1.3, Mozilla «Intermediate» | Sache des vorgeschalteten Proxys (Caddy nach MarKusSX-Operation) | Proxy so konfigurieren |
 | Website-Zertifikat | kommerzielle CA, CN und SAN = FQDN, höchstens 2 Jahre, möglichst kein Wildcard | Proxy | ZU PRÜFEN: genügt Let's Encrypt? |
 | Sicherheitskopfzeilen | CSP, X-Frame-Options, nosniff, HSTS, Permissions-Policy, Referrer-Policy, `X-Powered-By` entfernen; zusätzlich `X-XSS-Protection` empfohlen | Module über `eduksx/core`; Login-Seiten über den Proxy | `X-XSS-Protection` gilt heute als überholt (OWASP) – nur setzen, falls die Prüfung es verlangt |
 | SAML: AuthnRequest signiert | Pflicht | `AuthnRequestsSigned="true"`, SHA-256 | erfüllt |
