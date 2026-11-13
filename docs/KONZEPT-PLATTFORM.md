@@ -270,18 +270,30 @@ Container, ≈ 60–100 GB RAM, 4–8 Knoten mit 16–32 GB.
 Schweiz (z. B. Infomaniak), Hauptstandort und zweiter Standort für Sicherungen und Notfall; öffentliche Dienste hinter
 CDN (z. B. Cloudflare); isolierte Instanzen wahlweise bei uns oder beim Kunden.
 
-### 7.3a Anbieter und Werkzeuge Stufe 1 (BESCHLOSSEN 13.11.2026, #29, #30)
+### 7.3a Betrieb: Quelle ist MarKusSX-Operation (BESCHLOSSEN 13.11.2026, #29, #30)
 
-| Bereich | Entscheid |
+Wie die Plattform betrieben wird – Server, Werkzeuge, Zugang, Sicherung, Überwachung – legt das Repo
+**MarKusSX-Operation** fest (`docs/KONZEPT-PLATTFORM.md` dort, Entscheide seit 10.11.2026). Diese Architektur
+wiederholt die Werkzeuge nicht, sondern verweist darauf. Stand der Entscheide dort (Auszug, massgebend ist Operation):
+
+| Bereich | Operation |
 | --- | --- |
-| Hosting | **Infomaniak** (Schweiz): VPS «Zentral» und «Kunden», Object Storage für Dateien und Sicherungen; zweiter Standort für Sicherungen bei Infomaniak in einem anderen Rechenzentrum bzw. Swiss Backup |
-| Geheimnisse | **SOPS mit age**: verschlüsselt im Infrastruktur-Repo, Schlüssel nur bei Projektverantwortliche:r und auf den Servern; Rotation dokumentiert; Wechsel zu OpenBao erst mit Stufe 2 prüfen |
-| Sicherung PostgreSQL | **pgBackRest** mit WAL-Archiv (Wiederherstellung auf Zeitpunkt), Ziel Object Storage, Verschlüsselung |
-| Sicherung SQLite | **Litestream** in Object Storage (isolierte Instanzen) |
-| Überwachung | **Prometheus, Grafana, Loki** (Metriken, Dashboards, Protokolle), **Uptime Kuma** für Erreichbarkeit von aussen; Alarm per E-Mail und Push |
-| Wiederherstellungstest | monatlich automatisiert für eine Datenbank je Art, vierteljährlich vollständig (Ident + ein Modul) |
+| Hosting | Infomaniak (Schweiz), VPS Lite; `waechter-01` (Überwachung, Verwaltung), `prod-01`, `test-01` (E4a, E4b, E35, E36) |
+| Verwaltung | **Komodo** (Core auf dem Wächter, Agent je Server), Admin-Portal mit Homepage, eigene Lagekarte (E3, E11, E13, E14) |
+| Zugang | Headscale-VPN und Cloudflare Access mit Entra ID; SSH nur über VPN (E9, E10, E33) |
+| Reverse Proxy | Caddy mit CrowdSec (E27) |
+| Geheimnisse | 1Password (CLI, Service Accounts) (E16) |
+| Protokolle, Alarme | VictoriaLogs; Uptime Kuma, ntfy/Teams (E17, E25, E34) |
+| Sicherung | Backrest (restic) nach Infomaniak Swiss Backup, Datenbank-Dump vor dem Backup, Hoster-Snapshots; optional NAS (E8, E24, E26) |
+| Provisionierung | OpenTofu + cloud-init, danach Komodo (E19) |
 
-Werkzeuge mit Lizenz und Pflege werden im Repo der Infrastruktur in `third-party.json` geführt.
+**Widerspruch zum DB-Standard, an Operation übergeben (ZU PRÜFEN, MarKusSX-Operation #27):** DB-Standard C2 verlangt für PostgreSQL
+Wiederherstellung auf einen Zeitpunkt (Base Backup + WAL) und RPO 1 Minute (zentral, Ident) bzw. 15 Minuten
+(isoliert) sowie einen monatlichen Wiederherstellungstest. Operation sichert die Datenbanken heute per täglichem Dump
+(RPO bis 24 Stunden) mit vierteljährlichem Test. Bis Operation das löst bzw. der DB-Standard angepasst wird, gelten
+die RPO-Werte des DB-Standards für produktive Dienste mit Personendaten als nicht erfüllt.
+
+Das Selbst-Hosting beim Kunden (#40) ist bewusst einfacher und braucht diese Betriebswerkzeuge nicht.
 
 ### 7.4 Automatisch aktualisieren
 
@@ -291,7 +303,7 @@ Werkzeuge mit Lizenz und Pflege werden im Repo der Infrastruktur in `third-party
 | Abhängigkeiten, Basis-Images | Renovate/Dependabot als PR, CI, nächstes Release |
 | Betriebssystem | automatische Sicherheitsupdates; Cluster-Knoten durch den Anbieter nacheinander |
 | PostgreSQL | Operator (z. B. CloudNativePG), kleine Updates automatisch |
-| Zertifikate | automatisch (Traefik / cert-manager) |
+| Zertifikate | automatisch (Caddy, Operation E27 / später cert-manager) |
 | Infrastruktur | als Code (OpenTofu/Terraform, Ansible) |
 
 ### 7.5 Vorkehrungen für Skalierung
@@ -302,9 +314,9 @@ Werkzeuge mit Lizenz und Pflege werden im Repo der Infrastruktur in `third-party
 4. Organisations-ID überall in zentralen Diensten
 5. Abwärtskompatible Migrationen (Updates ohne Ausfall)
 6. Grenzen je Kunde (Abrufe, Speicher, Konten)
-7. Beobachtung von Anfang an (Prometheus, Grafana, Loki, Uptime-Überwachung)
+7. Beobachtung von Anfang an (nach MarKusSX-Operation: VictoriaLogs, Uptime Kuma, Lagekarte)
 8. Sicherungen mit regelmässigem Wiederherstellungstest
-9. Geheimnisse zentral (SOPS/Vault), keine handgepflegten `.env` je Instanz
+9. Geheimnisse zentral (1Password nach MarKusSX-Operation E16), keine handgepflegten `.env` je Instanz
 
 ## 8. Fahrplan
 

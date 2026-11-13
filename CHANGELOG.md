@@ -13,7 +13,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 ### Geändert
 
 - **Plattform §9.2–9.7 entschieden:** Ident zentral mit Trennung auf Wunsch, Leitstand als eigene Anwendung, zuerst zentral, Kubernetes ab > 30 isolierten Instanzen, Unterdomain mit optionaler eigener Domain, Lizenz «Bibliotheken MIT, Module AGPL-3.0» (Glossary wechselt, Glossary #336).
-- **Betrieb Stufe 1 (§7.3a, #29, #30):** Infomaniak, SOPS mit age, pgBackRest, Litestream, Prometheus/Grafana/Loki, Uptime Kuma.
+- **Betrieb Stufe 1 (§7.3a, #29, #30):** Quelle ist das Repo MarKusSX-Operation (Komodo, Caddy, 1Password, VictoriaLogs, Backrest); Widerspruch zum DB-Standard C2 (PITR, RPO) als Prüfauftrag festgehalten.
 - **Core-Fahrplan (KONZEPT-CORE 4.1a):** 0.2 ohne Ident (Steckbrief/`/health`, S4-Empfang, `data_changes`, Schemas), 0.3 nach dem PoC (OIDC, JWT, Standardtabellen); Issues EduKSX-Core #13–#16.
 - **Modulregister:** `core` aktiv (0.1.0), `codex` aktiv (Repo EduKSX-Codex).
 - **Modulübersicht:** `docs/MODULE-UEBERSICHT.md` – Zweck, Kurzbeschreibung, Systemgrenzen und Icons aller Module, Gruppen, Integration über Plugins (Entwurf); Register mit `connect`, `licence`, `portal`, `shop`, `sign`, `time` und neu `staffing` (Einsatzplanung) als geplant.
