@@ -11,6 +11,8 @@ Architektur, Schnittstellen und Betriebskonzept der EduKSX-Plattform (Ident, Mod
 | Gemeinsame Bibliothek `eduksx/core` | [docs/KONZEPT-CORE.md](docs/KONZEPT-CORE.md) |
 | Ident mit Zitadel, Proof of Concept | [docs/KONZEPT-IDENT.md](docs/KONZEPT-IDENT.md) |
 | Vorlage für neue Module, Datenschutz-Vorlagen | [docs/KONZEPT-MODULVORLAGE.md](docs/KONZEPT-MODULVORLAGE.md), [docs/vorlagen/](docs/vorlagen/DATENSCHUTZ-VERZEICHNIS.md) |
+| Leitstand, Selbst-Hosting, Plugins | [docs/KONZEPT-LEITSTAND.md](docs/KONZEPT-LEITSTAND.md), [docs/KONZEPT-SELBSTHOSTING.md](docs/KONZEPT-SELBSTHOSTING.md), [docs/KONZEPT-PLUGINS.md](docs/KONZEPT-PLUGINS.md) |
+| Module, Systemgrenzen, Icons | [docs/MODULE-UEBERSICHT.md](docs/MODULE-UEBERSICHT.md) |
 | Schnittstellen als Schemas | [spec/README.md](spec/README.md) |
 | Prüfaufträge | [RLS](docs/PRUEFAUFTRAG-RLS.md), [DPoP/mTLS](docs/PRUEFAUFTRAG-DPOP-MTLS.md) |
 | Modulschlüssel | [docs/REGISTER-MODULE.md](docs/REGISTER-MODULE.md) |

@@ -36,6 +36,7 @@ class Dokumente(unittest.TestCase):
             "docs/KONZEPT-CORE.md", "docs/KONZEPT-IDENT.md", "docs/KONZEPT-MODULVORLAGE.md",
             "docs/vorlagen/DATENSCHUTZ-VERZEICHNIS.md", "docs/vorlagen/DATENSCHUTZ-FOLGENABSCHAETZUNG.md",
             "docs/PRUEFAUFTRAG-RLS.md", "docs/PRUEFAUFTRAG-DPOP-MTLS.md", "spec/README.md", "docs/MODULE-UEBERSICHT.md",
+            "docs/KONZEPT-LEITSTAND.md", "docs/KONZEPT-SELBSTHOSTING.md", "docs/KONZEPT-PLUGINS.md",
         ]
         self.assertEqual([], [d for d in pflicht if not (ROOT / d).is_file()], "Dokumente fehlen")
 

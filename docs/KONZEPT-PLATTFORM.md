@@ -92,9 +92,10 @@ und Schüler für Stundenplan und Lizenzen) wären ein eigenes Modul mit API, ni
 
 ### 4.4 Leitstand
 
-Interne Anwendung (nicht Teil eines Moduls): Kunden und ihre Module, Versionen je Instanz, Update-Ringe,
-Wartungsfenster, Zustand, Meldungen; später Verträge und Abrechnung. Richtet neue Kunden automatisch ein
-(Namespace bzw. VM, Datenbank, Speicher, DNS, Zertifikat, Client in Ident, erstes Admin-Konto).
+Interne Anwendung (Modul `ops`): **Kunden und Kundeninstanzen** – Verträge, Module und Versionen je Kunde,
+selbst gehostete Instanzen mit Heartbeat und Update-Ringen; später Abrechnung. Die Technik unserer eigenen Server
+(Ausrollen, Container, Zustand, Sicherung) liegt in **MarKusSX-Operation** (Komodo, Lagekarte, §7.3a); ops liest dort
+nur (BESCHLOSSEN 13.11.2026, [KONZEPT-LEITSTAND.md](KONZEPT-LEITSTAND.md)).
 
 ## 5. Schnittstellen (verbindlich)
 
@@ -124,7 +125,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - **Rückfall:** je Modul ein lokales Notfallkonto (Break-Glass) für den Betrieb, protokolliert.
 - **Ausnahme Selbst-Hosting** (BESCHLOSSEN 13.11.2026, #40): Beim Betrieb durch den Kunden gibt es kein Ident. Die
   Module melden selbst an – lokale Konten mit zweitem Faktor (TOTP/Passkey) – und binden optional Microsoft 365
-  (Entra ID) oder Google per OIDC an; Edulog wird beim Selbst-Hosting nicht angeboten. Details: Konzept Selbst-Hosting (#40).
+  (Entra ID) oder Google per OIDC an; Edulog wird beim Selbst-Hosting nicht angeboten. Details:
+  [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md) (#40).
 
 ### S2 · Dienst zu Dienst
 
@@ -163,7 +165,9 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - **Nur ausgehend** von der Instanz: `POST /api/v1/instances/{id}/heartbeat` alle 15 Minuten (Version, Zustand,
   Ergebnis des letzten Auftrags – keine Inhalte, keine Personendaten); `GET /api/v1/instances/{id}/jobs` holt
   Aufträge (Update auf Version X mit Digest, Wartungsfenster).
-- Anmeldung der Instanz mit eigenem Client (Client Credentials) oder mTLS; Aufträge signiert.
+- Anmeldung der Instanz mit Instanz-Token von ops (selbst gehostet, ohne Ident) bzw. Client Credentials (bei uns);
+  Aufträge signiert. Bei uns gehostete Instanzen aktualisiert Komodo (Operation); S6 gilt für selbst gehostete
+  Instanzen mit deren Update-Dienst ([KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)).
 - Images nur signiert aus der offiziellen Registry; Update mit Sicherung, Prüfung, Rücksprung.
 
 ### S7 · Modulwechsel und Navigation

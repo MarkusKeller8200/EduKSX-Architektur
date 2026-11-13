@@ -15,9 +15,9 @@ für einzelne Module.
 | [v1/oidc-claims.schema.json](v1/oidc-claims.schema.json) | S1 | Claims im ID-Token: Standard-Claims, `acr`/`amr`, `eduksx_orgs`, `eduksx_roles` |
 | [v1/event.schema.json](v1/event.schema.json) | S4 | Ereignis als CloudEvents 1.0 (JSON) mit den Arten aus Ident und ihren Daten |
 | [v1/signature.schema.json](v1/signature.schema.json) | S4 | Kopfzeile `EduKSX-Signature` |
-| [v1/module-manifest.schema.json](v1/module-manifest.schema.json) | S5 | Steckbrief `/.well-known/eduksx-module.json` |
+| [v1/module-manifest.schema.json](v1/module-manifest.schema.json) | S5 | Steckbrief `/.well-known/eduksx-module.json`, mit Abschnitt `ui` für Plugins ([KONZEPT-PLUGINS.md](../docs/KONZEPT-PLUGINS.md)) |
 | [v1/health.schema.json](v1/health.schema.json) | S5 | Antwort von `/health` |
-| [v1/ops-instances.openapi.json](v1/ops-instances.openapi.json) | S6 | Heartbeat und Aufträge zwischen Instanz und Leitstand (OpenAPI 3.1) |
+| [v1/ops-instances.openapi.json](v1/ops-instances.openapi.json) | S6 | Heartbeat und Aufträge zwischen Instanz und Leitstand (OpenAPI 3.1); Anmeldung per Client Credentials oder Instanz-Token |
 
 Beispiele liegen unter `v1/examples/<name>/valid|invalid/` (bei OpenAPI `v1/examples/<datei>/<Schema>/…`). Alle Werte sind
 erfunden; Adressen nur unter `.example`. Der Steckbrief des Glossary bleibt ein **Entwurf** – die Werte (Version, Rollen,
