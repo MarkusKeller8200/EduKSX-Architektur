@@ -41,7 +41,7 @@ So arbeitet ein Modul mit Core:
 |---|---|---|---|---|
 | C1 | Bibliothek oder Dienst? | Bibliothek / Dienst | Bibliothek mit Standardtabellen je Modul-Schema | BESCHLOSSEN 13.11.2026 (DB-E12) |
 | C2 | Wo entsteht Core? | eigenes Repo / im Glossary | eigenes Repo **EduKSX-Core** | BESCHLOSSEN 13.11.2026 |
-| C3 | Lizenz | MIT / intern / AGPL | **MIT** wie das Glossary | BESCHLOSSEN 13.11.2026 |
+| C3 | Lizenz | MIT / intern / AGPL | **MIT** (Bibliotheken MIT, Module AGPL – Plattform §9.7) | BESCHLOSSEN 13.11.2026 |
 | C4 | Unterstützte Versionen 0.1 | nur aktuell / auch ältere | **PHP 8.4, Laravel 13** | BESCHLOSSEN 13.11.2026 |
 | C5 | Verteilung | Packagist / GitHub als Composer-Repository | Packagist (öffentlich, MIT; kein Token in den Modulen nötig) | BESCHLOSSEN 13.11.2026 |
 | C6 | Namensraum | `EduKSX\Core\…` / `Eduksx\Core\…` | `EduKSX\Core\…`, Paket `eduksx/core` | BESCHLOSSEN 13.11.2026 |
@@ -71,10 +71,21 @@ Reihenfolge nach API G3 (Basis → Listen → Prüfungen). Quelle = heutiger Ort
 | Prüfungen | Spectral-Regelsatz `eduksx` (zuerst als Warnung) | neu | API D3 |
 | | Konformitätstest: Tabellen- und Spaltennamen englisch, STRICT/CHECK, Index auf Fremdschlüsseln, Präfixe mit Modulschlüssel | neu | DB E5, API D8 |
 
-**Nicht in 0.1** (kommt, sobald ein Modul es braucht): OIDC-Client und Token-/JWT-Prüfung (mit Ident, 0.2),
-Standardtabellen (C7), Historie `data_changes` mit Datenklassen (heute `app/Data/DataChanges.php`,
-`DataClasses.php` – Kandidat für 0.2), Anonymisierung, Export, Idempotenz-Speicher, Webhook-Signatur, HTTP-Client mit
-SSRF-Schutz, Werkzeug SQLite → PostgreSQL (DB E6), Steckbrief und `/health` (Plattform S5).
+**Nicht in 0.1** (kommt, sobald ein Modul es braucht): siehe Fahrplan 4.1a; ausserdem Anonymisierung, Export,
+Idempotenz-Speicher, HTTP-Client mit SSRF-Schutz, Werkzeug SQLite → PostgreSQL (DB E6).
+
+### 4.1a Fahrplan nach 0.1 (BESCHLOSSEN 13.11.2026)
+
+Core 0.1.0 ist veröffentlicht (Repo EduKSX-Core). Weiter ohne auf Ident zu warten:
+
+| Version | Bausteine | Abnehmer | Grundlage |
+|---|---|---|---|
+| **0.2** | Steckbrief `/.well-known/eduksx-module.json` und `/health` aus `config/eduksx.php` | Glossary #189 | S5, [module-manifest](../spec/v1/module-manifest.schema.json), [health](../spec/v1/health.schema.json) |
+| | Empfang von S4-Ereignissen: Signatur `t=…,v1=…` prüfen (300 s, konstante Zeit, mehrere `v1`), Idempotenz über Ereignis-ID, Weitergabe als Laravel-Event | Glossary #187 | S4, SP6, [event](../spec/v1/event.schema.json) |
+| | Historie `data_changes` mit Datenklassen (heute im Glossary `app/Data/DataChanges.php`, `DataClasses.php`) | Glossary | DB A7, B2 |
+| | Schemas aus `spec/` unverändert ausliefern; Konformitätstest prüft den Steckbrief | alle Module | C11 |
+| **0.3** (nach PoC #36) | OIDC-Client und Abmelden, JWT-/Scope-Prüfung (S2), Standardtabellen (C7) | Glossary #185, #186, #188 | S1, S2, Ident |
+| später | RLS-Helfer (nach #34), DPoP-Prüfung (nach #35) | zentrale Module | DB-E5, API C1 |
 
 ### 4.2 Herauslöse-Plan
 

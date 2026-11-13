@@ -19,11 +19,11 @@ Pull Request.
 
 | Schlüssel | Modul (intern) | Marketingname (Stand) | Repo | Betriebsart | Status |
 | --- | --- | --- | --- | --- | --- |
-| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core (geplant) | Paket | geplant |
+| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.1.0) |
 | `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | – | zentral | geplant |
 | `ops` | Leitstand: Kunden, Instanzen, Versionen, Updates, Zustand | Teil von «EduKSX-Core» | – | intern | geplant |
 | `glossary` | Glossar | EduKSX-Glossary | EduKSX-Glossary | zentral | aktiv |
-| `codex` | Rechtssammlung | EduKSX-Codex | – | zentral | geplant |
+| `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |
 | `intranet` | Intranet einer Schule | Intranet | sek-intranet | isoliert | aktiv |
 | `timetable` | Stundenplan | Stundenplan | – | isoliert | geplant |
 | `portal`, `connect`, `licence`, `shop`, `sign`, `time`, `services` | Produktfamilie | – | – | – | reserviert |

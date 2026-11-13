@@ -78,7 +78,7 @@ Zitadel-Format nie.
 | I2 | Version | v3 / v4 | aktuelle Hauptversion 4 (Actions v2 und Login V2 dort Standard), genaue Version im Compose fixiert, Updates über Renovate | EMPFOHLEN |
 | I3 | Anmeldeseite | Login V2 von Zitadel mit EduKSX-Gestaltung / eigene Seite über die Session-API | Login V2 mit Gestaltung; eigene Seite erst bei Bedarf | EMPFOHLEN |
 | I4 | Eigene Logik | in Zitadel (Actions) / in einer Brücke | Ident-Brücke als Laravel-App (Modul `ident`), Actions nur als Aufruf der Brücke | EMPFOHLEN |
-| I5 | Mandanten | eine Instanz mit Organisationen / Instanz je Kunde | eine Instanz, Organisation = Kunde; Trennung je Kunde bleibt Plattform §9.2 | EMPFOHLEN (§9.2 OFFEN) |
+| I5 | Mandanten | eine Instanz mit Organisationen / Instanz je Kunde | eine Instanz, Organisation = Kunde; eigene Instanz nur auf Wunsch bzw. bei «besonders schützenswert» | BESCHLOSSEN 13.11.2026 (Plattform §9.2) |
 | I6 | Anschluss Edulog | je Modul / einmal für die Plattform | einmal: Ident ist der Dienstleistungsanbieter gegenüber Edulog | EMPFOHLEN; Vertrag ZU PRÜFEN |
 | I7 | Rollen aus Edulog | automatisch / Vorschlag mit Bestätigung | Vorschlag, Bestätigung durch Organisations-Admin (2.1) | EMPFOHLEN |
 | I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | ZU PRÜFEN im PoC, ob Zitadel SCIM an Anwendungen ausliefert; sonst sendet die Brücke SCIM, ausgelöst durch Ereignisse | ZU PRÜFEN |
