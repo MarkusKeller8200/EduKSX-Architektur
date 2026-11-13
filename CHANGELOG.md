@@ -6,6 +6,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Neu
+
+- **Konzept Core (#27):** `docs/KONZEPT-CORE.md` – Umfang `eduksx/core` 0.1, Herauslöse-Plan aus dem Glossary, Entscheide C1–C10 (Entwurf).
+
 ## [0.1.0] – 2026-11-13
 
 ### Neu
