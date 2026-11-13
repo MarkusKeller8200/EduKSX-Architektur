@@ -1,7 +1,6 @@
 # Konzept: Plugins – Module in Intranet und Portal einbinden (#44)
 
-Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **IN ARBEIT** – P1, P2 BESCHLOSSEN im
-Chat 13.11.2026; übrige Punkte EMPFOHLEN.
+Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 13.11.2026 (eingefroren mit 0.3.0; Änderungen nur über `konzept-anpassung`).
 
 Grundlagen: [Modulübersicht](MODULE-UEBERSICHT.md) §4, [Plattform](KONZEPT-PLATTFORM.md) S1, S2, S5, S7, S8,
 [Steckbrief-Schema](../spec/v1/module-manifest.schema.json).
@@ -42,12 +41,12 @@ Intranet (Gastgeber)                         Modul (z. B. Glossary)
 |---|---|---|---|---|
 | P1 | Form | Manifest + Web-Komponenten / Composer-Paket im Gastgeber | **Manifest im Steckbrief (S5) + Web-Komponenten des Moduls**; der Gastgeber installiert keinen fremden Code | BESCHLOSSEN 13.11.2026 |
 | P2 | Umfang Stufe 1 | eigene Module / auch Dritte | **eigene Module**; Stufe 1 öffentliche Daten (Glossary, Codex) und Links; Stufe 2 Daten der Person über Ident; Fremdsysteme über `connect`; keine Plugins Dritter | BESCHLOSSEN 13.11.2026 |
-| P3 | Beschreibung | eigenes Format / Abschnitt im Steckbrief | Abschnitt `ui` im Steckbrief (`spec/v1/module-manifest.schema.json`, abwärtskompatibel ergänzt) | EMPFOHLEN |
-| P4 | Einbettung | Web-Komponente / iframe | Web-Komponente mit Shadow DOM; iframe nur für ganze Seiten mit eigener Anmeldung | EMPFOHLEN |
-| P5 | Gestaltung | frei / gemeinsame Gestaltung | Komponenten übernehmen Farben und Schrift des Gastgebers über CSS-Variablen (`--eduksx-*`), später aus `@eduksx/ui` (Core C10); WCAG 2.1 AA | EMPFOHLEN |
-| P6 | Sicherheit | – | Skripte nur vom Host des Moduls, mit Subresource Integrity bzw. fester Version im Pfad (`/ui/v1/`); CSP des Gastgebers listet erlaubte Module; Tokens nur mit `aud` des Moduls, höchstens 10 Min. | EMPFOHLEN |
-| P7 | Selbst-Hosting | – | lokale Gastgeber dürfen zentrale Module (Glossary, Codex) einbinden – nur öffentliche Daten, ohne Anmeldung (SH-E12) | EMPFOHLEN |
-| P8 | Versionierung | – | `ui` gehört zur Steckbrief-Version v1; Komponenten-Pfade tragen die Hauptversion (`/ui/v1/`); Brüche nur mit `/ui/v2/` parallel | EMPFOHLEN |
+| P3 | Beschreibung | eigenes Format / Abschnitt im Steckbrief | Abschnitt `ui` im Steckbrief (`spec/v1/module-manifest.schema.json`, abwärtskompatibel ergänzt) | BESCHLOSSEN 13.11.2026 |
+| P4 | Einbettung | Web-Komponente / iframe | Web-Komponente mit Shadow DOM; iframe nur für ganze Seiten mit eigener Anmeldung | BESCHLOSSEN 13.11.2026 |
+| P5 | Gestaltung | frei / gemeinsame Gestaltung | Komponenten übernehmen Farben und Schrift des Gastgebers über CSS-Variablen (`--eduksx-*`), später aus `@eduksx/ui` (Core C10); WCAG 2.1 AA | BESCHLOSSEN 13.11.2026 |
+| P6 | Sicherheit | – | Skripte nur vom Host des Moduls, mit Subresource Integrity bzw. fester Version im Pfad (`/ui/v1/`); CSP des Gastgebers listet erlaubte Module; Tokens nur mit `aud` des Moduls, höchstens 10 Min. | BESCHLOSSEN 13.11.2026 |
+| P7 | Selbst-Hosting | – | lokale Gastgeber dürfen zentrale Module (Glossary, Codex) einbinden – nur öffentliche Daten, ohne Anmeldung (SH-E12) | BESCHLOSSEN 13.11.2026 |
+| P8 | Versionierung | – | `ui` gehört zur Steckbrief-Version v1; Komponenten-Pfade tragen die Hauptversion (`/ui/v1/`); Brüche nur mit `/ui/v2/` parallel | BESCHLOSSEN 13.11.2026 |
 
 ## 4. Umsetzung
 
@@ -92,10 +91,12 @@ Intranet (Gastgeber)                         Modul (z. B. Glossary)
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #44 | Dieses Konzept | `_2 in Arbeit` |
+| #44 | Dieses Konzept | abgenommen 13.11.2026 |
+| #52 | Probe Glossary-Plugin im Intranet | `triage` |
 | (folgt, Glossary) | Steckbrief mit `ui`, Web-Komponenten unter `/ui/v1/`, Such-API | nach Abnahme |
 | (folgt, Intranet) | Gastgeber: Module anbinden, Kacheln, Suche | nach Abnahme |
 
 ## 6. Verlauf
 
+- 13.11.2026: Konzeptabschluss – alle Entscheide ausser den vom PoC abhängigen beschlossen; eingefroren mit 0.3.0.
 - 13.11.2026: Konzept angelegt; P1, P2 im Chat beschlossen.

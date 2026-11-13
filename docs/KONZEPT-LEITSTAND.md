@@ -1,7 +1,6 @@
 # Konzept: Leitstand `ops` – Kunden, Kundeninstanzen und Updates (#48)
 
-Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **IN ARBEIT** – Abgrenzung und
-Update-Weg BESCHLOSSEN im Chat 13.11.2026; Datenmodell und Oberfläche EMPFOHLEN.
+Stand: 13.11.2026 (Meilenstein 0.3.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 13.11.2026 (eingefroren mit 0.3.0; Änderungen nur über `konzept-anpassung`).
 
 Konkretisiert [Plattform 4.4 und S6](KONZEPT-PLATTFORM.md). Modulschlüssel `ops` laut [Modulregister](REGISTER-MODULE.md).
 Betrieb der eigenen Server: Repo **MarKusSX-Operation** (Plattform §7.3a).
@@ -72,10 +71,10 @@ gespeichert nur als Hash; widerrufbar; Präfix `ops_inst_`). Instanzen bei uns k
 |---|---|---|---|---|
 | L1 | Aufteilung ops ↔ Operation | ops = Kunden + Kundeninstanzen / ops entfällt / ops = alles | ops = Kunden und Kundeninstanzen; Technik unserer Server in Operation | BESCHLOSSEN 13.11.2026 |
 | L2 | Updates bei Kunden | eigener Update-Dienst / Komodo-Agent beim Kunden | eigener Update-Dienst im Suite-Paket, Heartbeat freiwillig | BESCHLOSSEN 13.11.2026 |
-| L3 | Zustand unserer Server in ops | eigene Messung / Komodo-API lesen | Komodo-API nur lesend (Konto ohne Schreibrechte) | EMPFOHLEN |
-| L4 | Anmeldung der Instanz | nur Ident / Instanz-Token | Instanz-Token von ops; Ident optional für Instanzen bei uns | EMPFOHLEN |
-| L5 | Ringe | 2 / 3 Ringe | Ring 0 (wir), Ring 1 (Pilot ~5 %), Ring 2 (alle) | EMPFOHLEN (Glossary U15) |
-| L6 | Wann bauen? | jetzt / mit dem ersten selbst gehosteten Kunden | erst wenn es selbst gehostete Instanzen gibt; bis dahin genügt eine Kundenliste in Operation bzw. eine Tabelle | EMPFOHLEN (nichts auf Vorrat) |
+| L3 | Zustand unserer Server in ops | eigene Messung / Komodo-API lesen | Komodo-API nur lesend (Konto ohne Schreibrechte) | BESCHLOSSEN 13.11.2026 |
+| L4 | Anmeldung der Instanz | nur Ident / Instanz-Token | Instanz-Token von ops; Ident optional für Instanzen bei uns | BESCHLOSSEN 13.11.2026 |
+| L5 | Ringe | 2 / 3 Ringe | Ring 0 (wir), Ring 1 (Pilot ~5 %), Ring 2 (alle) | BESCHLOSSEN 13.11.2026 |
+| L6 | Wann bauen? | jetzt / mit dem ersten selbst gehosteten Kunden | erst wenn es selbst gehostete Instanzen gibt; bis dahin genügt eine Kundenliste in Operation bzw. eine Tabelle | BESCHLOSSEN 13.11.2026 |
 
 ## 5. Umsetzung (Skizze)
 
@@ -90,10 +89,11 @@ gespeichert nur als Hash; widerrufbar; Präfix `ops_inst_`). Instanzen bei uns k
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #48 | Dieses Konzept | `_2 in Arbeit` |
-| #40 | Selbst-Hosting mit Update-Dienst | `_2 in Arbeit` |
+| #48 | Dieses Konzept | abgenommen 13.11.2026 |
+| #40 | Selbst-Hosting mit Update-Dienst | abgenommen 13.11.2026 |
 | (folgt) | Repo EduKSX-Ops | mit dem ersten selbst gehosteten Kunden (L6) |
 
 ## 7. Verlauf
 
+- 13.11.2026: Konzeptabschluss – alle Entscheide ausser den vom PoC abhängigen beschlossen; eingefroren mit 0.3.0.
 - 13.11.2026: Konzept angelegt; L1, L2 im Chat beschlossen.

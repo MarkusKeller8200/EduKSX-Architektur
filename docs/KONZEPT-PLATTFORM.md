@@ -1,6 +1,7 @@
 # Konzept: EduKSX-Plattform – Architektur, Schnittstellen, Betrieb
 
-Stand: 13.11.2026 · Status: **BESCHLOSSEN** – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Entscheide in §9
+Stand: 13.11.2026 · Status: **BESCHLOSSEN, eingefroren mit 0.3.0** (Änderungen nur über `konzept-anpassung`,
+siehe README) – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Entscheide in §9
 sind seit 13.11.2026 alle getroffen (9.1 vorbehaltlich PoC #36). Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
 Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
 

@@ -19,6 +19,19 @@ Architektur, Schnittstellen und Betriebskonzept der EduKSX-Plattform (Ident, Mod
 
 Prüfen: `python3 -m pip install -r requirements-pruefung.txt`, dann `python3 -m unittest discover -s tests`.
 
+## Konzept eingefroren (ab 0.3.0)
+
+Seit Release 0.3.0 «Konzept abgeschlossen» (13.11.2026) gilt das Konzept als **eingefroren**. Die Module arbeiten
+danach. Geändert wird es nur noch,
+
+1. wenn die **Umsetzung ein Problem zeigt** (PoC, Prototyp, Modul) – als Issue mit Label **`konzept-anpassung`**,
+   Begründung aus der Umsetzung und betroffenem Abschnitt, und
+2. nach **ausdrücklicher Freigabe** durch Projektverantwortliche:r (`_1 bereit`).
+
+Offene Punkte, die erst die Umsetzung entscheidet (Ident-PoC, RLS, DPoP/mTLS, `connect`, Proben), stehen im
+Meilenstein «Anpassungen aus der Umsetzung»; ihre Ergebnisse fliessen auf demselben Weg ein. Redaktionelle
+Korrekturen (Tippfehler, Verweise) brauchen kein eigenes Issue.
+
 ## Mitmachen
 
 Fehler, Verbesserungen und Ideen bitte über die Issue-Formulare melden. Wie Meldungen freigegeben und umgesetzt

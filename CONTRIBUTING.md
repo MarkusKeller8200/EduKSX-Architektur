@@ -2,6 +2,19 @@
 
 Danke für Rückmeldungen und Beiträge! **Datenschutz:** Keine echten Personendaten, Zugangsdaten oder Bildschirmfotos mit Personendaten anhängen – auch nicht teilweise oder verpixelt.
 
+## Konzept eingefroren (ab 0.3.0)
+
+Seit Release 0.3.0 «Konzept abgeschlossen» (13.11.2026) gilt das Konzept als **eingefroren**. Die Module arbeiten
+danach. Geändert wird es nur noch,
+
+1. wenn die **Umsetzung ein Problem zeigt** (PoC, Prototyp, Modul) – als Issue mit Label **`konzept-anpassung`**,
+   Begründung aus der Umsetzung und betroffenem Abschnitt, und
+2. nach **ausdrücklicher Freigabe** durch Projektverantwortliche:r (`_1 bereit`).
+
+Offene Punkte, die erst die Umsetzung entscheidet (Ident-PoC, RLS, DPoP/mTLS, `connect`, Proben), stehen im
+Meilenstein «Anpassungen aus der Umsetzung»; ihre Ergebnisse fliessen auf demselben Weg ein. Redaktionelle
+Korrekturen (Tippfehler, Verweise) brauchen kein eigenes Issue.
+
 ## Fehler melden und Ideen vorschlagen
 
 [Neues Issue](https://github.com/MarkusKeller8200/eduksx-architektur/issues/new/choose) mit einer der Vorlagen. Neue Meldungen erhalten

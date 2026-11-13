@@ -1,7 +1,8 @@
 # Konzept: EduKSX-Ident mit Zitadel und Proof of Concept (#25)
 
-Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN als Drehbuch** (#25, 13.11.2026) –
-I2–I11 bleiben Empfehlungen bzw. Prüfpunkte, bis der Proof of Concept (#36) sie bestätigt.
+Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** (13.11.2026, eingefroren mit 0.3.0) –
+offen bleiben nur Punkte, die der Proof of Concept (#36) entscheidet (I1-Vorbehalt, I8, I9, I13, I14); Änderungen
+nur über `konzept-anpassung`.
 
 Konkretisiert [Plattform 4.1, §5 S1–S4, S7 und §9.1](KONZEPT-PLATTFORM.md). Modulschlüssel `ident` laut
 [Modulregister](REGISTER-MODULE.md). Schemas der Schnittstellen: [spec/](../spec/README.md).
@@ -112,19 +113,19 @@ Zitadel-Format nie.
 | Nr. | Frage | Optionen | Entscheid | Status |
 |---|---|---|---|---|
 | I1 | Identity-Provider | Zitadel / Keycloak | Zitadel, Plan B Keycloak | BESCHLOSSEN 13.11.2026 vorbehaltlich PoC |
-| I2 | Version | v3 / v4 | aktuelle Hauptversion 4 (Actions v2 und Login V2 dort Standard), genaue Version im Compose fixiert, Updates über Renovate | EMPFOHLEN |
-| I3 | Anmeldeseite | Login V2 von Zitadel mit EduKSX-Gestaltung / eigene Seite über die Session-API | Login V2 mit Gestaltung; eigene Seite erst bei Bedarf | EMPFOHLEN |
-| I4 | Eigene Logik | in Zitadel (Actions) / in einer Brücke | Ident-Brücke als Laravel-App (Modul `ident`), Actions nur als Aufruf der Brücke | EMPFOHLEN |
+| I2 | Version | v3 / v4 | aktuelle Hauptversion 4 (Actions v2 und Login V2 dort Standard), genaue Version im Compose fixiert, Updates über Renovate | BESCHLOSSEN 13.11.2026 |
+| I3 | Anmeldeseite | Login V2 von Zitadel mit EduKSX-Gestaltung / eigene Seite über die Session-API | Login V2 mit Gestaltung; eigene Seite erst bei Bedarf | BESCHLOSSEN 13.11.2026 |
+| I4 | Eigene Logik | in Zitadel (Actions) / in einer Brücke | Ident-Brücke als Laravel-App (Modul `ident`), Actions nur als Aufruf der Brücke | BESCHLOSSEN 13.11.2026 |
 | I5 | Mandanten | eine Instanz mit Organisationen / Instanz je Kunde | eine Instanz, Organisation = Kunde; eigene Instanz nur auf Wunsch bzw. bei «besonders schützenswert» | BESCHLOSSEN 13.11.2026 (Plattform §9.2) |
-| I6 | Anschluss Edulog | je Modul / einmal für die Plattform | einmal: Ident ist der Dienstleistungsanbieter gegenüber Edulog | EMPFOHLEN; Vertrag ZU PRÜFEN |
-| I7 | Rollen aus Edulog | automatisch / Vorschlag mit Bestätigung | Vorschlag, Bestätigung durch Organisations-Admin (2.1) | EMPFOHLEN |
+| I6 | Anschluss Edulog | je Modul / einmal für die Plattform | einmal: Ident ist der Dienstleistungsanbieter gegenüber Edulog | BESCHLOSSEN 13.11.2026; Vertrag ZU PRÜFEN |
+| I7 | Rollen aus Edulog | automatisch / Vorschlag mit Bestätigung | Vorschlag, Bestätigung durch Organisations-Admin (2.1) | BESCHLOSSEN 13.11.2026 |
 | I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | ZU PRÜFEN im PoC, ob Zitadel SCIM an Anwendungen ausliefert; sonst sendet die Brücke SCIM, ausgelöst durch Ereignisse | ZU PRÜFEN |
 | I9 | An den Absender gebundene Tokens (#16) | DPoP / mTLS / keine | siehe [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md) | ZU PRÜFEN |
 | I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
 | I12 | Edulog-API (Föderieren von Identitäten) | Ident nur als Dienstleistungsanbieter / zusätzlich als Identitätsanbieter gegenüber Edulog | nur Dienstleistungsanbieter: Die Edulog-API (Version 1.4) richtet sich an Identitätsanbieter und verlangt je Person die AHV-Nummer (AHVN13); deren systematische Verwendung braucht eine gesetzliche Grundlage und wäre «besonders schützenswert». Konten bringen die Kantone bzw. Schulen über ihren eigenen Identitätsanbieter | BESCHLOSSEN 13.11.2026 |
 | I13 | Protokoll zwischen Edulog und Ident | SAML 2.0 / OpenID Connect | OpenID Connect, falls Edulog es Dienstleistungsanbietern anbietet (seit Sicherheitsanforderungen 1.2 vorgesehen): vermeidet die Abweichungen beim SAML-Signaturzertifikat (2.3); sonst SAML mit von Hand ergänzten Metadaten und geklärtem Zertifikat | EMPFOHLEN; bei der Geschäftsstelle ZU PRÜFEN |
 | I14 | Wo Edulog-Konten und Schulzugehörigkeit leben | Konto in der Organisation der Schule / ein Plattform-Bereich, Zugehörigkeit in der Brücke | PoC: Konten aus Edulog entstehen in der Organisation des Anmeldekontexts (Plattform); Zitadel kann Konten nicht verschieben, und eine Lehrperson gehört oft mehreren Schulen. Daher Konten im Plattform-Bereich, Schulzugehörigkeit und Bestätigung in der Brücke (Quelle für `eduksx_orgs`); Zitadel nur für Anmeldung. Abbildung der Attribute mit Login V2 in der Brücke (Actions v2, im PoC bestätigt); das JavaScript für Login V1 entfällt | BESCHLOSSEN 13.11.2026 |
-| I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | EMPFOHLEN |
+| I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | BESCHLOSSEN 13.11.2026 |
 
 ## 4. Proof of Concept (#25)
 
@@ -221,6 +222,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: Konzeptabschluss – alle Entscheide ausser den vom PoC abhängigen beschlossen; eingefroren mit 0.3.0.
 - 13.11.2026: I12 und I14 beschlossen; weiter mit Gestaltung Login V2 und Brücke als Laravel-App.
 - 13.11.2026: Login V2 hinter gemeinsamem Proxy getestet: Passwort und Edulog-Ersatz, Abbildung über die Brücke (Actions v2); P1 bestanden.
 - 13.11.2026: P5 mit Edulog-Ersatz bestanden; I14 (Konten im Plattform-Bereich, Zugehörigkeit in der Brücke) empfohlen.

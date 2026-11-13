@@ -3,6 +3,12 @@
 Ältere Sitzungen aus [PROJEKTSTAND.md](PROJEKTSTAND.md), gekürzt. Neueste oben.
 
 
+
+## 13.11.2026 (21:30)
+
+> Stand 13.11.2026 (21:30): Release 0.2.0; Plattform-Entscheide §9.2–9.7 und Werkzeuge Betrieb Stufe 1 getroffen.
+> Core 0.1.0 veröffentlicht, Core 0.2 (ohne Ident) geplant. Als Nächstes PoC Zitadel (#36) und Core 0.2.
+
 ## 13.11.2026 (21:00)
 
 > Stand 13.11.2026 (21:00): Release 0.2.0 «Core und Ident» – Konzepte Core, Ident (Drehbuch), Schemas S1/S4/S5/S6,
