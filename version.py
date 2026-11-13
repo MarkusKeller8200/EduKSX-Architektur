@@ -1,2 +1,2 @@
 """Version des Projekts (GitHub-Blueprint: release.py set X.Y.Z)."""
-VERSION = "0.2.0"
+VERSION = "0.3.0"
