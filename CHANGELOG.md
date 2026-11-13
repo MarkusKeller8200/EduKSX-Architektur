@@ -9,6 +9,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 ### Geändert
 
 - **Redaktionell:** Repo EdukSX-Ident im Register und in der Modulübersicht; Issue-Tabellen in KONZEPT-CORE und KONZEPT-IDENT nachgeführt; Name des Konformitätstests in KONZEPT-CORE korrigiert (`AssertsConformance`).
+- **Repo:** Python-Cache (`tests/__pycache__/`) nicht mehr eingecheckt, `.gitignore` ergänzt.
 
 ## [0.3.0] – 2026-11-13
 
