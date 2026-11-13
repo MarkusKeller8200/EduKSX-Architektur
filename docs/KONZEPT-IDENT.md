@@ -81,6 +81,10 @@ Ident von Edulog erhält, und für die Testkonten im PoC (P5):
 | `title` | frei gewählte Funktion, nur Nicht-Lernende | nicht anfordern (frei, kantonal verschieden) |
 | `EdulogPersonBirthDate` | `JJJJMMTT`; an Dienste geht statt dessen die Altersklasse; fehlt sie bei Lernenden, gilt die jüngste Altersklasse | nicht anfordern; Minderjährige sind über `pupil` ohnehin ausgeschlossen |
 
+**Umgebungen:** Edulog betreibt eine Integrationsumgebung (`go.int.edulog.ch`) getrennt von der Produktion
+(`go.edulog.ch`); die Integration kann jederzeit neue Versionen erhalten und Daten löschen. Ident wird zuerst dort als
+Dienstleistungsanbieter angeschlossen (dev), Produktion erst nach dem Go (Edulog-API-Referenz 1.4, 17.01.2022).
+
 ### 2.2 Ereignisse
 
 Zitadel signiert Aufrufe aus Actions v2 mit der Kopfzeile `ZITADEL-Signature` (HMAC über Inhalt und Zeitstempel). Die
@@ -102,6 +106,7 @@ Zitadel-Format nie.
 | I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | ZU PRÜFEN im PoC, ob Zitadel SCIM an Anwendungen ausliefert; sonst sendet die Brücke SCIM, ausgelöst durch Ereignisse | ZU PRÜFEN |
 | I9 | An den Absender gebundene Tokens (#16) | DPoP / mTLS / keine | siehe [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md) | ZU PRÜFEN |
 | I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
+| I12 | Edulog-API (Föderieren von Identitäten) | Ident nur als Dienstleistungsanbieter / zusätzlich als Identitätsanbieter gegenüber Edulog | nur Dienstleistungsanbieter: Die Edulog-API (Version 1.4) richtet sich an Identitätsanbieter und verlangt je Person die AHV-Nummer (AHVN13); deren systematische Verwendung braucht eine gesetzliche Grundlage und wäre «besonders schützenswert». Konten bringen die Kantone bzw. Schulen über ihren eigenen Identitätsanbieter | EMPFOHLEN |
 | I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | EMPFOHLEN |
 
 ## 4. Proof of Concept (#25)
@@ -176,7 +181,8 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 - Zitadel Actions v2 und Signatur – <https://zitadel.com/docs/guides/integrate/actions/usage>,
   Umstieg von v1 <https://zitadel.com/docs/guides/integrate/actions/migrate-from-v1>
 - Zitadel mit SAML-Anbieter und Attribut-Abbildung – <https://zitadel.com/docs/guides/integrate/identity-providers/mocksaml>
-- Edulog: Leitfaden zu den Attributen für Identitätsanbieter, Version 1.2.1 (10.09.2020, von Projektverantwortliche:r
+- Edulog: API-Referenz 1.4 (ELCA, 17.01.2022, von Projektverantwortliche:r bereitgestellt) – Föderieren für
+  Identitätsanbieter, Integrations- und Produktionsumgebung; Leitfaden zu den Attributen für Identitätsanbieter, Version 1.2.1 (10.09.2020, von Projektverantwortliche:r
   bereitgestellt); Attribute für Dienstleistungsanbieter – <https://www.edulog.ch/sites/default/files/2021-07/Leitfaden_Attribute_Dienstleistungsanbieter_0.pdf>,
   Datenschutz <https://www.edulog.ch/de/was-ist-edulog/umgang-mit-daten-und-datenschutz>
 - Keycloak (Plan B): Organisationen ab 26.0 <https://www.keycloak.org/2024/10/keycloak-2600-released.html>, DPoP ab 26.4
@@ -184,6 +190,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: Edulog-API-Referenz 1.4 ausgewertet: Integrationsumgebung für dev; I12 (Ident nicht als Identitätsanbieter) empfohlen.
 - 13.11.2026: Edulog-Formate nach dem Leitfaden für Identitätsanbieter 1.2.1 ergänzt (2.1).
 - 13.11.2026: Edulog vorbereiten, auf dev testen, produktiv erst nach Go (Schalter je Umgebung).
 - 13.11.2026: P9 als positiv angenommen, I10 beschlossen (Restrisiko akzeptiert, Rückfall: Komponente ersetzen).
