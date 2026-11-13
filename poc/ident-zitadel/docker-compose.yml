@@ -22,7 +22,7 @@ services:
     command: start-from-init --masterkeyFile /masterkey/masterkey.txt --tlsMode disabled
     environment:
       ZITADEL_EXTERNALDOMAIN: localhost
-      ZITADEL_EXTERNALPORT: 8080
+      ZITADEL_EXTERNALPORT: 8090   # öffentliche Adresse über den Proxy (proxy.conf): API und Login V2 gemeinsam
       ZITADEL_EXTERNALSECURE: "false"
       ZITADEL_DATABASE_POSTGRES_HOST: db
       ZITADEL_DATABASE_POSTGRES_PORT: 5432

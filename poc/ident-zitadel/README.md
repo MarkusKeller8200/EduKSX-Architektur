@@ -14,6 +14,9 @@ kein Betrieb. Ergebnisse stehen in KONZEPT-IDENT §4.3.
 | `edulog-mock/` | Edulog-Ersatz (SimpleSAMLphp-Testbild) mit Testkonten im Format des Leitfadens 1.2.1: Lehrperson, Schulleitung mit `##`, Schülerin, unbekannte Rolle | P5 |
 | `edulog-mapping.js` | Zitadel-Action: Edulog-Attribute auf das Konto abbilden, `##` trennen, Metadaten `edulog_*`, kein Konto für Lernende und leere Rolle | P5 |
 | `edulog_login.py` | Anmeldung über den Edulog-Ersatz bis zum Rücksprung ins Glossary | P5 |
+| `proxy.conf` | nginx: eine Adresse (Port 8090) für Zitadel und Login V2, wie Traefik im Betrieb | P1 |
+| `login_v2.py` | Anmeldung über Login V2 mit Passwort oder Edulog | P1, P5 |
+| `bridge_intent.php` | Brücke für Login V2: Antwort von `RetrieveIdentityProviderIntent` (Actions v2) – Edulog-Attribute abbilden, Lernende abweisen | P5 |
 | `verify.php` | Prüft ein JWT ohne Zusatzpaket (JWKS, RS256, iss, aud, exp) – Vorlage für `eduksx/core` | P3 |
 
 Ablauf (Python 3 mit `requests` und `playwright`, PHP 8.4, Docker):
@@ -38,4 +41,13 @@ docker run -d --name edulog-mock -p 8081:8080 \
   -v $PWD/edulog-mock/authsources.php:/var/www/simplesamlphp/config/authsources.php:ro \
   -v $PWD/edulog-mock/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php:ro \
   kristophjunge/test-saml-idp:1.15
+```
+
+Login V2 (eigener Container, braucht ein Dienstkonto mit `IAM_LOGIN_CLIENT` und dessen Token):
+
+```bash
+docker run -d --name poc-proxy --network host -v $PWD/proxy.conf:/etc/nginx/conf.d/default.conf:ro nginx:1.29-alpine
+docker run -d --name zitadel-login --network host -e HOSTNAME=0.0.0.0 -e ZITADEL_API_URL=http://localhost:8080 \
+  -e NEXT_PUBLIC_BASE_PATH=/ui/v2/login -e ZITADEL_SERVICE_USER_TOKEN="$(cat pat/login-client.pat)" \
+  -e CUSTOM_REQUEST_HEADERS="Host:localhost:8090" ghcr.io/zitadel/zitadel-login:v4.20.3
 ```

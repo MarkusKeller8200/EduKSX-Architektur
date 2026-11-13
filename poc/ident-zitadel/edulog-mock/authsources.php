@@ -32,5 +32,11 @@ $config = [
             'givenName' => ['Uli'], 'sn' => ['Unbekannt'], 'mail' => ['u.unbekannt@musterhausen.example'],
             'EdulogPersonRole' => [''], 'o' => [''],
         ]),
+        // Verwaltung (neu, erst mit Login V2 angemeldet)
+        'verwaltung:edulog-test' => array_merge($std, [
+            'EdulogPersonTechID' => ['5ca28bef-e599-497f-9ae8-83ae4aef7005'], 'uid' => ['v.verwaltung@musterhausen.example'],
+            'givenName' => ['Vera'], 'sn' => ['Verwaltung'], 'mail' => ['v.verwaltung@musterhausen.example'],
+            'EdulogPersonRole' => ['administration'], 'o' => ['SMH'], 'preferredLanguage' => ['it-CH'],
+        ]),
     ],
 ];
