@@ -123,6 +123,7 @@ Zitadel-Format nie.
 | I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
 | I12 | Edulog-API (Föderieren von Identitäten) | Ident nur als Dienstleistungsanbieter / zusätzlich als Identitätsanbieter gegenüber Edulog | nur Dienstleistungsanbieter: Die Edulog-API (Version 1.4) richtet sich an Identitätsanbieter und verlangt je Person die AHV-Nummer (AHVN13); deren systematische Verwendung braucht eine gesetzliche Grundlage und wäre «besonders schützenswert». Konten bringen die Kantone bzw. Schulen über ihren eigenen Identitätsanbieter | EMPFOHLEN |
 | I13 | Protokoll zwischen Edulog und Ident | SAML 2.0 / OpenID Connect | OpenID Connect, falls Edulog es Dienstleistungsanbietern anbietet (seit Sicherheitsanforderungen 1.2 vorgesehen): vermeidet die Abweichungen beim SAML-Signaturzertifikat (2.3); sonst SAML mit von Hand ergänzten Metadaten und geklärtem Zertifikat | EMPFOHLEN; bei der Geschäftsstelle ZU PRÜFEN |
+| I14 | Wo Edulog-Konten und Schulzugehörigkeit leben | Konto in der Organisation der Schule / ein Plattform-Bereich, Zugehörigkeit in der Brücke | PoC: Konten aus Edulog entstehen in der Organisation des Anmeldekontexts (Plattform); Zitadel kann Konten nicht verschieben, und eine Lehrperson gehört oft mehreren Schulen. Daher Konten im Plattform-Bereich, Schulzugehörigkeit und Bestätigung in der Brücke (Quelle für `eduksx_orgs`); Zitadel nur für Anmeldung. Die Abbildung der Attribute läuft heute über eine Zitadel-Action (JavaScript, Actions v1) – mit Login V2 über die Intent-API in die Brücke verlegen (I4) | EMPFOHLEN |
 | I11 | Sicherung | Datenbank allein / mit Masterkey | PostgreSQL-Sicherung **und** Masterkey (getrennt im Geheimnisspeicher); ohne Masterkey ist die Sicherung wertlos | EMPFOHLEN |
 
 ## 4. Proof of Concept (#25)
@@ -138,7 +139,7 @@ Zeitbedarf geschätzt 3–5 Arbeitstage ohne Wartezeit auf Edulog. Ergebnis je S
 | P2 | Organisation «Schule Beispiel», Projekt `glossary` mit Rollen aus dem Steckbrief, Client für das Glossary (Code + PKCE, vertraulich) | Grant für die Organisation vorhanden | – |
 | P3 | Glossary meldet sich an (Glossary #185) und wieder ab (RP-initiated und Back-Channel-Logout, #187) | Anmelden/Abmelden ok; Back-Channel-Logout beendet die Sitzung im Glossary | «Anmeldung Glossary … inkl. Abmelden» |
 | P4 | Action vor Token/Userinfo ruft die Brücke (Stub) und setzt `eduksx_orgs`, `eduksx_roles` (#186) | ID-Token besteht [oidc-claims.schema.json](../spec/v1/oidc-claims.schema.json) | – |
-| P5 | Edulog: zuerst MockSAML mit den Edulog-Attributnamen; sobald der Testzugang da ist, die Edulog-Testföderation | Attribute kommen an; Abbildung nach 2.1 erzeugt die erwarteten Vorschläge | «Anmeldung über Edulog …» |
+| P5 | 13.11.2026 | **mit Ersatz bestanden** | Edulog-Ersatz (SAML, Testkonten im Format des Leitfadens 1.2.1): signierte Anfrage, Binding **HTTP-Redirect** (POST scheiterte mit Login V1), NameID persistent = `EdulogPersonTechID` als externe Kennung; Abbildung über eine Zitadel-Action (`edulog-mapping.js`): Profil, Sprache (`fr-CH` → `fr`), Mehrfachwerte in beiden Formen (`##`), Metadaten `edulog_roles`/`edulog_orgs`; **kein Konto** für `pupil` und leere Rolle; ohne bestätigte Rolle kein Zugang (I7), nach Bestätigung Anmeldung mit `eduksx_roles`. Echter Anschluss offen (4.1a). Befunde siehe I14 |
 | P6 | Actions v2: Ereignis bei neuem Konto und bei Löschung an einen Laravel-Endpunkt; Signatur `ZITADEL-Signature` prüfen, falsche Signatur und alter Zeitstempel werden abgewiesen; Brücke sendet S4 an einen Test-Empfänger | Ereignis besteht [event.schema.json](../spec/v1/event.schema.json) und [signature.schema.json](../spec/v1/signature.schema.json) | «Webhook … signiert/geprüft» |
 | P7 | Sicherung: `pg_dump` + Masterkey; Wiederherstellung in eine **leere** Umgebung; Anmeldung P3 erneut | Anmeldung nach Wiederherstellung ok, Dauer notiert (RTO) | «Sicherung und Wiederherstellung» |
 | P8 | Prüfpunkte I8 (SCIM) und I9 (DPoP, `private_key_jwt`) gegen die laufende Version | Ergebnis in §4.3 | – |
@@ -185,7 +186,7 @@ Glossary selbst (#185–#187) folgt.
 | P7 | 13.11.2026 | **bestanden** | `pg_dumpall` in eine leere Umgebung zurückgespielt: Zitadel nach **8 s** bereit, Anmeldung ok, Signaturschlüssel unverändert (ausgestellte Tokens bleiben gültig). Mit falschem Masterkey startet Zitadel, stellt aber keine Tokens aus → I11 bestätigt |
 | P8 | 13.11.2026 | **festgehalten** | `private_key_jwt` angeboten; **DPoP nicht** angeboten (Discovery); SCIM nur als Server (eingehend), kein ausgehendes Provisioning an Anwendungen gefunden → I8: Brücke sendet SCIM |
 | P9 | 13.11.2026 | **angenommen** | Entscheid Projektverantwortliche:r: Auslegung I10 gilt als positiv (unveränderter Betrieb, eigene Teile über API; Module ohnehin AGPL, Plattform §9.7). Restrisiko akzeptiert – im schlimmsten Fall wird Zitadel ersetzt (Plan B Keycloak); deshalb sprechen Module Ident nur über Standards an. Schriftliche Anfrage an Zitadel optional |
-| P10 | – | offen | nach P5 (Edulog) |
+| P10 | – | offen | nach dem echten Edulog-Anschluss (Integrationsumgebung) |
 
 Weitere Befunde: Zwei-Faktor-Pflicht lässt sich je Organisation per Richtlinie setzen (API angenommen; Wirkung im
 Durchgang nicht abschliessend geprüft). Back-Channel-Logout-Adressen auf `localhost` lehnt Zitadel ab der
@@ -220,6 +221,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: P5 mit Edulog-Ersatz bestanden; I14 (Konten im Plattform-Bereich, Zugehörigkeit in der Brücke) empfohlen.
 - 13.11.2026: Sicherheitsanforderungen Edulog 1.2 mit Zitadel abgeglichen (2.3): Signaturzertifikat und Metadaten weichen ab; I13 (OIDC bevorzugt) empfohlen.
 - 13.11.2026: Edulog-API-Referenz 1.4 ausgewertet: Integrationsumgebung für dev; I12 (Ident nicht als Identitätsanbieter) empfohlen.
 - 13.11.2026: Edulog-Formate nach dem Leitfaden für Identitätsanbieter 1.2.1 ergänzt (2.1).

@@ -11,6 +11,9 @@ kein Betrieb. Ergebnisse stehen in KONZEPT-IDENT §4.3.
 | `logout_receiver.py` | Empfänger für Back-Channel-Logout (Port 8097) | P3 |
 | `bridge.php` | Stub der Ident-Brücke: setzt `eduksx_orgs` und `eduksx_roles` vor Userinfo und Access-Token | P4 |
 | `webhook.php` | Empfänger für Ereignisse aus Actions v2, prüft `ZITADEL-Signature` | P6 |
+| `edulog-mock/` | Edulog-Ersatz (SimpleSAMLphp-Testbild) mit Testkonten im Format des Leitfadens 1.2.1: Lehrperson, Schulleitung mit `##`, Schülerin, unbekannte Rolle | P5 |
+| `edulog-mapping.js` | Zitadel-Action: Edulog-Attribute auf das Konto abbilden, `##` trennen, Metadaten `edulog_*`, kein Konto für Lernende und leere Rolle | P5 |
+| `edulog_login.py` | Anmeldung über den Edulog-Ersatz bis zum Rücksprung ins Glossary | P5 |
 | `verify.php` | Prüft ein JWT ohne Zusatzpaket (JWKS, RS256, iss, aud, exp) – Vorlage für `eduksx/core` | P3 |
 
 Ablauf (Python 3 mit `requests` und `playwright`, PHP 8.4, Docker):
@@ -25,3 +28,14 @@ php verify.php tokens-redaktion.json "$(python3 -c "import json;print(json.load(
 
 Für Actions v2 erlaubt die Compose-Datei Ziele im lokalen Netz (`ZITADEL_HTTPCLIENT_DENYLIST`). Im Betrieb bleibt die
 Standard-Sperrliste (private Adressen gesperrt) aktiv.
+
+Edulog-Ersatz starten (ACS für Login V1, Werte aus den SP-Metadaten von Zitadel):
+
+```bash
+docker run -d --name edulog-mock -p 8081:8080 \
+  -e SIMPLESAMLPHP_SP_ENTITY_ID="http://localhost:8080/idps/<idp-id>/saml/metadata" \
+  -e SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE="http://localhost:8080/ui/login/login/externalidp/saml/acs" \
+  -v $PWD/edulog-mock/authsources.php:/var/www/simplesamlphp/config/authsources.php:ro \
+  -v $PWD/edulog-mock/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php:ro \
+  kristophjunge/test-saml-idp:1.15
+```
