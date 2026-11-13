@@ -1,7 +1,7 @@
-# Konzept: DB-Standard der EduKSX-Plattform (#9, #11)
+# Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 12.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am 12.11.2026
-(Version 1.0 ebenfalls am 12.11.2026)
+Stand: 13.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am 13.11.2026
+(Version 1.0 und 1.1 am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -9,16 +9,17 @@ modulspezifische Entscheide stehen im Datenmodell des jeweiligen Moduls, das auf
 Glossary: `docs/KONZEPT-DB-GUIDELINE.md` im Repo EduKSX-Glossary).
 
 **Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): Alle Regeln sind **BESCHLOSSEN**
-(12.11.2026), ausser sie sind ausdrücklich als **ZU PRÜFEN** gekennzeichnet.
+(12.11.2026 bzw. – für Teil E und B7–B14 – 13.11.2026), ausser sie sind ausdrücklich als **ZU PRÜFEN** gekennzeichnet.
 
-Der Standard ist in vier Teile gegliedert:
+Der Standard ist in fünf Teile gegliedert:
 
 | Teil | Inhalt |
 | --- | --- |
 | [A · Grundregeln](#a--grundregeln) | Namen, Normalisierung, Schlüssel, Typen, Migrationen, Transaktionen, Sperren, Historie |
-| [B · Sicherheit und Datenschutz](#b--sicherheit-und-datenschutz) | Geltungsbereiche und Mandanten, Datenklassen, Löschen und Löschregister, Identitäten, Datenbankzugänge |
+| [B · Sicherheit und Datenschutz](#b--sicherheit-und-datenschutz) | Geltungsbereiche und Mandanten, Datenklassen, Löschen und Löschregister, Identitäten, Datenbankzugänge, Rechtsrahmen, Betroffenenrechte, Zweck, Folgenabschätzung, Zugriffsprotokoll, Testdaten |
 | [C · Betrieb](#c--betrieb) | Plattform SQLite/PostgreSQL, Sicherung und Wiederherstellung, RPO/RTO, Tests |
 | [D · Sprachen](#d--sprachen) | Mehrsprachigkeit, Datum und Zeit, Sortierung und Suche |
+| [E · Modularität und Zusammenführbarkeit](#e--modularität-und-zusammenführbarkeit) | Modulschlüssel, Schema je Modul, Plattform-IDs, Versionsbindung, Konformitätstests, Zusammenlegen |
 
 ## Grundsätze
 
@@ -31,6 +32,11 @@ Der Standard ist in vier Teile gegliedert:
    BESCHLOSSEN
 6. **Konzept vor Code** – Schemaänderungen, die vom Standard abweichen, kommen zuerst als Konzept-PR zur Abnahme.
    BESCHLOSSEN
+7. **Eigenständig, aber zusammenführbar** – jedes Modul läuft mit eigener Datenbank in eigenem Repo; Namen und
+   Schlüssel sind so gewählt, dass Datenbanken später ohne Konflikte zusammengelegt werden können (Teil E).
+   BESCHLOSSEN 13.11.2026
+8. **Strengstes Datenschutzrecht** – umgesetzt wird jeweils die strengste Regel aus IDG, DSG und DSGVO (B7).
+   BESCHLOSSEN 13.11.2026
 
 ---
 
@@ -85,7 +91,9 @@ Standard ist die **dritte Normalform**: Jede Information steht an genau einer St
 **Primärschlüssel (BESCHLOSSEN):** Fachobjekte und Konten (sichtbar in API, Sync, Links) haben UUID v7, Protokolle,
 Ereignisse und reine Hilfstabellen eine fortlaufende Zahl. Öffentliche Kurzcodes (Permalinks) sind zusätzlich eindeutig,
 ersetzen aber nie die `id`. Dass UUID v7 den Erstellungszeitpunkt erkennen lässt, ist bewusst in Kauf genommen
-(Entscheid 12.11.2026).
+(Entscheid 12.11.2026). Alles, was später über Modulgrenzen zusammengeführt werden kann (Historie, Löschregister,
+Ereignisse für den Leitstand), trägt zusätzlich eine UUID (`event_id`); fortlaufende Zahlen gelten nur innerhalb
+eines Moduls (E4, BESCHLOSSEN 13.11.2026).
 
 **Fremdschlüssel (BESCHLOSSEN):**
 
@@ -219,8 +227,9 @@ Technische Absicherung in **zentralen** Diensten (eine Datenbank für viele Orga
 5. Ein Test je Modul legt zwei Organisationen an und prüft, dass keine Abfrage, kein Export und kein Job Daten der
    anderen liefert.
 
-**Isolierte** Instanzen (eigene Datenbank je Kunde) brauchen die Regeln 1–4 nicht für die Trennung, behalten aber die
-Spalte `organization_id` dort, wo Daten mit dem zentralen Dienst abgeglichen werden.
+**Isolierte** Instanzen (eigene Datenbank je Kunde) brauchen die Regeln 1–4 nicht für die Trennung, führen die Spalte
+`organization_id` aber **ebenfalls in jeder Tabelle «Organisation»** – sonst liessen sich die Daten verschiedener
+Organisationen nach einem Zusammenlegen nicht mehr trennen (E3, BESCHLOSSEN 13.11.2026).
 
 Ob persönliche Anpassungen organisationsübergreifend gelten oder je Organisation verschieden sein dürfen, entscheidet
 jedes Modul und hält es im Datenmodell fest.
@@ -297,6 +306,73 @@ Jedes Modul hat eine eigene Datenbank bzw. ein eigenes Schema; kein Modul liest 
 Tokens nur gehasht, 2FA-Geheimnisse und Zugangsdaten verschlüsselt (Laravel-Cast `encrypted`); Felder der Klasse
 «besonders schützenswert» zusätzlich verschlüsselt gespeichert (BESCHLOSSEN).
 
+### B7 Rechtsrahmen (BESCHLOSSEN 13.11.2026)
+
+| Recht | Gilt für | Bedeutung für die Datenbank |
+| --- | --- | --- |
+| **IDG Kanton Zürich** | Schulen, Schulgemeinden und Gemeinden als öffentliche Organe (Verantwortliche) | Folgenabschätzung, Vorabkontrolle bei besonderen Risiken, Informationssicherheit, Bekanntgabe nur mit Grundlage |
+| **DSG (Schweiz)** | Betreiberin der Plattform, private Kunden | Verzeichnis der Bearbeitungstätigkeiten, Auskunft, Datenherausgabe, Meldung von Verletzungen |
+| **DSGVO** | nur bei Bezug zur EU (Niederlassung oder Angebot an Personen in der EU) | Meldung innerhalb von 72 Stunden, Recht auf Einschränkung |
+
+Umgesetzt wird jeweils die **strengste** Regel; so ist ein Modul ohne Umbau für alle drei geeignet. Die Plattform
+bearbeitet Daten der Schulen im Auftrag – der Auftragsbearbeitungsvertrag regelt Zweck, Ort (Schweiz) und Löschung.
+Dieser Standard ist keine Rechtsberatung; Fristen und Folgenabschätzungen prüft eine Fachperson (siehe Glossary #278).
+
+### B8 Auskunft und Datenherausgabe (BESCHLOSSEN 13.11.2026)
+
+- Jedes Modul bietet die Funktion **«alle Daten einer Person»**: Sie findet über den Personenbezug und die Datenklassen
+  (B2) alle Zeilen in allen Tabellen – auch Historie, Vorschläge, Archive – und exportiert sie maschinenlesbar (JSON,
+  Felder englisch, Labels deutsch) für Auskunft und Datenherausgabe.
+- Der Export ist für die Person selbst («Meine Daten») und für die Administration (Anfrage per Brief) verfügbar; jeder
+  Aufruf steht im Sicherheitsprotokoll.
+- Berichtigung ändert die Daten mit Historie; die Historie enthält personenbezogene Werte ohnehin nicht (B2).
+- Ein Test legt Daten einer Person in jeder Tabelle an und prüft, dass der Export alles und nichts von anderen enthält.
+
+### B9 Zweck und Rechtsgrundlage je Tabelle (BESCHLOSSEN 13.11.2026)
+
+Neben der Datenklasse je Spalte (B2) hält jedes Modul im Code je Tabelle **Zweck**, **Rechtsgrundlage** bzw.
+Auftrag, **Geltungsbereich** (B1) und **Löschfrist** fest. Daraus wird das Verzeichnis der Bearbeitungen des Moduls
+erzeugt (Plattformkonzept, Prüfliste); ein Test schlägt fehl, wenn eine Tabelle diese Angaben nicht hat. Eine neue
+Tabelle ohne Zweck wird nicht gemergt.
+
+### B10 Folgenabschätzung und Vorabkontrolle (BESCHLOSSEN 13.11.2026)
+
+- Ein Modul, das Daten der Klasse **besonders schützenswert** bearbeitet oder Personendaten online für viele Personen
+  zugänglich macht, geht erst produktiv, wenn eine **Datenschutz-Folgenabschätzung** vorliegt – für Kunden im Kanton
+  Zürich nach der Vorlage des Kantons; bei besonderen Risiken legt der Kunde das Vorhaben der Datenschutzbeauftragten
+  zur **Vorabkontrolle** vor.
+- Die Folgenabschätzung liegt im Repo des Moduls und wird bei jeder neuen Datenklasse «besonders schützenswert» oder
+  neuen Bekanntgabe nachgeführt.
+
+### B11 Protokoll der Lesezugriffe (BESCHLOSSEN 13.11.2026)
+
+Zugriffe auf Felder der Klasse **besonders schützenswert** werden auch beim **Lesen** protokolliert (wer, wann,
+welcher Datensatz, welcher Zweck; nicht der Inhalt) – im Sicherheitsprotokoll (A7) mit Aufbewahrung nach Löschkonzept.
+Für die übrigen Klassen genügt das Protokoll der Änderungen.
+
+### B12 Kopien für Entwicklung und Test (BESCHLOSSEN 13.11.2026)
+
+Produktive Daten kommen nur **anonymisiert** nach dev oder test: ein Befehl je Modul ersetzt alle Felder der Klassen
+personenbezogen, besonders schützenswert und geheim, erhält aber Schlüssel, Bezüge und Mengen. Ein nicht
+anonymisierter Dump wird auf dev und test beim Einspielen abgewiesen. Testdaten in Repos, Issues und Bildschirmfotos
+sind immer erfunden.
+
+### B13 Einschränkung der Bearbeitung und Verletzungen (BESCHLOSSEN 13.11.2026)
+
+- Konten haben ein Merkmal `is_processing_restricted`: Die Daten bleiben gespeichert, werden aber nicht mehr angezeigt,
+  exportiert oder geändert (z. B. während eine Berichtigung strittig ist).
+- Bei einer **Datenschutzverletzung** muss sich rasch bestimmen lassen, wer betroffen ist: über Datenklassen, Zweck je
+  Tabelle (B9) und Protokolle. Meldung nach Recht (DSG: bei voraussichtlich hohem Risiko; DSGVO: innerhalb von 72
+  Stunden) – Ablauf im Betriebskonzept.
+
+### B14 Zusammenlegen als neue Bearbeitung (BESCHLOSSEN 13.11.2026)
+
+- Module **desselben Kunden** zusammenzulegen ist eine neue Bearbeitung: Vorher wird geprüft, ob die Zwecke vereinbar
+  sind; Verzeichnis und Datenschutzerklärung werden nachgeführt.
+- **Isolierte Instanzen verschiedener Kunden** werden nur mit Zustimmung bzw. Vertrag jedes Kunden in einen zentralen
+  Dienst überführt; danach gilt die Mandantentrennung (B1).
+- Fristen, Löschregister und Einschränkungen der Herkunft gelten nach dem Zusammenlegen unverändert weiter.
+
 ---
 
 ## C · Betrieb
@@ -343,7 +419,8 @@ Jedes Modul hat mindestens: Migrationstest je Migration (Daten vorher, nachher p
 Migrationen; Schemaprüfung (STRICT, CHECK, `integrity_check`, `foreign_key_check`); Veröffentlichungsgrenze (nichts
 Privates in öffentlichen Ausgaben); **Mandantentrennung** mit zwei Organisationen (B1); Papierkorb und Fristen;
 **Löschung nach Wiederherstellung** mit Löschregister (B3); Historie für alle vier Aktionen; Rollback einer
-mehrteiligen Änderung.
+mehrteiligen Änderung. Seit 1.2 zusätzlich: **Auskunft/Export** einer Person (B8), **Zweck je Tabelle** (B9),
+**Anonymisierung** (B12) und die **Konformitätstests** aus `eduksx/core` (E5).
 
 ---
 
@@ -376,6 +453,70 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 
 ---
 
+## E · Modularität und Zusammenführbarkeit
+
+Datenbanken werden je Modul in eigenen Repos entwickelt und laufen eigenständig. Damit sie später ohne Konflikte
+zusammengelegt werden können, gelten diese Regeln (alle BESCHLOSSEN 13.11.2026).
+
+### E1 Modulschlüssel
+
+Jedes Modul hat einen festen, kurzen **Modulschlüssel** (Kleinbuchstaben, ohne Bindestrich), vergeben in der Tabelle
+unten und nie geändert. Er benennt Schema, Datenbankzugänge (B5), Einträge im Löschregister und Ereignisse.
+
+| Modul | Schlüssel | Repo |
+| --- | --- | --- |
+| Glossary | `glossary` | EduKSX-Glossary |
+| Rechtssammlung | `recht` | – |
+| Intranet | `intranet` | – |
+| Stundenplan | `stundenplan` | – |
+| Ident | `ident` | – |
+| Leitstand | `leitstand` | – |
+
+### E2 Schema je Modul
+
+- Auf PostgreSQL liegen alle Tabellen eines Moduls in einem **eigenen Schema mit dem Modulschlüssel** (`glossary.terms`,
+  `intranet.users`), auch wenn das Modul allein in seiner Datenbank läuft. Laravel-Tabellen (`migrations`, `jobs`,
+  `cache`, `sessions` …) liegen im selben Schema.
+- Tabellennamen bekommen **keine Präfixe**; gleiche Namen in verschiedenen Modulen (`users`, `settings`) sind erlaubt,
+  weil sie durch das Schema getrennt sind.
+- SQLite kennt keine Schemas: Die Datei heisst `<modulschlüssel>.sqlite`; beim Überführen nach PostgreSQL wird sie in
+  das Schema des Moduls geladen.
+- Kein Modul greift auf das Schema eines anderen zu, auch nicht nach dem Zusammenlegen (Austausch nur über APIs).
+
+### E3 Plattform-IDs für Organisationen und Personen
+
+- **Organisationen** tragen die ID aus EduKSX-Ident. Bis ein Modul an Ident angeschlossen ist, erzeugt es eine UUID v7
+  und führt die Spalte `platform_id` (UUID, eindeutig, leer erlaubt), die später mit der ID aus Ident befüllt wird.
+- **Personen** werden über Modulgrenzen nur mit `issuer` + `subject` (B4) bzw. `platform_id` referenziert, nie mit der
+  lokalen `users.id`.
+- `organization_id` steht in jeder Tabelle «Organisation», auch in isolierten Instanzen (B1).
+
+### E4 Schlüssel, die das Zusammenlegen überstehen
+
+UUID v7 für Fachobjekte (A3) und `event_id` für alles Modulübergreifende; fortlaufende Zahlen nur modulintern. Enum-Werte,
+Rollen und Einstellungen gelten je Modul und werden beim Zusammenlegen nicht vermischt. Gemeinsame Stammdaten (z. B.
+Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – wenn nötig – als Plattformdienst angeboten.
+
+### E5 Versionsbindung und Konformitätstests
+
+- Jedes Modul nennt in seinem Datenmodell, nach welcher **Version dieses Standards** es arbeitet (z. B. «DB-Standard
+  1.2»). Eine neue Version gilt für ein Modul erst, wenn es sie übernommen hat; die Übernahme ist ein Issue im Modul.
+- Die prüfbaren Regeln stehen als **Konformitätstests** in `eduksx/core` und laufen in der CI jedes Moduls: Namen,
+  STRICT und CHECK, Index auf Fremdschlüsseln, Datenklasse und Zweck je Spalte bzw. Tabelle, Schema = Modulschlüssel,
+  `organization_id` in Tabellen «Organisation».
+- Hilfen (Migrations-Helfer, Traits für Sperren und Historie, Anonymisierung, Export) liegen ebenfalls in
+  `eduksx/core`, nicht kopiert in den Modulen.
+
+### E6 Zusammenlegen üben
+
+- `eduksx/core` enthält ein Werkzeug, das eine SQLite-Datenbank eines Moduls in das Schema des Moduls in PostgreSQL
+  überführt (Zählung je Tabelle vorher/nachher, Prüfsummen).
+- Ein CI-Test der Plattform lädt die Testdatenbanken mindestens zweier Module in **eine** PostgreSQL-Datenbank und
+  prüft: keine Namenskonflikte, alle Fremdschlüssel gültig, Mandantentrennung intakt, Löschregister anwendbar.
+- Vor einem echten Zusammenlegen gilt zusätzlich B14.
+
+---
+
 ## Checkliste für Pull Requests mit DB-Änderung
 
 - [ ] Standard deckt die Änderung ab – sonst zuerst Konzept-PR
@@ -391,6 +532,10 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 - [ ] Fachtexte mit Übersetzungstabelle (ohne Grundsprache), persönliche Texte ohne
 - [ ] Anzeige `DD.MM.YYYY` / `HH:MM:SS`, Speicherung ISO 8601 UTC; Suchspalte normalisiert
 - [ ] Sicherung vor der Migration, Wiederherstellung geprüft
+- [ ] Tabelle im Schema des Moduls; Zweck, Rechtsgrundlage, Geltungsbereich und Löschfrist im Code (B9, E2)
+- [ ] Personenbezug für Auskunft/Export erfasst (B8); Felder «besonders schützenswert» mit Lese-Protokoll (B11)
+- [ ] Anonymisierung deckt neue personenbezogene Felder ab (B12)
+- [ ] Modulübergreifende Bezüge nur über Plattform-IDs (E3); Konformitätstests aus `eduksx/core` grün (E5)
 
 ## Entscheide
 
@@ -404,9 +549,13 @@ Maschinenformaten: ISO 8601 in UTC. Formatiert wird an einer Stelle im Code, nie
 | E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
 | E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
 | E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |
+| E9 | Module eigenständig in eigenen Repos, später zusammenlegbar | Teil E: Modulschlüssel, Schema je Modul, Plattform-IDs, Versionsbindung, Konformitätstests | BESCHLOSSEN 13.11.2026 |
+| E10 | Datenschutz nach IDG, DSG und DSGVO | strengste Regel; B7–B14 | BESCHLOSSEN 13.11.2026 |
 
 ## Verlauf
 
 - 12.11.2026: Version 1.0 (DB-Entwickler-Guideline, aus dem Glossary) abgenommen (#9).
 - 12.11.2026: Version 1.1 nach Architekturreview abgenommen: Aufteilung Plattform/Modul, Mandantentrennung, Datenklassen,
   Löschregister, Identitäten, Datenbankzugänge, PITR/RPO/RTO, Sprachregeln (#11).
+- 13.11.2026: Version 1.2 abgenommen – Teil E (Modularität und Zusammenführbarkeit) und B7–B14 (Rechtsrahmen, Auskunft,
+  Zweck je Tabelle, Folgenabschätzung, Lesezugriffe, anonymisierte Kopien, Einschränkung, Zusammenlegen) (#20).

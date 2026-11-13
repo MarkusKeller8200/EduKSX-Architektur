@@ -177,7 +177,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### Datenbank
 
-- [ ] Datenbank, Migrationen und Modelle nach dem [DB-Standard](KONZEPT-DB-GUIDELINE.md): Grundregeln, Mandantentrennung und Datenklassen, Löschregister, Sicherung mit RPO/RTO, Mehrsprachigkeit
+- [ ] Datenbank, Migrationen und Modelle nach dem [DB-Standard](KONZEPT-DB-GUIDELINE.md): Grundregeln, Mandantentrennung und Datenklassen, Löschregister, Sicherung mit RPO/RTO, Mehrsprachigkeit, Schema je Modul und Plattform-IDs (zusammenlegbar), Auskunft/Export, Zweck je Tabelle
 
 ### Identität und Rechte
 
