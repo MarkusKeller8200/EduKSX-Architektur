@@ -1,7 +1,7 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15, #18)
 
-Stand: 13.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **ENTWURF 1.1** zur Abnahme (Version 1.0 BESCHLOSSEN
-am 12.11.2026)
+Stand: 13.11.2026 (Version 1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am
+13.11.2026 (Version 1.0 am 12.11.2026)
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -13,7 +13,7 @@ Er ergänzt den [DB-Standard](KONZEPT-DB-GUIDELINE.md) (Verweise A1 … D3) und 
 
 **Verbindlichkeit** (Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md)): Alle Regeln sind **BESCHLOSSEN**
 (12.11.2026, Abnahme Version 1.0) – auch die im Text als EMPFOHLEN bezeichneten –, ausser sie sind ausdrücklich als
-**ZU PRÜFEN** gekennzeichnet. Quellen der übernommenen Regeln stehen in Klammern. Neu in 1.1 (Entscheide E18–E33 vom
+**ZU PRÜFEN** gekennzeichnet. Quellen der übernommenen Regeln stehen in Klammern. Neu in 1.1 (Entscheide E18–E35 vom
 13.11.2026, nach dem Architektur-Review): schlanke Umsetzung in **Stufen**, **Modulschlüssel** für die Suite,
 Korrekturen K1–K3, Datenschutz nach DSGVO/IDG und nachweisbare Sicherheit.
 
@@ -95,7 +95,7 @@ Namensraum überall dort, wo Module zusammentreffen – innerhalb eines Moduls s
 | `core` | gemeinsames Paket `eduksx/core` | – |
 | `ident` | Anmeldung, Konten, Organisationen | – |
 | `glossary` | EduKSX-Glossary | EduKSX-Glossary |
-| `codex` | EduKSX-Codex | EduKSX-Codex |
+| `codex` | EduKSX-Codex (Rechtssammlung) | EduKSX-Codex |
 | `intranet` | Intranet (Instanz einer Schule) | sek-intranet |
 | `portal`, `connect`, `licence`, `shop`, `sign`, `time`, `services` | reserviert für die Produktfamilie | – |
 
@@ -434,6 +434,9 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
     `max_age`/`acr_values` – Step-up).
   - **Servicekonten:** eine eigene technische Identität nur für diesen Zweck, eigener Scope, Laufzeit höchstens
     90 Tage, jeder Aufruf im Sicherheitsprotokoll. Vier-Augen-Freigabe legt das Modul fest, wo es nötig ist.
+  - **Bis Ident steht:** privilegierte Vorgänge nur in der Oberfläche mit Anmeldung, **nicht per API-Token**
+    (BESCHLOSSEN 13.11.2026, E34). Bestehende API-Endpunkte für Konten und Rollen werden bis dahin auf Recht und Scope
+    beschränkt oder abgeschaltet.
 - Servicekonten sind eigene Identitäten, nie Benutzerkonten (DB B4).
 
 ### C2 Rechte und Scopes (EMPFOHLEN, Grundlage DB B4 und Plattform S2)
@@ -542,7 +545,8 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 
 ### C9 Datenschutz nach DSGVO und IDG (BESCHLOSSEN 13.11.2026, E26–E29)
 
-Die API ist so gebaut, dass ein Modul die Pflichten nach DSGVO und IDG (Kanton Zürich) erfüllen kann, ohne sie nachzurüsten:
+Die API ist so gebaut, dass ein Modul die Pflichten nach DSGVO und IDG (Kanton Zürich) erfüllen kann, ohne sie nachzurüsten.
+Vor dem ersten produktiven Release liest die bzw. der Datenschutzverantwortliche diese Regeln gegen (ZU PRÜFEN, #22).
 
 | Pflicht | Regel |
 | --- | --- |
@@ -722,7 +726,7 @@ markierten Punkte (⚙) automatisch ab.
 
 ## Entscheide
 
-E1–E17 entschieden am 12.11.2026, E18–E33 am 13.11.2026 nach dem Architektur-Review (Chat mit Projektverantwortliche:r).
+E1–E17 entschieden am 12.11.2026, E18–E35 am 13.11.2026 nach dem Architektur-Review (Chat mit Projektverantwortliche:r).
 
 | Nr. | Frage | Entscheid | Abschnitt |
 | --- | --- | --- | --- |
@@ -759,6 +763,9 @@ E1–E17 entschieden am 12.11.2026, E18–E33 am 13.11.2026 nach dem Architektur
 | E31 | Stufen-Einteilung | wie Tabelle G1 | G1 |
 | E32 | Kleine Korrekturen | Mandantenkontext, `null`/Aufzählungen, `Vary`, `301`/`308`, Dezimalzahlen, Betrieb | A2, A4, A7, B5, C3, D6 |
 | E33 | Governance | Konformitätstest, Register für Module und Ausnahmen, Version im Steckbrief | D8 |
+| E34 | Privilegierte Vorgänge vor Ident | nur in der Oberfläche, nicht per API-Token | C1 |
+| E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
+| – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
 | – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16) | C1 – ZU PRÜFEN |
 
 ## Abweichungen heute (Ist-Stand 13.11.2026)
@@ -821,4 +828,5 @@ E1–E17 entschieden am 12.11.2026, E18–E33 am 13.11.2026 nach dem Architektur
 - 12.11.2026: Version 1.0 abgenommen (#15, PR #17).
 - 13.11.2026: Entwurf 1.1 nach Architektur-Review (#18): Stufen, Modulschlüssel und Register, `eduksx/core`, starker
   ETag, `DELETE`-Fälle, Sync ohne Lücken, Idempotenz-Bereich, privilegierte Zugriffe, DSGVO/IDG (C9),
-  Sicherheitsnachweis (C10), Konformität (D8); Entscheide E18–E33.
+  Sicherheitsnachweis (C10), Konformität (D8); Entscheide E18–E35.
+- 13.11.2026: Version 1.1 abgenommen (#18, PR #19).
