@@ -2,6 +2,7 @@
 
 - Verweise auf Dateien im Repository zeigen auf vorhandene Dateien.
 - Keine Geheimnisse oder Zugangsdaten in den Dokumenten (Nichtziel).
+- Konzepte, Vorlagen und Prüfaufträge aus Meilenstein 0.2.0 sind vorhanden.
 """
 
 import re
@@ -28,6 +29,14 @@ class Dokumente(unittest.TestCase):
                 if not (doc.parent / ziel).resolve().exists():
                     fehlend.append(f"{doc.relative_to(ROOT)} → {ziel}")
         self.assertEqual([], fehlend, "Verweise ohne Ziel")
+
+    def test_pflichtdokumente_vorhanden(self) -> None:
+        pflicht = [
+            "docs/KONZEPT-CORE.md", "docs/KONZEPT-IDENT.md", "docs/KONZEPT-MODULVORLAGE.md",
+            "docs/vorlagen/DATENSCHUTZ-VERZEICHNIS.md", "docs/vorlagen/DATENSCHUTZ-FOLGENABSCHAETZUNG.md",
+            "docs/PRUEFAUFTRAG-RLS.md", "docs/PRUEFAUFTRAG-DPOP-MTLS.md", "spec/README.md",
+        ]
+        self.assertEqual([], [d for d in pflicht if not (ROOT / d).is_file()], "Dokumente fehlen")
 
     def test_keine_geheimnisse(self) -> None:
         treffer = []

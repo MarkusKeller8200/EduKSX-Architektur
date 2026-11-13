@@ -539,7 +539,7 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 | DB-E2 | Mehrsprachigkeit für persönliche Daten | nein | BESCHLOSSEN 12.11.2026 |
 | DB-E3 | UUID v7 trotz erkennbarem Erstellungszeitpunkt | ja | BESCHLOSSEN 12.11.2026 |
 | DB-E4 | RPO/RTO je Dienstart | Werte in C2 | BESCHLOSSEN 12.11.2026 |
-| DB-E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Prototyp mit PostgreSQL, Laravel und Verbindungspool (Entscheid 12.11.2026, #13) | ZU PRÜFEN |
+| DB-E5 | Row-Level Security in PostgreSQL | als zweite Schicht vorgesehen; Prototyp mit PostgreSQL, Laravel und Verbindungspool (Entscheid 12.11.2026, #13); Vorgehen und Empfehlung: [Prüfauftrag RLS](PRUEFAUFTRAG-RLS.md) | ZU PRÜFEN |
 | DB-E6 | Super-Admin als Plattformrolle aus Ident | ja; bis zum Anschluss an Ident die höchste geschützte Rolle des Moduls | BESCHLOSSEN 12.11.2026 |
 | DB-E7 | Hash-Verkettung nur für das Sicherheitsprotokoll | ja, A7 | BESCHLOSSEN 12.11.2026 |
 | DB-E8 | Neue Regeln aus dem Architekturreview (Version 1.1) | alle übernommen, RLS zu prüfen | BESCHLOSSEN 12.11.2026 |

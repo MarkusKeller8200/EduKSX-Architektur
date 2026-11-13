@@ -142,6 +142,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - Arten: `user.updated`, `user.disabled`, `user.deleted`, `org.created`, `org.updated`, `org.deleted`,
   `membership.added`, `membership.removed`, `role.changed`.
 - Module verarbeiten idempotent (Ereignis-ID), weisen Ereignisse älter als 5 Minuten ab.
+- Maschinenlesbar in [`spec/`](../spec/README.md) (#3). Dort tragen die Arten den Modulschlüssel (`ident.user.deleted`,
+  `ident.organization.created` …) wie im API-Standard B7, und das Feld in `eduksx_orgs` heisst `role` (EMPFOHLEN, SP4/SP5).
 
 ### S5 · Modul-Steckbrief und Zustand (Modul → Leitstand, Plattform)
 
