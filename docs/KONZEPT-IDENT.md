@@ -118,9 +118,26 @@ Fehlt nur DPoP (P8), ist das **kein** Abbruchgrund; Entscheid im Prüfauftrag #1
 
 ### 4.3 Ergebnisse
 
+Durchgang 1 am 13.11.2026 in der Cloud-Umgebung von Claude (Docker, Zitadel v4.20.3, PostgreSQL 17), Werkzeuge in
+[`poc/ident-zitadel/`](../poc/ident-zitadel/README.md). Ein OIDC-Client simuliert das Glossary; die Anbindung im
+Glossary selbst (#185–#187) folgt.
+
 | # | Datum | Ergebnis | Bemerkung |
 |---|---|---|---|
-| P1–P10 | – | offen | wird im PoC nachgetragen |
+| P1 | 13.11.2026 | **teilweise** | Compose mit fixierter v4.20.3 und PostgreSQL läuft (je ~80 MB RAM, Image 237 MB); Masterkey aus Datei. Offen: **Login V2** (eigener Container, im Durchgang Login V1), Admin mit MFA |
+| P2 | 13.11.2026 | **bestanden** | zwei Organisationen (Schule, Schulgemeinde), Projekte `glossary` (Rollen reader/editor/admin) und `platform` (Super-Admin), Projekt-Grants an die Organisationen, vertraulicher Web-Client (Code + PKCE), Dienstkonto für S2 – alles per API (`setup.py`) |
+| P3 | 13.11.2026 | **bestanden** (mit Test-Client) | Anmelden mit Code + PKCE; ID-/Access-Token als JWT, Prüfung in PHP ohne Zusatzpaket (`verify.php`: Signatur über JWKS, iss, aud, exp; verändertes Token abgelehnt). RP-initiiertes Abmelden und **Back-Channel-Logout** mit passender `sid`. Client Credentials für das Dienstkonto. Befund: Token-Laufzeit ab Werk 12 h → auf 15 Min. gesetzt (API C1) |
+| P4 | 13.11.2026 | **bestanden** (Stub) | Actions v2 `preuserinfo`/`preaccesstoken` rufen die Brücke (`bridge.php`), die `eduksx_orgs` und `eduksx_roles` setzt; ID-Token besteht `oidc-claims.schema.json` bis auf `iss` mit http (nur lokal). Befund: Mit `interruptOnError` hängt jede Anmeldung an der Brücke → Brücke hochverfügbar betreiben oder Ausfallverhalten festlegen |
+| P5 | – | offen | Edulog-Testzugang fehlt; MockSAML noch nicht aufgesetzt |
+| P6 | 13.11.2026 | **teilweise** | Ereignisse `user.human.added` und `user.removed` kommen signiert an; falsche Signatur und über 5 Min. alter Zeitstempel werden abgewiesen. Offen: Empfänger in Laravel und Umsetzung in S4/CloudEvent (`event.schema.json`) in der Brücke. Befund: Zitadel sperrt Ziele im privaten Netz ab Werk (`ZITADEL_HTTPCLIENT_DENYLIST`) – im PoC gelockert, im Betrieb so lassen |
+| P7 | 13.11.2026 | **bestanden** | `pg_dumpall` in eine leere Umgebung zurückgespielt: Zitadel nach **8 s** bereit, Anmeldung ok, Signaturschlüssel unverändert (ausgestellte Tokens bleiben gültig). Mit falschem Masterkey startet Zitadel, stellt aber keine Tokens aus → I11 bestätigt |
+| P8 | 13.11.2026 | **festgehalten** | `private_key_jwt` angeboten; **DPoP nicht** angeboten (Discovery); SCIM nur als Server (eingehend), kein ausgehendes Provisioning an Anwendungen gefunden → I8: Brücke sendet SCIM |
+| P9 | – | offen | Auslegung AGPL durch Fachperson bzw. schriftliche Auskunft von Zitadel |
+| P10 | – | offen | nach P5 und P9 |
+
+Weitere Befunde: Zwei-Faktor-Pflicht lässt sich je Organisation per Richtlinie setzen (API angenommen; Wirkung im
+Durchgang nicht abschliessend geprüft). Back-Channel-Logout-Adressen auf `localhost` lehnt Zitadel ab der
+Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 5. Issues
 
@@ -148,5 +165,6 @@ Fehlt nur DPoP (P8), ist das **kein** Abbruchgrund; Entscheid im Prüfauftrag #1
 
 ## 7. Verlauf
 
+- 13.11.2026: PoC Durchgang 1 (Cloud-Umgebung): P2, P3, P4, P7 bestanden, P1 und P6 teilweise, P8 festgehalten; offen P5, P9, P10 (#36).
 - 13.11.2026: Als Drehbuch abgenommen; I2–I11 bleiben empfohlen, Durchführung in #36.
 - 13.11.2026: Konzept und PoC-Drehbuch angelegt (Recherche Zitadel, Edulog, Keycloak).

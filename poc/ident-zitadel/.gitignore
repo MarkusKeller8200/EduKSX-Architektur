@@ -1,0 +1,8 @@
+pat/
+state.json
+tokens-*.json
+backup.sql
+webhook.log
+login-fehler.png
+target.json
+masterkey.txt
