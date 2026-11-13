@@ -7,8 +7,8 @@ Sicherheitskorrekturen gibt es für die jeweils **neueste Version** bzw. den akt
 <!-- blueprint:versionen -->
 | Version | Unterstützt |
 | ------- | ----------- |
-| 0.1.x   | ✅          |
-| < 0.1   | ❌          |
+| 0.2.x   | ✅          |
+| < 0.2   | ❌          |
 <!-- /blueprint:versionen -->
 
 ## Sicherheitslücke melden

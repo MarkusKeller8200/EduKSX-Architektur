@@ -6,6 +6,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+## [0.2.0] – 2026-11-13
+
 ### Neu
 
 - **Konzept Core abgenommen (#27):** `docs/KONZEPT-CORE.md` – Umfang `eduksx/core` 0.1, Herauslöse-Plan aus dem Glossary, Entscheide C1–C11 beschlossen (C11: Schemas aus `spec/`).
