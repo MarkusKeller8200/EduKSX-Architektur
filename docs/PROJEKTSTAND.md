@@ -21,7 +21,7 @@
 
 ## Umsetzung in den Modul-Repos (Stand 14.11.2026)
 
-- EduKSX-Core 0.1.1 veröffentlicht; 0.2 (#13–#16) umgesetzt (PR #18). Offen: Lizenz von `spec/` – Core (MIT) liefert die Schemas mit aus, dieses Repo ist GPL-3.0.
+- EduKSX-Core 0.1.1 veröffentlicht; 0.2 (#13–#16) veröffentlicht als 0.2.0. `spec/` zusätzlich unter MIT (Core liefert die Schemas aus).
 - EdukSX-Ident: Brücke 0.1 gemergt (#2–#6 im Beta-Test), unveröffentlicht.
 - EduKSX-Glossary: Umstellung auf Core 0.1 als PR #335 bereit (#334).
 
