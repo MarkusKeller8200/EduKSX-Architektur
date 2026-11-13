@@ -54,8 +54,9 @@ Dieses Papier legt fest:
 
 - **Aufgabe:** einzige Stelle für Anmeldung, zweiten Faktor, Konten, Organisationen, Mitgliedschaften und Rollen je
   Modul; Einladungen und Freigaben in einem eigenen Portal im EduKSX-Design.
-- **Nicht selbst schreiben:** Basis ist ein bewährter Identity-Provider (Kandidaten: Keycloak, Zitadel – Auswahl
-  mit Bewertung von Lizenz, Mandantenfähigkeit, Betrieb, Updates). Darum ein dünnes Portal.
+- **Nicht selbst schreiben:** Basis ist ein bewährter Identity-Provider – **Zitadel** (Entscheid 13.11.2026, vorbehaltlich
+  Proof of Concept #25; Plan B: Keycloak). Darum ein dünnes Portal. Module sprechen Ident nur über Standards an (OIDC,
+  SCIM, signierte Webhooks), nie über Zitadel-Eigenheiten, damit ein Wechsel machbar bleibt.
 - **Brücken:** Edulog, Microsoft Entra ID, Google Workspace als vorgeschaltete Anmeldedienste; MFA zentral.
 - **Datenminimierung:** Ident hält Identität (Name, E-Mail, Mitgliedschaften, Rollen), nie Inhalte der Module.
 - **Trennung bei strengen Kunden:** eigener Bereich (Realm/Instanz) je Kunde oder direkte Anbindung an das Entra der
@@ -310,7 +311,11 @@ Dazu im Glossary bereits geplant: Selbst hosten und Updates (Konzept DEC-027, #1
 
 ## 9. Offene Entscheide
 
-1. Identity-Provider: Keycloak oder Zitadel (Bewertung)?
+1. ~~Identity-Provider: Keycloak oder Zitadel?~~ → **Zitadel**, BESCHLOSSEN 13.11.2026 vorbehaltlich Proof of Concept
+   (#25). Gründe: Mandanten (Organisationen) eingebaut, Erweiterung über Webhooks in PHP statt Java, schlanker
+   Betrieb, Änderungen als Ereignisse. Zu prüfen im PoC: Anbindung Edulog mit Attributen für Rollen, Umfang der
+   Actions/Webhooks, Lizenz AGPL-3.0 (unveränderter Betrieb, Portal nur über API), Sicherung mit PostgreSQL.
+   Fällt ein Punkt durch: Keycloak.
 2. Ident zentral für alle oder getrennte Bereiche je Kunde ab einer bestimmten Klassifizierung?
 3. Leitstand als eigene interne Anwendung (Vorschlag) oder Teil von Ident?
 4. Zuerst zentral mit Organisationen, isolierte Instanzen nur auf Wunsch (Vorschlag)?
