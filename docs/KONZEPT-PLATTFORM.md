@@ -319,7 +319,7 @@ Dazu im Glossary bereits geplant: Selbst hosten und Updates (Konzept DEC-027, #1
    (#25). Gründe: Mandanten (Organisationen) eingebaut, Erweiterung über Webhooks in PHP statt Java, schlanker
    Betrieb, Änderungen als Ereignisse. Zu prüfen im PoC: Anbindung Edulog mit Attributen für Rollen, Umfang der
    Actions/Webhooks, Lizenz AGPL-3.0 (unveränderter Betrieb, Portal nur über API), Sicherung mit PostgreSQL.
-   Fällt ein Punkt durch: Keycloak.
+   Fällt ein Punkt durch: Keycloak. Aufbau und Drehbuch des PoC: [KONZEPT-IDENT.md](KONZEPT-IDENT.md).
 2. Ident zentral für alle oder getrennte Bereiche je Kunde ab einer bestimmten Klassifizierung?
 3. Leitstand als eigene interne Anwendung (Vorschlag) oder Teil von Ident?
 4. Zuerst zentral mit Organisationen, isolierte Instanzen nur auf Wunsch (Vorschlag)?
