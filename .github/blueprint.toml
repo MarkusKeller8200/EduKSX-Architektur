@@ -164,8 +164,8 @@ timeout_minuten = 60
 # Workflow «pruefungen»: Prüfbefehl auf allen Zielsystemen, Fehler als Anmerkungen. Als Pflichtprüfung bzw. für
 # release_nach den Namen «pruefungen» verwenden.
 aktiv = true
-befehl = ""                       # leer = projekt.pruefbefehl
-vorbereiten = "" # z. B. "npm ci", "composer install --no-interaction", "pip install -r requirements.txt"
+befehl = "python -m unittest discover -s tests" # «python» gibt es nach setup-python auf allen Runnern
+vorbereiten = "python -m pip install -r requirements-pruefung.txt" # z. B. "npm ci", "composer install --no-interaction", "pip install -r requirements.txt"
 betriebssysteme = ["windows-latest", "macos-latest", "ubuntu-latest"] # auto: web → ubuntu; desktop → windows + macos; beides → alle drei
 betriebssysteme_beta = []         # bei Vorabversionen nur diese, z. B. ["windows-latest"]; leer = wie oben
 # Sprachversionen (leer = nicht einrichten; Listen ergeben eine Matrix, z. B. python = ["3.12", "3.13"]).

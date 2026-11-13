@@ -1,6 +1,7 @@
 # Konzept: Gemeinsame Bibliothek `eduksx/core` (#27)
 
-Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **ENTWURF**
+Stand: 13.11.2026 (Meilenstein 0.2.0) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – abgenommen am
+13.11.2026 (#27); umgesetzt wird erst nach Freigabe des Folge-Issues im Repo EduKSX-Core.
 
 Konkretisiert [Plattform 4.3](KONZEPT-PLATTFORM.md), [DB-Standard](KONZEPT-DB-GUIDELINE.md) (E5, DB-E12) und
 [API-Standard G3](KONZEPT-API-GUIDELINE.md). Modulschlüssel `core` laut [Modulregister](REGISTER-MODULE.md).
@@ -42,12 +43,13 @@ So arbeitet ein Modul mit Core:
 | C2 | Wo entsteht Core? | eigenes Repo / im Glossary | eigenes Repo **EduKSX-Core** | BESCHLOSSEN 13.11.2026 |
 | C3 | Lizenz | MIT / intern / AGPL | **MIT** wie das Glossary | BESCHLOSSEN 13.11.2026 |
 | C4 | Unterstützte Versionen 0.1 | nur aktuell / auch ältere | **PHP 8.4, Laravel 13** | BESCHLOSSEN 13.11.2026 |
-| C5 | Verteilung | Packagist / GitHub als Composer-Repository | Packagist (öffentlich, MIT; kein Token in den Modulen nötig) | EMPFOHLEN |
-| C6 | Namensraum | `EduKSX\Core\…` / `Eduksx\Core\…` | `EduKSX\Core\…`, Paket `eduksx/core` | EMPFOHLEN |
-| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.2)** – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #25 ab | EMPFOHLEN |
-| C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | EMPFOHLEN |
-| C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | EMPFOHLEN |
-| C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | EMPFOHLEN |
+| C5 | Verteilung | Packagist / GitHub als Composer-Repository | Packagist (öffentlich, MIT; kein Token in den Modulen nötig) | BESCHLOSSEN 13.11.2026 |
+| C6 | Namensraum | `EduKSX\Core\…` / `Eduksx\Core\…` | `EduKSX\Core\…`, Paket `eduksx/core` | BESCHLOSSEN 13.11.2026 |
+| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.2)** – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #25 ab | BESCHLOSSEN 13.11.2026 |
+| C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | BESCHLOSSEN 13.11.2026 |
+| C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | BESCHLOSSEN 13.11.2026 |
+| C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | BESCHLOSSEN 13.11.2026 |
+| C11 | Schemas der Plattform-Schnittstellen (S1, S4–S6) | in Core / im Architektur-Repo | Quelle ist `spec/` in EduKSX-Architektur ([spec/README.md](../spec/README.md)); Core übernimmt die Dateien je Release unverändert und prüft Module dagegen | BESCHLOSSEN 13.11.2026 (#3) |
 
 ## 4. Umsetzung
 
@@ -103,10 +105,11 @@ Erst wenn beide Module Core 0.1 nutzen, gilt ein Baustein als bewährt; Ausnahme
 
 | Issue | Inhalt | Status |
 |---|---|---|
-| #27 | Dieses Konzept | `_2 in Arbeit` |
-| (folgt) | EduKSX-Core: Grundgerüst und Bausteine 0.1 | erst nach Abnahme des Konzepts |
+| #27 | Dieses Konzept | abgenommen 13.11.2026 |
+| (folgt, im Repo EduKSX-Core) | Grundgerüst und Bausteine 0.1 nach 4.1/4.2 | anzulegen, sobald das Repo besteht |
 | Glossary #193 | Bausteine abgrenzen – wird zur Umstellung auf Core 0.1 | `triage` |
 
 ## 6. Verlauf
 
+- 13.11.2026: Abgenommen; C5–C10 im Chat beschlossen, C11 (Schemas in `spec/`) aus #3 beschlossen.
 - 13.11.2026: Entwurf angelegt; C1–C4 im Chat entschieden.

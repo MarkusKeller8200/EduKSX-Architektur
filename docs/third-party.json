@@ -11,6 +11,7 @@
     "vorlage": "Vorlagen, Formatbeschreibungen und Texte"
   },
   "items": [
-    {"id": "app", "group": "app", "name": "EduKSX-Architektur", "use": "Dieses Projekt", "license": "GPL-3.0-or-later", "url": "https://github.com/MarkusKeller8200/eduksx-architektur"}
+    {"id": "app", "group": "app", "name": "EduKSX-Architektur", "use": "Dieses Projekt", "license": "GPL-3.0-or-later", "url": "https://github.com/MarkusKeller8200/eduksx-architektur"},
+    {"id": "jsonschema", "group": "entwicklung", "name": "jsonschema (Python)", "use": "Prüfung der Schemas unter spec/ in den Tests (#3)", "license": "MIT", "url": "https://github.com/python-jsonschema/jsonschema"}
   ]
 }

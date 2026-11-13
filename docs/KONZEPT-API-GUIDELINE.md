@@ -419,7 +419,8 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 - Nach RFC 9700 und der Security Guideline des Bundes: nur Authorization Code mit PKCE bzw. Client Credentials, keine
   Implicit- und Password-Grants; Tokens mit Zielgruppe (`aud`) und Prüfung von Signatur, Gültigkeit und Zweck.
   An den Absender gebundene Tokens (DPoP, RFC 9449, oder mTLS, RFC 8705) für Dienst-zu-Dienst-Zugriffe mit
-  Personendaten: ZU PRÜFEN mit Ident (Entscheid beim Bau von Ident, #16).
+  Personendaten: ZU PRÜFEN mit Ident (Entscheid beim Bau von Ident, #16; Variantenvergleich und Empfehlung:
+  [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md)).
 - Ein statisches Token allein reicht nie für privilegierte Vorgänge (Konten, Rollen, Löschen nach Datenschutzrecht,
   Plattform-Administration). Dafür gilt (W4, API-E25):
   - **Menschen:** zweiter Faktor, der **höchstens 15 Minuten** alt ist (`auth_time`, sonst Neuanmeldung über Ident mit
@@ -621,7 +622,8 @@ Stabilität».
 - **Client:** Für eigene Oberflächen wird aus der Beschreibung ein TypeScript-Client erzeugt
   (WebApplicationProgrammingGuide); Vertrag und Client werden im selben Pull Request geprüft.
 - Gemeinsame Schemas (Problem, Pagination, Ereignis, Lizenz) liegen zentral in `eduksx/core` und werden nicht je Modul
-  neu erfunden.
+  neu erfunden. Die Schemas der Plattform-Schnittstellen (Ereignis, Steckbrief, `/health`, Claims) werden in
+  [`spec/`](../spec/README.md) gepflegt; Core liefert sie aus (#3, Core C11).
 
 ### D4 Doku und Werkzeuge (BESCHLOSSEN, Plattform S8)
 
@@ -759,7 +761,7 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
 | API-E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
 | API-E36 | Ein Register für DB und API | [REGISTER-MODULE.md](REGISTER-MODULE.md); Schlüssel englisch, Marketingnamen frei; `timetable`, `ops` neu vergeben | G2 |
 | – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
-| – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16) | C1 – ZU PRÜFEN |
+| – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16); empfohlen: kurze JWT mit `private_key_jwt` ab Stufe 1, DPoP vor mTLS sobald Ident es kann ([Prüfauftrag](PRUEFAUFTRAG-DPOP-MTLS.md)); Entscheid #35 | C1 – ZU PRÜFEN |
 
 ## Abweichungen heute (Ist-Stand 13.11.2026)
 

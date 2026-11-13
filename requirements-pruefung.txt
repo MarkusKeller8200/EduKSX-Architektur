@@ -1,0 +1,2 @@
+# Abhängigkeiten nur für die Prüfungen (tests/), nicht ausgeliefert. Eingetragen in docs/third-party.json.
+jsonschema>=4.23,<5
