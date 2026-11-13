@@ -119,7 +119,7 @@ Erst wenn beide Module Core 0.1 nutzen, gilt ein Baustein als bewährt; Ausnahme
 |---|---|---|
 | #27 | Dieses Konzept | abgenommen 13.11.2026 |
 | EduKSX-Core #2–#6, #11 | Grundgerüst und Bausteine 0.1 nach 4.1/4.2 | veröffentlicht als 0.1.0 und 0.1.1 |
-| EduKSX-Core #13–#16 | Fahrplan 0.2 (4.1a) | `_1 bereit` |
+| EduKSX-Core #13–#16 | Fahrplan 0.2 (4.1a) | umgesetzt in EduKSX-Core PR #18, Release nach Freigabe |
 | Glossary #193 | Bausteine abgrenzen – wird zur Umstellung auf Core 0.1 | `triage` |
 
 ## 6. Verlauf
