@@ -38,6 +38,9 @@ Guideline des Bundes 3.1)? Wenn ja: DPoP (RFC 9449) oder mTLS (RFC 8705)?
 
 ## 4. Offene Prüfpunkte
 
+Weitergeführt in **#35** (Meilenstein 0.3.0); #16 ist mit dieser Empfehlung abgeschlossen.
+
+
 - [ ] PoC P8: Zitadel-Version auf DPoP und `private_key_jwt` für Client Credentials prüfen
 - [ ] DPoP-Baustein: Paket wählen oder selbst auf `web-token/jwt-library` aufbauen; Lizenz, Pflege, Prüfung von
       `htm`, `htu`, `iat`, `jti`, `ath` und Nonce

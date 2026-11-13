@@ -127,7 +127,7 @@ Fehlt nur DPoP (P8), ist das **kein** Abbruchgrund; Entscheid im Prüfauftrag #1
 | Issue | Inhalt | Status |
 |---|---|---|
 | #25 | PoC Zitadel nach §4 | `_2 in Arbeit` (Konzept), Durchführung offen |
-| #16 | Prüfauftrag DPoP/mTLS (I9) | `_2 in Arbeit` |
+| #16, #35 | Prüfauftrag DPoP/mTLS (I9); Entscheid nach P8 in #35 | Empfehlung im Beta-Test, #35 `triage` |
 | #3 | Schemas S1, S4, S5, S6 | `_2 in Arbeit` |
 | Glossary #185–#189 | Anmeldung, Rollen, Logout/Ereignisse, Client Credentials, Steckbrief | `triage` |
 | (folgt) | Repo EduKSX-Ident mit der Brücke | nach bestandenem PoC |

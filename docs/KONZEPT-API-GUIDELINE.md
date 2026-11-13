@@ -761,7 +761,7 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
 | API-E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
 | API-E36 | Ein Register für DB und API | [REGISTER-MODULE.md](REGISTER-MODULE.md); Schlüssel englisch, Marketingnamen frei; `timetable`, `ops` neu vergeben | G2 |
 | – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
-| – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16); empfohlen: kurze JWT mit `private_key_jwt` ab Stufe 1, DPoP vor mTLS sobald Ident es kann ([Prüfauftrag](PRUEFAUFTRAG-DPOP-MTLS.md)) | C1 – ZU PRÜFEN |
+| – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16); empfohlen: kurze JWT mit `private_key_jwt` ab Stufe 1, DPoP vor mTLS sobald Ident es kann ([Prüfauftrag](PRUEFAUFTRAG-DPOP-MTLS.md)); Entscheid #35 | C1 – ZU PRÜFEN |
 
 ## Abweichungen heute (Ist-Stand 13.11.2026)
 

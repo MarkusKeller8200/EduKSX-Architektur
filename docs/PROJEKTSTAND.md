@@ -24,7 +24,8 @@
 - Meilenstein «0.2.0 – Core und Ident»: #27 im Beta-Test; #25, #3, #28 Konzepte im Beta-Test – Durchführung des PoC
   (#25) und Abnahme der Schemas (#3) stehen aus
 - Meilenstein «0.3.0 – Betrieb Stufe 1»: #29 Hosting und Geheimnisse, #30 Sicherung und Überwachung, #22 Datenschutz C9
-- Ebenfalls in 0.2.0 (seit 13.11.2026): #13 RLS (Prototyp offen), #16 DPoP/mTLS (Entscheid nach PoC P8)
+- Ebenfalls in 0.2.0 (seit 13.11.2026): #13 RLS, #16 DPoP/mTLS – Empfehlungen; Entscheide in 0.3.0 als #34 (RLS nach
+  Prototyp) und #35 (DPoP/mTLS nach PoC P8)
 
 ## Technik
 

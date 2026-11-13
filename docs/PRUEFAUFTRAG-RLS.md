@@ -58,6 +58,8 @@ CREATE POLICY organization_isolation ON glossary.custom_terms
 
 ## 5. Offene Prüfpunkte
 
+Weitergeführt in **#34** (Meilenstein 0.3.0); #13 ist mit dieser Empfehlung abgeschlossen.
+
 - [ ] Prototyp R1–R6 (Glossary #191 oder eigenes Prototyp-Repo)
 - [ ] Entscheid DB-E5 im DB-Standard nachführen (B1 Regel 4)
 
