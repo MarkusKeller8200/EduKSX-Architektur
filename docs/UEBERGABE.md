@@ -25,7 +25,7 @@ Stand: **13.11.2026 (20:45)** – Release 0.1.0 «Grundgerüst»; laufender Meil
 | #3 | 0.2.0 – Core und Ident | `_3 Beta-Test` | Schemas unter `spec/v1/` mit Tests |
 | #28 | 0.2.0 – Core und Ident | `_3 Beta-Test` | KONZEPT-MODULVORLAGE.md, Datenschutz-Vorlagen; Probe-Modul erst mit Blueprint-Profil |
 | #29, #30, #22 | 0.3.0 – Betrieb Stufe 1 | `triage` | Hosting, Sicherung/Überwachung, Datenschutz C9 |
-| #13, #16 | Verbesserungen | `_3 Beta-Test` (Empfehlung) | Prüfaufträge RLS (Prototyp offen), DPoP/mTLS (Entscheid nach PoC P8) |
+| #13, #16 | 0.2.0 – Core und Ident | `_3 Beta-Test` (Empfehlung) | Prüfaufträge RLS (Prototyp offen), DPoP/mTLS (Entscheid nach PoC P8) |
 
 **Hinweise für die Arbeit**
 - Modulschlüssel nur aus `docs/REGISTER-MODULE.md`; Entscheide heissen `DB-E<n>` bzw. `API-E<n>`, in Konzepten
@@ -48,6 +48,7 @@ Stand: **13.11.2026 (20:45)** – Release 0.1.0 «Grundgerüst»; laufender Meil
 - Core C5–C10 beschlossen, Konzept abgenommen (#27); Schemas `spec/v1/` mit Tests (#3); KONZEPT-IDENT.md mit
   PoC-Drehbuch nach Recherche Zitadel/Edulog/Keycloak (#25); Modulvorlage und Datenschutz-Vorlagen (#28);
   Prüfaufträge RLS (#13) und DPoP/mTLS (#16) mit Empfehlung.
+- #13 und #16 auf Wunsch in den Meilenstein 0.2.0 verschoben (vorher Sammlung «Verbesserungen»).
 
 ### Sitzung 13.11.2026 (15:05–16:55) – Register, Core, Ident, Meilensteine
 
