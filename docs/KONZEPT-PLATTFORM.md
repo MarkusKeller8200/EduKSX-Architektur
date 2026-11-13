@@ -116,7 +116,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 ### S2 · Dienst zu Dienst
 
 - OAuth2 **Client Credentials**, JWT-Zugriffstoken, Prüfung über **JWKS**, `aud` = Ziel-Modul, Scopes je Endpunkt
-  (z. B. `glossary:read-org`, `glossary:propose`).
+  (Schema `<modul>:<ressource>.<aktion>`, z. B. `glossary:terms.read`, `glossary:proposals.write`; siehe [API-Standard](KONZEPT-API-GUIDELINE.md) C2).
 - Ersetzt mittelfristig die modul-eigenen Servicekonten; diese bleiben bis dahin gültig.
 
 ### S3 · Konten in isolierte Instanzen
