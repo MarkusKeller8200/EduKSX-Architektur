@@ -128,7 +128,7 @@ Glossary selbst (#185–#187) folgt.
 | P2 | 13.11.2026 | **bestanden** | zwei Organisationen (Schule, Schulgemeinde), Projekte `glossary` (Rollen reader/editor/admin) und `platform` (Super-Admin), Projekt-Grants an die Organisationen, vertraulicher Web-Client (Code + PKCE), Dienstkonto für S2 – alles per API (`setup.py`) |
 | P3 | 13.11.2026 | **bestanden** (mit Test-Client) | Anmelden mit Code + PKCE; ID-/Access-Token als JWT, Prüfung in PHP ohne Zusatzpaket (`verify.php`: Signatur über JWKS, iss, aud, exp; verändertes Token abgelehnt). RP-initiiertes Abmelden und **Back-Channel-Logout** mit passender `sid`. Client Credentials für das Dienstkonto. Befund: Token-Laufzeit ab Werk 12 h → auf 15 Min. gesetzt (API C1) |
 | P4 | 13.11.2026 | **bestanden** (Stub) | Actions v2 `preuserinfo`/`preaccesstoken` rufen die Brücke (`bridge.php`), die `eduksx_orgs` und `eduksx_roles` setzt; ID-Token besteht `oidc-claims.schema.json` bis auf `iss` mit http (nur lokal). Befund: Mit `interruptOnError` hängt jede Anmeldung an der Brücke → Brücke hochverfügbar betreiben oder Ausfallverhalten festlegen |
-| P5 | – | offen | Edulog-Testzugang fehlt; MockSAML noch nicht aufgesetzt |
+| P5 | – | offen | Kein direkter Zugang: Edulog ist eine SAML-Föderation, Anschluss über Föderationsvertrag mit der Geschäftsstelle (Educa) und deren Anforderungskatalog. Bis dahin MockSAML mit den Edulog-Attributnamen. Entscheid 13.11.2026: alles vorbereiten; auf dev ausliefern und testen, produktiv erst nach dem Go (Schalter je Umgebung) |
 | P6 | 13.11.2026 | **teilweise** | Ereignisse `user.human.added` und `user.removed` kommen signiert an; falsche Signatur und über 5 Min. alter Zeitstempel werden abgewiesen. Offen: Empfänger in Laravel und Umsetzung in S4/CloudEvent (`event.schema.json`) in der Brücke. Befund: Zitadel sperrt Ziele im privaten Netz ab Werk (`ZITADEL_HTTPCLIENT_DENYLIST`) – im PoC gelockert, im Betrieb so lassen |
 | P7 | 13.11.2026 | **bestanden** | `pg_dumpall` in eine leere Umgebung zurückgespielt: Zitadel nach **8 s** bereit, Anmeldung ok, Signaturschlüssel unverändert (ausgestellte Tokens bleiben gültig). Mit falschem Masterkey startet Zitadel, stellt aber keine Tokens aus → I11 bestätigt |
 | P8 | 13.11.2026 | **festgehalten** | `private_key_jwt` angeboten; **DPoP nicht** angeboten (Discovery); SCIM nur als Server (eingehend), kein ausgehendes Provisioning an Anwendungen gefunden → I8: Brücke sendet SCIM |
@@ -165,6 +165,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 
 ## 7. Verlauf
 
+- 13.11.2026: Edulog vorbereiten, auf dev testen, produktiv erst nach Go (Schalter je Umgebung).
 - 13.11.2026: P9 als positiv angenommen, I10 beschlossen (Restrisiko akzeptiert, Rückfall: Komponente ersetzen).
 - 13.11.2026: PoC Durchgang 1 (Cloud-Umgebung): P2, P3, P4, P7 bestanden, P1 und P6 teilweise, P8 festgehalten; offen P5, P9, P10 (#36).
 - 13.11.2026: Als Drehbuch abgenommen; I2–I11 bleiben empfohlen, Durchführung in #36.
