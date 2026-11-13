@@ -1,46 +1,48 @@
 # Übergabe an einen neuen Chat – EduKSX-Architektur
 
-Stand: **JJJJ-MM-TT (hh:mm)** – ein Satz zum Stand (letztes Release, laufender Meilenstein, was im Beta-Test ist).
+Stand: **13.11.2026 (16:55)** – Release 0.1.0 «Grundgerüst»; laufender Meilenstein «0.2.0 – Core und Ident».
 [PROJEKTSTAND.md](PROJEKTSTAND.md) (aktuell), [PROJEKTSTAND-ARCHIV.md](PROJEKTSTAND-ARCHIV.md) (Verlauf), Konzepte in
 `docs/KONZEPT-*.md`. Bei jeder Übergabe nachführen.
 
-## Start nächster Chat (Übergabe JJJJ-MM-TT, hh:mm)
+## Start nächster Chat (Übergabe 13.11.2026, 16:55)
 
 **Zuerst lesen:** CLAUDE.md → AGENTS.md → dieser Abschnitt → PROJEKTSTAND.md → passende KONZEPT-*.md.
 
 **Stand Code und CI**
-- `main` = `abc1234` (kurz, was der letzte Commit war). Arbeitsbaum sauber? CI auf `main` grün?
-- Letztes Release **v0.1.0** (Datum). Release in Arbeit? Nächstes nur auf ausdrückliche Freigabe.
-- Prüfen: `python3 -m unittest discover -s tests` (Anzahl Tests, Dauer); weitere Prüfungen mit Befehl.
+- Letztes Release **v0.1.0** (13.11.2026). Nächstes nur auf ausdrückliche Freigabe.
+- Workflow `pages` schlägt seit 12.11.2026 fehl (vermutlich GitHub Pages nicht eingerichtet) – nicht untersucht.
+- Prüfen: `python3 -m unittest discover -s tests`.
 
 **Offene Issues und ihr Status**
 
-| Issue | Meilenstein | Status | Inhalt / Testliste |
+| Issue | Meilenstein | Status | Inhalt |
 |---|---|---|---|
-| #1 | 0.2.0 – Thema | `_3 Beta-Test` | was zu testen ist |
-| #2 | Funktionen | `_1 bereit` | **nicht umgesetzt** – erst auf Wort von Projektverantwortliche:r |
-
-Schliessen erst nach «getestet ok» bzw. abgehakter Testliste.
+| #27 | 0.2.0 – Core und Ident | `triage` | Konzept Core 0.1 (KONZEPT-CORE.md) |
+| #25 | 0.2.0 – Core und Ident | `triage` | PoC Zitadel inkl. Edulog-Testzugang |
+| #3 | 0.2.0 – Core und Ident | – | Schnittstellen als Schemas |
+| #28 | 0.2.0 – Core und Ident | `triage` | Vorlage für neue Module |
+| #29, #30, #22 | 0.3.0 – Betrieb Stufe 1 | `triage` | Hosting, Sicherung/Überwachung, Datenschutz C9 |
+| #13, #16 | Verbesserungen | `triage` | Prüfaufträge RLS, DPoP/mTLS |
 
 **Hinweise für die Arbeit**
-- Werkzeuge, Testdaten, Stolpersteine (z. B. Cache, Zugänge, was nur von Hand geht).
+- Modulschlüssel nur aus `docs/REGISTER-MODULE.md`; Entscheide heissen `DB-E<n>` bzw. `API-E<n>`.
+- Glossary-Guideline zitiert noch «Plattform-Entscheid E4» (gemeint DB-E4) – im Glossary korrigieren.
 
 **Arbeitsregeln** (siehe AGENTS.md)
 - Jedes Thema aus dem Chat → Issue mit Testliste; Status `_1 bereit` → `_2 in Arbeit` → `_3 Beta-Test`.
-- Verbesserungen aus dem Test nur als Issue anlegen; umsetzen erst nach Freigabe.
-- Releases nur nach ausdrücklicher Freigabe; `version.py`, Tags und Releases nicht anfassen.
-- Löschen nur nach Rückfrage.
+- Releases nur nach ausdrücklicher Freigabe; Löschen nur nach Rückfrage.
 
 ## Sitzungen
 
-Neueste oben. Je Sitzung: Datum und Zeit, Thema, umgesetzte Issues, Entscheide (mit Datum), Offenes. Ältere Sitzungen
-gelegentlich gekürzt nach `PROJEKTSTAND-ARCHIV.md` verschieben.
+### Sitzung 13.11.2026 (15:05–16:55) – Register, Core, Ident, Meilensteine
 
-### Sitzung JJJJ-MM-TT (hh:mm–) – Thema
-
-- …
+- Modulregister mit englischen Schlüsseln (`codex`, `timetable`, `ops`), Entscheid-Nummern `DB-E`/`API-E` (#23, PR #24).
+- Zitadel als Identity-Provider vorbehaltlich PoC (#25, PR #26).
+- Meilensteine 0.2.0 und 0.3.0 angelegt, #27–#30 erfasst; 0.1.0 abgenommen und released.
 
 ## Entscheide
 
-Beschlüsse mit Datum, damit sie nicht erneut diskutiert werden («Entscheid JJJJ-MM-TT: …»). Dauerhafte Regeln
-gehören zusätzlich in AGENTS.md.
+- Entscheid 13.11.2026: Interne Bezeichnungen englisch, Marketingnamen situativ (REGISTER-MODULE.md).
+- Entscheid 13.11.2026: `eduksx/core` ist eine Bibliothek, kein Dienst; Standardtabellen je Modul-Schema, Stammdaten in Ident (DB-E12).
+- Entscheid 13.11.2026: Identity-Provider Zitadel, vorbehaltlich PoC; Plan B Keycloak.
+- Entscheid 13.11.2026: Core in eigenem Repo EduKSX-Core, Lizenz MIT, Core 0.1 nur PHP 8.4 / Laravel 13.
