@@ -1,7 +1,7 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 13.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **ENTWURF** zur Abnahme (Version 1.0 und 1.1
-abgenommen am 12.11.2026)
+Stand: 13.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am 13.11.2026
+(Version 1.0 und 1.1 am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -557,5 +557,5 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 - 12.11.2026: Version 1.0 (DB-Entwickler-Guideline, aus dem Glossary) abgenommen (#9).
 - 12.11.2026: Version 1.1 nach Architekturreview abgenommen: Aufteilung Plattform/Modul, Mandantentrennung, Datenklassen,
   Löschregister, Identitäten, Datenbankzugänge, PITR/RPO/RTO, Sprachregeln (#11).
-- 13.11.2026: Version 1.2 – Teil E (Modularität und Zusammenführbarkeit) und B7–B14 (Rechtsrahmen, Auskunft,
+- 13.11.2026: Version 1.2 abgenommen – Teil E (Modularität und Zusammenführbarkeit) und B7–B14 (Rechtsrahmen, Auskunft,
   Zweck je Tabelle, Folgenabschätzung, Lesezugriffe, anonymisierte Kopien, Einschränkung, Zusammenlegen) (#20).
