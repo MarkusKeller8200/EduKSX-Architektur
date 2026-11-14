@@ -28,7 +28,7 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 | #34 | Entscheid RLS (DB-E5) | Prototyp (Glossary PostgreSQL) |
 | #43 | Konzept connect (UUID-Hoheit, IDA, licence) | Core so weit (Entscheid 13.11.2026) |
 | #37 | Blueprint-Profil und Probe-Modul | my-github-blueprint |
-| #51 | Repo EduKSX-Suite: Installer, Update-Dienst, VM-Vorlage | Repo anlegen |
+| #51 | Repo EduKSX-Suite: Installer, Update-Dienst, VM-Vorlage | Umsetzung in EduKSX-Suite #2–#8 (Meilenstein «2026.11.0 – Probe», `triage`); Projektstart 14.11.2026 erledigt |
 | #52 | Probe Glossary-Plugin im Intranet | Glossary, Intranet |
 | #22 | Datenschutz C9 gegenlesen | Fachperson |
 
@@ -47,6 +47,13 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Releases nur nach ausdrücklicher Freigabe; Löschen nur nach Rückfrage.
 
 ## Sitzungen
+
+### Sitzung 14.11.2026 (00:03–00:30) – Projektstart EduKSX-Suite (#51)
+
+- Steckbrief EduKSX-Suite `docs/PROJEKTSTART.md` bestätigt: AGPL-3.0-or-later, POSIX-Shell, `VERSION` 2026.11.0
+  (SH-E10), Schutzbedarf «vertraulich», Repo öffentlich; Blueprint angewendet, Issues EduKSX-Suite #2–#8 angelegt.
+- In der Suite offen (lokal mit eigener gh-Anmeldung): `apply.py --nur-github` für Einstellungen, Rulesets, Actions,
+  Dependabot. Konzept unverändert (eingefroren).
 
 ### Sitzung 14.11.2026 (00:00) – Merge Ident, Prüfung der Umsetzung
 

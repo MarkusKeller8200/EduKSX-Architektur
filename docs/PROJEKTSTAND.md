@@ -28,7 +28,7 @@
 ## Offen bzw. geplant
 
 - Meilenstein «Anpassungen aus der Umsetzung»: #36 PoC, #35 DPoP/mTLS, #34 RLS, #43 connect, #37 Probe-Modul,
-  #51 Suite, #52 Plugin-Probe, #22 Datenschutz
+  #51 Suite (Projektstart 14.11.2026 erledigt, Umsetzung in EduKSX-Suite #2–#8), #52 Plugin-Probe, #22 Datenschutz
 
 ## Technik
 
