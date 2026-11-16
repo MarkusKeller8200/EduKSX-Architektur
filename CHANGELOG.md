@@ -8,11 +8,15 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Redaktionell:** Repo EdukSX-Ident in EduKSX-Ident umbenannt; Verweise in Register, Konzept Ident, Projektstand und Übergabe nachgeführt.
+
+### Geändert
+
 - **Lizenz `spec/`:** zusätzlich MIT (Doppellizenz `GPL-3.0-or-later OR MIT`, `spec/LICENSE`), damit `eduksx/core` (MIT) die Schemas ausliefern kann.
 
 ### Geändert
 
-- **Redaktionell:** Repo EdukSX-Ident im Register und in der Modulübersicht; Issue-Tabellen in KONZEPT-CORE und KONZEPT-IDENT nachgeführt; Name des Konformitätstests in KONZEPT-CORE korrigiert (`AssertsConformance`).
+- **Redaktionell:** Repo EduKSX-Ident im Register und in der Modulübersicht; Issue-Tabellen in KONZEPT-CORE und KONZEPT-IDENT nachgeführt; Name des Konformitätstests in KONZEPT-CORE korrigiert (`AssertsConformance`).
 - **Repo:** Python-Cache (`tests/__pycache__/`) nicht mehr eingecheckt, `.gitignore` ergänzt.
 
 ## [0.3.0] – 2026-11-13

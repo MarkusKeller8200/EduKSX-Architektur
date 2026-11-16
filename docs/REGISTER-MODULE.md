@@ -22,7 +22,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | Schlüssel | Modul (intern) | Marketingname (Stand) | Repo | Betriebsart | Status |
 | --- | --- | --- | --- | --- | --- |
 | `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.1.0) |
-| `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | EdukSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
+| `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | EduKSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
 | `ops` | Leitstand: Kunden, Instanzen, Versionen, Updates, Zustand | Teil von «EduKSX-Core» | – | intern | geplant |
 | `glossary` | Glossar | EduKSX-Glossary | EduKSX-Glossary | zentral | aktiv |
 | `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |

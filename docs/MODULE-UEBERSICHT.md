@@ -12,7 +12,7 @@ markussxch PR #13).
 | | Modul | Schlüssel | Kurzbeschreibung | Personendaten | Status |
 |---|---|---|---|---|---|
 | <img src="assets/icons/eduksx-core-color.svg" width="32" alt=""> | EduKSX-Core | `core` | gemeinsam genutzte Bausteine aller Module (Bibliothek, kein Dienst) | keine | 0.1.0 |
-| <img src="assets/icons/eduksx-ident-color.svg" width="32" alt=""> | EduKSX-Ident | `ident` | eigener Identity-Provider (Zitadel) und Brücke zu Entra, Google, Edulog | Konten | Brücke 0.1 (Repo EdukSX-Ident), PoC #36 |
+| <img src="assets/icons/eduksx-ident-color.svg" width="32" alt=""> | EduKSX-Ident | `ident` | eigener Identity-Provider (Zitadel) und Brücke zu Entra, Google, Edulog | Konten | Brücke 0.1 (Repo EduKSX-Ident), PoC #36 |
 | <img src="assets/icons/eduksx-ops-color.svg" width="32" alt=""> | EduKSX-Ops (Leitstand) | `ops` | Kunden, Instanzen, Versionen, Updates und Zustand – intern | keine | geplant |
 | <img src="assets/icons/eduksx-glossary-color.svg" width="32" alt=""> | EduKSX-Glossary | `glossary` | Verzeichnis von Begriffen und Abkürzungen | wenig | aktiv |
 | <img src="assets/icons/eduksx-codex-color.svg" width="32" alt=""> | EduKSX-Codex | `codex` | systematische Rechtssammlung jeder Gemeinde, später Gegenüberstellung mehrerer Gemeinden | wenig | aktiv |
