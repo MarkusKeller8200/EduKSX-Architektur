@@ -35,6 +35,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `sign` | Dokumente unterschreiben über Anbieter (z. B. Deepsign, SwissSign) | EduKSX-Sign | – | offen | geplant |
 | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | – | offen | geplant |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
+| `flow` | Workflows: Abläufe mit Schritten, Entscheiden und Zuständigkeiten | EduKSX-Flow | EduKSX-Flow | offen | aktiv (Repo angelegt 16.11.2026; #62) |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,

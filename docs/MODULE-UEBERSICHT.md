@@ -24,6 +24,7 @@ markussxch PR #13).
 | <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | geplant |
 | <img src="assets/icons/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |
 | <img src="assets/icons/eduksx-portal-color.svg" width="32" alt=""> | EduKSX-Portal | `portal` | Self-Service-Portal für Eltern, Ärztinnen und Ärzte, Zahnärztinnen und Zahnärzte und alle Externen | viele | geplant |
+| <img src="assets/icons/eduksx-flow-color.svg" width="32" alt=""> | EduKSX-Flow | `flow` | Workflows: Abläufe mit Schritten, Entscheiden und Zuständigkeiten | offen | aktiv (Repo EduKSX-Flow) |
 | <img src="assets/icons/eduksx-intranet-color.svg" width="32" alt=""> | Intranet | `intranet` | interne Plattform, die Module, Schnittstellen, Wissen und Links zusammenbringt | viele | aktiv |
 | <img src="assets/icons/eduksx-services-color.svg" width="32" alt=""> | EduKSX-Services | `services` | reserviert, noch nicht definiert | – | reserviert |
 
@@ -41,6 +42,7 @@ um `connect`.
                                     └─ staffing
  Dienste für Mitarbeitende time · shop · sign
  Zugänge                   intranet (intern) · portal (extern)
+ Abläufe                   flow (Einordnung OFFEN, #62)
 ```
 
 ## 3. Module und Systemgrenzen
@@ -116,6 +118,11 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   Anmeldungen, Unterschriften, Mitteilungen.
 - **Nicht:** nichts für Mitarbeitende (→ `intranet`); keine eigenen Stammdaten (Personen aus `connect`).
 
+### flow – Workflows
+- **Macht:** Abläufe mit Schritten, Entscheiden und Zuständigkeiten abbilden (#62).
+- **Nicht:** OFFEN – Abgrenzung zu `portal` (Formulare, Anmeldungen), `sign` und den Workflows in EduKSX-Connectors
+  (`docs/workflows.md`) wird vor der Umsetzung geklärt.
+
 ### intranet – interne Plattform
 - **Macht:** Einstieg für Mitarbeitende und Lehrpersonen; bringt Module, Schnittstellen, Wissen und Links zusammen –
   über Plugins (§4).
@@ -142,3 +149,4 @@ Web-Komponenten des Moduls; Versionierung der Plugin-Schnittstelle; Freigabe von
 - 13.11.2026: Übersicht angelegt – Zweck und Kurzbeschreibung aller Module aus dem Chat, Abgrenzungen, Gruppen,
   Plugin-Integration; `staffing` neu vergeben; Icon-Entwürfe für intranet, timetable, staffing, ops.
 - 13.11.2026: Icons für intranet, timetable, staffing, ops freigegeben.
+- 16.11.2026: neues Modul `flow` (EduKSX-Flow) mit Icon «Flussdiagramm» (markussxch PR #20; #62).

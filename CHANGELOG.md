@@ -6,6 +6,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Neu
+
+- **Modul `flow` (#62):** EduKSX-Flow für Workflows im Register und in der Modulübersicht, Repo EduKSX-Flow, Icon «Flussdiagramm» (markussxch PR #20); Abgrenzung OFFEN.
+
 ### Geändert
 
 - **Lizenz `spec/`:** zusätzlich MIT (Doppellizenz `GPL-3.0-or-later OR MIT`, `spec/LICENSE`), damit `eduksx/core` (MIT) die Schemas ausliefern kann.
