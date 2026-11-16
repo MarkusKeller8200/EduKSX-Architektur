@@ -33,7 +33,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `portal` | Self-Service-Portal für Eltern, Ärztinnen, Zahnärzte und alle Externen der Schule | EduKSX-Portal | – | offen | geplant |
 | `shop` | interner Shop für Mitarbeitende und Lehrpersonen (Hard- und Software, Klassenbestellungen) | EduKSX-Shop | – | offen | geplant |
 | `sign` | Dokumente unterschreiben über Anbieter (z. B. Deepsign, SwissSign) | EduKSX-Sign | – | offen | geplant |
-| `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | – | offen | geplant |
+| `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | EduKSX-Time | offen | aktiv (Repo angelegt 16.11.2026) |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 

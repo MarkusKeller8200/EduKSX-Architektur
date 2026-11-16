@@ -20,7 +20,7 @@ markussxch PR #13).
 | <img src="assets/icons/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
 | <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | Stundenplan | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | Einsatzplanung | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
-| <img src="assets/icons/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | geplant |
+| <img src="assets/icons/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | aktiv (Repo EduKSX-Time) |
 | <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | geplant |
 | <img src="assets/icons/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |
 | <img src="assets/icons/eduksx-portal-color.svg" width="32" alt=""> | EduKSX-Portal | `portal` | Self-Service-Portal für Eltern, Ärztinnen und Ärzte, Zahnärztinnen und Zahnärzte und alle Externen | viele | geplant |
