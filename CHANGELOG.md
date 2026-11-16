@@ -8,6 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Modulregister:** `connect` aktiv mit Repo EduKSX-Connect (angelegt 16.11.2026); neues Icon «Verteilen» aus markussxch PR #17.
+
+### Geändert
+
 - **Lizenz `spec/`:** zusätzlich MIT (Doppellizenz `GPL-3.0-or-later OR MIT`, `spec/LICENSE`), damit `eduksx/core` (MIT) die Schemas ausliefern kann.
 
 ### Geändert

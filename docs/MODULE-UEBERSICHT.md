@@ -16,7 +16,7 @@ markussxch PR #13).
 | <img src="assets/icons/eduksx-ops-color.svg" width="32" alt=""> | EduKSX-Ops (Leitstand) | `ops` | Kunden, Instanzen, Versionen, Updates und Zustand – intern | keine | geplant |
 | <img src="assets/icons/eduksx-glossary-color.svg" width="32" alt=""> | EduKSX-Glossary | `glossary` | Verzeichnis von Begriffen und Abkürzungen | wenig | aktiv |
 | <img src="assets/icons/eduksx-codex-color.svg" width="32" alt=""> | EduKSX-Codex | `codex` | systematische Rechtssammlung jeder Gemeinde, später Gegenüberstellung mehrerer Gemeinden | wenig | aktiv |
-| <img src="assets/icons/eduksx-connect-color.svg" width="32" alt=""> | EduKSX-Connect | `connect` | verbinden und synchronisieren verschiedener Systeme; Stammdaten und ID-Zuordnung | viele | geplant |
+| <img src="assets/icons/eduksx-connect-color.svg" width="32" alt=""> | EduKSX-Connect | `connect` | verbinden und synchronisieren verschiedener Systeme; Stammdaten und ID-Zuordnung | viele | aktiv (Repo EduKSX-Connect) |
 | <img src="assets/icons/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
 | <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | Stundenplan | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | Einsatzplanung | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
@@ -142,3 +142,4 @@ Web-Komponenten des Moduls; Versionierung der Plugin-Schnittstelle; Freigabe von
 - 13.11.2026: Übersicht angelegt – Zweck und Kurzbeschreibung aller Module aus dem Chat, Abgrenzungen, Gruppen,
   Plugin-Integration; `staffing` neu vergeben; Icon-Entwürfe für intranet, timetable, staffing, ops.
 - 13.11.2026: Icons für intranet, timetable, staffing, ops freigegeben.
+- 16.11.2026: `connect` mit Repo EduKSX-Connect; neues Icon «Verteilen» (Basisdaten aus einer Quelle in andere Applikationen, markussxch PR #17).

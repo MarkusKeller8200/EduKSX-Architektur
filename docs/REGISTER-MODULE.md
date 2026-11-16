@@ -28,7 +28,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |
 | `intranet` | Intranet einer Schule | Intranet | sek-intranet | isoliert | aktiv |
 | `timetable` | Stundenplan | Stundenplan | – | isoliert | geplant |
-| `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | – | offen | geplant (#43) |
+| `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | EduKSX-Connect | offen | aktiv (Repo angelegt 16.11.2026; #43) |
 | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | EduKSX-Licence | – | offen | geplant (#43: eigenständig oder Teil von `connect`) |
 | `portal` | Self-Service-Portal für Eltern, Ärztinnen, Zahnärzte und alle Externen der Schule | EduKSX-Portal | – | offen | geplant |
 | `shop` | interner Shop für Mitarbeitende und Lehrpersonen (Hard- und Software, Klassenbestellungen) | EduKSX-Shop | – | offen | geplant |
