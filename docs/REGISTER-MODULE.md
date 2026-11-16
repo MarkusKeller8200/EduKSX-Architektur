@@ -39,6 +39,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
 VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält keinen Modulschlüssel.
+Ebenso kein Modul ist dieses Repo **EduKSX-Architektur**; es hat ein eigenes Icon (`eduksx-architektur`, markussxch PR #18), aber keinen Schlüssel.
 
 ## Umbenennungen
 
