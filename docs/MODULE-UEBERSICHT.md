@@ -21,7 +21,7 @@ markussxch PR #13).
 | <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | Stundenplan | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | Einsatzplanung | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
 | <img src="assets/icons/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | geplant |
-| <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | geplant |
+| <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | aktiv (Repo EduKSX-Shop) |
 | <img src="assets/icons/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |
 | <img src="assets/icons/eduksx-portal-color.svg" width="32" alt=""> | EduKSX-Portal | `portal` | Self-Service-Portal für Eltern, Ärztinnen und Ärzte, Zahnärztinnen und Zahnärzte und alle Externen | viele | geplant |
 | <img src="assets/icons/eduksx-intranet-color.svg" width="32" alt=""> | Intranet | `intranet` | interne Plattform, die Module, Schnittstellen, Wissen und Links zusammenbringt | viele | aktiv |
@@ -142,3 +142,4 @@ Web-Komponenten des Moduls; Versionierung der Plugin-Schnittstelle; Freigabe von
 - 13.11.2026: Übersicht angelegt – Zweck und Kurzbeschreibung aller Module aus dem Chat, Abgrenzungen, Gruppen,
   Plugin-Integration; `staffing` neu vergeben; Icon-Entwürfe für intranet, timetable, staffing, ops.
 - 13.11.2026: Icons für intranet, timetable, staffing, ops freigegeben.
+- 16.11.2026: `shop` mit Repo EduKSX-Shop; neues Icon «Einkaufswagen mit Klasse» (markussxch PR #21).
