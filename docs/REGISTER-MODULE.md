@@ -1,6 +1,6 @@
 # Modulregister der EduKSX-Plattform
 
-Stand: 13.11.2026 · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 13.11.2026
+Stand: 20.11.2026 · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 13.11.2026
 
 Einzige Quelle für die **Modulschlüssel**. DB-Standard (E1) und API-Standard (G2) verweisen hierher. Änderungen nur per
 Pull Request.
@@ -35,6 +35,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `sign` | Dokumente unterschreiben über Anbieter (z. B. Deepsign, SwissSign) | EduKSX-Sign | – | offen | geplant |
 | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | – | offen | geplant |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
+| `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender | EduKSX-Flow | EduKSX-Flow | offen | aktiv (Repo angelegt, Prototyp in EduKSX-Prototyp) |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,

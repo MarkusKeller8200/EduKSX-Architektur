@@ -8,8 +8,8 @@
 | Bereich | Stand | Seit Version | Konzept |
 |---|---|---|---|
 | Plattform: Bausteine, Schnittstellen S1–S8, Prüfliste, Infrastruktur | abgenommen, §9 vollständig entschieden | 0.1.0 | `docs/KONZEPT-PLATTFORM.md` |
-| DB-Standard | 1.2.1 abgenommen | 0.1.0 | `docs/KONZEPT-DB-GUIDELINE.md` |
-| API-Standard | 1.1.1 abgenommen | 0.1.0 | `docs/KONZEPT-API-GUIDELINE.md` |
+| DB-Standard | 1.3 abgenommen (A8 deutsche Beschreibungen, #65) | 0.1.0 | `docs/KONZEPT-DB-GUIDELINE.md` |
+| API-Standard | 1.2 abgenommen (A8 deutsche Beschreibungen, #65) | 0.1.0 | `docs/KONZEPT-API-GUIDELINE.md` |
 | Modulregister (englische Schlüssel) | abgenommen | 0.1.0 | `docs/REGISTER-MODULE.md` |
 | Identity-Provider Zitadel | entschieden, PoC läuft (#36): P2–P4, P6–P9 bestanden, P5 mit Edulog-Ersatz; offen Admin-MFA, echter Edulog-Anschluss, P10 | 0.1.0 | `docs/KONZEPT-PLATTFORM.md` 4.1, §9.1 |
 | Konzept Core (`eduksx/core` 0.1) | abgenommen | 0.2.0 | `docs/KONZEPT-CORE.md` |

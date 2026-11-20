@@ -6,6 +6,13 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Neu
+
+- **DB-Standard 1.3 und API-Standard 1.2 (#65):** zu jedem englischen Namen eine deutsche Beschreibung, verbindlich für
+  alle EduKSX-Projekte – Tabelle (Kurzbeschreibung, Geltungsbereich, Herkunft/Verwendung), Spalte und API-Feld
+  (Begriff, Herkunft/Verwendung, Datenklasse), Labels je Status- und Art-Wert (`x-eduksx-labels`); DB A8, API A8,
+  Entscheide DB-E13 und API-E37. Modulregister: Schlüssel `flow` (EduKSX-Flow).
+
 ### Geändert
 
 - **Lizenz `spec/`:** zusätzlich MIT (Doppellizenz `GPL-3.0-or-later OR MIT`, `spec/LICENSE`), damit `eduksx/core` (MIT) die Schemas ausliefern kann.
