@@ -20,6 +20,7 @@ markussxch PR #13).
 | <img src="assets/icons/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
 | <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | Stundenplan | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | Einsatzplanung | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
+| – | EduKSX-Flow | `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender (Icon im Prototyp, noch nicht im Icon-Set) | viele | aktiv |
 | <img src="assets/icons/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | geplant |
 | <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | geplant |
 | <img src="assets/icons/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |

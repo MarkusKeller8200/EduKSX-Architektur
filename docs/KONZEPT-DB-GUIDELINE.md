@@ -1,7 +1,7 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 13.11.2026 (Version 1.2.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am 13.11.2026
-(Version 1.0 und 1.1 am 12.11.2026); 1.2.1 redaktionell
+Stand: 20.11.2026 (Version 1.3) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.3 abgenommen am 20.11.2026
+(Version 1.2 am 13.11.2026, Version 1.0 und 1.1 am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -23,7 +23,8 @@ Der Standard ist in fünf Teile gegliedert:
 
 ## Grundsätze
 
-1. **Technik englisch, Anzeige deutsch** – übersetzt wird nur über Labels im Code, nie in der Datenbank. BESCHLOSSEN
+1. **Technik englisch, Anzeige deutsch** – übersetzt wird nur über Labels im Code, nie in der Datenbank. Jeder englische
+   Name hat im Datenmodell eine deutsche Beschreibung (A8). BESCHLOSSEN
 2. **Kein Datenverlust** – jede Änderung überführt bestehende Daten, zählt vorher und nachher und bricht bei Abweichung
    ab. BESCHLOSSEN
 3. **Öffentlich, Organisation und persönlich strikt getrennt** – technisch, nicht nur per Konvention. BESCHLOSSEN
@@ -197,6 +198,35 @@ zentrale Tabelle `data_changes`.
   **Sicherheitsprotokoll** (Rollen, Rechte, Anmeldungen, Löschungen) zusätzlich eine Hash-Verkettung, deren Prüfpunkte
   täglich ausserhalb der Datenbank abgelegt werden (Protokollierung im Leitstand). Für fachliche Historie keine
   Hash-Verkettung. BESCHLOSSEN
+
+### A8 Deutsche Beschreibungen (BESCHLOSSEN 20.11.2026, DB-E13)
+
+Namen bleiben englisch (A1). Damit Fachleute, Datenschutz und Betrieb das Modell ohne Übersetzung lesen können, trägt
+**jeder englische Name eine deutsche Beschreibung** – im Datenmodell des Moduls, verbindlich für alle EduKSX-Projekte
+(Module und Prototypen).
+
+| Element | Pflichtangaben (deutsch) | Beispiel |
+| --- | --- | --- |
+| **Tabelle** | Kurzbeschreibung (was eine Zeile ist), Geltungsbereich (B1), Herkunft bzw. Verwendung | `classes` – «Klasse eines Schuljahrs» · Organisation · erfasst in «Klassen», Grundlage für VZE und Lektionen |
+| **Spalte** | deutscher Begriff (wie in Oberfläche und Excel), Herkunft bzw. Verwendung, Datenklasse (B2) | `student_count` – «Schülerzahl» · Eingabe in «Klassen», für Klassengrösse und VZE · intern |
+| **Status- und Art-Wert** | deutsches Label je Wert (dasselbe wie im PHP-Enum, A4) | `status` = `submitted` → «eingereicht» |
+
+- **Begriff:** das Wort, das Benutzerinnen und Benutzer sehen (Feldname in der Maske, Spalte in Excel/PDF), in
+  Schweizer Schreibweise. Für Status und Arten ist es das Label des Enums.
+- **Herkunft bzw. Verwendung:** woher der Wert stammt (Eingabe in welcher Ansicht, Import, anderes Modul,
+  Rechtsgrundlage, berechnet aus …) oder wofür er gebraucht wird. Mindestens eines von beiden; gilt es für alle
+  Spalten einer Tabelle gleich, genügt die Angabe bei der Tabelle.
+- **Standardspalten** (`id`, `organization_id`, `created_at`, `created_by_id`, `updated_at`, `updated_by_id`,
+  `lock_version`, `deleted_at`, `deleted_by_id`, `event_id`) haben feste Beschreibungen aus `eduksx/core` und werden im
+  Modul nicht wiederholt. Fremdschlüssel nennen das Ziel («Verweis auf …»), der Begriff steht trotzdem.
+- **Form:** Die Beschreibungen stehen im Datenmodell des Moduls (Tabelle «Spalte | Typ | Deutsch | Herkunft/Verwendung |
+  Datenklasse», handgeschrieben oder aus dem Schema erzeugt). In PostgreSQL schreibt der Migrations-Helfer sie
+  zusätzlich als `COMMENT ON TABLE/COLUMN` im Format «Begriff – Herkunft/Verwendung»; SQLite hat keine Kommentare.
+- **Gleiche Texte in der API:** Felder der API, die einer Spalte entsprechen, übernehmen Begriff und Beschreibung
+  unverändert (API A8). Es gibt nur eine Quelle je Begriff.
+- Keine Entscheidnummern und keine echten Personen- oder Organisationsnamen in Beschreibungen; Freitext kurz (eine
+  Zeile).
+- Der Konformitätstest (E5) prüft, dass jede Tabelle, Spalte und jeder Enum-Wert eine deutsche Beschreibung hat.
 
 ---
 
@@ -496,7 +526,8 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 - Jedes Modul nennt in seinem Datenmodell, nach welcher **Version dieses Standards** es arbeitet (z. B. «DB-Standard
   1.2»). Eine neue Version gilt für ein Modul erst, wenn es sie übernommen hat; die Übernahme ist ein Issue im Modul.
 - Die prüfbaren Regeln stehen als **Konformitätstests** in `eduksx/core` und laufen in der CI jedes Moduls: Namen,
-  STRICT und CHECK, Index auf Fremdschlüsseln, Datenklasse und Zweck je Spalte bzw. Tabelle, Schema = Modulschlüssel,
+  STRICT und CHECK, Index auf Fremdschlüsseln, Datenklasse und Zweck je Spalte bzw. Tabelle, deutsche Beschreibung je
+  Tabelle, Spalte und Enum-Wert (A8), Schema = Modulschlüssel,
   `organization_id` in Tabellen «Organisation».
 - Hilfen (Migrations-Helfer, Traits für Sperren und Historie, Anonymisierung, Export) liegen ebenfalls in
   `eduksx/core`, nicht kopiert in den Modulen.
@@ -515,6 +546,7 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 
 - [ ] Standard deckt die Änderung ab – sonst zuerst Konzept-PR
 - [ ] Namen nach A1, dritte Normalform nach A2, Ausnahme in der Ausnahmetabelle des Moduls
+- [ ] Deutsche Beschreibung für jede neue Tabelle, Spalte und jeden Enum-Wert (A8); API-Texte gleich
 - [ ] Geltungsbereich der Tabelle (global / Organisation / persönlich) und Datenklasse jeder Spalte im Datenmodell
 - [ ] Mandantenscope und zusammengesetzte Fremdschlüssel bei Tabellen «Organisation»; Test mit zwei Organisationen
 - [ ] Primärschlüssel, Fremdschlüssel mit Index, Zugehörigkeit gesichert (A3)
@@ -546,6 +578,7 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 | DB-E9 | Module eigenständig in eigenen Repos, später zusammenlegbar | Teil E: Modulschlüssel, Schema je Modul, Plattform-IDs, Versionsbindung, Konformitätstests | BESCHLOSSEN 13.11.2026 |
 | DB-E10 | Datenschutz nach IDG, DSG und DSGVO | strengste Regel; B7–B14 | BESCHLOSSEN 13.11.2026 |
 | DB-E11 | Modulschlüssel englisch, ein gemeinsames Register | [REGISTER-MODULE.md](REGISTER-MODULE.md); `recht` → `codex`, `stundenplan` → `timetable`, `leitstand` → `ops` | BESCHLOSSEN 13.11.2026 |
+| DB-E13 | Deutsche Beschreibungen zu englischen Namen | je Tabelle Kurzbeschreibung, Geltungsbereich, Herkunft/Verwendung; je Spalte Begriff, Herkunft/Verwendung, Datenklasse; je Enum-Wert Label (A8); gleiche Texte in der API | BESCHLOSSEN 20.11.2026 |
 | DB-E12 | Gemeinsame Tabellen über `eduksx/core` | Core liefert Migrationen für Standardtabellen (z. B. lokale Personenreferenz, Organisationen, Mitgliedschaften, `data_changes`, Einstellungen); jedes Modul installiert sie im eigenen Schema (E2); Stammdaten von Personen und Organisationen führt Ident | BESCHLOSSEN 13.11.2026 |
 
 Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–E6 und den Entscheiden des API-Standards
@@ -560,3 +593,5 @@ Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–
   Zweck je Tabelle, Folgenabschätzung, Lesezugriffe, anonymisierte Kopien, Einschränkung, Zusammenlegen) (#20).
 - 13.11.2026: Version 1.2.1 redaktionell – Modulschlüssel ins gemeinsame [Modulregister](REGISTER-MODULE.md) verschoben
   und englisch (DB-E11), Entscheide als `DB-E<n>` nummeriert, Core-Tabellen festgehalten (DB-E12).
+- 20.11.2026: Version 1.3 abgenommen – A8 deutsche Beschreibungen zu englischen Namen (DB-E13), verbindlich für alle
+  EduKSX-Projekte (#65).

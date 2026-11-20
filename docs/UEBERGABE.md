@@ -48,6 +48,15 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 
 ## Sitzungen
 
+### Sitzung 20.11.2026 (08:20) – Deutsche Beschreibungen zu englischen Namen (#65)
+
+- Auftrag im Chat (Projektverantwortliche:r): verbindlich für alle EduKSX-Projekte nachführen, was bisher nicht
+  festgelegt war – deutsche Beschreibung je Tabelle, Spalte/API-Feld und Enum-Wert. DB-Standard 1.3 (A8, DB-E13),
+  API-Standard 1.2 (A8, API-E37, `x-eduksx-labels`), Checklisten und Konformitätstest ergänzt.
+- Modulregister und Modulübersicht: `flow` (EduKSX-Flow) nachgetragen. Core bindet weiterhin DB 1.2.1/API 1.1.1
+  (C9) – Übernahme der neuen Versionen ist je Modul ein Issue (E5).
+- Erste Anwendung: Umsetzungsgrundlagen der Prototypen in EduKSX-Prototyp (`docs/umsetzung/`).
+
 ### Sitzung 14.11.2026 (00:03–00:30) – Projektstart EduKSX-Suite (#51)
 
 - Steckbrief EduKSX-Suite `docs/PROJEKTSTART.md` bestätigt: AGPL-3.0-or-later, POSIX-Shell, `VERSION` 2026.11.0

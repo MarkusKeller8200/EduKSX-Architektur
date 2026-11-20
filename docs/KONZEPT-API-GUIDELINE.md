@@ -1,7 +1,7 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15, #18)
 
-Stand: 13.11.2026 (Version 1.1.1) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.1 abgenommen am
-13.11.2026 (Version 1.0 am 12.11.2026); 1.1.1 redaktionell
+Stand: 20.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am
+20.11.2026 (Version 1.1 am 13.11.2026, Version 1.0 am 12.11.2026)
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -252,6 +252,26 @@ Alle Fehler unter `/api/` als **`application/problem+json` nach RFC 9457**:
 | `428` | `If-Match` fehlt, wo es Pflicht ist |
 | `429` | Abruflimit überschritten, mit `Retry-After` |
 | `500`/`503` | Fehler im Dienst bzw. Wartung, mit `Retry-After` bei `503` |
+
+### A8 Deutsche Beschreibungen in der OpenAPI-Beschreibung (BESCHLOSSEN 20.11.2026, API-E37; Grundlage DB A8)
+
+Pfade, Felder, Parameter und Werte bleiben englisch (A1, A2). Jeder englische Name trägt eine deutsche Beschreibung,
+verbindlich für alle EduKSX-Projekte:
+
+| Element | Pflicht | Beispiel |
+| --- | --- | --- |
+| **Schema** (Objekt) | `title` = deutscher Begriff, `description` = Kurzbeschreibung mit Herkunft bzw. Verwendung | `Class`: `title: Klasse`, `description: Klasse eines Schuljahrs; erfasst in «Klassen», Grundlage für VZE und Lektionen` |
+| **Eigenschaft und Parameter** | `title` = deutscher Begriff, `description` = Herkunft bzw. Verwendung | `student_count`: `title: Schülerzahl`, `description: Eingabe in «Klassen»; für Klassengrösse und VZE` |
+| **Aufzählung** (Status, Art) | `x-eduksx-labels` mit dem deutschen Label je Wert – dieselben Texte wie `<feld>_label` (A2) und das Enum | `x-eduksx-labels: { draft: Entwurf, submitted: eingereicht }` |
+| **Operation** | `summary` und `description` deutsch | `summary: Klasse anlegen` |
+| **Tag** | `name` englisch wie die Ressource, `description` deutsch | `classes` – «Klassen und Klassenlehrpersonen» |
+
+- Entspricht ein Feld einer Spalte, sind Begriff und Beschreibung **identisch** mit dem Datenmodell (DB A8) – eine
+  Quelle, kein zweiter Text. Berechnete Felder nennen, woraus sie berechnet werden.
+- `title` ist kurz (ein Begriff, kein Satz); `description` eine Zeile, ohne Entscheidnummern und ohne echte
+  Personen- oder Organisationsnamen (D3).
+- Der Linter (D3) prüft `title` und `description` bei Schemas, Eigenschaften und Parametern sowie
+  `x-eduksx-labels` bei jeder Aufzählung – zuerst als Warnung, ab dem folgenden Release als Fehler.
 
 ---
 
@@ -602,6 +622,7 @@ Stabilität».
   (`openapi/<modul>-v1.json` bzw. `.yaml`) vor dem Code und prüfen den Code dagegen. Das Intranet erzeugt sie bis zu
   einem Umbau weiter aus `App\Support\OpenApi`. In beiden Fällen gelten die Prüfung Route ↔ Beschreibung und der
   Linter.
+- Deutsche Begriffe und Beschreibungen nach A8 (`title`, `description`, `x-eduksx-labels`).
 - Jede Operation hat `operationId` (englisch, `camelCase`, Verb + Objekt: `listTerms`, `createPerson`), eindeutig im
   Modul – daraus entstehen MCP-Werkzeugnamen mit Modulschlüssel (`glossary_list_terms`, G2) und Postman-Einträge.
 - `info.x-eduksx-module` nennt den Modulschlüssel, `info.x-eduksx-api-standard` die Version dieses Standards (`1.1`).
@@ -703,6 +724,7 @@ markierten Punkte (⚙) automatisch ab.
 - [ ] Modulschlüssel in Scopes, Ereignissen, Fehler-Typen, Token-Präfix und MCP-Namen (G2) ⚙
 - [ ] Gemeinsame Bausteine aus `eduksx/core` statt eigener Umsetzung (G3)
 - [ ] URL, Felder und Werte englisch `snake_case` (A1, A2), Werte identisch zur Datenbank
+- [ ] Deutscher Begriff und Beschreibung je Schema, Feld und Parameter, Labels je Aufzählungswert (A8), gleich wie im Datenmodell
 - [ ] Datum ISO 8601 UTC, Sprache über `locale`, Rückfall erkennbar (A3, A4)
 - [ ] Liste begrenzt, Cursor als Standard, Reihenfolge stabil, `total` nur auf Anfrage (A5)
 - [ ] Aufzählungen erweiterbar, Zahlen mit `format`, keine `null`-Listen oder -Booleans (A2)
@@ -759,6 +781,7 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
 | API-E33 | Governance | Konformitätstest, Register für Module und Ausnahmen, Version im Steckbrief | D8 |
 | API-E34 | Privilegierte Vorgänge vor Ident | nur in der Oberfläche, nicht per API-Token | C1 |
 | API-E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
+| API-E37 | Deutsche Beschreibungen zu englischen Namen | `title`/`description` je Schema, Feld, Parameter; `x-eduksx-labels` je Aufzählung; Texte gleich wie im Datenmodell (DB-E13) | A8 |
 | API-E36 | Ein Register für DB und API | [REGISTER-MODULE.md](REGISTER-MODULE.md); Schlüssel englisch, Marketingnamen frei; `timetable`, `ops` neu vergeben | G2 |
 | – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
 | – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16); empfohlen: kurze JWT mit `private_key_jwt` ab Stufe 1, DPoP vor mTLS sobald Ident es kann ([Prüfauftrag](PRUEFAUFTRAG-DPOP-MTLS.md)); Entscheid #35 | C1 – ZU PRÜFEN |
@@ -827,3 +850,5 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
 - 13.11.2026: Version 1.1 abgenommen (#18, PR #19).
 - 13.11.2026: Version 1.1.1 redaktionell – Register nach [REGISTER-MODULE.md](REGISTER-MODULE.md) verschoben (API-E36),
   Entscheide als `API-E<n>` nummeriert.
+- 20.11.2026: Version 1.2 abgenommen – A8 deutsche Beschreibungen in der OpenAPI-Beschreibung (API-E37), verbindlich für
+  alle EduKSX-Projekte (#65).
