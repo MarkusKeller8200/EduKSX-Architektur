@@ -38,7 +38,7 @@ Eine Schule oder Gemeinde betreibt die gewünschten EduKSX-Module auf **einem ei
 | SH-E3 | Ort des Pakets | neues Repo **EduKSX-Suite**: Installer, Compose-Grundgerüst, Update-Dienst, VM-Vorlage; Module liefern Image und Compose-Baustein | BESCHLOSSEN 13.11.2026 |
 | SH-E4 | Datenbank | **SQLite je Modul** als Standard (eine Schule); **PostgreSQL optional** (ein Container, Schema je Modul) für Schulgemeinden | BESCHLOSSEN 13.11.2026 |
 | SH-E5 | Updates | eigener **Update-Dienst** (Glossary U3–U9); **nur Korrekturen automatisch** im Zeitfenster, neue Funktionen auf Knopfdruck, nie automatisch über eine Hauptversion | BESCHLOSSEN 13.11.2026 |
-| SH-E6 | Sicherung | **täglich und vor jedem Update**, verschlüsselt mit restic (lokal, NAS oder S3 in der Schweiz), monatlicher Wiederherstellungstest; laufende Sicherung (Litestream bzw. WAL) als Schalter | BESCHLOSSEN 13.11.2026 |
+| SH-E6 | Sicherung | **täglich und vor jedem Update**, verschlüsselt mit restic (lokal, NAS oder S3 in der Schweiz), monatlicher Wiederherstellungstest (automatisch, Ergebnis auf der Seite «System», DB C2); laufende Sicherung (Litestream bzw. WAL) als Schalter | BESCHLOSSEN 13.11.2026 |
 | SH-E7 | Verantwortung für RPO/RTO | beim Kunden; die Werte des DB-Standards C2 gelten für unseren Betrieb, beim Selbst-Hosting sind sie Empfehlung | BESCHLOSSEN 13.11.2026 |
 | SH-E8 | Meldung an den Leitstand | Heartbeat freiwillig (Opt-in beim Installieren), ohne Personendaten (S6) | BESCHLOSSEN 13.11.2026 (L2) |
 | SH-E9 | Reverse Proxy | Caddy mit automatischem HTTPS (wie Glossary und Operation); Alternative «hinter vorhandenem Proxy» | BESCHLOSSEN 13.11.2026 |
