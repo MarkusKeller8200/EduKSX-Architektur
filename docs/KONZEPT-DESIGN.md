@@ -50,7 +50,7 @@ immer vor** (WCAG 2.1 AA, eCH-0059).
 
 ## 4. Bausteine in `@eduksx/ui` (BESCHLOSSEN)
 
-- **Repo EduKSX-UI**, npm-Paket `@eduksx/ui`, Lizenz MIT (Plattform §9.7), eigene Versionen und Frontend-CI; Core
+- **Repo EduKSX-UI** (angelegt 22.11.2026, öffentlich), npm-Paket `@eduksx/ui`, Lizenz MIT (Plattform §9.7), eigene Versionen und Frontend-CI; Core
   bleibt PHP (Core C10, geändert 22.11.2026).
 - **Start (0.1):** Tokens und Build, Kontrasttest, `BrandWordmark` nach dem Komponentenkontrakt des CI (Markenschlüssel
   `education` plus Produktzusatz, `aria-label`, nur Tokens), **Kopfzeile mit Modulwechsel** (S7), **Verlauf** (Anzeige
