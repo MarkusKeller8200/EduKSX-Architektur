@@ -3,7 +3,7 @@
 Stand: 13.11.2026 · Status: **BESCHLOSSEN, eingefroren mit 0.3.0** (Änderungen nur über `konzept-anpassung`,
 siehe README) – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Entscheide in §9
 sind seit 13.11.2026 alle getroffen (9.1 vorbehaltlich PoC #36). Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
-Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
+Umsetzungsstand: [PROJEKTSTAND.md](PROJEKTSTAND.md) (Core, Ident-Brücke und Glossary laufen); Mengen und Preise sind Schätzungen.
 
 ## 1. Zweck
 
@@ -105,6 +105,11 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### S1 · Anmeldung (Ident → Module)
 
+**Geändert 22.11.2026 (Gesamtprüfung W11):** Standard ist das **lokale Login** jedes Moduls; Ident, Entra ID und Google
+sind **optional**. Ist ein föderierter Anbieter eingeschaltet und geprüft, ist das lokale Login für normale Konten
+gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDUNG.md). Was folgt, gilt für die Anmeldung
+über Ident.
+
 - **Verfahren:** OpenID Connect, Authorization Code mit PKCE; nur vertrauliche Clients (Server-seitig).
 - **Scopes:** `openid profile email eduksx.org` (+ modulspezifisch, z. B. `glossary`).
 - **Claims im ID-Token:**
@@ -123,7 +128,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - **Abmelden:** RP-initiated Logout und **Back-Channel-Logout** an alle Module.
 - **Zweiter Faktor:** Module verlangen für privilegierte Rollen `acr=mfa`; fehlt er, Weiterleitung zu Ident mit
   `acr_values`.
-- **Rückfall:** je Modul ein lokales Notfallkonto (Break-Glass) für den Betrieb, protokolliert.
+- **Rückfall:** je Modul zwei lokale Notfallkonten (Break-Glass), protokolliert ([Anmeldung](KONZEPT-ANMELDUNG.md) 2).
 - **Ausnahme Selbst-Hosting** (BESCHLOSSEN 13.11.2026, #40): Beim Betrieb durch den Kunden gibt es kein Ident. Die
   Module melden selbst an – lokale Konten mit zweitem Faktor (TOTP/Passkey) – und binden optional Microsoft 365
   (Entra ID) oder Google per OIDC an; Edulog wird beim Selbst-Hosting nicht angeboten. Details:
@@ -137,7 +142,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### S3 · Konten in isolierte Instanzen
 
-- **SCIM 2.0** (Users, Groups) von Ident in die Instanz, oder Anlage beim ersten Login (Just-in-Time).
+- **Anlage beim ersten Login** (Just-in-Time); Sperren und Löschen über Ereignisse (S4). **SCIM 2.0** (Users, Groups) aus
+  der Ident-Brücke erst, wenn eine isolierte Instanz vorab angelegte Konten braucht (Ident I8, BESCHLOSSEN 22.11.2026).
 - Sperren/Löschen in Ident wird per SCIM bzw. Ereignis (S4) in der Instanz umgesetzt.
 - Nur die für die Instanz freigegebenen Personen werden übertragen.
 
@@ -159,7 +165,8 @@ Brüche nur in einer neuen Version mit Übergangszeit.
   Betriebsart, URLs für Zustand und Metriken.
 - `GET /up` (Lebenszeichen, ohne Inhalt) und `GET /health` (JSON: Version, Datenbank, Migrationen, Warteschlange,
   Speicher, Ident erreichbar).
-- `GET /metrics` (Prometheus, nur mit Berechtigung).
+- `GET /metrics` (Prometheus-Textformat, nur mit Berechtigung); Protokolle, Metriken und Traces zusätzlich über
+  **OpenTelemetry** (OTLP), wohin sie gehen, legt der Betrieb fest (§7.3a; Details #76).
 
 ### S6 · Leitstand ↔ Instanz (Update-Dienst)
 
@@ -192,7 +199,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 - [ ] Zustandslos: Sitzungen, Cache, Warteschlange in Redis bzw. Datenbank; Dateien in Object Storage
 - [ ] Konfiguration nur über Umgebung und Einstellungen; Geheimnisse aus dem Geheimnisspeicher, nie im Image
 - [ ] Getrennte Rollen web / worker / scheduler im selben Image
-- [ ] `/up`, `/health`, `/metrics`, Steckbrief (S5); Protokolle als JSON auf stdout mit Anfrage-ID
+- [ ] `/up`, `/health`, `/metrics`, Steckbrief (S5); Protokolle als JSON auf stdout mit Anfrage-ID; OpenTelemetry (OTLP) für Protokolle, Metriken, Traces
 - [ ] Migrationen vorwärts, automatisch, **abwärtskompatibel** (erweitern → umstellen → aufräumen über zwei Versionen)
 - [ ] Sicherung vor Update, Wiederherstellung dokumentiert und getestet; Update-Dienst-tauglich (S6)
 - [ ] Sauberes Herunterfahren (laufende Anfragen und Aufträge beenden)
@@ -203,7 +210,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 ### Identität und Rechte
 
-- [ ] Anmeldung nur über Ident (S1) via `eduksx/core`; lokale Passwörter nur als Notfallkonto
+- [ ] Anmeldung nach [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDUNG.md) via `eduksx/core`: lokales Login als Standard, Ident/Entra/Google optional; bei aktivem Anbieter lokal nur Notfallkonten
 - [ ] Rechte im Modul über Rechte, nicht Rollennamen; Rollen aus Ident abgebildet
 - [ ] Zweiter Faktor für privilegierte Rechte (`acr`)
 - [ ] Back-Channel-Logout und Ereignisse (S4) verarbeitet; Kontolöschung pseudonymisiert Inhalte nach Löschkonzept
@@ -220,7 +227,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 ### Sicherheit
 
 - [ ] OWASP ASVS Stufe 2; CSP, sichere Kopfzeilen, Abruflimits
-- [ ] Abhängigkeiten geprüft (Renovate/Dependabot), CodeQL, Geheimnis-Scan
+- [ ] Abhängigkeiten geprüft (Dependabot aus dem Blueprint), CodeQL, Geheimnis-Scan
 - [ ] Keine Inhalte als HTML aus fremden Quellen; Ausgaben escapen
 - [ ] Sicherheitsmeldungen über private Meldestelle
 
@@ -246,9 +253,9 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 | Stufe | Kunden | Infrastruktur | Betrieb |
 | --- | --- | --- | --- |
-| 0 – heute | Glossary allein | 1 VPS, Docker Compose, Traefik | Deploy je Merge |
+| 0 – heute | Glossary (Ident-Brücke im Test) | dev auf Hostinger; test-01, prod-01 auf Infomaniak (§7.3a) | dev je Merge, test/prod über Komodo (Operation) |
 | 1 – Start Ident | bis ~30 | 2–3 VPS (Zentral, Kunden), Object Storage | Compose + Update-Dienst, Leitstand |
-| 2 – Wachstum | ~30–200+ | Kubernetes in der Schweiz, Knotengruppen «zentral» und «Kunden» | GitOps, Ringe, Autoscaling |
+| 2 – Wachstum | ~30–200+ | Kubernetes in der Schweiz, Knotengruppen «zentral» und «Kunden» (erst nach §9.5) | Werkzeuge erst bei Bedarf, siehe 7.4 |
 
 **Stufe 1:** VPS «Zentral» (4 vCPU, 8–16 GB, mit SLA und Snapshots): Ident, zentrale Module, Leitstand,
 PostgreSQL, Redis. VPS «Kunden» (je 4 vCPU, 8–16 GB): isolierte Instanzen; Kunden mit hohen Anforderungen eigener VPS.
@@ -265,7 +272,7 @@ physisch getrennt (eigene Knoten/VM) auf Wunsch; beim Kunden selbst mit Update-D
 | worker | Warteschlange | ≥ 1 | 1 |
 | scheduler | geplante Aufgaben | 1 | 1 |
 | Datenbank | PostgreSQL | gemeinsam (mit Ersatz) | je Kunde (oder SQLite) |
-| Update-Dienst | Aufträge ausführen | – (GitOps) | ausserhalb des Clusters |
+| Update-Dienst | Aufträge ausführen | – (Komodo, §7.3a) | Update-Dienst der Suite |
 
 Schätzung: zentral 15–25 Container plus Datenbank, Redis, Ingress, Monitoring; 200 isolierte Instanzen ≈ 600–800
 Container, ≈ 60–100 GB RAM, 4–8 Knoten mit 16–32 GB.
@@ -302,14 +309,21 @@ Das Selbst-Hosting beim Kunden (#40) ist bewusst einfacher und braucht diese Bet
 
 ### 7.4 Automatisch aktualisieren
 
-| Was | Wie |
+Hier stehen nur die **Anforderungen**; die Werkzeuge legt MarKusSX-Operation fest (7.3a), beim Selbst-Hosting die Suite.
+Werkzeugnamen stehen nur in 7.3a (Entscheid W3, 22.11.2026).
+
+| Was | Anforderung |
 | --- | --- |
-| Module | Release → signiertes Image → Leitstand setzt Zielversion → GitOps (Argo CD/Flux) bzw. Update-Dienst; Ringe: unser Server → Pilot (~5 %) → alle; blau/grün; Rücksprung; Stopp bei Fehlern |
-| Abhängigkeiten, Basis-Images | Renovate/Dependabot als PR, CI, nächstes Release |
-| Betriebssystem | automatische Sicherheitsupdates; Cluster-Knoten durch den Anbieter nacheinander |
-| PostgreSQL | Operator (z. B. CloudNativePG), kleine Updates automatisch |
-| Zertifikate | automatisch (Caddy, Operation E27 / später cert-manager) |
-| Infrastruktur | als Code (OpenTofu/Terraform, Ansible) |
+| Module | Release → signiertes Image mit Digest → Zielversion je Ring (wir → Pilot ~5 % → alle); Sicherung, Prüfung `/health`, Rücksprung; Stopp bei Fehlern; blau/grün, wo möglich |
+| Abhängigkeiten der Module | automatische PR (Dependabot aus dem Blueprint), CI, nächstes Release |
+| Image-Digests im Betrieb | automatisch nachgeführt als PR im Betriebs-Repo (Empfehlung an Operation: Renovate, weil es Digests in Compose-Dateien pflegt) |
+| Betriebssystem | automatische Sicherheitsupdates |
+| PostgreSQL | kleine Updates automatisch; Sicherung mit Wiederherstellung auf einen Zeitpunkt (DB C2) |
+| Zertifikate | automatisch |
+| Infrastruktur | als Code |
+
+**Stufe 2 (später, nicht beschlossen):** Kandidaten sind GitOps (Argo CD oder Flux), ein PostgreSQL-Operator
+(CloudNativePG) und cert-manager. Entschieden wird erst, wenn Stufe 2 nach §9.5 ansteht.
 
 ### 7.5 Vorkehrungen für Skalierung
 

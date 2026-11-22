@@ -86,6 +86,13 @@ Ident von Edulog erhält, und für die Testkonten im PoC (P5):
 (`go.edulog.ch`); die Integration kann jederzeit neue Versionen erhalten und Daten löschen. Ident wird zuerst dort als
 Dienstleistungsanbieter angeschlossen (dev), Produktion erst nach dem Go (Edulog-API-Referenz 1.4, 17.01.2022).
 
+### 2.2 Ereignisse
+
+Zitadel signiert Aufrufe aus Actions v2 mit der Kopfzeile `ZITADEL-Signature` (HMAC über Inhalt und Zeitstempel). Die
+Brücke prüft diese Signatur, schreibt das Ereignis in ihre Ausgangswarteschlange und stellt es den Modulen als
+CloudEvent mit `EduKSX-Signature` zu ([event.schema.json](../spec/v1/event.schema.json)). Module sehen das
+Zitadel-Format nie.
+
 ### 2.3 Sicherheitsanforderungen von Edulog an Ident
 
 Nach «Sicherheitsanforderungen für IdP und SP für die Integration in Edulog» (Version 1.2, 5.2023) prüft die
@@ -101,13 +108,6 @@ Geschäftsstelle vor dem Anschluss. Abgleich mit dem PoC (Zitadel v4.20.3 als Di
 | SAML: Metadaten | `Extensions` mit zulässigen Digest- und Signaturverfahren; nur HTTP-POST und HTTP-Redirect | ohne `Extensions`; ACS zusätzlich mit HTTP-Artifact | Metadaten für Edulog von Hand ergänzen bzw. kürzen (werden ohnehin per Datei ausgetauscht) |
 | OIDC (seit 1.2) | etablierte, zertifizierte Software statt Eigenbau | Zitadel als Client | erfüllt, falls Edulog OIDC für Dienstleistungsanbieter anbietet |
 
-### 2.2 Ereignisse
-
-Zitadel signiert Aufrufe aus Actions v2 mit der Kopfzeile `ZITADEL-Signature` (HMAC über Inhalt und Zeitstempel). Die
-Brücke prüft diese Signatur, schreibt das Ereignis in ihre Ausgangswarteschlange und stellt es den Modulen als
-CloudEvent mit `EduKSX-Signature` zu ([event.schema.json](../spec/v1/event.schema.json)). Module sehen das
-Zitadel-Format nie.
-
 ## 3. Entscheide
 
 | Nr. | Frage | Optionen | Entscheid | Status |
@@ -119,7 +119,7 @@ Zitadel-Format nie.
 | I5 | Mandanten | eine Instanz mit Organisationen / Instanz je Kunde | eine Instanz, Organisation = Kunde; eigene Instanz nur auf Wunsch bzw. bei «besonders schützenswert» | BESCHLOSSEN 13.11.2026 (Plattform §9.2) |
 | I6 | Anschluss Edulog | je Modul / einmal für die Plattform | einmal: Ident ist der Dienstleistungsanbieter gegenüber Edulog | BESCHLOSSEN 13.11.2026; Vertrag ZU PRÜFEN |
 | I7 | Rollen aus Edulog | automatisch / Vorschlag mit Bestätigung | Vorschlag, Bestätigung durch Organisations-Admin (2.1) | BESCHLOSSEN 13.11.2026 |
-| I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | ZU PRÜFEN im PoC, ob Zitadel SCIM an Anwendungen ausliefert; sonst sendet die Brücke SCIM, ausgelöst durch Ereignisse | ZU PRÜFEN |
+| I8 | Konten in isolierte Instanzen (S3) | SCIM aus Zitadel / SCIM aus der Brücke / nur beim ersten Login | Zitadel liefert kein SCIM an Anwendungen (P8). Zuerst **Anlage beim ersten Login**, Sperren/Löschen über S4; SCIM aus der Brücke erst, wenn eine isolierte Instanz vorab angelegte Konten braucht | BESCHLOSSEN 22.11.2026 (Gesamtprüfung W9) |
 | I9 | An den Absender gebundene Tokens (#16) | DPoP / mTLS / keine | siehe [Prüfauftrag DPoP/mTLS](PRUEFAUFTRAG-DPOP-MTLS.md) | ZU PRÜFEN |
 | I10 | Lizenz AGPL-3.0 | unverändert betreiben / ändern | unverändert betreiben; eigene Teile (Brücke, Portal, Gestaltung) nur über API und Konfiguration – nach Auslegung von Zitadel löst das keine Pflicht zur Offenlegung aus; Restrisiko akzeptiert, Rückfall: Komponente ersetzen | BESCHLOSSEN 13.11.2026 |
 | I12 | Edulog-API (Föderieren von Identitäten) | Ident nur als Dienstleistungsanbieter / zusätzlich als Identitätsanbieter gegenüber Edulog | nur Dienstleistungsanbieter: Die Edulog-API (Version 1.4) richtet sich an Identitätsanbieter und verlangt je Person die AHV-Nummer (AHVN13); deren systematische Verwendung braucht eine gesetzliche Grundlage und wäre «besonders schützenswert». Konten bringen die Kantone bzw. Schulen über ihren eigenen Identitätsanbieter | BESCHLOSSEN 13.11.2026 |
@@ -136,11 +136,11 @@ Zeitbedarf geschätzt 3–5 Arbeitstage ohne Wartezeit auf Edulog. Ergebnis je S
 
 | # | Schritt | Abnahme | Testliste #25 |
 |---|---|---|---|
-| P1 | 13.11.2026 | **bestanden** (bis auf Admin-MFA) | Compose mit fixierter v4.20.3 und PostgreSQL (je ~80 MB RAM, Image 237 MB); Masterkey aus Datei. **Login V2** (Container `zitadel-login` v4.20.3) läuft hinter einem Proxy unter **derselben Adresse** wie die API – getrennte Ports scheitern bei SAML (Zitadel nennt Edulog sonst die Adresse des Login-Containers). Login V2 braucht ein Dienstkonto mit `IAM_LOGIN_CLIENT` (Token als Geheimnis) und sollte `ZITADEL_SESSION_COOKIE_SECRET` erhalten. **EduKSX-Gestaltung** nur über Einstellungen (`branding.py`): Farben, Logo, Hell/Dunkel, eigene Texte, keine Selbstregistrierung. Offen: Admin mit MFA |
+| P1 | Compose mit Zitadel (fixierte v4), Login V2, PostgreSQL; Masterkey aus Datei, nicht im Repo | Konsole erreichbar, Admin mit MFA | – |
 | P2 | Organisation «Schule Beispiel», Projekt `glossary` mit Rollen aus dem Steckbrief, Client für das Glossary (Code + PKCE, vertraulich) | Grant für die Organisation vorhanden | – |
 | P3 | Glossary meldet sich an (Glossary #185) und wieder ab (RP-initiated und Back-Channel-Logout, #187) | Anmelden/Abmelden ok; Back-Channel-Logout beendet die Sitzung im Glossary | «Anmeldung Glossary … inkl. Abmelden» |
 | P4 | Action vor Token/Userinfo ruft die Brücke (Stub) und setzt `eduksx_orgs`, `eduksx_roles` (#186) | ID-Token besteht [oidc-claims.schema.json](../spec/v1/oidc-claims.schema.json) | – |
-| P5 | 13.11.2026 | **mit Ersatz bestanden** | Edulog-Ersatz (SAML, Testkonten im Format des Leitfadens 1.2.1): signierte Anfrage, Binding **HTTP-Redirect** (POST scheiterte mit Login V1), NameID persistent = `EdulogPersonTechID` als externe Kennung; Abbildung über eine Zitadel-Action (`edulog-mapping.js`): Profil, Sprache (`fr-CH` → `fr`), Mehrfachwerte in beiden Formen (`##`), Metadaten `edulog_roles`/`edulog_orgs`; **kein Konto** für `pupil` und leere Rolle; ohne bestätigte Rolle kein Zugang (I7), nach Bestätigung Anmeldung mit `eduksx_roles`. Echter Anschluss offen (4.1a). Befunde siehe I14. **Mit Login V2:** Abbildung durch die Brücke über Actions v2 (Antwort von `RetrieveIdentityProviderIntent`, `bridge_intent.php`) statt Zitadel-JavaScript – bestehende und neue Konten, Lernende abgewiesen (I4 erfüllt). Fehlende Rollenbestätigung meldete Login V2 nur als «Unknown error occurred» → gelöst nach I14: Rollenprüfung in Zitadel aus (`projectRoleCheck`), Anmeldung gelingt mit leerem `eduksx_roles`, das Modul zeigt «Zugang wartet auf Bestätigung» (Baustein für `eduksx/core`) |
+| P5 | Edulog: zuerst MockSAML mit den Edulog-Attributnamen; sobald der Testzugang da ist, die Edulog-Testföderation | Attribute kommen an; Abbildung nach 2.1 erzeugt die erwarteten Vorschläge | «Anmeldung über Edulog …» |
 | P6 | Actions v2: Ereignis bei neuem Konto und bei Löschung an einen Laravel-Endpunkt; Signatur `ZITADEL-Signature` prüfen, falsche Signatur und alter Zeitstempel werden abgewiesen; Brücke sendet S4 an einen Test-Empfänger | Ereignis besteht [event.schema.json](../spec/v1/event.schema.json) und [signature.schema.json](../spec/v1/signature.schema.json) | «Webhook … signiert/geprüft» |
 | P7 | Sicherung: `pg_dump` + Masterkey; Wiederherstellung in eine **leere** Umgebung; Anmeldung P3 erneut | Anmeldung nach Wiederherstellung ok, Dauer notiert (RTO) | «Sicherung und Wiederherstellung» |
 | P8 | Prüfpunkte I8 (SCIM) und I9 (DPoP, `private_key_jwt`) gegen die laufende Version | Ergebnis in §4.3 | – |
@@ -178,11 +178,11 @@ Glossary selbst (#185–#187) folgt.
 
 | # | Datum | Ergebnis | Bemerkung |
 |---|---|---|---|
-| P1 | 13.11.2026 | **teilweise** | Compose mit fixierter v4.20.3 und PostgreSQL läuft (je ~80 MB RAM, Image 237 MB); Masterkey aus Datei. Offen: **Login V2** (eigener Container, im Durchgang Login V1), Admin mit MFA |
+| P1 | 13.11.2026 | **bestanden** (bis auf Admin-MFA) | Compose mit fixierter v4.20.3 und PostgreSQL (je ~80 MB RAM, Image 237 MB); Masterkey aus Datei. **Login V2** (Container `zitadel-login` v4.20.3) läuft hinter einem Proxy unter **derselben Adresse** wie die API – getrennte Ports scheitern bei SAML (Zitadel nennt Edulog sonst die Adresse des Login-Containers). Login V2 braucht ein Dienstkonto mit `IAM_LOGIN_CLIENT` (Token als Geheimnis) und sollte `ZITADEL_SESSION_COOKIE_SECRET` erhalten. **EduKSX-Gestaltung** nur über Einstellungen (`branding.py`): Farben, Logo, Hell/Dunkel, eigene Texte, keine Selbstregistrierung. Offen: Admin mit MFA |
 | P2 | 13.11.2026 | **bestanden** | zwei Organisationen (Schule, Schulgemeinde), Projekte `glossary` (Rollen reader/editor/admin) und `platform` (Super-Admin), Projekt-Grants an die Organisationen, vertraulicher Web-Client (Code + PKCE), Dienstkonto für S2 – alles per API (`setup.py`) |
 | P3 | 13.11.2026 | **bestanden** (mit Test-Client) | Anmelden mit Code + PKCE; ID-/Access-Token als JWT, Prüfung in PHP ohne Zusatzpaket (`verify.php`: Signatur über JWKS, iss, aud, exp; verändertes Token abgelehnt). RP-initiiertes Abmelden und **Back-Channel-Logout** mit passender `sid`. Client Credentials für das Dienstkonto. Befund: Token-Laufzeit ab Werk 12 h → auf 15 Min. gesetzt (API C1) |
 | P4 | 13.11.2026 | **bestanden** (Stub) | Actions v2 `preuserinfo`/`preaccesstoken` rufen die Brücke (`bridge.php`), die `eduksx_orgs` und `eduksx_roles` setzt; ID-Token besteht `oidc-claims.schema.json` bis auf `iss` mit http (nur lokal). Befund: Mit `interruptOnError` hängt jede Anmeldung an der Brücke → Brücke hochverfügbar betreiben oder Ausfallverhalten festlegen |
-| P5 | – | offen | Kein direkter Zugang: Edulog ist eine SAML-Föderation, Anschluss über Föderationsvertrag mit der Geschäftsstelle (Educa) und deren Anforderungskatalog. Bis dahin MockSAML mit den Edulog-Attributnamen. Entscheid 13.11.2026: alles vorbereiten; auf dev ausliefern und testen, produktiv erst nach dem Go (Schalter je Umgebung) |
+| P5 | 13.11.2026 | **mit Ersatz bestanden** | Edulog-Ersatz (SAML, Testkonten im Format des Leitfadens 1.2.1): signierte Anfrage, Binding **HTTP-Redirect** (POST scheiterte mit Login V1), NameID persistent = `EdulogPersonTechID` als externe Kennung; Abbildung über eine Zitadel-Action (`edulog-mapping.js`): Profil, Sprache (`fr-CH` → `fr`), Mehrfachwerte in beiden Formen (`##`), Metadaten `edulog_roles`/`edulog_orgs`; **kein Konto** für `pupil` und leere Rolle; ohne bestätigte Rolle kein Zugang (I7), nach Bestätigung Anmeldung mit `eduksx_roles`. Echter Anschluss offen (4.1a). Befunde siehe I14. **Mit Login V2:** Abbildung durch die Brücke über Actions v2 (Antwort von `RetrieveIdentityProviderIntent`, `bridge_intent.php`) statt Zitadel-JavaScript – bestehende und neue Konten, Lernende abgewiesen (I4 erfüllt). Fehlende Rollenbestätigung meldete Login V2 nur als «Unknown error occurred» → gelöst nach I14: Rollenprüfung in Zitadel aus (`projectRoleCheck`), Anmeldung gelingt mit leerem `eduksx_roles`, das Modul zeigt «Zugang wartet auf Bestätigung» (Baustein für `eduksx/core`) |
 | P6 | 13.11.2026 | **teilweise** | Ereignisse `user.human.added` und `user.removed` kommen signiert an; falsche Signatur und über 5 Min. alter Zeitstempel werden abgewiesen. Offen: Empfänger in Laravel und Umsetzung in S4/CloudEvent (`event.schema.json`) in der Brücke. Befund: Zitadel sperrt Ziele im privaten Netz ab Werk (`ZITADEL_HTTPCLIENT_DENYLIST`) – im PoC gelockert, im Betrieb so lassen |
 | P7 | 13.11.2026 | **bestanden** | `pg_dumpall` in eine leere Umgebung zurückgespielt: Zitadel nach **8 s** bereit, Anmeldung ok, Signaturschlüssel unverändert (ausgestellte Tokens bleiben gültig). Mit falschem Masterkey startet Zitadel, stellt aber keine Tokens aus → I11 bestätigt |
 | P8 | 13.11.2026 | **festgehalten** | `private_key_jwt` angeboten; **DPoP nicht** angeboten (Discovery); SCIM nur als Server (eingehend), kein ausgehendes Provisioning an Anwendungen gefunden → I8: Brücke sendet SCIM |
@@ -202,7 +202,7 @@ Sperrliste ab (Schutz vor SSRF). Bisher kein Abbruchgrund nach 4.2.
 | #16, #35 | Prüfauftrag DPoP/mTLS (I9); Entscheid nach P8 in #35 | Empfehlung im Beta-Test, #35 `triage` |
 | #3 | Schemas S1, S4, S5, S6 | `_3 Beta-Test` |
 | Glossary #185–#189 | Anmeldung, Rollen, Logout/Ereignisse, Client Credentials, Steckbrief | `triage` |
-| EdukSX-Ident #2–#6 | Brücke 0.1: Datenmodell, Claims, Edulog-Abbildung, Ereignisse aus Zitadel | `_3 Beta-Test` |
+| EduKSX-Ident #2–#6 | Brücke 0.1: Datenmodell, Claims, Edulog-Abbildung, Ereignisse aus Zitadel | `_3 Beta-Test` |
 | (Projektverantwortliche:r) | Testzugang Edulog bei der Geschäftsstelle anfragen | offen |
 
 ## 6. Quellen (Stand 13.11.2026)

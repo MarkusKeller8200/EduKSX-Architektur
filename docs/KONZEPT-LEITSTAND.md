@@ -15,7 +15,7 @@ Leitstand Updates in Ringen – ohne Zugriff ins Netz des Kunden.
 
 **Nichtziele:**
 - keine Technik unserer Server: Ausrollen, Container, Betriebssystem, Sicherung, Alarme bleiben in MarKusSX-Operation
-  (Komodo, Beszel, Uptime Kuma, Backrest) – ops liest dort nur
+  (Werkzeuge siehe Plattform §7.3a) – ops liest dort nur
 - keine Inhalte und keine Personendaten der Kunden (nur Kontakt der Verantwortlichen beim Kunden)
 - kein Ersatz für Lagekarte oder Operation Center
 
@@ -25,7 +25,7 @@ Leitstand Updates in Ringen – ohne Zugriff ins Netz des Kunden.
 |---|---|---|
 | Wofür? | Technik **unserer** Server | **Kunden** und ihre Instanzen |
 | Server, Container, Stacks, Updates bei uns | Komodo, Wartungsfenster So 03:00 | zeigt Version und Zustand (liest Komodo-API) |
-| Zustand, Messwerte, Alarme bei uns | Beszel, Uptime Kuma, ntfy, Lagekarte | – |
+| Zustand, Messwerte, Alarme bei uns | Werkzeuge von Operation (Plattform §7.3a) | – |
 | Kunden, Verträge, Kontakte, Module je Kunde | – (Nichtziel «keine Business-Logik») | ja |
 | Selbst gehostete Instanzen beim Kunden | – | Heartbeat (S6), Version, Update-Ringe, Wartungsfenster des Kunden |
 | Neuer Kunde zentral | – | Organisation in Ident, Module freischalten |

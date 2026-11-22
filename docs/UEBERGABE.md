@@ -1,6 +1,6 @@
 # Übergabe an einen neuen Chat – EduKSX-Architektur
 
-Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig entschieden; nächster Meilenstein «0.3.0 – Betrieb Stufe 1».
+Stand: **22.11.2026** – Release 0.3.0 «Konzept abgeschlossen» (eingefroren); Erweiterungsrunde im Meilenstein «0.4.0 – Konzept erweitert» (#70–#80).
 [PROJEKTSTAND.md](PROJEKTSTAND.md) (aktuell), [PROJEKTSTAND-ARCHIV.md](PROJEKTSTAND-ARCHIV.md) (Verlauf), Konzepte in
 `docs/KONZEPT-*.md`. Bei jeder Übergabe nachführen.
 
@@ -49,6 +49,21 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 
 ## Sitzungen
 
+### Sitzung 22.11.2026 (02:00) – Erweiterungsrunde 0.4.0, Gesamtprüfung (#70, #71)
+
+- Auftrag im Chat (Projektverantwortliche:r): Version 0.4.0 «Konzept erweitert» – Lücken schliessen und das Konzept
+  im Ganzen prüfen. Label `konzept-erweiterung`, Meilenstein «0.4.0 – Konzept erweitert», Issues #70–#80; alle
+  freigegeben (#71 in Arbeit).
+- PR #81 (#70): Regel für die Erweiterung in README/CONTRIBUTING, `docs/LUECKENANALYSE-0.4.0.md`.
+- Gesamtprüfung (#71): `docs/GESAMTPRUEFUNG-0.4.0.md` mit Widersprüchen W1–W14 (je Entscheid nötig) und
+  redaktionellen Korrekturen R1–R8 (nachgeführt).
+- Entscheide im Chat (03:07): W3 (Werkzeuge nur in 7.3a, PITR, OpenTelemetry, Renovate im Betrieb, kein Kubernetes
+  vor §9.5), W4, W8 (Löschregister-Ordner + Notfallkonzept), W9, W11 (lokales Login als Standard), W13, W14; neue
+  Konzepte `KONZEPT-ANMELDUNG.md` und `KONZEPT-NOTFALL.md`; Folge-Issue #83.
+- Offen aus der Gesamtprüfung: W6 (Core bindet alte Standard-Versionen) bewusst offen gelassen; W1, W2, W5, W7,
+  W10, W12 in den Themen-Issues. #57–#61, #63, #64 sind offene PRs (Register/Icons), Merge nach den Icon-PRs in markussxch.
+- Nächste Schritte: #72–#80 der Reihe nach; PR #81 vor #82 mergen.
+
 ### Sitzung 20.11.2026 (08:20) – Deutsche Beschreibungen zu englischen Namen (#65)
 
 - Auftrag im Chat (Projektverantwortliche:r): verbindlich für alle EduKSX-Projekte nachführen, was bisher nicht
@@ -67,7 +82,7 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 
 ### Sitzung 14.11.2026 (00:00) – Merge Ident, Prüfung der Umsetzung
 
-- EdukSX-Ident PR #7 (Brücke 0.1) und PR #46 (Login V2 mit EduKSX-Gestaltung) gemergt; Ident #2–#6 im Beta-Test.
+- EduKSX-Ident PR #7 (Brücke 0.1) und PR #46 (Login V2 mit EduKSX-Gestaltung) gemergt; Ident #2–#6 im Beta-Test.
 - Umsetzung gegen die Konzepte geprüft; redaktionell nachgeführt: Register, Modulübersicht, Issue-Tabellen Core/Ident.
 - Nächste Schritte: Core 0.2 (#13–#16), Glossary #335 mergen, Ident 0.2 (S4-Zustellung, Prüfung gegen spec/), PoC #36 abschliessen.
 

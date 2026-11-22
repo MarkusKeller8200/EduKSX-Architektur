@@ -21,25 +21,27 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 
 | Schlüssel | Modul (intern) | Marketingname (Stand) | Repo | Betriebsart | Status |
 | --- | --- | --- | --- | --- | --- |
-| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.1.0) |
-| `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | EdukSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
+| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.2.0) |
+| `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | EduKSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
 | `ops` | Leitstand: Kunden, Instanzen, Versionen, Updates, Zustand | Teil von «EduKSX-Core» | – | intern | geplant |
 | `glossary` | Glossar | EduKSX-Glossary | EduKSX-Glossary | zentral | aktiv |
 | `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |
 | `intranet` | Intranet einer Schule | Intranet | sek-intranet | isoliert | aktiv |
 | `timetable` | Stundenplan | Stundenplan | – | isoliert | geplant |
-| `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | – | offen | geplant (#43) |
+| `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | EduKSX-Connect | offen | aktiv (Repo angelegt 16.11.2026; #43) |
 | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | EduKSX-Licence | – | offen | geplant (#43: eigenständig oder Teil von `connect`) |
 | `portal` | Self-Service-Portal für Eltern, Ärztinnen, Zahnärzte und alle Externen der Schule | EduKSX-Portal | – | offen | geplant |
-| `shop` | interner Shop für Mitarbeitende und Lehrpersonen (Hard- und Software, Klassenbestellungen) | EduKSX-Shop | – | offen | geplant |
+| `shop` | interner Shop für Mitarbeitende und Lehrpersonen (Hard- und Software, Klassenbestellungen) | EduKSX-Shop | EduKSX-Shop | offen | aktiv (Repo angelegt 16.11.2026) |
 | `sign` | Dokumente unterschreiben über Anbieter (z. B. Deepsign, SwissSign) | EduKSX-Sign | – | offen | geplant |
-| `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | – | offen | geplant |
+| `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | EduKSX-Time | offen | aktiv (Repo angelegt 16.11.2026) |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
 | `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender | EduKSX-Flow | EduKSX-Flow | offen | aktiv (Repo angelegt, Prototyp in EduKSX-Prototyp) |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
-VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält keinen Modulschlüssel.
+VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält keinen Modulschlüssel. Ebenso ohne Schlüssel
+(22.11.2026, Gesamtprüfung W13): **EduKSX-Connectors** (Sammlung der Anbindungen an Fremd-APIs, Grundlage für `connect`)
+und **EduKSX-Prototyp** (Prototypen und Umsetzungsgrundlagen, kein produktives Modul).
 
 ## Umbenennungen
 

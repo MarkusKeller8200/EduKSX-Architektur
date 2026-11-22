@@ -297,7 +297,8 @@ Löschung nach Datenschutzrecht, wird sofort gelöscht. Fristen rechtlich prüfe
 2. Ablage nur anhängend (append-only), verschlüsselt, mit eigener Aufbewahrung, getrennt von den Datenbanksicherungen
    (z. B. eigener Objektspeicher-Bucket mit Objektsperre).
 3. Nach jeder Wiederherstellung wendet der Dienst das Register **vor dem Start** automatisch an; erst danach nimmt er
-   Anfragen an. Ohne erreichbares Register startet er nicht.
+   Anfragen an. Ohne erreichbares Register startet er nicht; einziger Ausweg ist der protokollierte Notfallweg N3 nach
+   [KONZEPT-NOTFALL.md](KONZEPT-NOTFALL.md) (neues Register ab Stichtag, ältere Sicherungen gesperrt; 22.11.2026).
 4. Ein Test spielt eine ältere Sicherung zurück und prüft, dass danach keine registrierten Personendaten mehr vorhanden
    sind – in Tabellen, Historie, Archiven und Suchindex.
 
@@ -428,7 +429,7 @@ Migrationen in der CI gegen SQLite **und** PostgreSQL laufen – nicht erst beim
 
 | Regel | Umsetzung | Stufe |
 | --- | --- | --- |
-| Laufend | SQLite: Litestream in einen S3-kompatiblen Speicher (z. B. Swiss Backup). PostgreSQL: Base Backup + WAL-Archivierung (z. B. CloudNativePG/Barman) | BESCHLOSSEN |
+| Laufend | SQLite: Litestream in einen S3-kompatiblen Speicher (z. B. Swiss Backup). PostgreSQL: Base Backup + WAL-Archivierung (z. B. WAL-G oder pgBackRest nach S3; Werkzeug legt der Betrieb fest) | BESCHLOSSEN |
 | Zeitpunkt wählbar | Wiederherstellung auf jeden Zeitpunkt der Aufbewahrung (PITR) – `pg_dump` allein genügt dafür nicht | BESCHLOSSEN |
 | Einzelsnapshot | vor jedem Update, jeder Migration, grossen Importen; Dateiname mit Zeitstempel und Version; Prüfsumme und Zeilen je Tabelle | BESCHLOSSEN |
 | Verschlüsselt | alle Sicherungen verschlüsselt; Schlüssel getrennt vom gesicherten System und von der Sicherung aufbewahrt (Geheimnisspeicher), Notfallkopie offline | BESCHLOSSEN |
