@@ -109,6 +109,10 @@ Intranet (#83), nicht rückwirkend.
   immer mit `aria-label`, gleichlautendem Tooltip und bei Umschaltern `aria-pressed`; jede Option eines Umschalters
   mit eigenem Symbol; Warnung, Fehler und Erfolg immer mit Symbol und Text. Feste Zuordnungen und Grössen regelt
   KONZEPT-MARKE §6 in EduKSX-UI.
+- **GUI-Profile (DS12, Idee EduKSX-UI #23):** Nicht jede Oberfläche braucht dasselbe. Unterschieden wird nach Art des
+  Moduls (intern für eine Organisation, öffentlich, reine Mobilnutzung) und nach Art der Ansicht (Webseite, Anwendung,
+  Administration; in der Administration ist eine dichtere, komplexere Oberfläche erlaubt). Die Regeln je Profil stehen
+  als Tabelle im Guideline-Text von EduKSX-UI; keine eigene Technik (kein Profil-Attribut, keine eigenen Tokens).
 - Schweizer Schreibweise, Datum `DD.MM.YYYY`, Zeit `HH:MM:SS` (DB D2); keine Entscheidnummern in Anzeigetexten.
 
 ## 7. Prüfung (BESCHLOSSEN)
@@ -134,9 +138,11 @@ Intranet (#83), nicht rückwirkend.
 | DS9 | Ansichten und Testumgebung (Idee EduKSX-UI #19) | Desktop-Ansichten Darstellungsoptimiert, Breit, Voll und Vollbild Pflicht; Pflicht-Ansichten zum Prüfen Handy/Tablet hoch und quer plus Desktop | BESCHLOSSEN 22.11.2026 |
 | DS10 | Icon-Konzept (Idee EduKSX-UI #20) | Lucide für Bedienung, EduKSX-Set für Module, Regeln aus Glossary; Einzelheiten KONZEPT-MARKE §6 | BESCHLOSSEN 22.11.2026 |
 | DS11 | Mitgelieferte Themes (Idee EduKSX-UI #18) | EduKSX plus Hoher Kontrast und Violett; weitere je Organisation, Auswahl durch die Person aus den vom Org-Admin freigegebenen | BESCHLOSSEN 22.11.2026 |
+| DS12 | GUI-Profile nach Modul- und Ansichtsart (Idee EduKSX-UI #23) | Regeltabelle im Guideline-Text von EduKSX-UI, ohne eigene Technik | BESCHLOSSEN 22.11.2026 |
+| DS13 | GUI-Tester (Idee EduKSX-UI #21) | Testseite von EduKSX-UI wird zum GUI-Tester ausgebaut: Erscheinungsbild, Themes in der Vorschau, je Baustein Beispiele, Versionen und Status, Überarbeitung, Wünsche (Regeln aus dem Intranet übernommen, nicht verlinkt) | BESCHLOSSEN 22.11.2026 |
 
 ## 9. Verlauf
 
 - 22.11.2026: Angelegt (#75); Entscheide DS1–DS6 im Chat.
-- 22.11.2026: DS7 entschieden (Review EduKSX-UI PR #8); Ideen EduKSX-UI #17, #19, #20, #18 angenommen als DS8–DS11;
+- 22.11.2026: DS7 entschieden (Review EduKSX-UI PR #8); Ideen EduKSX-UI #17, #19, #20, #18, #23, #21 angenommen als DS8–DS13;
   Marke links oben nach KONZEPT-MARKE M3 (DS4-Abschnitt in §5).

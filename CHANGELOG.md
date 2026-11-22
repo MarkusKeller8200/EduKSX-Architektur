@@ -10,7 +10,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 - **KONZEPT-DESIGN DS7–DS11 (22.11.2026):** axe-core «serious»/«critical» sofort Fehler, Musterseite als Testseite in
   EduKSX-UI (DS7); Farbschema-Umschalter (DS8), Pflicht-Ansichten und Vollbild (DS9), Icon-Konzept (DS10) und
-  mitgelieferte Themes EduKSX, Hoher Kontrast, Violett (DS11) aus den Ideen EduKSX-UI #17–#20; Marke links oben nach
+  mitgelieferte Themes EduKSX, Hoher Kontrast, Violett (DS11), GUI-Profile (DS12) und GUI-Tester (DS13) aus den
+  Ideen EduKSX-UI #17–#23; Marke links oben nach
   KONZEPT-MARKE M3 (EduKSX-Wortmarke oder eigenes Logo).
 - **Konzept Design-System und Themes (#75):** `docs/KONZEPT-DESIGN.md` – CI für Aussehen, `@eduksx/ui` für Bedienung;
   `tokens.json` (DTCG) mit Build und Kontrasttest; Repo EduKSX-UI (MIT); ganzes Theme je Organisation, aktivierbar erst
