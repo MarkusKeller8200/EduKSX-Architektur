@@ -13,19 +13,20 @@ markussxch PR #13).
 |---|---|---|---|---|---|
 | <img src="assets/icons/eduksx-core-color.svg" width="32" alt=""> | EduKSX-Core | `core` | gemeinsam genutzte Bausteine aller Module (Bibliothek, kein Dienst) | keine | 0.2.0 |
 | <img src="assets/icons/eduksx-ident-color.svg" width="32" alt=""> | EduKSX-Ident | `ident` | eigener Identity-Provider (Zitadel) und Brücke zu Entra, Google, Edulog | Konten | Brücke 0.1 (Repo EduKSX-Ident), PoC #36 |
-| <img src="assets/icons/eduksx-ops-color.svg" width="32" alt=""> | EduKSX-Ops (Leitstand) | `ops` | Kunden, Instanzen, Versionen, Updates und Zustand – intern | keine | geplant |
+| <img src="assets/icons/eduksx-ops-color.svg" width="32" alt=""> | EduKSX-Ops «Leitstand» | `ops` | Kunden, Instanzen, Versionen, Updates und Zustand – intern | keine | geplant |
 | <img src="assets/icons/eduksx-glossary-color.svg" width="32" alt=""> | EduKSX-Glossary | `glossary` | Verzeichnis von Begriffen und Abkürzungen | wenig | aktiv |
 | <img src="assets/icons/eduksx-codex-color.svg" width="32" alt=""> | EduKSX-Codex | `codex` | systematische Rechtssammlung jeder Gemeinde, später Gegenüberstellung mehrerer Gemeinden | wenig | aktiv |
 | <img src="assets/icons/eduksx-connect-color.svg" width="32" alt=""> | EduKSX-Connect | `connect` | verbinden und synchronisieren verschiedener Systeme; Stammdaten und ID-Zuordnung | viele | aktiv (Repo EduKSX-Connect) |
 | <img src="assets/icons/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
-| <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | Stundenplan | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
-| <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | Einsatzplanung | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
+| <img src="assets/icons/eduksx-timetable-color.svg" width="32" alt=""> | EduKSX-Timetable «Stundenplan» | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
+| <img src="assets/icons/eduksx-staffing-color.svg" width="32" alt=""> | EduKSX-Staffing «Einsatzplanung» | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
+| – | EduKSX-Planner «Jahresplanung» | `planner` | Jahresplanung (neu 22.11.2026; Inhalt und Abgrenzung zu `flow` OFFEN, Icon EduKSX-UI #49) | offen | geplant |
 | – | EduKSX-Flow | `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender (Icon im Prototyp, noch nicht im Icon-Set) | viele | aktiv |
 | <img src="assets/icons/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | aktiv (Repo EduKSX-Time) |
 | <img src="assets/icons/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | aktiv (Repo EduKSX-Shop) |
 | <img src="assets/icons/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |
 | <img src="assets/icons/eduksx-portal-color.svg" width="32" alt=""> | EduKSX-Portal | `portal` | Self-Service-Portal für Eltern, Ärztinnen und Ärzte, Zahnärztinnen und Zahnärzte und alle Externen | viele | geplant |
-| <img src="assets/icons/eduksx-intranet-color.svg" width="32" alt=""> | Intranet | `intranet` | interne Plattform, die Module, Schnittstellen, Wissen und Links zusammenbringt | viele | aktiv |
+| <img src="assets/icons/eduksx-intranet-color.svg" width="32" alt=""> | EduKSX-Intranet | `intranet` | interne Plattform, die Module, Schnittstellen, Wissen und Links zusammenbringt | viele | aktiv |
 | <img src="assets/icons/eduksx-services-color.svg" width="32" alt=""> | EduKSX-Services | `services` | reserviert, noch nicht definiert | – | reserviert |
 
 Leitlinie (Chat 13.11.2026): **Module mit wenig oder keinen Personendaten bleiben eigenständig** (Glossary, Codex) und
@@ -41,6 +42,7 @@ um `connect`.
                                     ├─ timetable
                                     └─ staffing
  Dienste für Mitarbeitende time · shop · sign
+ Planung                   planner (Zuordnung OFFEN)
  Zugänge                   intranet (intern) · portal (extern)
 ```
 
@@ -98,6 +100,10 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   Pensum).
 - **Nicht:** keine Lektionsplanung (→ `timetable`), keine erfasste Ist-Zeit (→ `time`).
 
+### planner – Jahresplanung
+- **Macht:** Jahresplanung (neu 22.11.2026, Inhalt noch zu beschreiben).
+- **OFFEN:** Abgrenzung zum Jahreskalender in `flow` und zu `timetable`/`staffing`.
+
 ### time – Zeiterfassung
 - **Macht:** geleistete Arbeitszeit erfassen oder aus externen Systemen übernehmen; Saldi und Auswertungen.
 - **Nicht:** keine Planung (→ `staffing`, `timetable`), keine Lohnabrechnung.
@@ -144,3 +150,5 @@ Web-Komponenten des Moduls; Versionierung der Plugin-Schnittstelle; Freigabe von
 - 13.11.2026: Übersicht angelegt – Zweck und Kurzbeschreibung aller Module aus dem Chat, Abgrenzungen, Gruppen,
   Plugin-Integration; `staffing` neu vergeben; Icon-Entwürfe für intranet, timetable, staffing, ops.
 - 13.11.2026: Icons für intranet, timetable, staffing, ops freigegeben.
+- 22.11.2026: Sichtbare Namen nach M1 (EduKSX-UI KONZEPT-MARKE): alle `EduKSX-<Begriff>` mit deutschem Untertitel.
+  Neues Modul `planner` EduKSX-Planner «Jahresplanung».

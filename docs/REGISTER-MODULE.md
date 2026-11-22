@@ -11,7 +11,8 @@ Pull Request.
   benennt Schema, Datenbankzugänge, Löschregister, Ereignisse (`<key>.<objekt>.<verb>`), Fehlertypen, Token-Präfixe,
   MCP-Werkzeuge und API-Pfade. Ist er einmal vergeben, ändert er sich nie.
 - **Marketingname frei:** Wie ein Modul gegenüber Kundinnen und Kunden heisst, wird situativ festgelegt und darf sich
-  ändern, ohne dass Code, Datenbank oder API angepasst werden. Die Spalte «Marketingname» ist nur ein Hinweis.
+  ändern, ohne dass Code, Datenbank oder API angepasst werden. Die Spalte «Marketingname» ist nur ein Hinweis; sie folgt dem
+  Entscheid M1 (EduKSX-UI `docs/KONZEPT-MARKE.md`, 22.11.2026): `EduKSX-<Begriff>`, deutsche Bezeichnung als Untertitel.
 - **Status:** `aktiv` (Repo vorhanden), `geplant` (Schlüssel vergeben, noch kein Repo), `reserviert` (für die
   Produktfamilie freigehalten, noch kein Modul).
 
@@ -21,13 +22,13 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 
 | Schlüssel | Modul (intern) | Marketingname (Stand) | Repo | Betriebsart | Status |
 | --- | --- | --- | --- | --- | --- |
-| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | Teil von «EduKSX-Core» | EduKSX-Core | Paket | aktiv (0.2.0) |
-| `ident` | Anmeldung, Konten, Organisationen, Rollen | Teil von «EduKSX-Core» | EduKSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
-| `ops` | Leitstand: Kunden, Instanzen, Versionen, Updates, Zustand | Teil von «EduKSX-Core» | – | intern | geplant |
+| `core` | gemeinsame Bibliothek `eduksx/core` (kein Dienst, Plattform 4.3) | EduKSX-Core | EduKSX-Core | Paket | aktiv (0.2.0) |
+| `ident` | Anmeldung, Konten, Organisationen, Rollen | EduKSX-Ident | EduKSX-Ident | zentral | aktiv (Brücke 0.1, unveröffentlicht) |
+| `ops` | Leitstand: Kunden, Instanzen, Versionen, Updates, Zustand | EduKSX-Ops | – | intern | geplant |
 | `glossary` | Glossar | EduKSX-Glossary | EduKSX-Glossary | zentral | aktiv |
 | `codex` | Rechtssammlung | EduKSX-Codex | EduKSX-Codex | zentral | aktiv |
-| `intranet` | Intranet einer Schule | Intranet | sek-intranet | isoliert | aktiv |
-| `timetable` | Stundenplan | Stundenplan | – | isoliert | geplant |
+| `intranet` | Intranet einer Schule | EduKSX-Intranet | sek-intranet | isoliert | aktiv |
+| `timetable` | Stundenplan | EduKSX-Timetable | – | isoliert | geplant |
 | `connect` | Stammdaten und Sync mit Fremdsystemen (M365, ASM, Escola, CMI, LMVZ …) | EduKSX-Connect | EduKSX-Connect | offen | aktiv (Repo angelegt 16.11.2026; #43) |
 | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | EduKSX-Licence | – | offen | geplant (#43: eigenständig oder Teil von `connect`) |
 | `portal` | Self-Service-Portal für Eltern, Ärztinnen, Zahnärzte und alle Externen der Schule | EduKSX-Portal | – | offen | geplant |
@@ -36,6 +37,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | EduKSX-Time | offen | aktiv (Repo angelegt 16.11.2026) |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
 | `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender | EduKSX-Flow | EduKSX-Flow | offen | aktiv (Repo angelegt, Prototyp in EduKSX-Prototyp) |
+| `planner` | Jahresplanung (Abgrenzung zu `flow` OFFEN) | EduKSX-Planner | – | offen | geplant (neu 22.11.2026) |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
