@@ -32,6 +32,17 @@ Offene Punkte, die erst die Umsetzung entscheidet (Ident-PoC, RLS, DPoP/mTLS, `c
 Meilenstein «Anpassungen aus der Umsetzung»; ihre Ergebnisse fliessen auf demselben Weg ein. Redaktionelle
 Korrekturen (Tippfehler, Verweise) brauchen kein eigenes Issue.
 
+**Erweiterungsrunde 0.4.0 (beschlossen 22.11.2026, #70):** Neue Themen, die im Konzept fehlen, sind keine Anpassung,
+sondern eine **Erweiterung** – Label **`konzept-erweiterung`**, Meilenstein «0.4.0 – Konzept erweitert»:
+
+- Erlaubt sind nur **neue** Abschnitte oder Dokumente und **Präzisierungen** als neue Unterversion eines Standards
+  (z. B. DB-Standard 1.4). Beschlossenes wird nicht geändert; ein Widerspruch wird als eigener Entscheid vorgelegt.
+- Jedes Issue braucht die Freigabe durch Projektverantwortliche:r; jedes Thema kommt als Konzept-PR.
+- **Nicht rückwirkend:** Ein Modul übernimmt neue Regeln mit einem Issue im Modul ab seinem nächsten MINOR-Release
+  (DB E5, API D8).
+- Mit Release 0.4.0 endet die Runde; danach gilt der Freeze wieder wie oben. Grundlage:
+  [Lückenanalyse](docs/LUECKENANALYSE-0.4.0.md).
+
 ## Mitmachen
 
 Fehler, Verbesserungen und Ideen bitte über die Issue-Formulare melden. Wie Meldungen freigegeben und umgesetzt
