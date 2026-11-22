@@ -17,7 +17,8 @@ Stand: **13.11.2026 (21:30)** – Release 0.2.0; Plattform §9 vollständig ents
 - Prüfen: `python3 -m pip install -r requirements-pruefung.txt`, dann `python3 -m unittest discover -s tests`.
 
 **Konzept eingefroren (ab 0.3.0)** – Änderungen nur über Issue mit Label `konzept-anpassung` und Freigabe
-(README). Weiterarbeit in den Modul-Repos (Core, Glossary, Intranet, Codex, Suite, Operation).
+(README). **Erweiterungsrunde 0.4.0** (22.11.2026, #70): neue Themen mit Label `konzept-erweiterung`,
+Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). Weiterarbeit in den Modul-Repos (Core, Glossary, Intranet, Codex, Suite, Operation).
 
 **Offene Issues** (Meilenstein «Anpassungen aus der Umsetzung», alle von der Umsetzung abhängig)
 

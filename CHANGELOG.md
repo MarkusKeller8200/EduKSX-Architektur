@@ -8,6 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Erweiterungsrunde 0.4.0 (#70):** neues Label `konzept-erweiterung` neben `konzept-anpassung` (README,
+  CONTRIBUTING): neue Themen und Präzisierungen ohne Änderung des Beschlossenen, Freigabe je Issue, nicht rückwirkend;
+  nach Release 0.4.0 wieder eingefroren. Lückenanalyse `docs/LUECKENANALYSE-0.4.0.md`, Issues #71–#80 im Meilenstein
+  «0.4.0 – Konzept erweitert».
 - **Stack-Übersicht Glossary (#68):** `docs/STACK-GLOSSARY.md` mit Diagrammen zu Anwendung und Auslieferung von
   EduKSX-Glossary; Verweis in der Modulübersicht. Nur Dokumentation, Konzept unverändert.
 - **DB-Standard 1.3 und API-Standard 1.2 (#65):** zu jedem englischen Namen eine deutsche Beschreibung, verbindlich für
