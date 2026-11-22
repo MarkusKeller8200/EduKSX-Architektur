@@ -3,7 +3,7 @@
 Stand: 13.11.2026 · Status: **BESCHLOSSEN, eingefroren mit 0.3.0** (Änderungen nur über `konzept-anpassung`,
 siehe README) – abgenommen am 13.11.2026 (#2, #4) mit Release 0.1.0; die Entscheide in §9
 sind seit 13.11.2026 alle getroffen (9.1 vorbehaltlich PoC #36). Grundlage: Gespräche zum EduKSX-Glossary (Organisationen, Einbindung, Updates).
-Nichts davon ist umgesetzt; Mengen und Preise sind Schätzungen.
+Umsetzungsstand: [PROJEKTSTAND.md](PROJEKTSTAND.md) (Core, Ident-Brücke und Glossary laufen); Mengen und Preise sind Schätzungen.
 
 ## 1. Zweck
 
@@ -246,7 +246,7 @@ Brüche nur in einer neuen Version mit Übergangszeit.
 
 | Stufe | Kunden | Infrastruktur | Betrieb |
 | --- | --- | --- | --- |
-| 0 – heute | Glossary allein | 1 VPS, Docker Compose, Traefik | Deploy je Merge |
+| 0 – heute | Glossary (Ident-Brücke im Test) | dev auf Hostinger; test-01, prod-01 auf Infomaniak (§7.3a) | dev je Merge, test/prod über Komodo (Operation) |
 | 1 – Start Ident | bis ~30 | 2–3 VPS (Zentral, Kunden), Object Storage | Compose + Update-Dienst, Leitstand |
 | 2 – Wachstum | ~30–200+ | Kubernetes in der Schweiz, Knotengruppen «zentral» und «Kunden» | GitOps, Ringe, Autoscaling |
 

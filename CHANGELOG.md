@@ -8,6 +8,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Gesamtprüfung (#71):** `docs/GESAMTPRUEFUNG-0.4.0.md` – Widersprüche W1–W14 zur Entscheidung, veraltete Stellen
+  R1–R8; redaktionell nachgeführt: Plattform (Kopf, Stufe 0), Core (§5, C7), Register und Modulübersicht (Core 0.2.0),
+  Ident (Schritte P1/P5 in 4.1, Ergebnisse in 4.3, Reihenfolge 2.1–2.3), Übergabe.
 - **Erweiterungsrunde 0.4.0 (#70):** neues Label `konzept-erweiterung` neben `konzept-anpassung` (README,
   CONTRIBUTING): neue Themen und Präzisierungen ohne Änderung des Beschlossenen, Freigabe je Issue, nicht rückwirkend;
   nach Release 0.4.0 wieder eingefroren. Lückenanalyse `docs/LUECKENANALYSE-0.4.0.md`, Issues #71–#80 im Meilenstein

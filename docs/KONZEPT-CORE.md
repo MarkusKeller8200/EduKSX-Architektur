@@ -45,7 +45,7 @@ So arbeitet ein Modul mit Core:
 | C4 | Unterstützte Versionen 0.1 | nur aktuell / auch ältere | **PHP 8.4, Laravel 13** | BESCHLOSSEN 13.11.2026 |
 | C5 | Verteilung | Packagist / GitHub als Composer-Repository | Packagist (öffentlich, MIT; kein Token in den Modulen nötig) | BESCHLOSSEN 13.11.2026 |
 | C6 | Namensraum | `EduKSX\Core\…` / `Eduksx\Core\…` | `EduKSX\Core\…`, Paket `eduksx/core` | BESCHLOSSEN 13.11.2026 |
-| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.2)** – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #25 ab | BESCHLOSSEN 13.11.2026 |
+| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.2)** – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #36 ab | BESCHLOSSEN 13.11.2026 |
 | C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | BESCHLOSSEN 13.11.2026 |
 | C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | BESCHLOSSEN 13.11.2026 |
 | C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | BESCHLOSSEN 13.11.2026 |
@@ -119,7 +119,7 @@ Erst wenn beide Module Core 0.1 nutzen, gilt ein Baustein als bewährt; Ausnahme
 |---|---|---|
 | #27 | Dieses Konzept | abgenommen 13.11.2026 |
 | EduKSX-Core #2–#6, #11 | Grundgerüst und Bausteine 0.1 nach 4.1/4.2 | veröffentlicht als 0.1.0 und 0.1.1 |
-| EduKSX-Core #13–#16 | Fahrplan 0.2 (4.1a) | umgesetzt in EduKSX-Core PR #18, Release nach Freigabe |
+| EduKSX-Core #13–#16 | Fahrplan 0.2 (4.1a) | umgesetzt in EduKSX-Core PR #18, veröffentlicht als 0.2.0 |
 | Glossary #193 | Bausteine abgrenzen – wird zur Umstellung auf Core 0.1 | `triage` |
 
 ## 6. Verlauf
