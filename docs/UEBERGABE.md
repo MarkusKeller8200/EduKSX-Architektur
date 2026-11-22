@@ -60,7 +60,7 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 - Entscheide im Chat (03:07): W3 (Werkzeuge nur in 7.3a, PITR, OpenTelemetry, Renovate im Betrieb, kein Kubernetes
   vor §9.5), W4, W8 (Löschregister-Ordner + Notfallkonzept), W9, W11 (lokales Login als Standard), W13, W14; neue
   Konzepte `KONZEPT-ANMELDUNG.md` und `KONZEPT-NOTFALL.md`; Folge-Issue #83.
-- Offen aus der Gesamtprüfung: W6 (Core bindet alte Standard-Versionen) als Folge-Issue in EduKSX-Core; W1, W2, W5, W7,
+- Offen aus der Gesamtprüfung: W6 (Core bindet alte Standard-Versionen) bewusst offen gelassen; W1, W2, W5, W7,
   W10, W12 in den Themen-Issues. #57–#61, #63, #64 sind offene PRs (Register/Icons), Merge nach den Icon-PRs in markussxch.
 - Nächste Schritte: #72–#80 der Reihe nach; PR #81 vor #82 mergen.
 
@@ -82,7 +82,7 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 
 ### Sitzung 14.11.2026 (00:00) – Merge Ident, Prüfung der Umsetzung
 
-- EdukSX-Ident PR #7 (Brücke 0.1) und PR #46 (Login V2 mit EduKSX-Gestaltung) gemergt; Ident #2–#6 im Beta-Test.
+- EduKSX-Ident PR #7 (Brücke 0.1) und PR #46 (Login V2 mit EduKSX-Gestaltung) gemergt; Ident #2–#6 im Beta-Test.
 - Umsetzung gegen die Konzepte geprüft; redaktionell nachgeführt: Register, Modulübersicht, Issue-Tabellen Core/Ident.
 - Nächste Schritte: Core 0.2 (#13–#16), Glossary #335 mergen, Ident 0.2 (S4-Zustellung, Prüfung gegen spec/), PoC #36 abschliessen.
 

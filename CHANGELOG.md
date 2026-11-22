@@ -22,7 +22,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
   OpenTelemetry als Schnittstelle; Leitstand ohne eigene Werkzeugliste.
 - **DB-Standard B3, C2:** Notfallweg N3 für das Löschregister; Beispiel WAL-G/pgBackRest für PITR.
 - **Ident I8 (W9) beschlossen**, **Core C7 (W4)** an Fahrplan angeglichen, **Selbst-Hosting 4.3a** Löschregister.
-- **Register (W13):** EduKSX-Connectors und EduKSX-Prototyp als «kein Modul».
+- **Register (W13):** EduKSX-Connectors und EduKSX-Prototyp als «kein Modul»; `time`, `connect`, `shop` aktiv mit Repo;
+  Repo EduKSX-Ident (statt EdukSX-Ident) – übernommen aus PR #57, #58, #59, #64.
 - **Gesamtprüfung (#71):** `docs/GESAMTPRUEFUNG-0.4.0.md` – Widersprüche W1–W14 zur Entscheidung, veraltete Stellen
   R1–R8; redaktionell nachgeführt: Plattform (Kopf, Stufe 0), Core (§5, C7), Register und Modulübersicht (Core 0.2.0),
   Ident (Schritte P1/P5 in 4.1, Ergebnisse in 4.3, Reihenfolge 2.1–2.3), Übergabe.
