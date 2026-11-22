@@ -57,7 +57,12 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 - PR #81 (#70): Regel für die Erweiterung in README/CONTRIBUTING, `docs/LUECKENANALYSE-0.4.0.md`.
 - Gesamtprüfung (#71): `docs/GESAMTPRUEFUNG-0.4.0.md` mit Widersprüchen W1–W14 (je Entscheid nötig) und
   redaktionellen Korrekturen R1–R8 (nachgeführt).
-- Nächste Schritte: Entscheide W3, W4, W8, W9, W11, W13, W14; danach #72–#80 der Reihe nach.
+- Entscheide im Chat (03:07): W3 (Werkzeuge nur in 7.3a, PITR, OpenTelemetry, Renovate im Betrieb, kein Kubernetes
+  vor §9.5), W4, W8 (Löschregister-Ordner + Notfallkonzept), W9, W11 (lokales Login als Standard), W13, W14; neue
+  Konzepte `KONZEPT-ANMELDUNG.md` und `KONZEPT-NOTFALL.md`; Folge-Issue #83.
+- Offen aus der Gesamtprüfung: W6 (Core bindet alte Standard-Versionen) als Folge-Issue in EduKSX-Core; W1, W2, W5, W7,
+  W10, W12 in den Themen-Issues. #57–#61, #63, #64 sind offene PRs (Register/Icons), Merge nach den Icon-PRs in markussxch.
+- Nächste Schritte: #72–#80 der Reihe nach; PR #81 vor #82 mergen.
 
 ### Sitzung 20.11.2026 (08:20) – Deutsche Beschreibungen zu englischen Namen (#65)
 

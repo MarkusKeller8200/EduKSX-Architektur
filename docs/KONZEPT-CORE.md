@@ -45,7 +45,7 @@ So arbeitet ein Modul mit Core:
 | C4 | Unterstützte Versionen 0.1 | nur aktuell / auch ältere | **PHP 8.4, Laravel 13** | BESCHLOSSEN 13.11.2026 |
 | C5 | Verteilung | Packagist / GitHub als Composer-Repository | Packagist (öffentlich, MIT; kein Token in den Modulen nötig) | BESCHLOSSEN 13.11.2026 |
 | C6 | Namensraum | `EduKSX\Core\…` / `Eduksx\Core\…` | `EduKSX\Core\…`, Paket `eduksx/core` | BESCHLOSSEN 13.11.2026 |
-| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.2)** – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #36 ab | BESCHLOSSEN 13.11.2026 |
+| C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.3)**, wie Fahrplan 4.1a – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #36 ab | BESCHLOSSEN 13.11.2026, angeglichen 22.11.2026 (W4) |
 | C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | BESCHLOSSEN 13.11.2026 |
 | C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | BESCHLOSSEN 13.11.2026 |
 | C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | BESCHLOSSEN 13.11.2026 |
@@ -86,7 +86,7 @@ Core 0.1.0 ist veröffentlicht (Repo EduKSX-Core). Weiter ohne auf Ident zu wart
 | | Schemas aus `spec/` unverändert ausliefern; Konformitätstest prüft den Steckbrief | alle Module | C11 |
 | **0.3** (nach PoC #36) | OIDC-Client und Abmelden, JWT-/Scope-Prüfung (S2), Standardtabellen (C7) | Glossary #185, #186, #188 | S1, S2, Ident |
 | später | RLS-Helfer (nach #34), DPoP-Prüfung (nach #35) | zentrale Module | DB-E5, API C1 |
-| mit #40 | Anmeldung ohne Ident für Selbst-Hosting: lokale Konten mit zweitem Faktor, OIDC-Anbindung an Entra/Google | selbst gehostete Module | Plattform S1 (Ausnahme) |
+| nächste Minor | Baustein «Anmeldung» nach [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDUNG.md): lokale Konten, TOTP, Passkeys, Notfallkonten, Modusschalter, OIDC für Ident/Entra/Google (Quelle: Glossary) | alle Module | Plattform S1 (geändert 22.11.2026) |
 
 ### 4.2 Herauslöse-Plan
 

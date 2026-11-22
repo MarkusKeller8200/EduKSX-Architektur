@@ -70,10 +70,20 @@ Mail. Die Module selbst haben nie Docker-Zugriff.
 
 ### 4.3 Anmeldung (SH-E1)
 
-Baustein in `eduksx/core` (Core-Fahrplan «mit #40»): lokale Konten, TOTP/Passkey, Wiederherstellungscodes,
-Notfallkonto; OIDC-Client für Entra und Google mit Zuordnung über Gruppen bzw. Domäne. Bei mehreren Modulen gibt es
+Baustein «Anmeldung» in `eduksx/core` nach [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDUNG.md) (gilt seit 22.11.2026 für alle
+Module, nicht nur beim Selbst-Hosting): lokale Konten, TOTP/Passkey, Wiederherstellungscodes,
+Notfallkonten; OIDC-Client für Entra und Google mit Zuordnung über Gruppen bzw. Domäne. Bei mehreren Modulen gibt es
 mit lokalen Konten **ein Konto je Modul**; eine gemeinsame Anmeldung nur über Entra/Google (ZU PRÜFEN: gemeinsames
 Konto über ein kleines «Konto-Modul» der Suite – erst bei Bedarf).
+
+### 4.3a Löschregister und Notfall (BESCHLOSSEN 22.11.2026, Gesamtprüfung W8)
+
+- Löschregister je Modul unter `/opt/eduksx/loeschregister/<modul>/`, **ausserhalb** `data/`, nur anhängend und
+  verschlüsselt; eigenes restic-Repository, gesichert nach jeder Löschung, längere Aufbewahrung als die Datensicherung
+  (DB B3).
+- Beim Zurückspielen einer Datensicherung gilt immer das **neueste** Register.
+- Der Installer erzeugt alle Schlüssel und ein **Wiederherstellungsblatt**; Notfallwege N1–N6 für fehlende Register,
+  Schlüssel oder Sicherungen: [KONZEPT-NOTFALL.md](KONZEPT-NOTFALL.md).
 
 ### 4.4 Mindestanforderungen (Schätzung, in der Probe messen)
 
