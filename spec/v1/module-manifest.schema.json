@@ -99,6 +99,23 @@
         "pattern": "^[a-z][a-z0-9_]*$"
       }
     },
+    "locales": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "contains": {
+        "const": "de"
+      },
+      "description": "Sprachen der fachlichen Inhalte des Moduls (DB-Standard D1, DB-E16); de ist Pflicht.",
+      "items": {
+        "enum": [
+          "de",
+          "fr",
+          "it",
+          "en"
+        ]
+      }
+    },
     "events_emitted": {
       "type": "array",
       "uniqueItems": true,

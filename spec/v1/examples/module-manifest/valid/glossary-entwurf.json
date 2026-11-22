@@ -21,6 +21,12 @@
     "moderator",
     "admin"
   ],
+  "locales": [
+    "de",
+    "fr",
+    "it",
+    "en"
+  ],
   "events_emitted": [
     "glossary.term.published"
   ],
