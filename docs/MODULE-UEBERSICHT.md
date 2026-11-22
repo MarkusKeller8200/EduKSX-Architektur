@@ -69,6 +69,7 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
 ### glossary – Begriffe und Abkürzungen
 - **Macht:** zentrales Verzeichnis mit Erklärungen, Kategorien, Vorschlägen; öffentlich lesbar, Daten CC BY 4.0.
 - **Nicht:** keine Rechtstexte (→ `codex`), keine Wissensseiten der Schule (→ `intranet`).
+- **Stack:** Übersicht über Anwendung und Auslieferung in [STACK-GLOSSARY.md](STACK-GLOSSARY.md).
 
 ### codex – systematische Rechtssammlung
 - **Macht:** Erlasse und Reglemente jeder Gemeinde mit Systematik, Versionen und Gültigkeit, öffentliche Publikation;
