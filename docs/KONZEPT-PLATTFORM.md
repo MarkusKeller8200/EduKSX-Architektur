@@ -233,8 +233,8 @@ gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDU
 
 ### Oberfläche
 
-- [ ] Design-System und Kopfzeile mit Modulwechsel aus `eduksx/core`
-- [ ] WCAG 2.1 AA (eCH-0059), de-CH, Schweizer Schreibweise
+- [ ] Design-System, Tokens, Themes und Kopfzeile mit Modulwechsel aus `@eduksx/ui` nach [KONZEPT-DESIGN.md](KONZEPT-DESIGN.md)
+- [ ] WCAG 2.1 AA (eCH-0059), geprüft mit Kontrasttest und axe-core; de-CH, Schweizer Schreibweise
 - [ ] Hilfe nach Rolle, keine internen Entscheidnummern in Anzeigetexten
 
 ### API

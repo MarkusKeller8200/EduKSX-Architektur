@@ -41,7 +41,8 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
 VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält keinen Modulschlüssel. Ebenso ohne Schlüssel
 (22.11.2026, Gesamtprüfung W13): **EduKSX-Connectors** (Sammlung der Anbindungen an Fremd-APIs, Grundlage für `connect`)
-und **EduKSX-Prototyp** (Prototypen und Umsetzungsgrundlagen, kein produktives Modul).
+und **EduKSX-Prototyp** (Prototypen und Umsetzungsgrundlagen, kein produktives Modul). Ebenso ohne Schlüssel das Repo
+**EduKSX-UI** (npm-Paket `@eduksx/ui`, Design-System, [KONZEPT-DESIGN.md](KONZEPT-DESIGN.md); Repo angelegt 22.11.2026, öffentlich).
 
 ## Umbenennungen
 

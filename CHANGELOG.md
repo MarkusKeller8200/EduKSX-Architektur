@@ -8,6 +8,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Konzept Design-System und Themes (#75):** `docs/KONZEPT-DESIGN.md` – CI für Aussehen, `@eduksx/ui` für Bedienung;
+  `tokens.json` (DTCG) mit Build und Kontrasttest; Repo EduKSX-UI (MIT); ganzes Theme je Organisation, aktivierbar erst
+  nach bestandener Kontrastprüfung; Intranet auf EduKSX-Standard mit SekBülach als Theme; axe-core in der CI.
 - **Konzept Anmeldung (W11):** `docs/KONZEPT-ANMELDUNG.md` – lokales Login als Standard (Regeln aus dem Glossary plus
   NIST SP 800-63B-4: 15/12 Zeichen, Passkeys, keine Zeichenregeln), Ident/Entra/Google optional; bei aktivem Anbieter
   lokal nur zwei Notfallkonten, Umschalten erst nach Probeanmeldung.
