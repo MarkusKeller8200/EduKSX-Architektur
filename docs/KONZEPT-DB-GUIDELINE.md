@@ -197,7 +197,7 @@ zentrale Tabelle `data_changes`.
 | `action` | `created`, `updated`, `deleted`, `restored` | BESCHLOSSEN |
 | `changes` | Feld → `{old, new}` nach den Regeln der Datenklasse (B2) | BESCHLOSSEN, angepasst |
 | `actor_type`, `actor_id`, `actor_label` | wer | BESCHLOSSEN |
-| `source` | `web`, `api`, `import`, `mcp`, `job`, `system`, `migration` | BESCHLOSSEN |
+| `source` | `web`, `api`, `import`, `mcp`, `job`, `system`, `migration`, `restore` (seit 1.4) | BESCHLOSSEN |
 | `transaction_id` | gemeinsame Kennung aller Einträge einer Transaktion | BESCHLOSSEN |
 | `request_id` | Anfrage-ID aus dem Protokoll | BESCHLOSSEN |
 | `schema_version` | Stand des Schemas, um alte Einträge richtig zu lesen | BESCHLOSSEN |
@@ -458,7 +458,9 @@ Migrationen in der CI gegen SQLite **und** PostgreSQL laufen – nicht erst beim
 | Zeitpunkt wählbar | Wiederherstellung auf jeden Zeitpunkt der Aufbewahrung (PITR) – `pg_dump` allein genügt dafür nicht | BESCHLOSSEN |
 | Einzelsnapshot | vor jedem Update, jeder Migration, grossen Importen; Dateiname mit Zeitstempel und Version; Prüfsumme und Zeilen je Tabelle | BESCHLOSSEN |
 | Verschlüsselt | alle Sicherungen verschlüsselt; Schlüssel getrennt vom gesicherten System und von der Sicherung aufbewahrt (Geheimnisspeicher), Notfallkopie offline | BESCHLOSSEN |
-| Getestet | Wiederherstellung mindestens monatlich auf einer Kopie, Dauer messen und mit RTO vergleichen | BESCHLOSSEN |
+| Getestet | Wiederherstellung **monatlich automatisch** auf einer Kopie, Dauer messen und mit RTO vergleichen; Prüfprotokoll (Zeitpunkt, Sicherung, Dauer, Ergebnis, Zeilen je Tabelle) – bei uns sichtbar in Operation bzw. Leitstand, beim Selbst-Hosting auf der Seite «System»; nicht Teil von `/health` | BESCHLOSSEN, präzisiert 22.11.2026 |
+| Dateien | Objektversionierung im Object Storage **und** restic-Snapshot direkt nach der DB-Sicherung mit gemeinsamem Zeitstempel; beim Zurückspielen gilt die Dateiversion zum Zeitpunkt der Datenbank | BESCHLOSSEN 22.11.2026 |
+| Eine Organisation | **zentrale Module:** Wiederherstellung einer einzelnen Organisation – Sicherung in eine temporäre Datenbank, Export der Organisation (Mandantenscope B1), Einspielen ins produktive System mit Konfliktprüfung (`lock_version`), Historie mit `source = restore`, Löschregister angewendet; Test je Modul (C3) | BESCHLOSSEN 22.11.2026 |
 | Nach dem Zurückspielen | Migrationen, Löschregister (B3), Löschfristen – erst dann Anfragen annehmen | BESCHLOSSEN |
 
 **RPO und RTO (BESCHLOSSEN 12.11.2026):** verbindliche Ziele je Dienstart:
@@ -469,6 +471,10 @@ Migrationen in der CI gegen SQLite **und** PostgreSQL laufen – nicht erst beim
 | isoliert (Intranet, Stundenplan) | 15 Minuten | 1 Arbeitstag |
 | Ident | 1 Minute | 1 Stunde |
 
+Die Werte bleiben (Entscheid 22.11.2026, #74): Für PostgreSQL braucht es dafür WAL-Archivierung im Betrieb
+(MarKusSX-Operation #27, Folge #83); bis dahin gelten sie als nicht erfüllt (Plattform §7.3a). Beim Selbst-Hosting
+sind sie Empfehlung (SH-E7).
+
 ### C3 Tests (BESCHLOSSEN, ergänzt)
 
 Jedes Modul hat mindestens: Migrationstest je Migration (Daten vorher, nachher prüfen); Abwärtskompatibilität der
@@ -476,7 +482,8 @@ Migrationen; Schemaprüfung (STRICT, CHECK, `integrity_check`, `foreign_key_chec
 Privates in öffentlichen Ausgaben); **Mandantentrennung** mit zwei Organisationen (B1); Papierkorb und Fristen;
 **Löschung nach Wiederherstellung** mit Löschregister (B3); Historie für alle vier Aktionen; Rollback einer
 mehrteiligen Änderung. Seit 1.2 zusätzlich: **Auskunft/Export** einer Person (B8), **Zweck je Tabelle** (B9),
-**Anonymisierung** (B12) und die **Konformitätstests** aus `eduksx/core` (E5).
+**Anonymisierung** (B12) und die **Konformitätstests** aus `eduksx/core` (E5). Seit 1.4 zusätzlich für zentrale Module:
+**Wiederherstellung einer Organisation** (C2).
 
 ---
 
@@ -629,6 +636,7 @@ Personen – führt `connect` und bietet sie über seine API an; andere Module h
 | DB-E14 | Pflichtspalten je Tabellenart | Tabelle A3a, geprüft im Konformitätstest | BESCHLOSSEN 22.11.2026 (#73) |
 | DB-E15 | Frist der Historie und Protokolle | fachliche Historie solange das Objekt besteht, Sicherheitsprotokoll 1 Jahr, Prüfpunkte 10 Jahre (B9) | BESCHLOSSEN 22.11.2026 (#73) |
 | DB-E16 | Mehrsprachigkeit präzisiert | Sprachen de/fr/it/en, Abkürzungen übersetzbar, Sprachkennzeichnung beim Rückfall, `translation_status`, maschinell nur mit Hinweis, Oberflächensprache Person → Organisation → `de` (D1) | BESCHLOSSEN 22.11.2026 (#73) |
+| DB-E18 | Sicherung präzisiert | RPO/RTO bleiben, PITR für PostgreSQL im Betrieb; Restore-Test monatlich automatisch mit Prüfprotokoll; Dateien mit Versionierung + restic; Wiederherstellung je Organisation Pflicht für zentrale Module (C2) | BESCHLOSSEN 22.11.2026 (#74) |
 | DB-E17 | Gemeinsame Stammdaten | Codelisten in `eduksx/core`, Stammdaten der Organisation in `connect` (E4) | BESCHLOSSEN 22.11.2026 (#73) |
 
 Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–E6 und den Entscheiden des API-Standards
@@ -646,4 +654,4 @@ Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–
 - 20.11.2026: Version 1.3 abgenommen – A8 deutsche Beschreibungen zu englischen Namen (DB-E13), verbindlich für alle
   EduKSX-Projekte (#65).
 - 22.11.2026: Version 1.4 beschlossen – Pflichtspalten (A3a, DB-E14), Fristen der Historie (B9, DB-E15),
-  Mehrsprachigkeit präzisiert (D1, DB-E16), gemeinsame Stammdaten (E4, DB-E17) (#73).
+  Mehrsprachigkeit präzisiert (D1, DB-E16), gemeinsame Stammdaten (E4, DB-E17) (#73); Sicherung präzisiert (C2, DB-E18, #74).

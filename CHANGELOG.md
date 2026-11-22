@@ -17,6 +17,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Sicherung (#74, DB-E18):** RPO/RTO bleiben, PITR für PostgreSQL im Betrieb (Operation); Restore-Test monatlich
+  automatisch mit Prüfprotokoll; Dateien mit Objektversionierung + restic; Wiederherstellung einer Organisation Pflicht
+  für zentrale Module; Historie `source = restore`.
 - **DB-Standard 1.4 (#73):** Pflichtspalten je Tabellenart (A3a, DB-E14), Fristen der Historie und Protokolle (B9,
   DB-E15), Mehrsprachigkeit präzisiert – Sprachen de/fr/it/en, Abkürzungen übersetzbar, Sprachkennzeichnung,
   `translation_status`, maschinell nur mit Hinweis (D1, DB-E16) –, gemeinsame Stammdaten: Codelisten in Core,

@@ -304,6 +304,8 @@ Wiederherstellung auf einen Zeitpunkt (Base Backup + WAL) und RPO 1 Minute (zent
 (isoliert) sowie einen monatlichen Wiederherstellungstest. Operation sichert die Datenbanken heute per täglichem Dump
 (RPO bis 24 Stunden) mit vierteljährlichem Test. Bis Operation das löst bzw. der DB-Standard angepasst wird, gelten
 die RPO-Werte des DB-Standards für produktive Dienste mit Personendaten als nicht erfüllt.
+**Entscheid 22.11.2026 (#74):** Die Werte bleiben; Operation nimmt Base Backup + WAL-Archivierung für PostgreSQL auf
+(auch für Ident/Zitadel) und testet monatlich automatisch (DB C2, DB-E18). Umsetzung als Issue in Operation (#83).
 
 Das Selbst-Hosting beim Kunden (#40) ist bewusst einfacher und braucht diese Betriebswerkzeuge nicht.
 
