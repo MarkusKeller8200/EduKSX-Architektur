@@ -8,6 +8,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Stack-Übersicht Glossary (#68):** `docs/STACK-GLOSSARY.md` mit Diagrammen zu Anwendung und Auslieferung von
+  EduKSX-Glossary; Verweis in der Modulübersicht. Nur Dokumentation, Konzept unverändert.
 - **DB-Standard 1.3 und API-Standard 1.2 (#65):** zu jedem englischen Namen eine deutsche Beschreibung, verbindlich für
   alle EduKSX-Projekte – Tabelle (Kurzbeschreibung, Geltungsbereich, Herkunft/Verwendung), Spalte und API-Feld
   (Begriff, Herkunft/Verwendung, Datenklasse), Labels je Status- und Art-Wert (`x-eduksx-labels`); DB A8, API A8,
