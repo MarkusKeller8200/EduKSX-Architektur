@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PoC (#36): EduKSX-Gestaltung für Login V2 – nur über Einstellungen und API, Zitadel bleibt unverändert (I10).
 Farben aus dem EduKSX-Icon-Set (Orange #FF8A00, Neutral #222222 / #F2F5F8), Logo und Icon aus
-markussxch docs/brand/icons/eduksx/png (eduksx-tile-light/-dark). Aufruf: python3 branding.py <png-ordner>
+EduKSX-UI icons/png (eduksx-tile-light/-dark; einzige Quelle des Icon-Sets, auch im Paket @eduksx/ui). Aufruf: python3 branding.py <png-ordner>
 """
 import pathlib, sys, requests
 
