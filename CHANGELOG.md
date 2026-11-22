@@ -8,6 +8,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- Modulregister und Modulübersicht: sichtbare Namen nach Entscheid M1 (`EduKSX-<Begriff>` mit deutschem Untertitel);
+  neues Modul `planner` EduKSX-Planner «Jahresplanung», Abgrenzung zu `flow` OFFEN.
 - **KONZEPT-DESIGN DS7–DS11 (22.11.2026):** axe-core «serious»/«critical» sofort Fehler, Musterseite als Testseite in
   EduKSX-UI (DS7); Farbschema-Umschalter (DS8), Pflicht-Ansichten und Vollbild (DS9), Icon-Konzept (DS10) und
   mitgelieferte Themes EduKSX, Hoher Kontrast, Violett (DS11), GUI-Profile (DS12) und GUI-Tester (DS13) aus den
