@@ -17,6 +17,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **API-Standard 1.3 (#72):** G4 API-First – Vertrag zuerst und jede Fachfunktion als API-Operation mit demselben
+  Service und derselben Policy (verbindlich), headless erlaubt; automatische Prüfung Route ↔ `operationId`; interne
+  APIs mit `x-eduksx-internal` (API-E38).
 - **Plattform S1 und Prüfliste §6 (W11):** Anmeldung nicht mehr nur über Ident; lokales Login als Standard.
 - **Plattform 7.2, 7.4, S5 (W3):** Werkzeuge nur noch in 7.3a; 7.4 als Anforderungen, Stufe-2-Werkzeuge nur Kandidaten;
   OpenTelemetry als Schnittstelle; Leitstand ohne eigene Werkzeugliste.
