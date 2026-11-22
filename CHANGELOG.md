@@ -6,6 +6,11 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- **Icons nur noch aus EduKSX-UI (22.11.2026):** `docs/assets/icons/` entfernt; die Modulübersicht verweist direkt auf
+  `EduKSX-UI/icons/svg` (jetzt auch mit Flow und Planner), `poc/ident-zitadel/branding.py` nennt EduKSX-UI als Quelle.
+
 ### Neu
 
 - Modulregister und Modulübersicht: sichtbare Namen nach Entscheid M1 (`EduKSX-<Begriff>` mit deutschem Untertitel);
