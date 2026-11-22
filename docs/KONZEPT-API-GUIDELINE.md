@@ -1,7 +1,7 @@
 # Konzept: API-Standard der EduKSX-Plattform (#15, #18)
 
-Stand: 20.11.2026 (Version 1.2) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.2 abgenommen am
-20.11.2026 (Version 1.1 am 13.11.2026, Version 1.0 am 12.11.2026)
+Stand: 22.11.2026 (Version 1.3) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.3 (G4 API-First)
+beschlossen am 22.11.2026 (Version 1.2 am 20.11.2026, Version 1.1 am 13.11.2026, Version 1.0 am 12.11.2026)
 
 Verbindlicher Standard für **alle** Schnittstellen der EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan,
 Ident …) – für Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Endpunkte, Felder und
@@ -33,8 +33,10 @@ API-01 und SEC-01 (externe Clients) im WebApplicationProgrammingGuide.
 
 ## Grundsätze
 
-1. **API first** – jede Funktion, die ein anderes System braucht, gibt es zuerst als API; Website, Intranet und MCP
-   nutzen dieselben Services. BESCHLOSSEN (IDA-Vorgehen, Glossary «API gehört zum Kern»)
+1. **API first** – jede Schnittstelle steht zuerst als Vertrag (OpenAPI) fest, und **jede fachliche Funktion** gibt es
+   auch als API-Operation mit demselben Service und derselben Policy wie in der Oberfläche; Website, Intranet und MCP
+   nutzen dieselben Services. Ausgeführt in [G4](#g4-api-first-beschlossen-22112026-api-e38). BESCHLOSSEN (IDA-Vorgehen,
+   Glossary «API gehört zum Kern»; präzisiert 22.11.2026, API-E38)
 2. **Kein Zugriff auf fremde Datenbanken** – Module tauschen Daten nur über APIs, Permalinks und Ereignisse aus.
    BESCHLOSSEN (DB B5, Plattform S8)
 3. **Beschreibung vor Code** – jede Operation steht in der OpenAPI-Beschreibung; ein Test verhindert Routen ohne
@@ -67,8 +69,8 @@ Betrieb** und **Stufe 3 nur für die Funktionen, die es tatsächlich anbietet**.
 
 | Stufe | Wann | Regeln |
 | --- | --- | --- |
-| **1 · Kern** | jede API ab Tag 1, auch Prototypen | `/api/v1` und Namen (A1, A2), Modulschlüssel (G2), `problem+json` (A6), Statuscodes (A7), Cursor (A5), Anmeldung + Scope + Recht je Objekt (C1–C3), Positivlisten Lesen/Schreiben (C4), Abruflimit und Sicherheitskopfzeilen (C5, C6), `request_id` (C7), OpenAPI mit Linter (D3), Tests «Prototyp» (D7) |
-| **2 · Betrieb** | vor dem ersten produktiven Release | `If-Match` (B2), Idempotenz wo Pflicht (B3), Papierkorb-Regeln (B4), Caching (B5), Datenklassen und Zweck je Operation, Auskunft/Export, Fristen (C9), ASVS L2, Scan, Pentest (C10), `oasdiff` und Versionierung (D1, D3), Doku (D4), Betrieb (D6), Tests «produktiv» (D7), Konformitätstest (D8) |
+| **1 · Kern** | jede API ab Tag 1, auch Prototypen | Vertrag zuerst (G4 A), `/api/v1` und Namen (A1, A2), Modulschlüssel (G2), `problem+json` (A6), Statuscodes (A7), Cursor (A5), Anmeldung + Scope + Recht je Objekt (C1–C3), Positivlisten Lesen/Schreiben (C4), Abruflimit und Sicherheitskopfzeilen (C5, C6), `request_id` (C7), OpenAPI mit Linter (D3), Tests «Prototyp» (D7) |
+| **2 · Betrieb** | vor dem ersten produktiven Release | jede Fachfunktion als API mit Prüfung (G4 B), `If-Match` (B2), Idempotenz wo Pflicht (B3), Papierkorb-Regeln (B4), Caching (B5), Datenklassen und Zweck je Operation, Auskunft/Export, Fristen (C9), ASVS L2, Scan, Pentest (C10), `oasdiff` und Versionierung (D1, D3), Doku (D4), Betrieb (D6), Tests «produktiv» (D7), Konformitätstest (D8) |
 | **3 · Bei Bedarf** | nur wenn das Modul die Funktion anbietet | Synchronisation (B6), Ereignisse und Webhooks (B7), MCP (D5), Sammeländerungen und Aufträge (B1), alle Sprachen mit `?locale=*` (A4), Organisations-API (C3) |
 
 ### G2 Modulschlüssel und Namensräume (BESCHLOSSEN 13.11.2026, API-E19)
@@ -104,6 +106,32 @@ wenn das erste Modul sie braucht** – nichts auf Vorrat:
    JWT), Signatur von Webhooks, HTTP-Client mit SSRF-Schutz.
 
 Ein Modul darf einen Baustein nur ersetzen, wenn es dafür einen Eintrag im Ausnahmeregister (D8) hat.
+
+### G4 API-First (BESCHLOSSEN 22.11.2026, API-E38)
+
+API-First heisst bei EduKSX zwei verbindliche Stufen und eine erlaubte:
+
+| Stufe | Regel | Status |
+| --- | --- | --- |
+| **A · Vertrag zuerst** | Jede Schnittstelle steht zuerst in der OpenAPI-Beschreibung, wird geprüft (Linter, `oasdiff`) und erst dann gebaut (D3). | verbindlich |
+| **B · Jede Fachfunktion als API** | Was die Oberfläche fachlich kann – anlegen, ändern, freigeben, exportieren, löschen, wiederherstellen –, gibt es auch als API-Operation. Oberfläche und API rufen **denselben Service** und **dieselbe Policy** auf; keine Fachlogik nur im Controller der Oberfläche. | verbindlich |
+| **C · Oberfläche über die eigene API** (headless) | Website und Administration rufen nur `/api/v1` auf. | erlaubt, nicht verlangt (Inertia bleibt möglich) |
+
+**Prüfung (automatisch):** Jede schreibende Web-Route nennt die zugehörige API-Operation (`operationId`, z. B. als
+Routen-Attribut `eduksx.operation`). Ein Test aus `eduksx/core` (Konformitätstest D8) schlägt fehl, wenn eine schreibende
+Web-Route keine Operation nennt, die Operation in der Beschreibung fehlt oder Route und Operation einen anderen Service
+bzw. eine andere Policy aufrufen. Reine Anzeige-Seiten brauchen keine Operation.
+
+**Interne APIs** (z. B. `/api/sync`, Administration, Dienst zu Dienst) folgen denselben Regeln und stehen in der
+OpenAPI-Beschreibung, markiert mit `x-eduksx-internal: true`. Die öffentliche Doku (D4) und Postman blenden sie aus; der
+Linter und die Tests prüfen sie wie alle anderen.
+
+**Ausnahmen** nur mit Eintrag im Ausnahmeregister (D8), z. B. Assistenten über mehrere Schritte, deren Zwischenschritte
+keine eigene Fachfunktion sind.
+
+**Stufe und Übergang:** Regel A gilt ab Stufe 1 (G1), Regel B und die Prüfung ab Stufe 2 (vor dem ersten produktiven
+Release). Bestehende Module übernehmen B ab ihrem nächsten MINOR-Release mit einem Issue im Modul (nicht rückwirkend,
+DB E5); fehlende Operationen werden dort erfasst.
 
 ---
 
@@ -721,6 +749,7 @@ Was in einem PR geprüft wird, richtet sich nach der Stufe des Moduls (G1); der 
 markierten Punkte (⚙) automatisch ab.
 
 - [ ] Standard deckt die Änderung ab – sonst zuerst Konzept-PR; Ausnahme nur mit Eintrag im Register (D8)
+- [ ] Neue Fachfunktion der Oberfläche hat eine API-Operation mit demselben Service und derselben Policy; Web-Route nennt die `operationId`; interne Operationen mit `x-eduksx-internal` (G4) ⚙
 - [ ] Modulschlüssel in Scopes, Ereignissen, Fehler-Typen, Token-Präfix und MCP-Namen (G2) ⚙
 - [ ] Gemeinsame Bausteine aus `eduksx/core` statt eigener Umsetzung (G3)
 - [ ] URL, Felder und Werte englisch `snake_case` (A1, A2), Werte identisch zur Datenbank
@@ -782,6 +811,7 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
 | API-E34 | Privilegierte Vorgänge vor Ident | nur in der Oberfläche, nicht per API-Token | C1 |
 | API-E35 | Rechtssammlung | gehört zum Modul `codex` | G2 |
 | API-E37 | Deutsche Beschreibungen zu englischen Namen | `title`/`description` je Schema, Feld, Parameter; `x-eduksx-labels` je Aufzählung; Texte gleich wie im Datenmodell (DB-E13) | A8 |
+| API-E38 | API-First | Stufen A (Vertrag zuerst) und B (jede Fachfunktion als API, gleicher Service und gleiche Policy) verbindlich, C (headless) erlaubt; automatische Prüfung Route ↔ `operationId`; interne APIs mit `x-eduksx-internal` (22.11.2026, #72) | G4 |
 | API-E36 | Ein Register für DB und API | [REGISTER-MODULE.md](REGISTER-MODULE.md); Schlüssel englisch, Marketingnamen frei; `timetable`, `ops` neu vergeben | G2 |
 | – | Datenschutzregeln C9 rechtlich gegenlesen | vor dem ersten produktiven Release (#22) | C9 – ZU PRÜFEN |
 | – | DPoP/mTLS für Dienst-zu-Dienst | mit Ident prüfen (#16); empfohlen: kurze JWT mit `private_key_jwt` ab Stufe 1, DPoP vor mTLS sobald Ident es kann ([Prüfauftrag](PRUEFAUFTRAG-DPOP-MTLS.md)); Entscheid #35 | C1 – ZU PRÜFEN |
@@ -852,3 +882,4 @@ API-E1–API-E17 entschieden am 12.11.2026, API-E18–API-E35 am 13.11.2026 nach
   Entscheide als `API-E<n>` nummeriert.
 - 20.11.2026: Version 1.2 abgenommen – A8 deutsche Beschreibungen in der OpenAPI-Beschreibung (API-E37), verbindlich für
   alle EduKSX-Projekte (#65).
+- 22.11.2026: Version 1.3 beschlossen – G4 API-First mit Stufen A/B/C, automatische Prüfung, interne APIs (API-E38, #72).
