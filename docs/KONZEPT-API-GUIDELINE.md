@@ -209,6 +209,9 @@ Plattform S5): `/up`, `/health`, `/metrics`, `/.well-known/eduksx-module.json`, 
 - Antworten, die von der Sprache abhängen, senden `Vary: Accept-Language`; Caches trennen nach `locale` (API-E32).
 - Persönliche Freitexte werden nie übersetzt (DB D1). Fehlermeldungen (`title`, `detail`) folgen der gewählten Sprache;
   `type` und `code` sind sprachneutral.
+- **Ergänzt 22.11.2026 (DB-E16):** Kommt ein Feld aus der Grundsprache statt aus der gewünschten Sprache, steht daneben
+  `<feld>_locale` (z. B. `"abbreviation_locale": "de"`); je Übersetzung `translation_status` (`machine`, `draft`,
+  `reviewed`) – Abnehmer zeigen `machine` mit dem Hinweis «maschinell übersetzt».
 
 ### A5 Listen, Pagination, Filter, Sortierung (EMPFOHLEN, Glossary umgesetzt)
 

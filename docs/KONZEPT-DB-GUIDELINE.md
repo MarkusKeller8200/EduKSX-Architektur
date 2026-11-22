@@ -1,7 +1,7 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 20.11.2026 (Version 1.3) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.3 abgenommen am 20.11.2026
-(Version 1.2 am 13.11.2026, Version 1.0 und 1.1 am 12.11.2026)
+Stand: 22.11.2026 (Version 1.4) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.4 beschlossen am 22.11.2026
+(Version 1.3 am 20.11.2026, Version 1.2 am 13.11.2026, Version 1.0 und 1.1 am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -115,6 +115,20 @@ UNIQUE auf `revisions(document_id, id)`. Wo das nicht geht, prüft der Service u
 **Indizes:** jede Fremdschlüssel-Spalte ist indexiert, auch ohne Constraint (SQLite und PostgreSQL legen keinen von
 selbst an) – BESCHLOSSEN. Weitere Indizes nur, wenn eine konkrete, häufige Abfrage sie braucht (mit `EXPLAIN` belegt);
 ungenutzte werden entfernt – BESCHLOSSEN.
+
+### A3a Pflichtspalten je Tabellenart (BESCHLOSSEN 22.11.2026, DB-E14)
+
+Fasst zusammen, was A3, A6, A7, B1 und B3 verlangen. Der Konformitätstest (E5) prüft die Pflichtspalten.
+
+| Tabellenart | Pflichtspalten |
+| --- | --- |
+| Hauptobjekt (Fachdaten) | `id` (UUID v7), `created_at`, `created_by_id`, `updated_at`, `updated_by_id`, `lock_version` (wenn änderbar); im Papierkorb (B3) zusätzlich `deleted_at`, `deleted_by_id` |
+| … Geltungsbereich Organisation | zusätzlich `organization_id` NOT NULL (B1) |
+| … Geltungsbereich persönlich | zusätzlich `user_id` NOT NULL; `organization_id`, wenn an eine Organisation gebunden |
+| Verknüpfung | `id` (fortlaufende Zahl), beide Fremdschlüssel mit UNIQUE über das Paar, `created_at`, `created_by_id` |
+| Übersetzung `<objekt>_translations` | `id`, `<objekt>_id`, `locale`, übersetzte Felder, `translation_status`, `reviewed_by_id`, `reviewed_at`, `created_at`, `updated_at`; UNIQUE (`<objekt>_id`, `locale`) (D1) |
+| Protokoll, Historie, Ereignis | `id` (fortlaufende Zahl), `event_id` (UUID), `occurred_at`; **nie** `updated_at` (unveränderlich, A7) |
+| Hilfstabelle (Cache, Warteschlange, Laravel-intern) | nach Laravel; keine Fachdaten |
 
 ### A4 Datentypen, Enums, CHECK-Regeln (BESCHLOSSEN)
 
@@ -366,6 +380,17 @@ Auftrag, **Geltungsbereich** (B1) und **Löschfrist** fest. Daraus wird das Verz
 erzeugt (Plattformkonzept, Prüfliste); ein Test schlägt fehl, wenn eine Tabelle diese Angaben nicht hat. Eine neue
 Tabelle ohne Zweck wird nicht gemergt.
 
+**Vorgabe für Historie und Protokolle (BESCHLOSSEN 22.11.2026, DB-E15):**
+
+| Tabelle | Frist |
+| --- | --- |
+| fachliche Historie (`data_changes`, Revisionen) | solange das Objekt besteht; mit dessen **endgültiger** Löschung (nach dem Papierkorb, B3) werden seine Einträge gelöscht |
+| Sicherheitsprotokoll (A7) | 1 Jahr |
+| Prüfpunkte der Hash-Kette (ausserhalb der Datenbank) | 10 Jahre (enthalten keine Personendaten) |
+
+Ein Modul darf begründet länger aufbewahren (z. B. Archivpflicht, #78) – mit Eintrag in B9 und im Verzeichnis der
+Bearbeitungen.
+
 ### B10 Folgenabschätzung und Vorabkontrolle (BESCHLOSSEN 13.11.2026)
 
 - Ein Modul, das Daten der Klasse **besonders schützenswert** bearbeitet oder Personendaten online für viele Personen
@@ -467,6 +492,19 @@ mehrteiligen Änderung. Seit 1.2 zusätzlich: **Auskunft/Export** einer Person (
 
 Fehlt eine Übersetzung, gilt die Grundsprache (`de`). Sprachcodes nach ISO 639-1.
 
+**Präzisiert 22.11.2026 (DB-E16):**
+
+- **Sprachen der Plattform:** `de` (Grundsprache, immer Pflicht), `fr`, `it`, `en`. Jedes Modul nennt seine Sprachen im
+  Steckbrief (`locales`, S5).
+- **Übersetzbare Felder** sind alle fachlichen Texte: Bezeichnung, **Abkürzung**, Langform, Kurzbeschreibung,
+  Erklärungstext. Gibt es in einer Sprache keine eigene Abkürzung oder Langform, bleibt das Feld in der Übersetzung leer;
+  angezeigt wird die Grundsprache **mit Sprachkennzeichnung** (HTML `lang`, in der API `<feld>_locale`, API A4).
+- **Übersetzungsstatus** je Übersetzung: `machine` (maschinell), `draft` (Entwurf), `reviewed` (geprüft, mit
+  `reviewed_by_id`, `reviewed_at`). Maschinelle Übersetzungen dürfen öffentlich erscheinen, aber **nur mit dem Hinweis
+  «maschinell übersetzt»**, bis sie geprüft sind. Eine Änderung der Grundsprache setzt geprüfte Übersetzungen auf `draft`
+  zurück.
+- **Oberflächensprache:** Wahl der Person (Profil bzw. Claim `locale`), sonst Vorgabe der Organisation, sonst `de`.
+
 ### D2 Datum und Uhrzeit (BESCHLOSSEN 12.11.2026)
 
 Anzeige für Menschen: Datum `DD.MM.YYYY`, Uhrzeit `HH:MM:SS` (24 Stunden), Zeitzone Europe/Zurich. Gespeichert und in
@@ -522,6 +560,11 @@ UUID v7 für Fachobjekte (A3) und `event_id` für alles Modulübergreifende; for
 Rollen und Einstellungen gelten je Modul und werden beim Zusammenlegen nicht vermischt. Gemeinsame Stammdaten (z. B.
 Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – wenn nötig – als Plattformdienst angeboten.
 
+**Wo sie leben (BESCHLOSSEN 22.11.2026, DB-E17):** Feste **Codelisten** – Sprachen (ISO 639-1), Schulstufen und Zyklen
+(Werte wie Edulog `EdulogPersonLevel`, `EdulogPersonCycle`), Kantone – liegen versioniert in `eduksx/core` (Code, keine
+Tabelle; deutsche Labels nach A8). **Stammdaten einer Organisation** – Schulhäuser, Klassen, Fächer, Zuordnung von
+Personen – führt `connect` und bietet sie über seine API an; andere Module halten nur Verweise (`platform_id`, E3).
+
 ### E5 Versionsbindung und Konformitätstests
 
 - Jedes Modul nennt in seinem Datenmodell, nach welcher **Version dieses Standards** es arbeitet (z. B. «DB-Standard
@@ -556,7 +599,9 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 - [ ] Transaktion vollständig zurückrollbar, Obergrenzen beachtet; optimistisches Sperren
 - [ ] Historie für alle Aktionen, `changes` nach Datenklasse, in derselben Transaktion
 - [ ] Löschen: Papierkorb nur für Hauptobjekte, Löschregister, alle Orte (Archiv, Export, Suchindex)
-- [ ] Fachtexte mit Übersetzungstabelle (ohne Grundsprache), persönliche Texte ohne
+- [ ] Pflichtspalten nach Tabellenart (A3a)
+- [ ] Fachtexte mit Übersetzungstabelle (ohne Grundsprache) und `translation_status`, persönliche Texte ohne; Sprachen im Steckbrief (D1)
+- [ ] Frist für Historie und Protokolle nach B9-Vorgabe oder begründet abweichend
 - [ ] Anzeige `DD.MM.YYYY` / `HH:MM:SS`, Speicherung ISO 8601 UTC; Suchspalte normalisiert
 - [ ] Sicherung vor der Migration, Wiederherstellung geprüft
 - [ ] Tabelle im Schema des Moduls; Zweck, Rechtsgrundlage, Geltungsbereich und Löschfrist im Code (B9, E2)
@@ -581,6 +626,10 @@ Sprachen, Schulstufen) werden nicht in mehreren Modulen gepflegt, sondern – we
 | DB-E11 | Modulschlüssel englisch, ein gemeinsames Register | [REGISTER-MODULE.md](REGISTER-MODULE.md); `recht` → `codex`, `stundenplan` → `timetable`, `leitstand` → `ops` | BESCHLOSSEN 13.11.2026 |
 | DB-E13 | Deutsche Beschreibungen zu englischen Namen | je Tabelle Kurzbeschreibung, Geltungsbereich, Herkunft/Verwendung; je Spalte Begriff, Herkunft/Verwendung, Datenklasse; je Enum-Wert Label (A8); gleiche Texte in der API | BESCHLOSSEN 20.11.2026 |
 | DB-E12 | Gemeinsame Tabellen über `eduksx/core` | Core liefert Migrationen für Standardtabellen (z. B. lokale Personenreferenz, Organisationen, Mitgliedschaften, `data_changes`, Einstellungen); jedes Modul installiert sie im eigenen Schema (E2); Stammdaten von Personen und Organisationen führt Ident | BESCHLOSSEN 13.11.2026 |
+| DB-E14 | Pflichtspalten je Tabellenart | Tabelle A3a, geprüft im Konformitätstest | BESCHLOSSEN 22.11.2026 (#73) |
+| DB-E15 | Frist der Historie und Protokolle | fachliche Historie solange das Objekt besteht, Sicherheitsprotokoll 1 Jahr, Prüfpunkte 10 Jahre (B9) | BESCHLOSSEN 22.11.2026 (#73) |
+| DB-E16 | Mehrsprachigkeit präzisiert | Sprachen de/fr/it/en, Abkürzungen übersetzbar, Sprachkennzeichnung beim Rückfall, `translation_status`, maschinell nur mit Hinweis, Oberflächensprache Person → Organisation → `de` (D1) | BESCHLOSSEN 22.11.2026 (#73) |
+| DB-E17 | Gemeinsame Stammdaten | Codelisten in `eduksx/core`, Stammdaten der Organisation in `connect` (E4) | BESCHLOSSEN 22.11.2026 (#73) |
 
 Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–E6 und den Entscheiden des API-Standards
 (`API-E<n>`) verwechselt werden.
@@ -596,3 +645,5 @@ Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–
   und englisch (DB-E11), Entscheide als `DB-E<n>` nummeriert, Core-Tabellen festgehalten (DB-E12).
 - 20.11.2026: Version 1.3 abgenommen – A8 deutsche Beschreibungen zu englischen Namen (DB-E13), verbindlich für alle
   EduKSX-Projekte (#65).
+- 22.11.2026: Version 1.4 beschlossen – Pflichtspalten (A3a, DB-E14), Fristen der Historie (B9, DB-E15),
+  Mehrsprachigkeit präzisiert (D1, DB-E16), gemeinsame Stammdaten (E4, DB-E17) (#73).

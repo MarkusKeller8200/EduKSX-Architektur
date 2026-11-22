@@ -17,6 +17,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **DB-Standard 1.4 (#73):** Pflichtspalten je Tabellenart (A3a, DB-E14), Fristen der Historie und Protokolle (B9,
+  DB-E15), Mehrsprachigkeit präzisiert – Sprachen de/fr/it/en, Abkürzungen übersetzbar, Sprachkennzeichnung,
+  `translation_status`, maschinell nur mit Hinweis (D1, DB-E16) –, gemeinsame Stammdaten: Codelisten in Core,
+  Organisationsdaten in `connect` (E4, DB-E17); API A4 ergänzt; Steckbrief-Schema mit `locales` (abwärtskompatibel).
 - **API-Standard 1.3 (#72):** G4 API-First – Vertrag zuerst und jede Fachfunktion als API-Operation mit demselben
   Service und derselben Policy (verbindlich), headless erlaubt; automatische Prüfung Route ↔ `operationId`; interne
   APIs mit `x-eduksx-internal` (API-E38).
