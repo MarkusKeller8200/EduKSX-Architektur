@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
+  <title>EduKSX-Flow</title>
+  <circle cx="5" cy="6" r="2" fill="#7952B3"/>
+  <path d="M7.2 6h4.6M15.5 9.4v3.9M12.4 16H8.7" fill="none" stroke="#222222" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15.5 2.8 18.7 6l-3.2 3.2L12.3 6Z" fill="none" stroke="#FF8A00" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="12.5" y="13.4" width="6" height="5.2" rx="1.3" fill="none" stroke="#007EBB" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="6.5" cy="16" r="2" fill="none" stroke="#222222" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

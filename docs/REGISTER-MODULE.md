@@ -43,6 +43,8 @@ VM-Vorlage; [KONZEPT-SELBSTHOSTING.md](KONZEPT-SELBSTHOSTING.md)) und erhält ke
 (22.11.2026, Gesamtprüfung W13): **EduKSX-Connectors** (Sammlung der Anbindungen an Fremd-APIs, Grundlage für `connect`)
 und **EduKSX-Prototyp** (Prototypen und Umsetzungsgrundlagen, kein produktives Modul). Ebenso ohne Schlüssel das Repo
 **EduKSX-UI** (npm-Paket `@eduksx/ui`, Design-System, [KONZEPT-DESIGN.md](KONZEPT-DESIGN.md); Repo angelegt 22.11.2026, öffentlich).
+Ebenso kein Modul ist dieses
+Repo **EduKSX-Architektur**; es hat ein eigenes Icon (`eduksx-architektur`, markussxch PR #18), aber keinen Schlüssel.
 
 ## Umbenennungen
 

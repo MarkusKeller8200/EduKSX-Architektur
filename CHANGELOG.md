@@ -20,6 +20,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Icons** aus markussxch PR #17–#21: `connect` («Verteilen»), `shop` («Einkaufswagen mit Klasse»), `portal`
+  («Webzugang für alle Externen»), `flow` («Flussdiagramm»), neues Icon für dieses Repo («Ebenen») – übernommen aus
+  PR #59, #60, #61, #63, #64.
 - **Sicherung (#74, DB-E18):** RPO/RTO bleiben, PITR für PostgreSQL im Betrieb (Operation); Restore-Test monatlich
   automatisch mit Prüfprotokoll; Dateien mit Objektversionierung + restic; Wiederherstellung einer Organisation Pflicht
   für zentrale Module; Historie `source = restore`.

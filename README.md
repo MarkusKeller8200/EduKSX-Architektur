@@ -1,4 +1,4 @@
-# EduKSX-Architektur
+# <img src="docs/assets/icons/eduksx-architektur-color.svg" width="32" alt=""> EduKSX-Architektur
 
 Architektur, Schnittstellen und Betriebskonzept der EduKSX-Plattform (Ident, Module, Leitstand) für Projektverantwortliche und Entwickler der Module.
 
