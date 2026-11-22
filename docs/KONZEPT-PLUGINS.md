@@ -43,7 +43,7 @@ Intranet (Gastgeber)                         Modul (z. B. Glossary)
 | P2 | Umfang Stufe 1 | eigene Module / auch Dritte | **eigene Module**; Stufe 1 öffentliche Daten (Glossary, Codex) und Links; Stufe 2 Daten der Person über Ident; Fremdsysteme über `connect`; keine Plugins Dritter | BESCHLOSSEN 13.11.2026 |
 | P3 | Beschreibung | eigenes Format / Abschnitt im Steckbrief | Abschnitt `ui` im Steckbrief (`spec/v1/module-manifest.schema.json`, abwärtskompatibel ergänzt) | BESCHLOSSEN 13.11.2026 |
 | P4 | Einbettung | Web-Komponente / iframe | Web-Komponente mit Shadow DOM; iframe nur für ganze Seiten mit eigener Anmeldung | BESCHLOSSEN 13.11.2026 |
-| P5 | Gestaltung | frei / gemeinsame Gestaltung | Komponenten übernehmen Farben und Schrift des Gastgebers über CSS-Variablen (`--eduksx-*`), später aus `@eduksx/ui` (Core C10); WCAG 2.1 AA | BESCHLOSSEN 13.11.2026 |
+| P5 | Gestaltung | frei / gemeinsame Gestaltung | Komponenten übernehmen Farben und Schrift des Gastgebers über CSS-Variablen (`--eduksx-*`), erzeugt aus `tokens.json` in `@eduksx/ui` ([Design](KONZEPT-DESIGN.md) 3); WCAG 2.1 AA | BESCHLOSSEN 13.11.2026 |
 | P6 | Sicherheit | – | Skripte nur vom Host des Moduls, mit Subresource Integrity bzw. fester Version im Pfad (`/ui/v1/`); CSP des Gastgebers listet erlaubte Module; Tokens nur mit `aud` des Moduls, höchstens 10 Min. | BESCHLOSSEN 13.11.2026 |
 | P7 | Selbst-Hosting | – | lokale Gastgeber dürfen zentrale Module (Glossary, Codex) einbinden – nur öffentliche Daten, ohne Anmeldung (SH-E12) | BESCHLOSSEN 13.11.2026 |
 | P8 | Versionierung | – | `ui` gehört zur Steckbrief-Version v1; Komponenten-Pfade tragen die Hauptversion (`/ui/v1/`); Brüche nur mit `/ui/v2/` parallel | BESCHLOSSEN 13.11.2026 |

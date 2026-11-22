@@ -17,7 +17,7 @@ Modulregister eingetragen ist – ohne Fachcode.
 **Nichtziele:**
 - keine Fachlogik, keine Beispieldaten ausser erfundenen Testdaten
 - keine eigene Kopie von Workflows oder Regeln, die der my-github-blueprint bereits liefert (AGENTS.md)
-- keine Vorlage für Oberflächen-Komponenten (kommt mit `@eduksx/ui`, Core C10)
+- keine Oberflächen-Komponenten in der Vorlage selbst – sie kommen aus `@eduksx/ui` ([Design](KONZEPT-DESIGN.md))
 
 ## 2. Ablauf «neues Modul anlegen»
 

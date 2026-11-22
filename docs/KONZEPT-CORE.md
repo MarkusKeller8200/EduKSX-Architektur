@@ -48,7 +48,7 @@ So arbeitet ein Modul mit Core:
 | C7 | Standardtabellen (Personenreferenz, Organisationen, Mitgliedschaften) | in 0.1 / mit Ident in 0.2 | **mit Ident (Core 0.3)**, wie Fahrplan 4.1a – ihre Spalten (`issuer`, `subject`, `platform_id`) hängen vom PoC #36 ab | BESCHLOSSEN 13.11.2026, angeglichen 22.11.2026 (W4) |
 | C8 | Module, die Core-Tabellen schon haben (Glossary) | neu anlegen / übernehmen | Übernahme-Migration prüft Spalten, Typen und CHECKs und passt nur Abweichungen an | BESCHLOSSEN 13.11.2026 |
 | C9 | Bindung an die Standards | lose / fest | Core erklärt in `composer.json` (`extra.eduksx.standards`) die Versionen, die es umsetzt (0.1: DB 1.2.1, API 1.1.1); neue Standard-Version → neue Core-Minor | BESCHLOSSEN 13.11.2026 |
-| C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | später, eigenes Paket `@eduksx/ui`, erst wenn ein zweites Modul mit Inertia/React entsteht | BESCHLOSSEN 13.11.2026 |
+| C10 | Gemeinsame Oberfläche (npm-Paket mit React-Komponenten) | jetzt / später | eigenes Paket `@eduksx/ui` im **eigenen Repo EduKSX-UI**; Bedingung «zweites Modul mit React» ist erfüllt (Glossary, Intranet) → Start mit 0.4.0 nach [KONZEPT-DESIGN.md](KONZEPT-DESIGN.md) | BESCHLOSSEN 13.11.2026, präzisiert 22.11.2026 (#75) |
 | C11 | Schemas der Plattform-Schnittstellen (S1, S4–S6) | in Core / im Architektur-Repo | Quelle ist `spec/` in EduKSX-Architektur ([spec/README.md](../spec/README.md)); Core übernimmt die Dateien je Release unverändert und prüft Module dagegen | BESCHLOSSEN 13.11.2026 (#3) |
 
 ## 4. Umsetzung
