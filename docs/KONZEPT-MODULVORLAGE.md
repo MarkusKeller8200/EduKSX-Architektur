@@ -64,6 +64,7 @@ Modulregister eingetragen ist – ohne Fachcode.
 | `.spectral.yaml` | erweitert den Regelsatz `eduksx` aus Core | API D3 |
 | `Dockerfile` | aus dem Blueprint; Rollen web/worker/scheduler | Plattform §6 «Betrieb» |
 | `docs/DATENSCHUTZ-VERZEICHNIS.md`, `docs/DATENSCHUTZ-FOLGENABSCHAETZUNG.md` | aus `docs/vorlagen/` | DB B9, B10; API C9 |
+| `docs/NACHWEIS-ISMS.md` | Nachweis für das ISMS der Schule, aus `docs/vorlagen/AUFTRAGSBEARBEITUNG-ZH.md` Teil D | KONZEPT-DATENSCHUTZ-ZH §6 |
 | `docs/third-party.json` | Laravel, `eduksx/core` mit Lizenz | AGENTS.md |
 | `composer.json` | `php` ≥ Mindestversion, Skript `ci:check` (Stil, Analyse, Typen, Tests auf SQLite und PostgreSQL, Spectral, axe-core) | [KONZEPT-STACK.md](KONZEPT-STACK.md) §3, §5 |
 | `package.json`, CI | Inertia, React, TypeScript, Tailwind, `@eduksx/ui`; Node nach Mindestversion | KONZEPT-STACK §2, §3 |
