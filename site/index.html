@@ -211,9 +211,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-bet
           </div>
         </div>
         <div class="layer">
-          <div><h3>Anwendung je Modul</h3><p>Ein Repo je Modul, kein Zugriff auf fremde Datenbanken.</p></div>
+          <div><h3>Anwendung je Modul</h3><p>Ein Repo je Modul, kein Zugriff auf fremde Datenbanken. Vorgabe nach KONZEPT-STACK.</p></div>
           <div class="chips">
-            <div class="chip open"><strong>Oberfläche <span class="badge open">◌ offen #79</span></strong>Inertia · React · TypeScript</div>
+            <div class="chip"><strong>Oberfläche</strong>Inertia · React · TypeScript · Tailwind</div>
             <div class="chip"><strong>@eduksx/ui</strong>Design-System, Themes je Organisation</div>
             <div class="chip core"><strong>Laravel-Modul</strong>Modulvorlage, eigenes Repo</div>
             <div class="chip"><strong><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="ico"><path d="M12 2.9 19.9 7.45v9.1L12 21.1l-7.9-4.55v-9.1Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7.6 15.8 9.8v4.4L12 16.4l-3.8-2.2V9.8Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.9" fill="currentColor"/></svg> eduksx/core</strong>gemeinsames Paket, MIT, SemVer</div>
@@ -263,11 +263,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-bet
             <li><strong>Zugänglichkeit</strong>WCAG 2.1 AA (eCH-0059), Hell/Dunkel in jedem Modul</li>
           </ul>
         </div>
+        <div class="panel">
+          <h3>Versionen ab 31.12.2026</h3>
+          <ul>
+            <li><strong>PHP 8.5 · Laravel 13</strong>Wechsel spätestens bei Ende der Fehlerkorrekturen</li>
+            <li><strong>Node 26 LTS · PostgreSQL 18</strong>Prüfbefehl <code>composer ci:check</code> in jedem Modul</li>
+          </ul>
+        </div>
         <div class="panel open">
           <h3>Noch offen <span class="badge open">◌ offen</span></h3>
           <ul>
-            <li><strong>Stack plattformweit (#79)</strong>Frontend, Versionen, Support-Fenster</li>
-            <li><strong>Weitere Konzepte</strong>Qualitätsziele #80, Rollen #77, Protokollierung #76</li>
+            <li><strong>Weitere Konzepte</strong>Datenschutz #78, Rollen #77, Protokollierung #76, Qualitätsziele #80</li>
           </ul>
         </div>
       </aside>
@@ -368,11 +374,11 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-bet
         <tr><td>#76</td><td>Protokollierung und Fehlersuche</td><td><span class="badge open">◌ offen</span></td></tr>
         <tr><td>#77</td><td>Rollen und Rechte</td><td><span class="badge open">◌ offen</span></td></tr>
         <tr><td>#78</td><td>Datenschutz nach DSB Kanton Zürich</td><td><span class="badge open">◌ offen</span></td></tr>
-        <tr><td>#79</td><td>Technologie-Stack und gemeinsame Muster</td><td><span class="badge open">◌ offen</span></td></tr>
-        <tr><td>#80</td><td>Qualitätsziele: Performance, Verfügbarkeit, Wartbarkeit</td><td><span class="badge open">◌ offen</span></td></tr>
+                <tr><td>#80</td><td>Qualitätsziele: Performance, Verfügbarkeit, Wartbarkeit</td><td><span class="badge open">◌ offen</span></td></tr>
         <tr><td>#72</td><td>API-First: Begriff und Stufen</td><td><span class="badge ok">✓ beschlossen</span></td></tr>
         <tr><td>#74</td><td>Sicherung: RPO/RTO, WAL-Archivierung, Restore-Test</td><td><span class="badge ok">✓ beschlossen</span></td></tr>
         <tr><td>#75</td><td>Design-System und Themes</td><td><span class="badge ok">✓ beschlossen</span></td></tr>
+        <tr><td>#79</td><td>Technologie-Stack, Versionen, Prüfbefehl, Feature-Schalter</td><td><span class="badge ok">✓ beschlossen</span></td></tr>
       </tbody>
     </table>
     </div>

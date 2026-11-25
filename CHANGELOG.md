@@ -16,6 +16,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Technologie-Stack (25.11.2026, #79):** `docs/KONZEPT-STACK.md` mit ST1–ST5: Inertia, React, TypeScript,
+  Tailwind und `@eduksx/ui` als Vorgabe; Mindestversionen PHP 8.5, Laravel 13, Node 26, PostgreSQL 18 ab 31.12.2026;
+  Wechsel bei Ende der Fehlerkorrekturen; `composer ci:check` und Feature-Schalter (aus dem Glossary) in Core.
+  Plattform §6, Modulvorlage und README verweisen darauf.
 - **Übersichtsseite auf GitHub Pages (25.11.2026, #96):** `site/index.html` im EduKSX-CI (Tokens und Icons aus
   EduKSX-UI, Inter selbst gehostet, Hell/Dunkel): beschlossener Stack, Auslieferung, Module, Grafik «Wie die Module
   zusammenarbeiten» (aus MODULE-UEBERSICHT §2–4), Grundsätze und offene Punkte aus 0.4.0. Erzeugt mit
