@@ -19,7 +19,7 @@ nachgeführt.
 | W4 | Core-Standardtabellen: C7 sagt «mit Ident (Core 0.2)», Fahrplan 4.1a legt sie in 0.3 | Core C7, 4.1a | C7 an 4.1a angleichen: Core 0.3 (nach PoC #36) | BESCHLOSSEN 22.11.: C7 → Core 0.3 |
 | W5 | `@eduksx/ui` «erst wenn ein zweites Modul mit Inertia/React entsteht» – Glossary und Intranet sind beide React, Flow-Prototyp ebenfalls | Core C10, Plugins P5, Modulvorlage Nichtziele | Bedingung gilt als erfüllt; Start mit #75 | BESCHLOSSEN 22.11. (#75): Start `@eduksx/ui` im Repo EduKSX-UI nach KONZEPT-DESIGN |
 | W6 | Core bindet DB 1.2.1/API 1.1.1 (C9), gültig sind DB 1.3/API 1.2 (bald 1.4/1.3) | Core C9, UEBERGABE 20.11. | kein Widerspruch im Konzept, aber Drift: Folge-Issue in EduKSX-Core «Standards 1.3/1.2 übernehmen» | bewusst offen gelassen (Entscheid 22.11.2026); wird mit der nächsten Core-Minor bzw. der Übernahme der Standards je Modul (E5) erledigt |
-| W7 | Edulog-Rollen `pupil`, `legal_guardian` haben keinen Zugang – Portal (Eltern) und Stundenplan (SuS) brauchen sie | Ident 2.1, Modulübersicht `portal`, `timetable` | Regel bleibt, bis das Rollenkonzept Minderjährige und Eltern regelt; dort freischalten je Modul | in #77 |
+| W7 | Edulog-Rollen `pupil`, `legal_guardian` haben keinen Zugang – Portal (Eltern) und Stundenplan (SuS) brauchen sie | Ident 2.1, Modulübersicht `portal`, `timetable` | Regel bleibt, bis das Rollenkonzept Minderjährige und Eltern regelt; dort freischalten je Modul | BESCHLOSSEN 25.11. (#77, RO4): SuS nur eigene Daten, Eltern nur über Portal, Freigabe je Modul im Steckbrief – [KONZEPT-ROLLEN.md](KONZEPT-ROLLEN.md) §7 |
 | W8 | Löschregister muss ausserhalb der Datenbank liegen und vor dem Start erreichbar sein – Selbst-Hosting beschreibt keinen Ort dafür | DB B3, Selbst-Hosting 4.1, SH-E6 | eigenes restic-Repository bzw. Ordner ausserhalb `data/`, vom Installer angelegt; ohne Register startet das Modul nicht | BESCHLOSSEN 22.11.: eigener Ordner + restic (Selbst-Hosting 4.3a); Notfallkonzept [KONZEPT-NOTFALL.md](KONZEPT-NOTFALL.md) |
 | W9 | Ident I8 «ZU PRÜFEN», obwohl P8 ergab: Zitadel liefert kein SCIM an Anwendungen → Brücke sendet SCIM | Ident I8, §4.3 P8 | I8 beschliessen: Brücke sendet SCIM, ausgelöst durch Ereignisse | BESCHLOSSEN 22.11.: zuerst Anlage beim ersten Login + S4; SCIM aus der Brücke erst bei Bedarf |
 | W10 | Zitadel bietet kein DPoP (P8); I9/#35 offen; Plan B Keycloak kann DPoP | Ident I9, P8, Prüfauftrag DPoP/mTLS | Entscheid in #35 (z. B. `private_key_jwt` + kurze Tokens statt DPoP); kein Abbruchgrund (4.2) | in #35 |
@@ -51,7 +51,7 @@ nachgeführt.
 
 - **Werkzeuge an einer Stelle:** Die meisten Abweichungen (W3, Leitstand, 7.4) entstehen, weil Werkzeugnamen in mehreren Dokumenten stehen. Regel für 0.4.0: Werkzeuge nur in 7.3a mit Verweis auf Operation.
 - **Status-Angaben driften:** Issue-Tabellen in den Konzepten (Core §5, Ident §5, Plattform §8) veralten schnell. Vorschlag: Status nur in GitHub, die Tabellen nennen nur das Issue.
-- **Präfixe und Begriffe:** Rechte (`x-eduksx-ability`), Rollen (`roles`), Scopes und Ereignisse folgen dem Modulschlüssel – ausser den Rechten ist alles festgelegt (→ #77).
+- **Präfixe und Begriffe:** Rechte (`x-eduksx-ability`), Rollen (`roles`), Scopes und Ereignisse folgen dem Modulschlüssel – Rechte festgelegt in KONZEPT-ROLLEN RO2 (25.11.2026, #77).
 
 ## Verlauf
 

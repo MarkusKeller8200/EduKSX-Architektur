@@ -496,7 +496,9 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 - Rollen und Organisation kommen aus der Anmeldung bzw. dem Token, nie aus Angaben des Clients im Body oder in
   Kopfzeilen ohne Prüfung (Bund Security Guideline 3.2).
 - Jeder Endpunkt nennt in der OpenAPI-Beschreibung seine Scopes (`security`) und das nötige Recht
-  (`x-eduksx-ability`).
+  (`x-eduksx-ability`). Name des Rechts
+  nach [KONZEPT-ROLLEN.md](KONZEPT-ROLLEN.md) RO2: `<ressource>.<aktion>`, Fachaktionen mit Zuordnung zu einer
+  Scope-Aktion (Steckbrief `abilities`); Standardrollen `reader`, `editor`, `admin` (RO1).
 - Ein Token berechtigt nie zur Veröffentlichung oder zu Rechteänderungen, ausser das Modul hat dafür einen eigenen,
   eng begrenzten Scope beschlossen (Glossary DEC-017). KI-Werkzeuge veröffentlichen nie ohne Prüfung durch Menschen.
 - Privilegierte Vorgänge über die API nur mit frischem zweitem Faktor bzw. eigenem Servicekonto (C1).
