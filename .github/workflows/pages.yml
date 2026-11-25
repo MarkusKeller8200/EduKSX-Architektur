@@ -1,10 +1,10 @@
 name: pages
 
-# GitHub-Blueprint: Inhalt des Ordners «docs» als GitHub Pages veröffentlichen (Quelle: GitHub Actions).
+# GitHub-Blueprint: Inhalt des Ordners «site» als GitHub Pages veröffentlichen (Quelle: GitHub Actions).
 on:
   push:
     branches: [main]
-    paths: ['docs/**']
+    paths: ['site/**']
   workflow_dispatch:
 
 permissions:
@@ -30,6 +30,6 @@ jobs:
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
-          path: 'docs'
+          path: 'site'
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
