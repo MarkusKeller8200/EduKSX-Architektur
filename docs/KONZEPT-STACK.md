@@ -72,7 +72,7 @@ Glossary:
 
 | Schritt | Inhalt |
 | --- | --- |
-| PHP-Stil und Analyse | Pint, PHPStan (Stufe nach den Qualitätszielen, #80) |
+| PHP-Stil und Analyse | Pint, PHPStan Stufe 7 (neue Module 8), Testabdeckung 80 % für Services und Policies ([KONZEPT-QUALITAET.md](KONZEPT-QUALITAET.md)) |
 | Oberfläche | Linter und Format (`npm run check`), Typprüfung (`tsc`), JavaScript-Tests |
 | Tests | PHPUnit auf SQLite **und** PostgreSQL, inkl. Konformitätstest aus `eduksx/core` (API D8) |
 | Schnittstelle | Spectral-Regelsatz `eduksx`, `oasdiff` gegen die letzte Version (API D3) |

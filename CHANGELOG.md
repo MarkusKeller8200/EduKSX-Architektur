@@ -18,6 +18,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Qualitätsziele (25.11.2026, #80):** `docs/KONZEPT-QUALITAET.md` mit QZ1–QZ4 – p95 300 ms (öffentlich lesen),
+  800 ms (angemeldet, schreiben), über 5 s als Auftrag; Lastannahmen; Verfügbarkeit zentral 99,5 %, isoliert 99 %,
+  Ident 99,9 %, Wartungsfenster So 03:00–05:00; PHPStan 7 (neu 8), Abdeckung 80 %, Sicherheitsupdates innert 7 Tagen;
+  interne Ziele mit Issue bei Verfehlen. KONZEPT-STACK §5 und Plattform §6 nachgeführt.
 - **Protokollierung und Fehlersuche (25.11.2026, #76):** `docs/KONZEPT-PROTOKOLLIERUNG.md` mit PR1–PR4 – keine eigene
   Fehlerverfolgung, Alarme über den Betrieb; Debug in prod nur je Organisation, 60 Minuten, Super-Admin; Fristen
   Anwendung/Jobs 30 Tage, Zugriff 90 Tage, Sicherheit 1 Jahr; Protokollpaket statt Fernzugriff bei Selbst-Hosting;
