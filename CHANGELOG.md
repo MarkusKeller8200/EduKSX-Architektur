@@ -8,6 +8,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Schema S4 (`event.schema.json`):** optionales Feld `traceparent` (W3C Trace Context) für die Weitergabe des Traces
+  in Ereignissen (KONZEPT-PROTOKOLLIERUNG §7); Beispiele gültig und ungültig.
+
 - **Protokollierung:** Fristen sind Höchstfristen; Module dürfen kürzer aufbewahren (Glossary 14 Tage, Operation #19).
 - **Register:** `planner` aktiv mit Repo EduKSX-Planner (noch leer); Modulübersicht und Übersichtsseite nachgeführt.
 
