@@ -10,11 +10,19 @@ import subprocess
 import tomllib
 from pathlib import Path
 
+
+def config_path() -> Path:
+    """.github/blueprint.toml; im Blueprint selbst dessen eigene Konfiguration .github/blueprint-repo.toml."""
+    base = Path(__file__).resolve().parents[1]
+    own = base / "blueprint-repo.toml"
+    return own if own.exists() else base / "blueprint.toml"
+
+
 DEFAULT = {"fehler": "Fehler", "verbesserung": "Verbesserungen", "funktion": "Funktionen"}
 
 
 def main() -> int:
-    with open(Path(__file__).resolve().parents[1] / "blueprint.toml", "rb") as fh:
+    with open(config_path(), "rb") as fh:
         cfg = tomllib.load(fh).get("meilensteine", {})
     if not cfg.get("sammlungen", True):
         print("Sammlungen ausgeschaltet.")
@@ -30,7 +38,7 @@ def main() -> int:
         print(f"Keine passende Art ({', '.join(labels)})")
         return 0
     repo = os.environ["GITHUB_REPOSITORY"]
-    out = subprocess.run(["gh", "api", f"repos/{repo}/milestones?state=open&per_page=100"], capture_output=True, text=True, check=True).stdout
+    out = subprocess.run(["gh", "api", f"repos/{repo}/milestones?state=open&per_page=100"], capture_output=True, text=True, encoding="utf-8", check=True).stdout
     number = next((m["number"] for m in json.loads(out) if m["title"] == title), None)
     if number is None:
         print(f"::warning::Meilenstein «{title}» nicht gefunden")

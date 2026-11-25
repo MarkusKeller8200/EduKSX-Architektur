@@ -23,7 +23,10 @@ Aus dem GitHub-Blueprint, Details in `docs/GITHUB-ABLAUF.md`.
   durch Projektverantwortliche:r ändern (`python3 .github/blueprint/release.py set X.Y.Z --commit`). Eine Issue-Freigabe
   ist keine Release-Freigabe. Tag und GitHub-Release legt der Workflow `release.yml` an.
 - **Release abschliessen:** Hat der Release-Meilenstein keine offenen Punkte mehr, im Chat ankündigen, was
-  hineinkommt, und nach Bestätigung das Release erstellen; danach Meilenstein schliessen. Vor dem Release muss die CI
+  hineinkommt, und nach Bestätigung das Release erstellen; danach Meilenstein schliessen und den nächsten anlegen.
+  «Release erstellen» heisst: `python3 .github/blueprint/release.py set X.Y.Z --commit` auf einem Branch, PR «Version X.Y.Z», nach dem Merge legt
+  `release.yml` Tag und Release an – auch beim ersten Release mit der Startversion. Agenten legen Tags und Releases
+  **nie selbst** an (kein `gh release`, kein API-Aufruf; in Cloud-Sitzungen ohnehin gesperrt). Vor dem Release muss die CI
   auf `main` grün sein; nach einzelnen Pushes muss nicht auf die CI gewartet werden – den letzten Lauf zu Beginn der
   nächsten Arbeit prüfen.
 - Meilensteine per REST-API oder Kommentar `/milestone …` auf dem Admin-Issue (`.github/blueprint/MILESTONE-ADMIN.md`);
@@ -39,6 +42,9 @@ Aus dem GitHub-Blueprint, Details in `docs/GITHUB-ABLAUF.md`.
   `python3 ../my-github-blueprint/.github/blueprint/apply.py --ziel . --probelauf`). Neue Workflows, Skripte oder
   Vorlagen des Blueprints nicht von Hand hierher kopieren; `apply.py --ziel . --aktualisieren` übernimmt nur, was
   das Projekt braucht.
+- **Repository-Einstellungen** (Merge-Optionen, Topics, Rulesets, Actions, Dependabot …) nur über
+  `.github/blueprint.toml` ändern, per PR; nach dem Merge setzt sie der Workflow «Einstellungen anwenden»
+  (Secret `BLUEPRINT_ADMIN_TOKEN` trägt Projektverantwortliche:r ein). Nicht direkt über die API ändern.
 - **Projektstart:** Vor dem Grundgerüst gilt der Steckbrief `docs/PROJEKTSTART.md` (aus der Start-Checkliste des
   Blueprints, `start.py --ziel .`). Das Grundgerüst entsteht erst, wenn Projektverantwortliche:r ihn bestätigt hat; offene
   Punkte dort (OFFEN, ZU PRÜFEN) vorher klären.
@@ -48,11 +54,13 @@ Aus dem GitHub-Blueprint, Details in `docs/GITHUB-ABLAUF.md`.
   Kompatibilität, Lizenz und Pflege; neue Komponenten in `docs/third-party.json` eintragen.
 - Widersprüche zwischen Dokumenten explizit entscheiden und festhalten, statt stillschweigend zu überschreiben.
 - Bei jeder Änderung Tests und die betroffenen Dokumente (README, Doku, CHANGELOG «Unveröffentlicht») nachführen.
+- Branches werden nach dem Merge in main automatisch gelöscht (Einstellung «Automatically delete head branches»
+  und Workflow `branch-aufraeumen.yml`); für einen Folge-PR einen neuen Branch anlegen.
 - Löschen (Dateien, Branches, Issues, Releases) nur nach Rückfrage. Keine Zugangsdaten anfassen; Schlüssel und
   Secrets trägt Projektverantwortliche:r selbst ein.
 - **Übergabe:** `docs/UEBERGABE.md` und `docs/PROJEKTSTAND.md` am Ende jeder Sitzung bzw. vor einem Chatwechsel nachführen (neueste Einträge oben, Älteres nach `docs/PROJEKTSTAND-ARCHIV.md`).
 - **Desktop:** Installer, Signatur und Build-Workflows nur nach Freigabe ändern; Tests müssen auf allen Zielsystemen laufen (Workflow «pruefungen»).
-- **Web:** Ausrollen auf «produktion» nur über die Umgebung mit Freigabe; keine echten Personendaten in Tests, Protokollen oder Bildschirmfotos.
+- **Web:** Umgebungen «test», «produktion» getrennt halten (eigene Daten, Zugänge und Konfiguration je Umgebung); Ausrollen auf «produktion» nur über die Umgebung mit Freigabe; keine echten Personendaten in Tests, Protokollen oder Bildschirmfotos.
 - Schutzbedarf «vertraulich»: nur erfundene Testdaten; keine echten Daten in Issues, Commits oder Bildschirmfotos
 - Barrierefreiheit: Oberfläche nach WCAG 2.1 AA (eCH-0059) gestalten und prüfen
 - Nichtziel: kein Anwendungscode (bleibt in den Repositories der Module)
