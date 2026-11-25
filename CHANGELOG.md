@@ -6,6 +6,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- **Register:** `planner` aktiv mit Repo EduKSX-Planner (noch leer); Modulübersicht und Übersichtsseite nachgeführt.
+
 ## [0.4.0] – 2026-11-25
 
 ### Behoben
