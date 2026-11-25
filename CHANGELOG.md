@@ -18,6 +18,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Protokollierung und Fehlersuche (25.11.2026, #76):** `docs/KONZEPT-PROTOKOLLIERUNG.md` mit PR1–PR4 – keine eigene
+  Fehlerverfolgung, Alarme über den Betrieb; Debug in prod nur je Organisation, 60 Minuten, Super-Admin; Fristen
+  Anwendung/Jobs 30 Tage, Zugriff 90 Tage, Sicherheit 1 Jahr; Protokollpaket statt Fernzugriff bei Selbst-Hosting;
+  Maskierung und `traceparent` als Core-Bausteine. API C7 BESCHLOSSEN.
 - **Rollen und Rechte (25.11.2026, #77):** `docs/KONZEPT-ROLLEN.md` mit RO1–RO4 – Standardrollen `reader`, `editor`,
   `admin`; Rechte `<ressource>.<aktion>` mit Fachaktionen; Feldgruppen (`*_sensitive`) und Geltungsbereiche
   (Organisation, Einheit, Gruppe, eigene Daten) als Core-Baustein; Minderjährige nur eigene Daten bzw. Eltern über

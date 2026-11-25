@@ -166,7 +166,7 @@ gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDU
 - `GET /up` (Lebenszeichen, ohne Inhalt) und `GET /health` (JSON: Version, Datenbank, Migrationen, Warteschlange,
   Speicher, Ident erreichbar).
 - `GET /metrics` (Prometheus-Textformat, nur mit Berechtigung); Protokolle, Metriken und Traces zusätzlich über
-  **OpenTelemetry** (OTLP), wohin sie gehen, legt der Betrieb fest (§7.3a; Details #76).
+  **OpenTelemetry** (OTLP), wohin sie gehen, legt der Betrieb fest (§7.3a; Inhalt und Fristen: [KONZEPT-PROTOKOLLIERUNG.md](KONZEPT-PROTOKOLLIERUNG.md)).
 
 ### S6 · Leitstand ↔ Instanz (Update-Dienst)
 
