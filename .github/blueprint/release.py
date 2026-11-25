@@ -6,6 +6,7 @@
     python3 .github/blueprint/release.py check                Version, CHANGELOG, Plugin-Versionen prüfen
     python3 .github/blueprint/release.py notes [X.Y.Z]        Abschnitt aus dem CHANGELOG (Text für das Release)
     python3 .github/blueprint/release.py set X.Y.Z [--commit] Version setzen, «Unveröffentlicht» → [X.Y.Z] – Datum
+                                                              (erstes Release: X.Y.Z = Startversion ohne Tag geht)
     python3 .github/blueprint/release.py github-release [--sha SHA] [--nachtragen]
                                                               (nur in GitHub Actions) Tag + Release anlegen
 
@@ -140,7 +141,7 @@ def planned(version: str, text: str) -> str:
 # --- Git -----------------------------------------------------------------------------------------------------
 
 def git(*args: str) -> str | None:
-    r = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True)
+    r = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True, encoding="utf-8")
     return r.stdout.strip() if r.returncode == 0 else None
 
 
@@ -204,11 +205,17 @@ def update_security(version: str) -> bool:
     return True
 
 
+def local_or_remote_tag(tag: str) -> bool:
+    """Gibt es den Tag lokal oder auf origin? (Ohne Remote zählt nur der lokale Tag.)"""
+    return bool(git("tag", "-l", tag)) or bool(git("ls-remote", "--tags", "origin", f"refs/tags/{tag}"))
+
+
 def set_version(cfg: dict, version: str, commit: bool) -> None:
     if not SEMVER.match(version):
         raise ValueError(f"«{version}» ist keine gültige Version (z. B. 0.2.0).")
     current = read_version(cfg)
-    if SEMVER.match(current or "") and key(version) <= key(current):
+    first = SEMVER.match(current or "") and key(version) == key(current) and not local_or_remote_tag(f"v{version}")
+    if SEMVER.match(current or "") and key(version) <= key(current) and not first:
         raise ValueError(f"Die neue Version muss grösser sein als die aktuelle ({current}).")
     text = changelog()
     if f"## [{version}]" in text:
@@ -218,8 +225,11 @@ def set_version(cfg: dict, version: str, commit: bool) -> None:
     if "-" not in version:
         today = datetime.date.today().isoformat()
         (ROOT / "CHANGELOG.md").write_text(text.replace(UNRELEASED, f"{UNRELEASED}\n\n## [{version}] – {today}", 1), encoding="utf-8")
-    write_version(cfg, version)
-    print(f"✓ {version_file(cfg).name}: {current} → {version}")
+    if first:   # erstes Release mit der Startversion: Versionsdatei stimmt schon, nur der CHANGELOG-Abschnitt fehlt
+        print(f"✓ {version_file(cfg).name}: {version} (Startversion, noch ohne Tag)")
+    else:
+        write_version(cfg, version)
+        print(f"✓ {version_file(cfg).name}: {current} → {version}")
     files = [str(version_file(cfg).relative_to(ROOT)), "CHANGELOG.md"]
     if update_security(version):
         files.append("SECURITY.md")
@@ -233,7 +243,7 @@ def set_version(cfg: dict, version: str, commit: bool) -> None:
 # --- GitHub Actions: Tag + Release ---------------------------------------------------------------------------
 
 def gh(*args: str, check_ok: bool = True) -> subprocess.CompletedProcess:
-    r = subprocess.run(["gh", *args], capture_output=True, text=True)
+    r = subprocess.run(["gh", *args], capture_output=True, text=True, encoding="utf-8")
     if check_ok and r.returncode != 0:
         raise RuntimeError(f"gh {' '.join(args[:3])} …: {r.stderr.strip()}")
     return r
@@ -332,6 +342,24 @@ def release_gate(cfg: dict) -> tuple[str, str]:
                        "(z. B. [\"pruefungen\"]) oder die Ausnahme in versionierung.ohne_pruefung begründen.")
 
 
+def sbom_file(repo: str, folder: Path) -> Path | None:
+    """SBOM (SPDX) aus dem Abhängigkeitsgraphen von GitHub; None, wenn sie nicht verfügbar ist."""
+    r = gh("api", f"repos/{repo}/dependency-graph/sbom", check_ok=False)
+    if r.returncode != 0:
+        print(f"::warning title=SBOM::nicht verfügbar ({(r.stderr or r.stdout).strip()[:200]}) – Abhängigkeitsgraph eingeschaltet?")
+        return None
+    try:
+        data = json.loads(r.stdout).get("sbom")
+    except ValueError:
+        data = None
+    if not data:
+        print("::warning title=SBOM::leere Antwort – keine SBOM angehängt")
+        return None
+    target = folder / "sbom.spdx.json"
+    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return target
+
+
 def github_release(cfg: dict, sha: str, backfill: bool) -> None:
     repo = os.environ["GH_REPO"]
     text = changelog()
@@ -379,6 +407,11 @@ def github_release(cfg: dict, sha: str, backfill: bool) -> None:
         raise RuntimeError("Prüfung fehlgeschlagen: " + "; ".join(errors))
     with tempfile.TemporaryDirectory() as tmp:
         files, extra = release_files(cfg, run_ids, Path(tmp))
+        if cfg.get("release_dateien", {}).get("sbom", True):
+            sbom = sbom_file(repo, Path(tmp))
+            if sbom:
+                files.append(sbom)
+                extra = "\n\n".join(e for e in (extra, "Stückliste der Abhängigkeiten: `sbom.spdx.json` (SPDX, aus dem Abhängigkeitsgraphen von GitHub).") if e)
         body = notes(text, version) or unreleased_text(text) or "–"
         if extra:
             body += "\n\n---\n\n" + extra

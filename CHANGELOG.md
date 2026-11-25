@@ -8,6 +8,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Blueprint aktualisiert (25.11.2026, #93):** Stand `dbf9372`; neue Skripte `einstellungen.py`, `konformitaet.py`,
+  Workflows «Einstellungen anwenden», «Konformität prüfen» und «Branches aufräumen»; `CODE_OF_CONDUCT.md` ergänzt.
+  `blueprint.toml`: Topics, Website `auto`, keine Umgebungen (reines Konzept-Repo).
 - **Icons nur noch aus EduKSX-UI (22.11.2026):** `docs/assets/icons/` entfernt; die Modulübersicht verweist direkt auf
   `EduKSX-UI/icons/svg` (jetzt auch mit Flow und Planner), `poc/ident-zitadel/branding.py` nennt EduKSX-UI als Quelle.
 
