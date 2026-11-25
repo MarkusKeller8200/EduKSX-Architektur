@@ -6,6 +6,7 @@ Aufruf: python3 setup.py   (Zitadel läuft unter http://localhost:8080, Admin-To
 """
 
 import json
+import os
 import pathlib
 import sys
 
@@ -107,6 +108,11 @@ secret = call("PUT", f"/management/v1/users/{sa}/secret", {}, org=platform_org)
 call("POST", f"/management/v1/users/{sa}/grants", {"projectId": project, "roleKeys": ["glossary.reader"]}, org=platform_org)
 state["service_account"] = {"user_id": sa, "client_id": secret["clientId"], "client_secret": secret["clientSecret"]}
 
-(ROOT / "state.json").write_text(json.dumps(state, indent=2))
+# Zugangsdaten des lokalen Test-Dienstkontos: Datei nur für den Besitzer lesbar, per .gitignore nicht im Repo (#103)
+state_path = ROOT / "state.json"
+fd = os.open(state_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+with os.fdopen(fd, "w", encoding="utf-8") as datei:
+    datei.write(json.dumps(state, indent=2))
+os.chmod(state_path, 0o600)
 print(json.dumps({k: v for k, v in state.items() if k not in ("oidc_app", "service_account")}, indent=2))
 print("Clients angelegt: glossary-web, intranet-sync (Zugangsdaten in state.json)")
