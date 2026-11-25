@@ -6,6 +6,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+## [0.4.0] – 2026-11-25
+
 ### Behoben
 
 - **PoC Ident (#103):** `setup.py` schreibt `state.json` mit den Zugangsdaten des lokalen Test-Dienstkontos nur
