@@ -49,6 +49,18 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 
 ## Sitzungen
 
+### Sitzung 25.11.2026 (00:55–02:00) – Blueprint, Übersichtsseite, Stack (#93, #96, #79)
+
+- Blueprint auf Stand `dbf9372` (#93, PR #94); Secret `BLUEPRINT_ADMIN_TOKEN` gesetzt, Workflow «Einstellungen
+  anwenden» gelaufen (Topics, Rulesets, Dependabot); GitHub Pages eingeschaltet.
+- Übersichtsseite `site/` auf GitHub Pages (#96, PR #97, #98): Stack, Auslieferung, Module mit Links, Grafik
+  «Wie die Module zusammenarbeiten»; erzeugt mit `scripts/site/build_site.py`. Pages veröffentlicht nur `site/`.
+- #79 Stack: `docs/KONZEPT-STACK.md`, Entscheide ST1–ST5 (Inertia/React/TS/Tailwind als Vorgabe; PHP 8.5, Laravel 13,
+  Node 26, PostgreSQL 18 bis 31.12.2026; Wechsel bei Ende der Fehlerkorrekturen; `ci:check` und Feature-Schalter aus
+  dem Glossary in Core). Umstellung der Modul-Repos über #83.
+- Offen: Abnahme der Beta-Test-Issues #62, #65, #68, #70–#75; Deployment-Block in `blueprint.toml` noch aktiv.
+- Nächste Schritte: #78 Datenschutz, #77 Rollen, #76 Protokollierung, #80 Qualitätsziele, #83 Abgleich.
+
 ### Sitzung 22.11.2026 (02:00) – Erweiterungsrunde 0.4.0, Gesamtprüfung (#70, #71)
 
 - Auftrag im Chat (Projektverantwortliche:r): Version 0.4.0 «Konzept erweitert» – Lücken schliessen und das Konzept

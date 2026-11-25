@@ -65,6 +65,8 @@ Modulregister eingetragen ist – ohne Fachcode.
 | `Dockerfile` | aus dem Blueprint; Rollen web/worker/scheduler | Plattform §6 «Betrieb» |
 | `docs/DATENSCHUTZ-VERZEICHNIS.md`, `docs/DATENSCHUTZ-FOLGENABSCHAETZUNG.md` | aus `docs/vorlagen/` | DB B9, B10; API C9 |
 | `docs/third-party.json` | Laravel, `eduksx/core` mit Lizenz | AGENTS.md |
+| `composer.json` | `php` ≥ Mindestversion, Skript `ci:check` (Stil, Analyse, Typen, Tests auf SQLite und PostgreSQL, Spectral, axe-core) | [KONZEPT-STACK.md](KONZEPT-STACK.md) §3, §5 |
+| `package.json`, CI | Inertia, React, TypeScript, Tailwind, `@eduksx/ui`; Node nach Mindestversion | KONZEPT-STACK §2, §3 |
 
 ### 4.2 Teil in `eduksx/core`
 
@@ -96,5 +98,6 @@ Die Vorlagen sind Arbeitshilfen, keine Rechtsberatung; die Prüfung durch eine F
 
 ## 6. Verlauf
 
+- 25.11.2026: Stack, Mindestversionen und `ci:check` aus [KONZEPT-STACK.md](KONZEPT-STACK.md) aufgenommen (#79).
 - 13.11.2026: Abgenommen, M1–M5 beschlossen; Probe-Modul nach #37 abgespalten.
 - 13.11.2026: Konzept angelegt mit Ablauf, Inhalt und Datenschutz-Vorlagen.

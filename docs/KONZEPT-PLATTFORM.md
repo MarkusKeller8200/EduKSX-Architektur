@@ -244,6 +244,8 @@ gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDU
 
 ### Ablauf
 
+- [ ] Stack und Mindestversionen nach [KONZEPT-STACK.md](KONZEPT-STACK.md) (Laravel, Inertia/React/TypeScript,
+      Tailwind, `@eduksx/ui`); nur Versionen mit Fehlerkorrekturen; Prüfbefehl `composer ci:check`
 - [ ] Repository mit my-github-blueprint: Issues mit Freigabe, Labels, Meilensteine, CHANGELOG, Konzepte als PR,
       Releases nur nach Freigabe
 
