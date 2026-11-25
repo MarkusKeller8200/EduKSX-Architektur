@@ -39,7 +39,9 @@ den Protokollen und ohne Debug-Modus in prod.
 | **Sicherheit** | Anmeldung, Rechteänderung, Debug ein/aus, Exporte, Lesezugriffe auf besonders schützenswerte Daten (DB B11) | Datenbank, hash-verkettet (DB A7) + Kopie im Protokollspeicher | **1 Jahr** (DB-E15) | Sicherheit, `admin` der Organisation für eigene Einträge |
 | **Historie (Audit)** | fachliche Änderungen `data_changes` | Datenbank (DB A7) | nach DB-E15 | nach Rollen des Moduls |
 
-Fristen gelten im Protokollspeicher des Betriebs und bei Selbst-Hosting in der Instanz.
+Fristen gelten im Protokollspeicher des Betriebs und bei Selbst-Hosting in der Instanz. Sie sind **Höchstfristen**
+(BESCHLOSSEN 25.11.2026): Ein Modul darf kürzer aufbewahren, wenn sein Löschkonzept es verlangt (z. B. Glossary:
+Protokolle mit IP-Adressen höchstens 14 Tage, MarKusSX-Operation #19); länger nur mit Eintrag im Ausnahmeregister.
 
 ## 4. Stufen (EMPFOHLEN)
 
@@ -110,4 +112,5 @@ Folgeprojekte) für das Repo EduKSX-Core.
 
 ## 12. Verlauf
 
+- 25.11.2026: Fristen als Höchstfristen festgelegt (Abgleich mit MarKusSX-Operation #19).
 - 25.11.2026: Konzept angelegt (#76), PR1–PR4 im Chat entschieden; API C7 auf BESCHLOSSEN.

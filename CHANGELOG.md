@@ -8,6 +8,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Protokollierung:** Fristen sind Höchstfristen; Module dürfen kürzer aufbewahren (Glossary 14 Tage, Operation #19).
 - **Register:** `planner` aktiv mit Repo EduKSX-Planner (noch leer); Modulübersicht und Übersichtsseite nachgeführt.
 
 ## [0.4.0] – 2026-11-25
