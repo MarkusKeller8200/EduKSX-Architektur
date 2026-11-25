@@ -563,7 +563,11 @@ Jedes Modul, dessen Daten andere Systeme regelmässig übernehmen, bietet:
 - Sicherheitskopfzeilen für alle Antworten: `X-Content-Type-Options: nosniff`, `Strict-Transport-Security`; die API
   setzt keine Sitzungscookies.
 
-### C7 Protokollierung (EMPFOHLEN, Grundlage Plattform §6 und DB A7)
+### C7 Protokollierung (BESCHLOSSEN 25.11.2026, Grundlage Plattform §6 und DB A7)
+
+Ausgeführt in [KONZEPT-PROTOKOLLIERUNG.md](KONZEPT-PROTOKOLLIERUNG.md): Protokollarten und Fristen, Stufen,
+befristetes Debug, Maskierung in Core, `traceparent`, Alarme, Support (#76).
+
 
 - Jede Anfrage bekommt eine `request_id` (eingehend `X-Request-Id` übernehmen, sonst erzeugen), zurück in der
   Kopfzeile und in Fehlern; dieselbe ID steht in Historie und Protokoll.

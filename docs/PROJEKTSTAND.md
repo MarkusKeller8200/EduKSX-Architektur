@@ -18,6 +18,7 @@
 | Modulvorlage, Datenschutz-Vorlagen | beschlossen, Probe-Modul offen (#37) | 0.2.0 | `docs/KONZEPT-MODULVORLAGE.md` |
 | Prüfaufträge RLS, DPoP/mTLS | Empfehlung, Entscheid nach Prototyp/PoC | 0.2.0 | `docs/PRUEFAUFTRAG-*.md` |
 | Konzepte Leitstand, Selbst-Hosting, Plugins, Modulübersicht | beschlossen, eingefroren | 0.3.0 | `docs/KONZEPT-*.md`, `docs/MODULE-UEBERSICHT.md` |
+| Protokollierung und Fehlersuche, API C7 (#76) | beschlossen 25.11.2026, Core-Bausteine offen (#83) | unveröffentlicht | `docs/KONZEPT-PROTOKOLLIERUNG.md` |
 | Rollen und Rechte, Steckbrief `abilities` (#77) | beschlossen 25.11.2026, Core-Baustein und Glossary-Umstellung offen (#83) | unveröffentlicht | `docs/KONZEPT-ROLLEN.md` |
 | Datenschutz Kanton Zürich, DB-Standard 1.5 (#78) | beschlossen 25.11.2026, Prüfung durch Fachperson offen (#22) | unveröffentlicht | `docs/KONZEPT-DATENSCHUTZ-ZH.md` |
 | Technologie-Stack, Versionen, `ci:check`, Feature-Schalter (#79) | beschlossen 25.11.2026, Umstellung der Module bis 31.12.2026 offen (#83) | unveröffentlicht | `docs/KONZEPT-STACK.md` |
