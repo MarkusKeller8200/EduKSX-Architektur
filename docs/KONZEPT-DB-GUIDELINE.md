@@ -339,6 +339,7 @@ stillschweigend. Einzelheiten: [KONZEPT-DATENSCHUTZ-ZH.md](KONZEPT-DATENSCHUTZ-Z
   letzten Anmeldung als Datum); alles andere liest es aus Ident.
 - **Rollen und Rechte gelten je Modul und Organisation:** Zuordnung mit `(user_id, organization_id, role)` im Modul;
   Admin im Glossary ist nicht Admin in der Rechtssammlung. Geprüft wird auf Rechte, nicht auf Rollennamen.
+  Standardrollen, Namensschema, Geltungsbereiche, Befristung und Stellvertretung: [KONZEPT-ROLLEN.md](KONZEPT-ROLLEN.md).
 - **Super-Admin** ist eine Plattformrolle aus Ident mit zweitem Faktor; welche Rechte sie im Modul gibt, legt das Modul
   fest. Bis ein Modul an Ident angeschlossen ist, übernimmt seine höchste geschützte Rolle diese Aufgabe (im Glossary:
   Developer). BESCHLOSSEN 12.11.2026

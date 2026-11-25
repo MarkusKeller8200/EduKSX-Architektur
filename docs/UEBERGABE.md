@@ -61,8 +61,10 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 - #78 Datenschutz ZH: `docs/KONZEPT-DATENSCHUTZ-ZH.md`, DZ1–DZ5 (Klassifizierung nach MBA, AGB des Kantons + Vorlage
   `AUFTRAGSBEARBEITUNG-ZH.md`, Cloudflare nur öffentlich, Archiv PDF/A + CSV, Nachweis ISMS); DB-Standard 1.5; W1 erledigt.
   Offen: Fachperson benennen (#22).
+- #77 Rollen: `docs/KONZEPT-ROLLEN.md`, RO1–RO4; Steckbrief-Schema `abilities`; W7 erledigt.
+- CI: GitHub startet keine Jobs mehr (Zahlung/Ausgabenlimit) – PR #100 ohne CI gemergt, Tests lokal grün.
 - Offen: Abnahme der Beta-Test-Issues #62, #65, #68, #70–#75; Deployment-Block in `blueprint.toml` noch aktiv.
-- Nächste Schritte: #77 Rollen, #76 Protokollierung, #80 Qualitätsziele, #83 Abgleich.
+- Nächste Schritte: #76 Protokollierung, #80 Qualitätsziele, #83 Abgleich.
 
 ### Sitzung 22.11.2026 (02:00) – Erweiterungsrunde 0.4.0, Gesamtprüfung (#70, #71)
 

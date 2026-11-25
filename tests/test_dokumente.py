@@ -38,6 +38,7 @@ class Dokumente(unittest.TestCase):
             "docs/PRUEFAUFTRAG-RLS.md", "docs/PRUEFAUFTRAG-DPOP-MTLS.md", "spec/README.md", "docs/MODULE-UEBERSICHT.md",
             "docs/KONZEPT-LEITSTAND.md", "docs/KONZEPT-SELBSTHOSTING.md", "docs/KONZEPT-PLUGINS.md",
             "docs/KONZEPT-STACK.md", "docs/KONZEPT-DATENSCHUTZ-ZH.md", "docs/vorlagen/AUFTRAGSBEARBEITUNG-ZH.md",
+            "docs/KONZEPT-ROLLEN.md",
         ]
         self.assertEqual([], [d for d in pflicht if not (ROOT / d).is_file()], "Dokumente fehlen")
 

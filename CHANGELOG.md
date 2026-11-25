@@ -16,6 +16,11 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Rollen und Rechte (25.11.2026, #77):** `docs/KONZEPT-ROLLEN.md` mit RO1–RO4 – Standardrollen `reader`, `editor`,
+  `admin`; Rechte `<ressource>.<aktion>` mit Fachaktionen; Feldgruppen (`*_sensitive`) und Geltungsbereiche
+  (Organisation, Einheit, Gruppe, eigene Daten) als Core-Baustein; Minderjährige nur eigene Daten bzw. Eltern über
+  Portal (löst W7); Befristung, Stellvertretung, Austritt, Rezertifizierung; Beispielmatrix Glossary. Steckbrief-Schema
+  mit `abilities`, `classification` nach Kanton ZH; `ops-instances` Rechte im Plural. API C2, DB B4 verweisen darauf.
 - **Datenschutz Kanton Zürich (25.11.2026, #78):** `docs/KONZEPT-DATENSCHUTZ-ZH.md` mit DZ1–DZ5 – Zuordnung der
   Datenklassen zu den Stufen des Kantons (löst W1), Vorlage `docs/vorlagen/AUFTRAGSBEARBEITUNG-ZH.md` auf Basis der AGB
   Datenbearbeitung durch Dritte mit Checklisten-Abgleich, Anbieter (Cloudflare nur öffentliche Inhalte), «anbieten, dann
