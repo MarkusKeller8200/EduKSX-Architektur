@@ -220,7 +220,9 @@ gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDU
 
 - [ ] Zentral: jede Tabelle mit Kundendaten trägt die Organisations-ID; Zugriffe immer darauf eingeschränkt
 - [ ] Isoliert: keine Daten verlassen die Instanz ausser Heartbeat (S6)
-- [ ] Klassifizierung je Modul (öffentlich / intern / vertraulich / besonders schützenswert) und daraus Betriebsart
+- [ ] Klassifizierung je Modul nach den Stufen des Kantons Zürich (öffentlich / intern / vertraulich) nach
+      [KONZEPT-DATENSCHUTZ-ZH.md](KONZEPT-DATENSCHUTZ-ZH.md) §2 und daraus Betriebsart
+- [ ] Anbieter nach KONZEPT-DATENSCHUTZ-ZH §4; keine Personendaten über Cloudflare; Nachweis `docs/NACHWEIS-ISMS.md`
 - [ ] Datenminimierung, Löschfristen, Export für Betroffene, Protokolle; Hosting in der Schweiz; IDG/DSG
 - [ ] Datenschutzerklärung und Verzeichnis der Bearbeitungen je Modul
 

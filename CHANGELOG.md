@@ -16,6 +16,11 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Neu
 
+- **Datenschutz Kanton Zürich (25.11.2026, #78):** `docs/KONZEPT-DATENSCHUTZ-ZH.md` mit DZ1–DZ5 – Zuordnung der
+  Datenklassen zu den Stufen des Kantons (löst W1), Vorlage `docs/vorlagen/AUFTRAGSBEARBEITUNG-ZH.md` auf Basis der AGB
+  Datenbearbeitung durch Dritte mit Checklisten-Abgleich, Anbieter (Cloudflare nur öffentliche Inhalte), «anbieten, dann
+  löschen» mit Export PDF/A + CSV, Nachweis ISMS je Modul. DB-Standard 1.5 (B2, B3, DB-E19, DB-E20), Plattform §6,
+  Modulvorlage.
 - **Technologie-Stack (25.11.2026, #79):** `docs/KONZEPT-STACK.md` mit ST1–ST5: Inertia, React, TypeScript,
   Tailwind und `@eduksx/ui` als Vorgabe; Mindestversionen PHP 8.5, Laravel 13, Node 26, PostgreSQL 18 ab 31.12.2026;
   Wechsel bei Ende der Fehlerkorrekturen; `composer ci:check` und Feature-Schalter (aus dem Glossary) in Core.

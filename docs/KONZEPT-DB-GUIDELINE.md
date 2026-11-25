@@ -1,7 +1,7 @@
 # Konzept: DB-Standard der EduKSX-Plattform (#9, #11, #20)
 
-Stand: 22.11.2026 (Version 1.4) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.4 beschlossen am 22.11.2026
-(Version 1.3 am 20.11.2026, Version 1.2 am 13.11.2026, Version 1.0 und 1.1 am 12.11.2026)
+Stand: 25.11.2026 (Version 1.5) · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** – Version 1.5 beschlossen am 25.11.2026
+(Version 1.4 am 22.11.2026, Version 1.3 am 20.11.2026, Version 1.2 am 13.11.2026, Version 1.0 und 1.1 am 12.11.2026)
 
 Verbindlicher Datenbank-Standard für **alle** EduKSX-Module (Glossary, Rechtssammlung, Intranet, Stundenplan …) – für
 Menschen und KI-Agenten. Er enthält nur Regeln, die für jedes Modul gelten. Fachliche Tabellen, Befehle und
@@ -282,13 +282,16 @@ jedes Modul und hält es im Datenmodell fest.
 
 Jede Spalte bekommt im Datenmodell des Moduls eine Datenklasse; daraus folgen Historie, Export und Löschung.
 
-| Klasse | Beispiele | In der Historie (`changes`) | Beim Löschen der Person |
-| --- | --- | --- | --- |
-| **öffentlich** | Begriff, Beschreibung | alter und neuer Wert | bleibt |
-| **intern** | Status, Notiz der Redaktion | alter und neuer Wert | bleibt |
-| **personenbezogen** | Name, E-Mail, Anzeigename, Freitext einer Person | nur `"changed"`, kein Wert | Bezug pseudonymisieren |
-| **besonders schützenswert** | Gesundheit, Massnahmen, Beurteilungen | nur `"changed"`, nie ein Wert | sofort löschen |
-| **geheim** | Passwort-Hash, Token, 2FA-Geheimnis | nur `"changed"` | löschen |
+| Klasse | Beispiele | In der Historie (`changes`) | Beim Löschen der Person | Stufe Kanton ZH |
+| --- | --- | --- | --- | --- |
+| **öffentlich** | Begriff, Beschreibung | alter und neuer Wert | bleibt | öffentlich |
+| **intern** | Status, Notiz der Redaktion | alter und neuer Wert | bleibt | intern |
+| **personenbezogen** | Name, E-Mail, Anzeigename, Freitext einer Person | nur `"changed"`, kein Wert | Bezug pseudonymisieren | intern |
+| **besonders schützenswert** | Gesundheit, Massnahmen, Beurteilungen | nur `"changed"`, nie ein Wert | sofort löschen | vertraulich |
+| **geheim** | Passwort-Hash, Token, 2FA-Geheimnis | nur `"changed"` | löschen | vertraulich |
+
+Die letzte Spalte ist die Zuordnung zu den vier Stufen des Kantons Zürich ([KONZEPT-DATENSCHUTZ-ZH.md](KONZEPT-DATENSCHUTZ-ZH.md)
+§2, DB-E19); die Stufe «geheim» des Kantons wird in EduKSX nicht bearbeitet.
 
 Damit enthält die Historie keine Personendaten mehr, die beim Löschen gesucht werden müssten – auch nicht der «letzte
 Stand» bei `deleted`. Abbilder (Revisionen, Snapshots als JSON) enthalten nur Felder der Klassen öffentlich und intern.
@@ -321,6 +324,12 @@ Suchindizes entfernt. In Sicherungen bleiben sie bis zu deren Ablauf, unbenutzt;
 
 **Archive (BESCHLOSSEN):** Archivierte Daten (z. B. bei Migrationen entfallende Werte) tragen ihre Datenklasse, eine Frist
 und werden verschlüsselt abgelegt; personenbezogene Werte nur, wenn nötig und mit Löschregel.
+
+**Anbieten, dann löschen (BESCHLOSSEN 25.11.2026, DB-E20):** Module mit Geschäftsunterlagen öffentlicher Organe
+(Codex, Intranet, Sign, Staffing; weitere nach Steckbrief) löschen nach Ablauf der Frist nicht direkt, sondern legen
+zuerst ein **Archivangebot** an: Export als PDF/A plus CSV (UTF-8, Spalten nach A8) mit Prüfsummen. Gelöscht wird erst,
+wenn die Schule «übernommen» oder «nicht archivwürdig» bestätigt; ohne Antwort erinnert das Modul, es löscht nie
+stillschweigend. Einzelheiten: [KONZEPT-DATENSCHUTZ-ZH.md](KONZEPT-DATENSCHUTZ-ZH.md) §5. Fristen ZU PRÜFEN (#22).
 
 ### B4 Identitäten und Rechte (BESCHLOSSEN)
 
@@ -637,6 +646,8 @@ Personen – führt `connect` und bietet sie über seine API an; andere Module h
 | DB-E15 | Frist der Historie und Protokolle | fachliche Historie solange das Objekt besteht, Sicherheitsprotokoll 1 Jahr, Prüfpunkte 10 Jahre (B9) | BESCHLOSSEN 22.11.2026 (#73) |
 | DB-E16 | Mehrsprachigkeit präzisiert | Sprachen de/fr/it/en, Abkürzungen übersetzbar, Sprachkennzeichnung beim Rückfall, `translation_status`, maschinell nur mit Hinweis, Oberflächensprache Person → Organisation → `de` (D1) | BESCHLOSSEN 22.11.2026 (#73) |
 | DB-E18 | Sicherung präzisiert | RPO/RTO bleiben, PITR für PostgreSQL im Betrieb; Restore-Test monatlich automatisch mit Prüfprotokoll; Dateien mit Versionierung + restic; Wiederherstellung je Organisation Pflicht für zentrale Module (C2) | BESCHLOSSEN 22.11.2026 (#74) |
+| DB-E19 | Zuordnung der Datenklassen zum Kanton Zürich | Spalte in B2 nach KONZEPT-DATENSCHUTZ-ZH DZ1 | BESCHLOSSEN 25.11.2026 (#78) |
+| DB-E20 | Archiv vor dem Löschen | «anbieten, dann löschen», Export PDF/A + CSV (B3) | BESCHLOSSEN 25.11.2026 (#78) |
 | DB-E17 | Gemeinsame Stammdaten | Codelisten in `eduksx/core`, Stammdaten der Organisation in `connect` (E4) | BESCHLOSSEN 22.11.2026 (#73) |
 
 Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–E6 und den Entscheiden des API-Standards
@@ -655,3 +666,5 @@ Entscheide heissen ab 1.2.1 `DB-E<n>`, damit sie nicht mit den Abschnitten E1–
   EduKSX-Projekte (#65).
 - 22.11.2026: Version 1.4 beschlossen – Pflichtspalten (A3a, DB-E14), Fristen der Historie (B9, DB-E15),
   Mehrsprachigkeit präzisiert (D1, DB-E16), gemeinsame Stammdaten (E4, DB-E17) (#73); Sicherung präzisiert (C2, DB-E18, #74).
+- 25.11.2026: Version 1.5 beschlossen – Zuordnung der Datenklassen zu den Stufen des Kantons Zürich (B2, DB-E19) und
+  «anbieten, dann löschen» (B3, DB-E20) (#78).

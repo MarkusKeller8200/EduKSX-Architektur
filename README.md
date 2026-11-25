@@ -8,6 +8,7 @@ Architektur, Schnittstellen und Betriebskonzept der EduKSX-Plattform (Ident, Mod
 | --- | --- |
 | Plattform: Bausteine, Schnittstellen S1–S8, Prüfliste | [docs/KONZEPT-PLATTFORM.md](docs/KONZEPT-PLATTFORM.md) |
 | Technologie-Stack, Versionen, Prüfbefehl, Feature-Schalter | [docs/KONZEPT-STACK.md](docs/KONZEPT-STACK.md) |
+| Datenschutz Kanton Zürich: Klassifizierung, Auftragsbearbeitung, Anbieter, Archiv | [docs/KONZEPT-DATENSCHUTZ-ZH.md](docs/KONZEPT-DATENSCHUTZ-ZH.md), [Vorlage](docs/vorlagen/AUFTRAGSBEARBEITUNG-ZH.md) |
 | DB- und API-Standard | [docs/KONZEPT-DB-GUIDELINE.md](docs/KONZEPT-DB-GUIDELINE.md), [docs/KONZEPT-API-GUIDELINE.md](docs/KONZEPT-API-GUIDELINE.md) |
 | Gemeinsame Bibliothek `eduksx/core` | [docs/KONZEPT-CORE.md](docs/KONZEPT-CORE.md) |
 | Ident mit Zitadel, Proof of Concept | [docs/KONZEPT-IDENT.md](docs/KONZEPT-IDENT.md) |
