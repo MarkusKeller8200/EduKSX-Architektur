@@ -64,9 +64,10 @@ Issues #71–#80, Grundlage [LUECKENANALYSE-0.4.0.md](LUECKENANALYSE-0.4.0.md). 
 - #77 Rollen: `docs/KONZEPT-ROLLEN.md`, RO1–RO4; Steckbrief-Schema `abilities`; W7 erledigt.
 - Repo öffentlich (PR #102), CI läuft wieder; Einstellungen angewendet.
 - #76 Protokollierung: `docs/KONZEPT-PROTOKOLLIERUNG.md`, PR1–PR4; API C7 BESCHLOSSEN; Core-Bausteine in #83.
+- #80 Qualitätsziele: `docs/KONZEPT-QUALITAET.md`, QZ1–QZ4.
 - CI: GitHub startet keine Jobs mehr (Zahlung/Ausgabenlimit) – PR #100 ohne CI gemergt, Tests lokal grün.
 - Offen: Abnahme der Beta-Test-Issues #62, #65, #68, #70–#75; Deployment-Block in `blueprint.toml` noch aktiv.
-- Nächste Schritte: #80 Qualitätsziele, #83 Abgleich.
+- Nächste Schritte: #83 Abgleich der Modul-Repos; Abnahme der Beta-Test-Issues; danach Release 0.4.0.
 
 ### Sitzung 22.11.2026 (02:00) – Erweiterungsrunde 0.4.0, Gesamtprüfung (#70, #71)
 

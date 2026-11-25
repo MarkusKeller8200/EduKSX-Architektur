@@ -203,6 +203,8 @@ gesperrt (Notfallkonten bleiben). Regeln: [KONZEPT-ANMELDUNG.md](KONZEPT-ANMELDU
 - [ ] Migrationen vorwärts, automatisch, **abwärtskompatibel** (erweitern → umstellen → aufräumen über zwei Versionen)
 - [ ] Sicherung vor Update, Wiederherstellung dokumentiert und getestet; Update-Dienst-tauglich (S6)
 - [ ] Sauberes Herunterfahren (laufende Anfragen und Aufträge beenden)
+- [ ] Qualitätsziele nach [KONZEPT-QUALITAET.md](KONZEPT-QUALITAET.md): p95 300 ms / 800 ms, lange Exporte als Auftrag;
+      Verfügbarkeit je Dienstart; Histogramm der Antwortzeiten in `/metrics`
 
 ### Datenbank
 
