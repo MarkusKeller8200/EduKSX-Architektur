@@ -20,6 +20,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
   EduKSX-UI, Inter selbst gehostet, Hell/Dunkel): beschlossener Stack, Auslieferung, Module, Grafik «Wie die Module
   zusammenarbeiten» (aus MODULE-UEBERSICHT §2–4), Grundsätze und offene Punkte aus 0.4.0. Erzeugt mit
   `scripts/site/build_site.py`. Pages veröffentlicht nur noch `site/` (`[pages] ordner`), nicht mehr `docs/`.
+  Modulkarten verlinken die GitHub Page des Moduls (bisher nur Glossary) bzw. das Repo.
 - Modulregister und Modulübersicht: sichtbare Namen nach Entscheid M1 (`EduKSX-<Begriff>` mit deutschem Untertitel);
   neues Modul `planner` EduKSX-Planner «Jahresplanung», Abgrenzung zu `flow` OFFEN.
 - **KONZEPT-DESIGN DS7–DS11 (22.11.2026):** axe-core «serious»/«critical» sofort Fehler, Musterseite als Testseite in
