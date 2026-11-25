@@ -8,6 +8,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Repository öffentlich (25.11.2026):** `blueprint.toml` `sichtbarkeit = "oeffentlich"`; damit gelten die
+  «auto»-Werte für öffentliche Repos (Pflicht-PR, Secret Scanning, lineare Historie …); neu Workflow «CodeQL erweitert».
 - **Blueprint aktualisiert (25.11.2026, #93):** Stand `dbf9372`; neue Skripte `einstellungen.py`, `konformitaet.py`,
   Workflows «Einstellungen anwenden», «Konformität prüfen» und «Branches aufräumen»; `CODE_OF_CONDUCT.md` ergänzt.
   `blueprint.toml`: Topics, Website `auto`, keine Umgebungen (reines Konzept-Repo).

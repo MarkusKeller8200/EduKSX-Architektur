@@ -58,7 +58,7 @@ nur_doku = false                  # reines Dokumentations-Repository: tests/test
 [repository]
 # «oeffentlich» oder «privat». Geändert wird die Sichtbarkeit NUR mit «apply.py --sichtbarkeit» (Schutz vor
 # versehentlichem Veröffentlichen); «auto»-Werte unten richten sich nach der Sichtbarkeit.
-sichtbarkeit = "privat"
+sichtbarkeit = "oeffentlich"
 standard_branch = "main"          # Workflows des Blueprints erwarten «main»
 beschreibung = "Architektur, Schnittstellen und Betriebskonzept der EduKSX-Plattform (Ident, Module, Leitstand) für Projektverantwortliche und Entwickler der Module." # Text bei «About»
 webseite = "auto"                 # privat: README
