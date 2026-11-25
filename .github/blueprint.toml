@@ -240,7 +240,7 @@ oidc_claims = []                  # leer = Standard-Subject; z. B. ["repo", "con
 
 [pages]
 aktiv = true                      # GitHub Pages über Workflow pages.yml (Ordner «site» bzw. «docs»)
-ordner = "docs"
+ordner = "site"                   # nur die Übersichtsseite, nicht die Konzepte in docs/
 
 [sicherheit]
 dependabot_warnungen = true

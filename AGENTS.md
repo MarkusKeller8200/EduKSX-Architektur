@@ -60,7 +60,7 @@ Aus dem GitHub-Blueprint, Details in `docs/GITHUB-ABLAUF.md`.
   Secrets trägt Projektverantwortliche:r selbst ein.
 - **Übergabe:** `docs/UEBERGABE.md` und `docs/PROJEKTSTAND.md` am Ende jeder Sitzung bzw. vor einem Chatwechsel nachführen (neueste Einträge oben, Älteres nach `docs/PROJEKTSTAND-ARCHIV.md`).
 - **Desktop:** Installer, Signatur und Build-Workflows nur nach Freigabe ändern; Tests müssen auf allen Zielsystemen laufen (Workflow «pruefungen»).
-- **Web:** Umgebungen «test», «produktion» getrennt halten (eigene Daten, Zugänge und Konfiguration je Umgebung); Ausrollen auf «produktion» nur über die Umgebung mit Freigabe; keine echten Personendaten in Tests, Protokollen oder Bildschirmfotos.
+- **Web:** Ausrollen auf «produktion» nur über die Umgebung mit Freigabe; keine echten Personendaten in Tests, Protokollen oder Bildschirmfotos.
 - Schutzbedarf «vertraulich»: nur erfundene Testdaten; keine echten Daten in Issues, Commits oder Bildschirmfotos
 - Barrierefreiheit: Oberfläche nach WCAG 2.1 AA (eCH-0059) gestalten und prüfen
 - Nichtziel: kein Anwendungscode (bleibt in den Repositories der Module)

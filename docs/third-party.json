@@ -12,6 +12,8 @@
   },
   "items": [
     {"id": "app", "group": "app", "name": "EduKSX-Architektur", "use": "Dieses Projekt", "license": "GPL-3.0-or-later (spec/: GPL-3.0-or-later OR MIT)", "url": "https://github.com/MarkusKeller8200/eduksx-architektur"},
-    {"id": "jsonschema", "group": "entwicklung", "name": "jsonschema (Python)", "use": "Prüfung der Schemas unter spec/ in den Tests (#3)", "license": "MIT", "url": "https://github.com/python-jsonschema/jsonschema"}
+    {"id": "jsonschema", "group": "entwicklung", "name": "jsonschema (Python)", "use": "Prüfung der Schemas unter spec/ in den Tests (#3)", "license": "MIT", "url": "https://github.com/python-jsonschema/jsonschema"},
+    {"id": "inter-font", "group": "laufzeit", "name": "Inter (Schrift)", "use": "Schrift der Übersichtsseite site/ (selbst gehostet, aus EduKSX-UI)", "license": "OFL-1.1", "url": "https://github.com/rsms/inter"},
+    {"id": "eduksx-ui", "group": "laufzeit", "name": "EduKSX-UI (Tokens und Icons)", "use": "Farben (tokens.json) und Modul-Icons der Übersichtsseite site/", "license": "MIT", "url": "https://github.com/MarkusKeller8200/EduKSX-UI"}
   ]
 }
