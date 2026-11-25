@@ -6,6 +6,13 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+## [0.4.0] – 2026-11-25
+
+### Behoben
+
+- **PoC Ident (#103):** `setup.py` schreibt `state.json` mit den Zugangsdaten des lokalen Test-Dienstkontos nur
+  für den Besitzer lesbar (0600); die Datei bleibt per `.gitignore` ausserhalb des Repos.
+
 ### Geändert
 
 - **Repository öffentlich (25.11.2026):** `blueprint.toml` `sichtbarkeit = "oeffentlich"`; damit gelten die

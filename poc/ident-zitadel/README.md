@@ -25,7 +25,7 @@ Ablauf (Python 3 mit `requests` und `playwright`, PHP 8.4, Docker):
 ```bash
 head -c 24 /dev/urandom | base64 | head -c 32 > masterkey.txt
 mkdir -m 777 pat && docker compose up -d          # Admin-Token entsteht in pat/admin.pat
-python3 setup.py                                    # schreibt state.json (Zugangsdaten, nicht ins Repository)
+python3 setup.py                                    # schreibt state.json (Zugangsdaten, Rechte 0600, nicht ins Repository)
 python3 login.py lehrperson && python3 login.py redaktion --abmelden
 php verify.php tokens-redaktion.json "$(python3 -c "import json;print(json.load(open('state.json'))['project'])")"
 ```
