@@ -8,6 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Hinzugefügt
 
+- **Konzept Codex (#119, Entscheide 26.11.2026):** neues `docs/KONZEPT-CODEX.md` mit CX1–CX8 – öffentlich wie Glossary
+  (Funktionsliste ZU PRÜFEN), Anmeldung wie Glossary, Einbindung bei Gemeinden per JS-Baustein, iFrame oder API, eigenes
+  CSS je Gemeinde nur für die Einbettung (Ausnahme DS14 zu DS4), optionale Mustersystematik mit Zuordnung und
+  Deaktivieren; Plugins P9, Modulübersicht, README.
 - **Übersichtsseite: Steckbriefe der Module (#117):** neuer Abschnitt «Steckbriefe» mit Eckdaten, «Macht / Macht nicht»,
   Verbindungen und offenen Punkten je Modul; erzeugt mit `scripts/site/steckbriefe.py` aus Modulübersicht, Register und
   Grafik; Modulkarten verlinken auf den Steckbrief; Test `tests/test_steckbriefe.py`.
