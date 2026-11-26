@@ -8,6 +8,10 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Hinzugefügt
 
+- **Codex: Aufnahme und Pflege der Dokumente (#121, Entscheide 26.11.2026):** KONZEPT-CODEX §6 mit CX9–CX16 – nur PDF,
+  optional MD (Grundlage für MCP; Erstellung durch uns auf Wunsch, Freigabe durch Mensch), massgebend das Original-PDF,
+  Einlieferung per Ziehen und Ablegen, E-Mail, OneDrive/SharePoint, Dropbox, Homepage-Übernahme; Erkennung und
+  Kategorievorschlag, direkte Einordnung bei stimmender Nomenklatur, Publikation je Gemeinde einstellbar.
 - **Konzept Codex (#119, Entscheide 26.11.2026):** neues `docs/KONZEPT-CODEX.md` mit CX1–CX8 – öffentlich wie Glossary
   (Funktionsliste ZU PRÜFEN), Anmeldung wie Glossary, Einbindung bei Gemeinden per JS-Baustein, iFrame oder API, eigenes
   CSS je Gemeinde nur für die Einbettung (Ausnahme DS14 zu DS4), optionale Mustersystematik mit Zuordnung und

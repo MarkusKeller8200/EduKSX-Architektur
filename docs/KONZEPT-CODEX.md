@@ -1,6 +1,6 @@
 # Konzept: Codex – systematische Rechtssammlung (#119)
 
-Stand: 26.11.2026 · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 26.11.2026 (CX1–CX8), **ZU PRÜFEN**:
+Stand: 26.11.2026 · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 26.11.2026 (CX1–CX16), **ZU PRÜFEN**:
 Funktionsliste §2 · Verbindlichkeit: Stufen nach [KONZEPT-VORLAGE.md](KONZEPT-VORLAGE.md).
 
 Ergänzt den Abschnitt `codex` der [Modulübersicht](MODULE-UEBERSICHT.md). Grundlagen:
@@ -86,13 +86,62 @@ Einbettung.
 - Ändert sich die Mustersystematik, bleibt jede Zuordnung erhalten; neue Einträge erscheinen der Gemeinde als
   «noch nicht entschieden».
 
-## 6. Daten und Aufbewahrung
+## 6. Aufnahme und Pflege der Dokumente (#121)
+
+### 6.1 Formate (CX9, CX10 BESCHLOSSEN)
+
+- Codex nimmt **nur PDF** an, dazu optional je Erlass eine **Markdown-Datei (MD)** mit dem gegliederten Text
+  (Titel, Abschnitte, Artikel). Andere Formate (Word, Bilder) weist Codex mit einem Hinweis ab; ein ZIP darf PDF und
+  MD enthalten.
+- **MD ist die Grundlage für die MCP-Funktionen** (MCP nach [API-Guideline](KONZEPT-API-GUIDELINE.md) D5, Werkzeuge `codex_<operation>`: Erlasse und Artikel
+  finden, zitieren, vergleichen)
+  sowie für Volltextsuche, Artikelvergleich zwischen Gemeinden und den Unterschied zwischen Fassungen.
+- Liefert die Gemeinde kein MD, **bietet Codex an, es zu erstellen** (Auslesen des PDF, bei Scans mit Texterkennung,
+  KI-gestützt). Ein von uns erstelltes MD wird erst nach **Freigabe durch einen Menschen** verwendet (CX11).
+- **Massgebend ist die publizierte Originalfassung (PDF)** (CX10). Bei von uns erstellten MD-Dateien zeigt Codex immer
+  den Hinweis «Massgebend ist die publizierte Originalfassung» mit Link auf das PDF; bei MD der Gemeinde entscheidet sie.
+
+### 6.2 Einlieferung (CX12, CX13 BESCHLOSSEN)
+
+Alle Wege führen in denselben **Eingangskorb** der Gemeinde; danach gilt 6.3.
+
+| Weg | Wie | Absicherung |
+| --- | --- | --- |
+| **Ziehen und Ablegen** | einzeln, mehrere oder ZIP in Codex | angemeldet (`editor`) |
+| **E-Mail** | eigene Adresse je Gemeinde; Anhänge (PDF, MD, ZIP) landen im Eingangskorb | nur freigegebene Absenderadressen, SPF/DKIM geprüft; nie direkt publiziert |
+| **OneDrive / SharePoint** | überwachter Ordner der Gemeinde über Microsoft Graph | Zustimmung durch die Gemeinde (OAuth), nur Leserecht auf den Ordner; Anbindung über EduKSX-Connectors |
+| **Dropbox** | überwachter Ordner über die Dropbox-API | wie OneDrive |
+| **Übernahme von der Homepage** (Ersterfassung) | Codex holt die PDF von der heutigen Seite der Gemeinde | öffentliche Daten, **keine besondere Freigabe** (CX13); EMPFOHLEN: `robots.txt` beachten, Abfragen drosseln, Gemeinde informieren |
+| **Excel-Vorlage** (EMPFOHLEN, Ersterfassung) | eine Zeile je Erlass mit Nummer, Titel, Daten, Dateiname | angemeldet (`editor`) |
+
+**Ersterfassung (CX12):** durch die Gemeinde selbst oder durch uns als Dienstleistung – die Gemeinde wählt. In beiden
+Fällen gibt die Gemeinde frei.
+
+### 6.3 Erkennen und Einordnen (CX14–CX16 BESCHLOSSEN)
+
+Jedes eingehende Dokument durchläuft:
+
+1. **Doppelt?** Gleiche Datei (Prüfsumme) wie vorhanden → verworfen mit Hinweis.
+2. **Neue Fassung?** Nummer bzw. Titel eines bekannten Erlasses → als neue Fassung angehängt; Codex zeigt den
+   Unterschied zur bisherigen Fassung (auf Basis MD) und schlägt das Datum vor, ab dem die alte ausser Kraft tritt.
+3. **Neuer Erlass?** Codex liest Titel, Beschlussdatum, Inkrafttreten und beschliessendes Organ aus und **schlägt die
+   Kategorie** in der Systematik vor (KI-gestützt, CX14).
+4. **Nomenklatur stimmt?** Entspricht Dateiname oder Titel genau der Mustersystematik oder einer Nummer, die die
+   Gemeinde bereits zugeordnet hat, wird das Dokument **direkt eingeordnet, ohne Prüfung** (CX15). Sonst bleibt es mit
+   Vorschlag im Eingangskorb, bis ein Mensch bestätigt.
+
+**Publikation nach direkter Einordnung (CX16):** je Gemeinde einstellbar – Vorgabe «nur einordnen» (Publikation per
+Klick, auch gesammelt «alle freigeben»), wahlweise «direkt publizieren». Auch bei «direkt publizieren» bleibt ein von
+uns erstelltes MD bis zur Freigabe unveröffentlicht; publiziert wird dann zuerst das PDF. Jede automatische Einordnung
+und Publikation wird protokolliert und lässt sich zurücknehmen.
+
+## 7. Daten und Aufbewahrung
 
 - Personendaten: wenig (Konten der Bearbeitenden, Namen in Erlassen nur, wo sie zum Rechtstext gehören).
 - Fassungen werden nicht gelöscht, sondern ausser Kraft gesetzt; der Verlauf bleibt öffentlich.
 - Beim Vertragsende gilt «anbieten, dann löschen» mit Export PDF/A plus CSV ([Datenschutz ZH](KONZEPT-DATENSCHUTZ-ZH.md)).
 
-## 7. Entscheide
+## 8. Entscheide
 
 | Nr. | Frage | Entscheid | Status |
 | --- | --- | --- | --- |
@@ -104,7 +153,16 @@ Einbettung.
 | CX6 | Liste je Gemeinde | Gemeinde entscheidet je Muster-Eintrag; nicht vorhanden → deaktivieren | BESCHLOSSEN 26.11.2026 |
 | CX7 | Eigene Dokumente | Zuordnung zum Muster; eigene Nummer und Bezeichnung bleiben oder Muster übernehmen | BESCHLOSSEN 26.11.2026 |
 | CX8 | Deaktiviert im Vergleich | eigene Sammlung: unsichtbar; Gegenüberstellung: «kein Erlass» | BESCHLOSSEN 26.11.2026 |
+| CX9 | Formate | nur PDF, optional MD; fehlt MD, bieten wir die Erstellung an; MD ist Grundlage für MCP, Suche und Vergleich | BESCHLOSSEN 26.11.2026 |
+| CX10 | Massgebende Fassung | publiziertes Original-PDF; Hinweis mit Link immer bei von uns erstelltem MD | BESCHLOSSEN 26.11.2026 |
+| CX11 | KI beim Auslesen und Zuordnen | ja, Freigabe durch einen Menschen | BESCHLOSSEN 26.11.2026 |
+| CX12 | Ersterfassung | durch die Gemeinde oder durch uns als Dienstleistung, wählbar | BESCHLOSSEN 26.11.2026 |
+| CX13 | Übernahme von der Homepage | ohne besondere Freigabe (öffentliche Daten) | BESCHLOSSEN 26.11.2026 |
+| CX14 | Erkennen beim Hochladen | Doppelte, neue Fassungen und neue Erlasse erkennen; Kategorie vorschlagen | BESCHLOSSEN 26.11.2026 |
+| CX15 | Nomenklatur stimmt | direkte Einordnung ohne Prüfung | BESCHLOSSEN 26.11.2026 |
+| CX16 | Publikation nach direkter Einordnung; Einlieferung | je Gemeinde einstellbar (Vorgabe «nur einordnen»); Einlieferung per Ziehen und Ablegen, E-Mail, OneDrive/SharePoint, Dropbox | BESCHLOSSEN 26.11.2026 |
 
-## 8. Verlauf
+## 9. Verlauf
 
 - 26.11.2026: Angelegt (#119) mit den Vorgaben von Markus Keller; CX1–CX8 im Chat entschieden.
+- 26.11.2026: §6 Aufnahme und Pflege der Dokumente (#121); CX9–CX16 im Chat entschieden.

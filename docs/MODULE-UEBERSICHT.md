@@ -78,8 +78,9 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   öffentlich lesbar wie Glossary, Anmeldung wie Glossary (lokal, Ident optional). Jede Gemeinde nutzt Codex als eigene
   Rechtssammlung und bindet sie auf ihrer Homepage ein (JS-Baustein, iFrame oder öffentliche API) – mit eigenem CSS
   bzw. einem Template nach ihrer Homepage. Optionale Mustersystematik (Nummerierung, Namen), der die Gemeinde ihre
-  Erlasse zuordnet oder Einträge deaktiviert; später Gegenüberstellung mehrerer Gemeinden
-  ([KONZEPT-CODEX.md](KONZEPT-CODEX.md), #119).
+  Erlasse zuordnet oder Einträge deaktiviert; Einlieferung als PDF (optional MD als Grundlage für MCP) per Ziehen und
+  Ablegen, E-Mail, OneDrive/SharePoint oder Dropbox mit Erkennung und Kategorievorschlag; später Gegenüberstellung
+  mehrerer Gemeinden ([KONZEPT-CODEX.md](KONZEPT-CODEX.md), #119, #121).
 - **Nicht:** keine Unterschriften (→ `sign`), keine allgemeinen Dokumentablagen (→ `intranet`), keine
   Genehmigungsabläufe (→ `flow`).
 
