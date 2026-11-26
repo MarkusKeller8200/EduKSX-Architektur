@@ -11,8 +11,8 @@ NODES = {
     "glossary": (100, 190, "Glossary", "Begriffe", "modul"),
     "codex": (100, 350, "Codex", "Rechtssammlung", "modul"),
     "sign": (300, 270, "Sign", "Unterschriften", "modul"),
-    "flow": (560, 230, "Flow", "Abläufe, Termine", "modul"),
-    "planner": (560, 335, "Planner", "Jahresplanung", "modul"),
+    "flow": (560, 230, "Flow", "Abläufe", "modul"),
+    "planner": (560, 335, "Planner", "Jahresplanung, Kalender", "modul"),
     "shop": (1035, 190, "Shop", "Bestellungen", "modul"),
     "licence": (1035, 300, "Licence", "Lizenzen, Zugänge", "modul"),
     "timetable": (1035, 410, "Timetable", "Stundenplan", "modul"),
@@ -36,7 +36,9 @@ EDGES = [
     ("codex", "sign", "dienst", "Codex nutzt Sign für Unterschriften"),
     ("intranet", "glossary", "plugin", "Intranet bindet Glossary als Plugin ein"),
     ("intranet", "codex", "plugin", "Intranet bindet Codex als Plugin ein"),
-    ("planner", "flow", "offen", "Planner und Flow: Abgrenzung des Jahreskalenders offen"),
+    ("portal", "flow", "dienst", "Portal übergibt eingegangene Formulare an Flow"),
+    ("flow", "sign", "dienst", "Flow ruft Sign als Schritt auf"),
+    ("planner", "flow", "dienst", "Planner liefert Termine an Flow (Auslöser, Fristen)"),
     ("timetable", "staffing", "offen", "Timetable und Staffing: Stellvertretungen offen"),
 ]
 FARBE = {"daten": "var(--brand-orange)", "dienst": "var(--brand-blue)", "plugin": "var(--brand-violet)",
@@ -63,7 +65,7 @@ def svg(icon):
     out = [f'<svg class="graph" viewBox="0 0 {W} {H}" role="img" aria-labelledby="g-titel g-desc">',
            '<title id="g-titel">Wie die EduKSX-Module zusammenarbeiten</title>',
            '<desc id="g-desc">Connect liefert Stammdaten an Licence, Timetable, Staffing, Portal und Ident und gleicht sie mit '
-           'Fremdsystemen ab. Shop übergibt Lizenzen an Licence. Intranet, Portal und Codex nutzen Sign. Intranet bindet '
+           'Fremdsystemen ab. Shop übergibt Lizenzen an Licence. Intranet, Portal, Codex und Flow nutzen Sign. Portal übergibt Formulare an Flow, Planner liefert Termine an Flow. Intranet bindet '
            'Glossary und Codex als Plugins ein. Alle Module nutzen Core und optional Ident. Die Liste unter der Grafik '
            'nennt alle Verbindungen.</desc>', '<defs>']
     for art, f in FARBE.items():

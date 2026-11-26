@@ -13,6 +13,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
   in Ereignissen (KONZEPT-PROTOKOLLIERUNG §7); Beispiele gültig und ungültig.
 
 - **Protokollierung:** Fristen sind Höchstfristen; Module dürfen kürzer aufbewahren (Glossary 14 Tage, Operation #19).
+- **Systemgrenzen `flow` (#112, Entscheide 26.11.2026):** `portal` erfasst Formulare, `flow` verarbeitet; `flow` ruft `sign`
+  als Schritt auf; `flow` fachliche Abläufe, `connect`/EduKSX-Connectors technische Synchronisation; Jahreskalender
+  in `planner`, nicht in `flow`. Modulübersicht (neuer Abschnitt `flow`, `planner`, `sign`, `portal`) und Register nachgeführt.
 - **Modulübersicht (#111):** veralteten Hinweis «Icon noch nicht im Icon-Set» bei `flow` entfernt; das Icon liegt in EduKSX-UI.
 - **Register:** `planner` aktiv mit Repo EduKSX-Planner (noch leer); Modulübersicht und Übersichtsseite nachgeführt.
 
