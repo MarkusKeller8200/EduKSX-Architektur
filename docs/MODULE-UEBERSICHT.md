@@ -20,8 +20,8 @@ verweisen direkt dorthin; dieses Repo hält keine Kopien mehr (seit 22.11.2026).
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-timetable-color.svg" width="32" alt=""> | EduKSX-Timetable «Stundenplan» | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-staffing-color.svg" width="32" alt=""> | EduKSX-Staffing «Einsatzplanung» | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
-| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-planner-color.svg" width="32" alt=""> | EduKSX-Planner «Jahresplanung» | `planner` | Jahresplanung (neu 22.11.2026; Inhalt und Abgrenzung zu `flow` OFFEN, Icon EduKSX-UI #49) | offen | aktiv (Repo EduKSX-Planner, leer) |
-| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-flow-color.svg" width="32" alt=""> | EduKSX-Flow | `flow` | Abläufe und Termine: Schritte, die Vorgänge in den anderen Modulen aufrufen; Jahreskalender | viele | aktiv |
+| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-planner-color.svg" width="32" alt=""> | EduKSX-Planner «Jahresplanung» | `planner` | Jahresplanung und Jahreskalender: Schuljahr, Termine, Ferien, Anlässe (Icon EduKSX-UI #49) | offen | aktiv (Repo EduKSX-Planner, leer) |
+| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-flow-color.svg" width="32" alt=""> | EduKSX-Flow | `flow` | fachliche Abläufe: Schritte, Zuständigkeiten und Fristen, die Vorgänge in den anderen Modulen aufrufen | viele | aktiv |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | aktiv (Repo EduKSX-Time) |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | aktiv (Repo EduKSX-Shop) |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-sign-color.svg" width="32" alt=""> | EduKSX-Sign | `sign` | Dokumente unterschreiben über Anbieter wie Deepsign oder SwissSign | mittel | geplant |
@@ -101,8 +101,21 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
 - **Nicht:** keine Lektionsplanung (→ `timetable`), keine erfasste Ist-Zeit (→ `time`).
 
 ### planner – Jahresplanung
-- **Macht:** Jahresplanung (neu 22.11.2026, Inhalt noch zu beschreiben).
-- **OFFEN:** Abgrenzung zum Jahreskalender in `flow` und zu `timetable`/`staffing`.
+- **Macht:** Jahresplanung und Jahreskalender: Schuljahr, Termine, Ferien, Anlässe (beschlossen 26.11.2026, #112).
+  Stellt Termine anderen Modulen bereit, z. B. als Auslöser oder Frist für `flow`.
+- **Nicht:** keine Abläufe (→ `flow`), keine Lektionen (→ `timetable`), keine Einsätze (→ `staffing`).
+- **OFFEN:** Inhalt der Jahresplanung im Einzelnen; Abgrenzung zu `timetable`/`staffing`.
+
+### flow – Abläufe
+- **Macht:** fachliche Abläufe mit Menschen: Schritte, Zuständigkeiten, Aufgaben, Bewilligungen, Fristen und Status.
+  Ruft für die einzelnen Schritte Vorgänge in den anderen Modulen über deren API auf (beschlossen 26.11.2026, #112).
+  - Formulare von Externen: `portal` erfasst und nimmt entgegen, danach startet ein Ablauf in `flow`; `portal` zeigt
+    nur den Status an.
+  - Unterschriften: `flow` startet die Unterschrift in `sign` als Schritt und wartet auf das Ereignis «unterschrieben».
+  - Termine: aus `planner` als Auslöser oder Frist (z. B. «4 Wochen vor Schuljahresbeginn»).
+- **Nicht:** keine Formulare für Externe (→ `portal`), keine Signatur (→ `sign`), kein eigener Kalender
+  (→ `planner`), keine technische Synchronisation (→ `connect`/EduKSX-Connectors: Daten abgleichen, Zeitplan,
+  Wiederholen). `flow` darf einen Abgleich anstossen, steuert ihn aber nicht.
 
 ### time – Zeiterfassung
 - **Macht:** geleistete Arbeitszeit erfassen oder aus externen Systemen übernehmen; Saldi und Auswertungen.
@@ -117,12 +130,14 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
 ### sign – Unterschriften
 - **Macht:** Dokumente zur Unterschrift senden, Status verfolgen, signierte Dokumente zurückgeben – über Anbieter wie
   Deepsign oder SwissSign. Dienst für andere Module (z. B. `codex`, `portal`, `intranet`) über API.
-- **Nicht:** keine eigene Dokumentablage, keine eigene Signatur-Infrastruktur.
+- **Nicht:** keine eigene Dokumentablage, keine eigene Signatur-Infrastruktur, keine Abläufe über die Unterschrift
+  hinaus (→ `flow` ruft `sign` als Schritt auf).
 
 ### portal – Self-Service für Externe
 - **Macht:** Zugang für Eltern, Ärztinnen und Ärzte, Zahnärztinnen und Zahnärzte und weitere Externe: Formulare,
   Anmeldungen, Unterschriften, Mitteilungen.
-- **Nicht:** nichts für Mitarbeitende (→ `intranet`); keine eigenen Stammdaten (Personen aus `connect`).
+- **Nicht:** nichts für Mitarbeitende (→ `intranet`); keine eigenen Stammdaten (Personen aus `connect`); keine
+  Bearbeitung eingegangener Formulare (→ Ablauf in `flow`, `portal` zeigt den Status).
 
 ### intranet – interne Plattform
 - **Macht:** Einstieg für Mitarbeitende und Lehrpersonen; bringt Module, Schnittstellen, Wissen und Links zusammen –
