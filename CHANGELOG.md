@@ -6,6 +6,12 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- **Übersichtsseite: Steckbriefe der Module (#117):** neuer Abschnitt «Steckbriefe» mit Eckdaten, «Macht / Macht nicht»,
+  Verbindungen und offenen Punkten je Modul; erzeugt mit `scripts/site/steckbriefe.py` aus Modulübersicht, Register und
+  Grafik; Modulkarten verlinken auf den Steckbrief; Test `tests/test_steckbriefe.py`.
+
 ### Geändert
 
 - **Entscheide 26.11.2026:** KONZEPT-ANMELDUNG AN5 beschlossen (30 Tage Übergangsfrist; Sitzung 30 Min./8 Std./12 Std.; externe Passwortprüfung nur per Schalter); KONZEPT-ROLLEN: Befehl `eduksx:rollen-rechte`, Umsetzung in Core nach API G3 (Rechte, `abilities`, Matrix zuerst).
