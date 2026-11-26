@@ -42,9 +42,13 @@ def gicon(key, x, y, size):
 
 sys.path.insert(0, str(Path(__file__).parent))
 import module_graph  # noqa: E402
+import steckbriefe  # noqa: E402
 
 html = VORLAGE.read_text(encoding="utf-8")
 html = html.replace("{{graph}}", module_graph.svg(gicon)).replace("{{graphlist}}", module_graph.liste())
+html = html.replace("{{steckbriefe}}", steckbriefe.html_steckbriefe(icon, module_graph.EDGES))
+html = re.sub(r'(<div class="mod">\{\{icon:([a-z]+)\}\}<div><h3>)([^<]+?) <span',
+              r'\1<a class="sbl" href="#steckbrief-\2">\3</a> <span', html)
 html = html.replace("/*TOKENS*/", css).replace("{{UI_STAND}}", UI_STAND)
 html = re.sub(r"\{\{icon:([a-z]+)\}\}", lambda m: icon(m.group(1)), html)
 ZIEL.write_text(html, encoding="utf-8")
