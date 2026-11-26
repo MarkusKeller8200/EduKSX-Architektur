@@ -8,6 +8,7 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Entscheide 26.11.2026:** KONZEPT-ANMELDUNG AN5 beschlossen (30 Tage Übergangsfrist; Sitzung 30 Min./8 Std./12 Std.; externe Passwortprüfung nur per Schalter); KONZEPT-ROLLEN: Befehl `eduksx:rollen-rechte`, Umsetzung in Core nach API G3 (Rechte, `abilities`, Matrix zuerst).
 - **Schema S4 (`event.schema.json`):** optionales Feld `traceparent` (W3C Trace Context) für die Weitergabe des Traces
   in Ereignissen (KONZEPT-PROTOKOLLIERUNG §7); Beispiele gültig und ungültig.
 

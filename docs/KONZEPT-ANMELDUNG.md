@@ -1,7 +1,7 @@
 # Konzept: Anmeldung – lokales Login als Standard, föderiert optional (0.4.0, #71 W11)
 
 Stand: 22.11.2026 · Verantwortlich: Markus Keller · Status: **BESCHLOSSEN** 22.11.2026 (Entscheid W11 der
-[Gesamtprüfung](GESAMTPRUEFUNG-0.4.0.md)), Werte mit **ZU PRÜFEN** sind Vorschläge.
+[Gesamtprüfung](GESAMTPRUEFUNG-0.4.0.md)); die Werte aus AN5 sind seit 26.11.2026 beschlossen.
 
 Ändert [Plattform S1 und §6](KONZEPT-PLATTFORM.md) («Anmeldung nur über Ident» → lokales Login als Standard, Ident
 optional) und verallgemeinert [Selbst-Hosting SH-E1](KONZEPT-SELBSTHOSTING.md). Grundlage ist die erprobte Anmeldung im
@@ -35,7 +35,7 @@ für die normalen Konten.
 3. Ab dem Umschalten ist das lokale Login für normale Konten **gesperrt** (nicht gelöscht). Bestehende Konten werden bei
    der nächsten Anmeldung verknüpft: zuerst über den Anbieter, dann einmalig mit dem lokalen Passwort bestätigt;
    Schlüssel ist `issuer` + `subject` (DB B4).
-4. Nach einer Übergangsfrist (Vorschlag 30 Tage, ZU PRÜFEN) werden nicht verknüpfte Konten deaktiviert und die
+4. Nach einer Übergangsfrist von **30 Tagen** (BESCHLOSSEN 26.11.2026, AN5; Einstellung) werden nicht verknüpfte Konten deaktiviert und die
    Admin benachrichtigt.
 5. Zurück auf `local` jederzeit durch eine Admin mit frischem zweitem Faktor; protokolliert.
 
@@ -49,12 +49,12 @@ zurückgesetzt werden sie nur per Befehl auf dem Server.
 | Thema | Regel | Herkunft |
 | --- | --- | --- |
 | Passwortlänge | **mind. 15 Zeichen** für Konten ohne zweiten Faktor, **mind. 12 Zeichen** mit zweitem Faktor; höchstens ≥ 64 Zeichen zulassen; Unicode zählt je Zeichen | NIST SP 800-63B-4; Glossary (12) |
-| Passwortinhalt | keine Zeichenklassen-Regeln, kein periodischer Wechsel; Abgleich mit einer Liste bekannter bzw. kompromittierter Passwörter (Liste offline in `eduksx/core`; Abfrage bei einem externen Dienst nur per Schalter, ZU PRÜFEN) | NIST SP 800-63B-4 |
+| Passwortinhalt | keine Zeichenklassen-Regeln, kein periodischer Wechsel; Abgleich mit einer Liste bekannter bzw. kompromittierter Passwörter (Liste offline in `eduksx/core`; Abfrage bei einem externen Dienst nur per Schalter, Vorgabe **aus**, AN5) | NIST SP 800-63B-4 |
 | Speicherung | nur Hash (Argon2id, sonst bcrypt nach Laravel-Standard) | Glossary, DB B6 |
 | Zweiter Faktor | TOTP nach RFC 6238, Geheimnis verschlüsselt; **Passkeys (WebAuthn)** zusätzlich; 8 einmalige Wiederherstellungscodes nur als Hash | Glossary; NIST (phishing-resistente Option) |
 | Pflicht zum zweiten Faktor | nach **effektiven Rechten** (privilegiert = Pflicht), nicht abschaltbar über Rollen; vor der Bestätigung sind privilegierte Funktionen gesperrt | Glossary DEC-017, DB B4 |
 | Schutz vor Angriffen | Begrenzung der Versuche je Konto und Adresse, generische Fehlertexte (kein Hinweis, ob ein Konto existiert), neue Sitzungs-ID nach Anmeldung, Cookies `Secure`, `HttpOnly`, `SameSite`, nur HTTPS | Glossary |
-| Sitzung | Leerlauf höchstens 30 Min. in der Administration, 8 Std. sonst; absolut 12 Std. (ZU PRÜFEN) | neu |
+| Sitzung | Leerlauf höchstens 30 Min. in der Administration, 8 Std. sonst; absolut 12 Std. (AN5; als Einstellung kürzer wählbar) | neu |
 | Heikle Aktionen | frischer zweiter Faktor (höchstens 15 Min. alt) für Rechte, Export, Löschen, Sicherheitseinstellungen | API C1 |
 | Zurücksetzen | einmaliger, kurzlebiger Link (60 Min.), verrät nicht, ob ein Konto existiert; Zurücksetzen des zweiten Faktors nur per Befehl auf dem Server mit Audit-Eintrag | Glossary |
 | Erste Admin | per Befehl auf dem Server, nie über die Website | Glossary |
@@ -86,7 +86,7 @@ zurückgesetzt werden sie nur per Befehl auf dem Server.
 | AN2 | Lokales Login bei aktivem Anbieter | für normale Konten gesperrt nach erfolgreicher Probeanmeldung; zwei Notfallkonten bleiben | BESCHLOSSEN 22.11.2026 |
 | AN3 | Regeln lokales Login | Tabelle 3 (Glossary plus NIST SP 800-63B-4) | BESCHLOSSEN 22.11.2026 |
 | AN4 | Externe mit Selbstregistrierung | Modus `mixed` als begründete Ausnahme je Modul | BESCHLOSSEN 22.11.2026 |
-| AN5 | Übergangsfrist, Sitzungsdauer, externe Passwortprüfung | Werte in 2 und 3 | ZU PRÜFEN |
+| AN5 | Übergangsfrist, Sitzungsdauer, externe Passwortprüfung | Vorschläge übernommen: 30 Tage; 30 Min. Administration, 8 Std. sonst, absolut 12 Std.; externe Prüfung nur per Schalter (Vorgabe aus); Werte als Einstellungen | BESCHLOSSEN 26.11.2026 |
 
 ## 7. Quellen
 
@@ -96,3 +96,4 @@ zurückgesetzt werden sie nur per Befehl auf dem Server.
 ## 8. Verlauf
 
 - 22.11.2026: Angelegt nach Entscheid W11 (Gesamtprüfung 0.4.0).
+- 26.11.2026: AN5 beschlossen (Vorschläge übernommen, Werte als Einstellungen).

@@ -81,6 +81,11 @@ Einheiten und Gruppen kommen aus `connect` (Stammdaten, DB E4). Die Prüfung mac
 `eduksx/core`**; Module schreiben keine eigene Logik für Geltungsbereiche. RLS in PostgreSQL bleibt die zweite Schicht
 (DB-E5, #34).
 
+**Reihenfolge in Core (BESCHLOSSEN 26.11.2026, API G3 «nichts auf Vorrat»):** zuerst Rechte aus Rollen
+(`reader`·`editor`·`admin` und Fachrollen), `abilities` im Steckbrief und die Matrix (§8). Geltungsbereiche
+(`unit`, `group`, `self`), Befristung, Stellvertretung und `*_sensitive` folgen, sobald das erste Modul sie braucht
+(voraussichtlich Time bzw. Intranet).
+
 ## 6. Befristung, Stellvertretung, Austritt (EMPFOHLEN)
 
 - **Befristet:** `valid_until` ist bei jeder Zuweisung möglich; abgelaufene Zuweisungen wirken nicht mehr und bleiben im
@@ -105,8 +110,9 @@ Einheiten und Gruppen kommen aus `connect` (Stammdaten, DB E4). Die Prüfung mac
 
 ## 8. Nachweis und Rezertifizierung (EMPFOHLEN)
 
-- **Rollen-Rechte-Matrix je Modul** als Datei `docs/ROLLEN-RECHTE.md`, **aus dem Code erzeugt** (Befehl in
-  `eduksx/core`, ZU PRÜFEN: Name `eduksx:abilities-matrix`); die CI prüft, dass Datei und Code übereinstimmen.
+- **Rollen-Rechte-Matrix je Modul** als Datei `docs/ROLLEN-RECHTE.md`, **aus dem Code erzeugt** (Befehl
+  `eduksx:rollen-rechte` in `eduksx/core`, BESCHLOSSEN 26.11.2026); `--check` in der CI prüft, dass Datei und Code
+  übereinstimmen.
 - **Jährliche Rezertifizierung:** Der `admin` jeder Organisation bestätigt einmal im Jahr die Liste der Zuweisungen;
   nicht bestätigte Zuweisungen von `admin` und `*_sensitive` laufen nach [30 Tagen] ab. Bestätigung im Protokoll.
 - Die Matrix ist Teil des Nachweises für das ISMS der Schule (KONZEPT-DATENSCHUTZ-ZH §6).
@@ -145,3 +151,4 @@ Vorschläge; ob der bisherige Moderator zu `moderator` + `editor` wird, ist ZU P
 ## 11. Verlauf
 
 - 25.11.2026: Konzept angelegt (#77), RO1–RO4 im Chat entschieden.
+- 26.11.2026: Befehl `eduksx:rollen-rechte` beschlossen; Reihenfolge der Umsetzung in Core nach API G3.
