@@ -90,7 +90,7 @@ immer vor** (WCAG 2.1 AA, eCH-0059).
 - Hell, dunkel oder System wählt die Person (DS8).
 - **Ausnahme Codex-Einbettung (DS14):** Für die auf der Homepage einer Gemeinde eingebettete Rechtssammlung darf die
   Gemeinde eigenes CSS hinterlegen (geprüft beim Speichern, wirkt nur im Baustein, Kontrastprüfung warnt). Codex selbst
-  und seine Administration bleiben bei DS4 ([KONZEPT-CODEX.md](KONZEPT-CODEX.md) §4.2).
+  und seine Administration bleiben bei DS4 ([KONZEPT-CODEX.md](https://github.com/MarkusKeller8200/EduKSX-Codex/blob/main/docs/KONZEPT-CODEX.md) §4.2).
 
 **Intranet (BESCHLOSSEN):** Das Intranet stellt auf `@eduksx/ui` und den Standard «EduKSX» um; das heutige Aussehen
 (Farben der Sekundarschule Bülach, Open Sans) bleibt als **Theme der Instanz** erhalten. Umsetzung als Issue im
@@ -143,7 +143,7 @@ Intranet (#83), nicht rückwirkend.
 | DS11 | Mitgelieferte Themes (Idee EduKSX-UI #18) | EduKSX plus Hoher Kontrast und Violett; weitere je Organisation, Auswahl durch die Person aus den vom Org-Admin freigegebenen | BESCHLOSSEN 22.11.2026 |
 | DS12 | GUI-Profile nach Modul- und Ansichtsart (Idee EduKSX-UI #23) | Regeltabelle im Guideline-Text von EduKSX-UI, ohne eigene Technik | BESCHLOSSEN 22.11.2026 |
 | DS13 | GUI-Tester (Idee EduKSX-UI #21) | Testseite von EduKSX-UI wird zum GUI-Tester ausgebaut: Erscheinungsbild, Themes in der Vorschau, je Baustein Beispiele, Versionen und Status, Überarbeitung, Wünsche (Regeln aus dem Intranet übernommen, nicht verlinkt) | BESCHLOSSEN 22.11.2026 |
-| DS14 | Eigenes CSS für eingebettete Inhalte bei Dritten | Ausnahme zu DS4 nur für die Codex-Einbettung auf Gemeinde-Homepages; CSS geprüft, im Baustein gekapselt, Kontrastprüfung warnt; Verantwortung bei der Gemeinde ([Codex](KONZEPT-CODEX.md) CX4) | BESCHLOSSEN 26.11.2026 |
+| DS14 | Eigenes CSS für eingebettete Inhalte bei Dritten | Ausnahme zu DS4 nur für die Codex-Einbettung auf Gemeinde-Homepages; CSS geprüft, im Baustein gekapselt, Kontrastprüfung warnt; Verantwortung bei der Gemeinde ([Codex](https://github.com/MarkusKeller8200/EduKSX-Codex/blob/main/docs/KONZEPT-CODEX.md) CX4) | BESCHLOSSEN 26.11.2026 |
 
 ## 9. Verlauf
 

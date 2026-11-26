@@ -18,6 +18,8 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Geändert
 
+- **Konzept Codex verschoben (#119, #121):** `docs/KONZEPT-CODEX.md` liegt neu im Repo EduKSX-Codex (inkl. §6 Aufnahme
+  und Pflege der Dokumente, CX9–CX16); hier nur noch Verweise (README, Modulübersicht, Design DS14, Plugins P9).
 - **Entscheide 26.11.2026:** KONZEPT-ANMELDUNG AN5 beschlossen (30 Tage Übergangsfrist; Sitzung 30 Min./8 Std./12 Std.; externe Passwortprüfung nur per Schalter); KONZEPT-ROLLEN: Befehl `eduksx:rollen-rechte`, Umsetzung in Core nach API G3 (Rechte, `abilities`, Matrix zuerst).
 - **Schema S4 (`event.schema.json`):** optionales Feld `traceparent` (W3C Trace Context) für die Weitergabe des Traces
   in Ereignissen (KONZEPT-PROTOKOLLIERUNG §7); Beispiele gültig und ungültig.
