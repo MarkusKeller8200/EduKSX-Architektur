@@ -47,6 +47,7 @@ Intranet (Gastgeber)                         Modul (z. B. Glossary)
 | P6 | Sicherheit | – | Skripte nur vom Host des Moduls, mit Subresource Integrity bzw. fester Version im Pfad (`/ui/v1/`); CSP des Gastgebers listet erlaubte Module; Tokens nur mit `aud` des Moduls, höchstens 10 Min. | BESCHLOSSEN 13.11.2026 |
 | P7 | Selbst-Hosting | – | lokale Gastgeber dürfen zentrale Module (Glossary, Codex) einbinden – nur öffentliche Daten, ohne Anmeldung (SH-E12) | BESCHLOSSEN 13.11.2026 |
 | P8 | Versionierung | – | `ui` gehört zur Steckbrief-Version v1; Komponenten-Pfade tragen die Hauptversion (`/ui/v1/`); Brüche nur mit `/ui/v2/` parallel | BESCHLOSSEN 13.11.2026 |
+| P9 | Einbettung bei Dritten (Homepages) | – | eigener Fall, kein Plugin: Codex-Einbettung auf Gemeinde-Homepages per JS-Baustein, iFrame (Rückfall) oder öffentlicher API, nur öffentliche Inhalte ([Codex](KONZEPT-CODEX.md) CX3) | BESCHLOSSEN 26.11.2026 |
 
 ## 4. Umsetzung
 
@@ -98,5 +99,6 @@ Intranet (Gastgeber)                         Modul (z. B. Glossary)
 
 ## 6. Verlauf
 
+- 26.11.2026: P9 Einbettung bei Dritten (Codex, #119).
 - 13.11.2026: Konzeptabschluss – alle Entscheide ausser den vom PoC abhängigen beschlossen; eingefroren mit 0.3.0.
 - 13.11.2026: Konzept angelegt; P1, P2 im Chat beschlossen.

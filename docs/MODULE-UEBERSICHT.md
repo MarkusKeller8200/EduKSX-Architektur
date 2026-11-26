@@ -74,9 +74,14 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
 - **Stack:** Übersicht über Anwendung und Auslieferung in [STACK-GLOSSARY.md](STACK-GLOSSARY.md).
 
 ### codex – systematische Rechtssammlung
-- **Macht:** Erlasse und Reglemente jeder Gemeinde mit Systematik, Versionen und Gültigkeit, öffentliche Publikation;
-  später Gegenüberstellung mehrerer Gemeinden.
-- **Nicht:** keine Unterschriften (→ `sign`), keine allgemeinen Dokumentablagen (→ `intranet`).
+- **Macht:** Erlasse und Reglemente jeder Schul- und politischen Gemeinde mit Systematik, Versionen und Gültigkeit;
+  öffentlich lesbar wie Glossary, Anmeldung wie Glossary (lokal, Ident optional). Jede Gemeinde nutzt Codex als eigene
+  Rechtssammlung und bindet sie auf ihrer Homepage ein (JS-Baustein, iFrame oder öffentliche API) – mit eigenem CSS
+  bzw. einem Template nach ihrer Homepage. Optionale Mustersystematik (Nummerierung, Namen), der die Gemeinde ihre
+  Erlasse zuordnet oder Einträge deaktiviert; später Gegenüberstellung mehrerer Gemeinden
+  ([KONZEPT-CODEX.md](KONZEPT-CODEX.md), #119).
+- **Nicht:** keine Unterschriften (→ `sign`), keine allgemeinen Dokumentablagen (→ `intranet`), keine
+  Genehmigungsabläufe (→ `flow`).
 
 ### connect – Stammdaten und Sync
 - **Macht:** Personen (auch ohne Login), Klassen, Schuljahre mit Plattform-ID; Zuordnung der IDs in Fremdsystemen
