@@ -39,7 +39,8 @@ EDGES = [
     ("portal", "flow", "dienst", "Portal übergibt eingegangene Formulare an Flow"),
     ("flow", "sign", "dienst", "Flow ruft Sign als Schritt auf"),
     ("planner", "flow", "dienst", "Planner liefert Termine an Flow (Auslöser, Fristen)"),
-    ("timetable", "staffing", "offen", "Timetable und Staffing: Stellvertretungen offen"),
+    ("planner", "timetable", "dienst", "Planner liefert unterrichtsfreie Tage und Spezialwochen an Timetable"),
+    ("staffing", "timetable", "dienst", "Staffing liefert Stellvertretungen an Timetable"),
 ]
 FARBE = {"daten": "var(--brand-orange)", "dienst": "var(--brand-blue)", "plugin": "var(--brand-violet)",
          "offen": "var(--muted-foreground)"}
@@ -65,7 +66,7 @@ def svg(icon):
     out = [f'<svg class="graph" viewBox="0 0 {W} {H}" role="img" aria-labelledby="g-titel g-desc">',
            '<title id="g-titel">Wie die EduKSX-Module zusammenarbeiten</title>',
            '<desc id="g-desc">Connect liefert Stammdaten an Licence, Timetable, Staffing, Portal und Ident und gleicht sie mit '
-           'Fremdsystemen ab. Shop übergibt Lizenzen an Licence. Intranet, Portal, Codex und Flow nutzen Sign. Portal übergibt Formulare an Flow, Planner liefert Termine an Flow. Intranet bindet '
+           'Fremdsystemen ab. Shop übergibt Lizenzen an Licence. Intranet, Portal, Codex und Flow nutzen Sign. Portal übergibt Formulare an Flow, Planner liefert Termine an Flow und Timetable, Staffing liefert Stellvertretungen an Timetable. Intranet bindet '
            'Glossary und Codex als Plugins ein. Alle Module nutzen Core und optional Ident. Die Liste unter der Grafik '
            'nennt alle Verbindungen.</desc>', '<defs>']
     for art, f in FARBE.items():
@@ -112,5 +113,7 @@ def liste():
     li = []
     for art, titel in gruppen.items():
         punkte = "".join(f"<li>{esc(t)}</li>" for a, b, k, t in EDGES if k == art)
+        if not punkte:
+            continue
         li.append(f'<div><h3><i class="ln {art}"></i>{titel}</h3><ul>{punkte}</ul></div>')
     return "".join(li)

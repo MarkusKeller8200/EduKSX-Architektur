@@ -20,7 +20,7 @@ verweisen direkt dorthin; dieses Repo hält keine Kopien mehr (seit 22.11.2026).
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-licence-color.svg" width="32" alt=""> | EduKSX-Licence | `licence` | Zuweisung von Softwarelizenzen und Plattformzugängen | viele | geplant |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-timetable-color.svg" width="32" alt=""> | EduKSX-Timetable «Stundenplan» | `timetable` | Planen von Stundenplänen: SuS, LP, Räume und Lektionen | viele | geplant |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-staffing-color.svg" width="32" alt=""> | EduKSX-Staffing «Einsatzplanung» | `staffing` | Planen von Mitarbeitenden und vor allem Lehrpersonen | viele | geplant |
-| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-planner-color.svg" width="32" alt=""> | EduKSX-Planner «Jahresplanung» | `planner` | Jahresplanung und Jahreskalender: Schuljahr, Termine, Ferien, Anlässe (Icon EduKSX-UI #49) | offen | aktiv (Repo EduKSX-Planner, leer) |
+| <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-planner-color.svg" width="32" alt=""> | EduKSX-Planner «Jahresplanung» | `planner` | Jahreskalender und Jahresplanung: Ferien, unterrichtsfreie Tage, Anlässe, Spezialwochen, Organisationsplanung (Icon EduKSX-UI #49) | offen | aktiv (Repo EduKSX-Planner, leer) |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-flow-color.svg" width="32" alt=""> | EduKSX-Flow | `flow` | fachliche Abläufe: Schritte, Zuständigkeiten und Fristen, die Vorgänge in den anderen Modulen aufrufen | viele | aktiv |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-time-color.svg" width="32" alt=""> | EduKSX-Time | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | viele | aktiv (Repo EduKSX-Time) |
 | <img src="https://raw.githubusercontent.com/MarkusKeller8200/EduKSX-UI/main/icons/svg/eduksx-shop-color.svg" width="32" alt=""> | EduKSX-Shop | `shop` | interner Shop für Hard- und Software, Schwerpunkt Klassenbestellungen | mittel | aktiv (Repo EduKSX-Shop) |
@@ -42,7 +42,7 @@ um `connect`.
                                     ├─ timetable
                                     └─ staffing
  Dienste für Mitarbeitende time · shop · sign
- Planung                   planner (Zuordnung OFFEN)
+ Planung und Abläufe       planner ── flow
  Zugänge                   intranet (intern) · portal (extern)
 ```
 
@@ -82,7 +82,8 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
 - **Macht:** Personen (auch ohne Login), Klassen, Schuljahre mit Plattform-ID; Zuordnung der IDs in Fremdsystemen
   (M365/Entra, Google, Apple School Manager, Escola, CMI, LMVZ …); Abgleich mit Protokoll und Ereignissen (#43).
 - **Nicht:** keine Anmeldung (→ `ident`, das für `connect` ein Zielsystem ist), keine Lizenzlogik (→ `licence`),
-  keine Stundenpläne.
+  keine Stundenpläne, keine Termine im Schuljahr (→ `planner`). `connect` ist führend für das Schuljahr (ID, Beginn,
+  Ende; #115).
 
 ### licence – Lizenzen und Zugänge
 - **Macht:** welche Person bzw. Klasse welche Software-Lizenz oder welchen Plattformzugang erhält; Zuweisung und
@@ -91,20 +92,28 @@ APIs und Ereignisse (Plattform §5, DB E2) – kein Modul greift auf die Datenba
   Teil von `connect`: OFFEN (#43).
 
 ### timetable – Stundenplan
-- **Macht:** Lektionen, Klassen, SuS-Gruppen, LP und Räume zu einem Stundenplan; Änderungen und Ausfälle.
-- **Nicht:** keine Arbeitszeit (→ `time`), keine Personaleinsatzplanung ausserhalb des Unterrichts (→ `staffing`).
-  Bezieht Personen und Klassen aus `connect`. OFFEN: Stellvertretungen hier oder in `staffing`.
+- **Macht:** Lektionen, Klassen, SuS-Gruppen, LP und Räume zu einem Stundenplan; Änderungen und Ausfälle. Liest
+  unterrichtsfreie Tage, Spezialwochen und Lager aus `planner` und lässt die Lektionen an diesen Tagen ausfallen oder
+  ersetzt sie; zeigt bei betroffenen Lektionen die Stellvertretung aus `staffing` an (#115).
+- **Nicht:** keine Arbeitszeit (→ `time`), keine Personaleinsatzplanung ausserhalb des Unterrichts (→ `staffing`),
+  keine Stellvertretungen planen (→ `staffing`), keine Termine im Schuljahr (→ `planner`). Bezieht Personen und
+  Klassen aus `connect`.
 
 ### staffing – Einsatzplanung
 - **Macht:** Pensen und Einsätze von Mitarbeitenden und Lehrpersonen planen (wer arbeitet wann, wo, mit welchem
-  Pensum).
+  Pensum); Stellvertretungen (wer vertritt wen, wann; beschlossen 26.11.2026, #115).
 - **Nicht:** keine Lektionsplanung (→ `timetable`), keine erfasste Ist-Zeit (→ `time`).
 
 ### planner – Jahresplanung
-- **Macht:** Jahresplanung und Jahreskalender: Schuljahr, Termine, Ferien, Anlässe (beschlossen 26.11.2026, #112).
-  Stellt Termine anderen Modulen bereit, z. B. als Auslöser oder Frist für `flow`.
-- **Nicht:** keine Abläufe (→ `flow`), keine Lektionen (→ `timetable`), keine Einsätze (→ `staffing`).
-- **OFFEN:** Inhalt der Jahresplanung im Einzelnen; Abgrenzung zu `timetable`/`staffing`.
+- **Macht:** Jahreskalender und Jahresplanung je Schuljahr (beschlossen 26.11.2026, #112, #115):
+  - Ferien und unterrichtsfreie Tage (Brückentage, schulfreie Halbtage, Weiterbildungstage der LP)
+  - Anlässe und Spezialwochen (Projektwochen, Lager, Sporttage, Elternabende) mit Klassen bzw. Teilnehmenden
+  - Organisationsplanung der Schulleitung: Fristen, Sitzungen, Konvente, Zuständigkeiten
+  - Hängt die Termine an das Schuljahr aus `connect` und stellt sie über API und Ereignisse bereit – für `timetable`
+    (Ausfall, Ersatz) und `flow` (Auslöser, Fristen).
+- **Nicht:** kein eigenes Schuljahr als Stammdaten (→ `connect`), keine Abläufe (→ `flow`), keine Lektionen und
+  keine Ersatzstundenpläne (→ `timetable`), keine Einsätze und Stellvertretungen (→ `staffing`), keine Stoff- oder
+  Themenplanung des Unterrichts.
 
 ### flow – Abläufe
 - **Macht:** fachliche Abläufe mit Menschen: Schritte, Zuständigkeiten, Aufgaben, Bewilligungen, Fristen und Status.
