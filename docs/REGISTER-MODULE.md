@@ -37,7 +37,7 @@ Beschreibung, Abgrenzung und Icons je Modul: [MODULE-UEBERSICHT.md](MODULE-UEBER
 | `time` | Zeiterfassung für Mitarbeitende und Lehrpersonen bzw. Anbindung externer Systeme | EduKSX-Time | EduKSX-Time | offen | aktiv (Repo angelegt 16.11.2026) |
 | `staffing` | Einsatzplanung von Mitarbeitenden und vor allem Lehrpersonen | EduKSX-Staffing | – | offen | geplant |
 | `flow` | fachliche Abläufe: Schritte, Zuständigkeiten und Fristen, die Vorgänge in den anderen Modulen aufrufen | EduKSX-Flow | EduKSX-Flow | offen | aktiv (Repo angelegt, Prototyp in EduKSX-Prototyp) |
-| `planner` | Jahresplanung und Jahreskalender | EduKSX-Planner | EduKSX-Planner | offen | aktiv (Repo angelegt, noch leer) |
+| `planner` | Jahreskalender und Jahresplanung: Ferien, Anlässe, Spezialwochen, Organisationsplanung | EduKSX-Planner | EduKSX-Planner | offen | aktiv (Repo angelegt, noch leer) |
 | `services` | Produktfamilie | – | – | – | reserviert (noch nicht definiert) |
 
 **Kein Modul:** Repo **EduKSX-Suite** (angelegt 13.11.2026, leer) ist das Verteilpaket für das Selbst-Hosting (Installer, Update-Dienst,
