@@ -2,7 +2,7 @@
 
 **Status: ENTWURF, nicht freigegeben.** Stand 28.11.2026, entstanden im Chat. Kein Punkt dieses Dokuments ist
 beschlossen. Es wurde **nicht** vollständig mit den beschlossenen Konzepten abgeglichen; die bekannten Widersprüche
-stehen in §6 und brauchen je einen Entscheid über `konzept-anpassung`, bevor etwas umgesetzt wird.
+und die Richtungsentscheide vom 28.11.2026 stehen in §6. Umgesetzt wird erst über die dort genannten Issues.
 
 Datei: [`datenmodell/kontakt-kern.dbml`](datenmodell/kontakt-kern.dbml), Arbeitsweise:
 [`datenmodell/README.md`](datenmodell/README.md).
@@ -69,20 +69,28 @@ Entwurf, 77 sind Angaben von Bezugspersonen (dieselben Tabellen über die Bezieh
 Fachmodule (Schullaufbahn und Statistik, Gesundheit, sonderpädagogische Massnahmen, Konto, Abgleich, Nachrichten,
 Finanzen).
 
-## 6. Widersprüche zu beschlossenen Konzepten (OFFEN)
+## 6. Widersprüche zu beschlossenen Konzepten und Entscheide vom 28.11.2026
 
-| Nr. | Entwurf | Beschlossen | Zu entscheiden |
+Die Projektverantwortliche hat am 28.11.2026 im Chat je Widerspruch die **Richtung** entschieden. Die beschlossenen
+Konzepte sind damit noch **nicht** geändert; dafür gibt es je ein Issue `konzept-anpassung` (Status `triage`,
+Umsetzung erst nach Freigabe).
+
+| Nr. | Widerspruch | Entscheid 28.11.2026 | Issue |
 | --- | --- | --- | --- |
-| W1 | Kontakt-Kern als gemeinsame Tabellen, auf die People und Fachmodule verweisen | DB-Standard E2: Schema je Modul, kein Zugriff auf das Schema eines anderen Moduls; E3: Personen über Modulgrenzen nur mit `issuer` + `subject` bzw. `platform_id` | Ist der Kontakt-Kern ein eigenes Modul mit API, Teil von `connect`, oder eine Bibliothek, deren Tabellen in jedem Modul liegen? |
-| W2 | Klassen, Schulhäuser und Zuordnung von Personen als Verbund und Zugehörigkeit im Kontakt-Kern | DB-E17: Stammdaten einer Organisation führt `connect` und bietet sie über seine API an | Wer führt diese Stammdaten: `connect` oder der Kontakt-Kern? |
-| W3 | Länder, Gemeinden und Ortschaften als mitgelieferte Tabellen | DB-E17: feste Codelisten liegen versioniert als Code in `eduksx/core`, keine Tabelle | Gilt DB-E17 auch für grosse Listen (mehrere tausend Einträge, mit Nachfolgern), oder werden diese als Tabellen-Paket geliefert? |
-| W4 | Zusätzliche Stufe «erhöhter Schutz» für Grenzfälle | B2 kennt fünf Datenklassen | Sechste Klasse, Merkmal an der Klasse «personenbezogen», oder Grenzfälle als «besonders schützenswert» führen? |
-| W5 | Massnahmen je Klasse (feldweise Verschlüsselung, Sperre in Export und Suche, zwingende Zwei-Faktor-Anmeldung) | B2, B6, B11 regeln Historie, Verschlüsselung und Leseprotokoll bereits | Abgleichen; nur Lücken als Anpassung beantragen |
-| W6 | Katalog der Verwendungen und «Rechte je Verwendung» | KONZEPT-ROLLEN (#77) | Verhältnis von Verwendung zu Rolle und Geltungsbereich klären |
-| W7 | Neue Bereiche People und Referenzdaten sowie weitere mögliche Module aus der Modul-Landkarte | Modulschlüssel nur aus `REGISTER-MODULE.md` | Aufnahme ins Register erst nach Entscheid |
-| W8 | Pflichtspalten nach A3a nicht ausgeschrieben; Mandant (`organization_id`) nicht modelliert | A3a, B1 | Vor einer Umsetzung ergänzen |
+| W1 | Entwurf: Kontakt-Kern als gemeinsame Tabellen. Beschlossen: Schema je Modul (E2), Personen über Modulgrenzen nur als Referenz (E3) | **`connect` führt die Kontaktdaten.** Andere Module halten nur die Personenreferenz aus Core (C7). Das Modell dieses Entwurfs wird Grundlage für das Konzept `connect` | #126, #43 |
+| W2 | Entwurf: Klassen und Schulhäuser im Kontakt-Kern. Beschlossen: führt `connect` (DB-E17) | **`connect` bleibt führend;** Fachmodul `registry` (Klasseneinteilung, Schullaufbahn, Statistik) arbeitet damit | #127 |
+| W3 | Entwurf: Referenzdaten als Tabellen. Beschlossen: Codelisten als Code in `eduksx/core` (DB-E17) | **Alle Listen als Tabellen,** aktualisiert über den Update-Dienst der Suite; die Schule kann eigene Einträge hinzufügen sowie Einträge aktivieren und deaktivieren | #128 |
+| W4 | Entwurf: Stufe «erhöhter Schutz». Beschlossen: fünf Datenklassen (B2) | **Merkmal «erhöhter Schutz»** zur Klasse «personenbezogen»; B2 behält fünf Klassen | #129 |
+| W5 | Entwurf: eigene Massnahmentabelle. Beschlossen: Verschlüsselung (B6), Leseprotokoll (B11), `read_sensitive` (RO3) | **Nur die Lücken:** heikle Felder standardmässig nicht in Export, Suche und Schnittstellen | #129 |
+| W6 | Entwurf: Katalog «Verwendung» mit Rechten je Verwendung. Beschlossen: Personengruppen ohne Rechte, Rechte nur aus Rollen (KONZEPT-ROLLEN §2, RO3) | **Verwendung = Personengruppe.** Liste um Mitarbeitende und Behördenmitglied ergänzen; Mehrfachzugehörigkeit mit Zeitraum; Rechte nur aus Rollen | #130 |
+| W7 | Entwurf: neue Module. Beschlossen: Schlüssel nur aus dem Register | **`registry` und `health` als «geplant» eintragen;** `people` entfällt (W1) | #127 |
+| W8 | Pflichtspalten nach A3a und Mandant nicht ausgeschrieben | bleibt so, bis feststeht, in welchem Schema die Tabellen liegen (Hinweis im Kopf der DBML-Datei) | – |
 
-Nicht abgeglichen wurden KONZEPT-CORE, KONZEPT-IDENT, KONZEPT-ROLLEN und KONZEPT-PROTOKOLLIERUNG.
+Die DBML-Datei ist auf diese Entscheide angepasst: Personengruppen statt Verwendungen, alle Referenzlisten als Tabellen
+mit Herkunft (`entry_source`) und `is_active`, Bereiche als Teil von `connect`. Wo in §1 bis §5 noch «Verwendung»,
+«Kontakt-Kern» oder «People» steht, ist nach W1 und W6 `connect` bzw. die Personengruppe gemeint.
+
+Nicht abgeglichen wurden KONZEPT-CORE, KONZEPT-IDENT, KONZEPT-ANMELDUNG und KONZEPT-PROTOKOLLIERUNG.
 
 ## 7. Weitere offene Punkte
 
@@ -106,3 +114,4 @@ Abbilder des Entwurfs; private Arbeitsflächen der Projektverantwortlichen. Mass
 ## Verlauf
 
 - 28.11.2026: Entwurf aus dem Chat abgelegt (#124).
+- 28.11.2026: Richtungsentscheide W1–W8; DBML angepasst; Issues #126–#130 angelegt.

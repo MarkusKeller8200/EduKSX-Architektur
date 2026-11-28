@@ -5,7 +5,7 @@
 
 | Datei | Inhalt |
 | --- | --- |
-| [`kontakt-kern.dbml`](kontakt-kern.dbml) | Kontakt, Verwendung, Verbund, Beziehung; Stammdaten der Person (People); Referenzdaten. 29 Tabellen, 15 Enums. |
+| [`kontakt-kern.dbml`](kontakt-kern.dbml) | Kontakt, Personengruppe, Verbund, Beziehung; Stammdaten der Person; Referenzlisten. 31 Tabellen, 16 Enums. |
 
 ## Arbeitsweise
 

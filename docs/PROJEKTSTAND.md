@@ -23,7 +23,7 @@
 | Rollen und Rechte, Steckbrief `abilities` (#77) | beschlossen 25.11.2026, Core-Baustein und Glossary-Umstellung offen (#83) | unveröffentlicht | `docs/KONZEPT-ROLLEN.md` |
 | Datenschutz Kanton Zürich, DB-Standard 1.5 (#78) | beschlossen 25.11.2026, Prüfung durch Fachperson offen (#22) | unveröffentlicht | `docs/KONZEPT-DATENSCHUTZ-ZH.md` |
 | Technologie-Stack, Versionen, `ci:check`, Feature-Schalter (#79) | beschlossen 25.11.2026, Umstellung der Module bis 31.12.2026 offen (#83) | unveröffentlicht | `docs/KONZEPT-STACK.md` |
-| Entwurf Datenmodell Kontakt-Kern (#124) | **ENTWURF**, nicht freigegeben; Widersprüche W1–W8 offen | unveröffentlicht | `docs/ENTWURF-DATENMODELL.md`, `docs/datenmodell/` |
+| Entwurf Datenmodell Kontakt-Kern (#124) | **ENTWURF**, nicht freigegeben; Richtung W1–W8 entschieden 28.11.2026, Konzept-Anpassungen offen (#126–#130) | unveröffentlicht | `docs/ENTWURF-DATENMODELL.md`, `docs/datenmodell/` |
 
 ## Umsetzung in den Modul-Repos (Stand 14.11.2026)
 
