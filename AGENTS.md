@@ -68,3 +68,15 @@ Aus dem GitHub-Blueprint, Details in `docs/GITHUB-ABLAUF.md`.
 - Nichtziel: keine Betriebsanleitung je Kunde (gehört in den Leitstand)
 
 <!-- /blueprint:github-ablauf -->
+
+## Datenmodell und Ansichten
+
+- **Das Datenmodell liegt im Repository:** `docs/datenmodell/*.dbml` (DBML), beschrieben in
+  `docs/ENTWURF-DATENMODELL.md`, Arbeitsweise in `docs/datenmodell/README.md`.
+- **Dort wird es bearbeitet.** Änderungen an Tabellen, Feldern, Beziehungen, Datenklassen oder Datenarten kommen per
+  Branch und Pull Request in die DBML-Datei – nicht nur in ein Whiteboard, einen Chat oder ein Zeichenwerkzeug.
+- **Ansichten ausserhalb** (Whiteboards, drawDB im Browser, Bildschirmfotos) sind Abbilder. Sie stehen in
+  `docs/ENTWURF-DATENMODELL.md` §8; weichen sie ab, gilt die Datei. Wer eine Ansicht ändert, führt die Datei nach.
+- **Vor jeder Arbeit am Datenmodell** die DBML-Datei und die Widersprüche in `docs/ENTWURF-DATENMODELL.md` §6 lesen.
+  Der Entwurf ist nicht freigegeben; beschlossene Konzepte gehen vor.
+- Nach jeder Änderung prüfen: `npx --package=@dbml/cli dbml2sql docs/datenmodell/kontakt-kern.dbml --postgres`.
