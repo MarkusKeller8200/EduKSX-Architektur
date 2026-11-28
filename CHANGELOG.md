@@ -8,6 +8,9 @@ Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/), Versione
 
 ### Hinzugefügt
 
+- **Entwurf Datenmodell Kontakt-Kern (#124):** `docs/datenmodell/kontakt-kern.dbml` (DBML, 31 Tabellen, 16 Enums, Namen nach
+  DB-Standard A1), `docs/datenmodell/README.md` (Arbeitsweise mit drawDB), `docs/ENTWURF-DATENMODELL.md` mit Datenarten und
+  acht Widersprüchen zu beschlossenen Konzepten samt Richtungsentscheiden vom 28.11.2026 (Issues #126–#130); Vermerk «Datenmodell und Ansichten» in `AGENTS.md`. Status ENTWURF.
 - **Konzept Codex (#119, Entscheide 26.11.2026):** neues `docs/KONZEPT-CODEX.md` mit CX1–CX8 – öffentlich wie Glossary
   (Funktionsliste ZU PRÜFEN), Anmeldung wie Glossary, Einbindung bei Gemeinden per JS-Baustein, iFrame oder API, eigenes
   CSS je Gemeinde nur für die Einbettung (Ausnahme DS14 zu DS4), optionale Mustersystematik mit Zuordnung und

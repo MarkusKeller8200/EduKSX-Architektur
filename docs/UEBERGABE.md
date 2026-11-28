@@ -4,6 +4,16 @@ Stand: **22.11.2026** – Release 0.3.0 «Konzept abgeschlossen» (eingefroren);
 [PROJEKTSTAND.md](PROJEKTSTAND.md) (aktuell), [PROJEKTSTAND-ARCHIV.md](PROJEKTSTAND-ARCHIV.md) (Verlauf), Konzepte in
 `docs/KONZEPT-*.md`. Bei jeder Übergabe nachführen.
 
+## Nachtrag 28.11.2026: Entwurf Datenmodell (#124)
+
+- Entwurf Kontakt-Kern liegt in `docs/datenmodell/kontakt-kern.dbml`, Beschreibung in `docs/ENTWURF-DATENMODELL.md`.
+  **Nicht freigegeben.** Bearbeitet wird die DBML-Datei im Repository (AGENTS.md › «Datenmodell und Ansichten»).
+- **Richtung entschieden 28.11.2026** (ENTWURF-DATENMODELL §6): Kontaktdaten führt `connect`; `registry` und `health` als
+  neue Module; Referenzlisten als Tabellen über den Update-Dienst der Suite; Merkmal «erhöhter Schutz»; Verwendung =
+  Personengruppe. Die Konzepte sind noch nicht geändert: Issues #126–#130 (`konzept-anpassung`, `triage`).
+- Die Modul-Landkarte (Tabelle mit Stichworten, Abhängigkeiten, Anbietern) liegt **nicht** im Repository, weil sie die
+  heute eingesetzten Plattformen einer Schule nennt.
+
 ## Start nächster Chat (Übergabe 13.11.2026, 20:45)
 
 **Zuerst lesen:** CLAUDE.md → AGENTS.md → dieser Abschnitt → PROJEKTSTAND.md → passende KONZEPT-*.md.

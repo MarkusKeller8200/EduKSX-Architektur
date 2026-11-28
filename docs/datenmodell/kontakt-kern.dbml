@@ -1,0 +1,439 @@
+// EduKSX – Datenmodell Kontakt-Kern (3. Normalform)
+// Status: ENTWURF, nicht freigegeben. Stand 28.11.2026.
+// Namen, Schlüssel und Enums nach docs/KONZEPT-DB-GUIDELINE.md (A1, A3, A4); Datenklassen nach B2.
+// Pflichtspalten nach A3a (created_at, created_by_id, updated_at, updated_by_id, lock_version, organization_id)
+// gelten für jede Tabelle und sind hier der Lesbarkeit halber NICHT ausgeschrieben.
+// Entscheide vom 28.11.2026 (W1–W8) und offene Anpassungen: siehe docs/ENTWURF-DATENMODELL.md §6.
+// Die Tabellen gehören nach W1 fachlich zu connect; Referenzdaten werden nach W3 als Tabellen geliefert.
+
+Project eduksx_kontakt_kern {
+  database_type: 'PostgreSQL'
+  Note: 'ENTWURF, nicht freigegeben. Stand 28.11.2026.'
+}
+
+Enum contact_type {
+  person
+  legal_entity
+}
+
+Enum contact_status {
+  active
+  former
+}
+
+Enum person_group {
+  school_management
+  administration
+  teacher
+  student
+  guardian
+  it
+  external
+  employee
+  board_member
+}
+
+Enum entry_source {
+  delivered
+  own
+}
+
+Enum group_type {
+  household
+  school_class
+  school_building
+  committee
+}
+
+Enum relationship_type {
+  guardian_of
+  emergency_contact_of
+  works_for
+  sibling_of
+  contact_person_of
+}
+
+Enum channel_type {
+  email
+  phone
+  mobile
+  fax
+  website
+}
+
+Enum restriction_type {
+  address_blocked
+  information_blocked
+  contact_forbidden
+}
+
+Enum salutation {
+  ms
+  mr
+  neutral
+}
+
+Enum gender {
+  female
+  male
+  diverse
+  unknown
+}
+
+Enum civil_status {
+  single
+  married
+  registered_partnership
+  divorced
+  widowed
+  separated
+  unknown
+}
+
+Enum address_type {
+  home
+  postal
+  business
+  billing
+}
+
+Enum consent_type {
+  contact_visible
+  photo
+  public_staff_list
+  portrait_download
+}
+
+Enum language_type {
+  first
+  colloquial
+  other
+}
+
+Enum data_class {
+  public
+  internal
+  personal
+  special
+  secret
+}
+
+Enum custom_field_type {
+  text
+  number
+  date
+  boolean
+}
+
+Table contacts {
+  id uuid [pk, note: 'Datenklasse: personenbezogen. UUID v7']
+  platform_id uuid [unique, note: 'Datenklasse: personenbezogen. ID aus Ident, leer erlaubt (E3)']
+  contact_type contact_type [not null, note: 'Datenklasse: personenbezogen']
+  status contact_status [not null, note: 'Datenklasse: personenbezogen']
+  delete_on date [note: 'Datenklasse: personenbezogen. Löschfrist']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table persons {
+  contact_id uuid [pk, ref: - contacts.id, note: 'Datenklasse: personenbezogen']
+  official_last_name text [not null, note: 'Datenklasse: personenbezogen']
+  official_first_name text [not null, note: 'Datenklasse: personenbezogen']
+  alias_last_name text [note: 'Datenklasse: personenbezogen. alternativer Name']
+  alias_first_name text [note: 'Datenklasse: personenbezogen. Rufname, alternativer Vorname']
+  salutation salutation [note: 'Datenklasse: personenbezogen']
+  title text [note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table legal_entities {
+  contact_id uuid [pk, ref: - contacts.id, note: 'Datenklasse: personenbezogen']
+  name text [not null, note: 'Datenklasse: personenbezogen']
+  legal_entity_type_id uuid [ref: > legal_entity_types.id, note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table contact_person_groups {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  person_group person_group [not null, note: 'Datenklasse: personenbezogen. Personengruppe nach KONZEPT-ROLLEN §2']
+  valid_from date [note: 'Datenklasse: personenbezogen']
+  valid_until date [note: 'Datenklasse: personenbezogen. leer = offen']
+  short_code text [note: 'Datenklasse: personenbezogen. Kürzel in dieser Funktion']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table contact_channels {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  channel_type channel_type [not null, note: 'Datenklasse: personenbezogen']
+  contact_person_group_id uuid [ref: > contact_person_groups.id, note: 'Datenklasse: personenbezogen. optional: gilt nur in dieser Personengruppe']
+  value text [not null, note: 'Datenklasse: personenbezogen. Adresse oder Nummer']
+  is_preferred boolean [not null, note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table module_person_groups {
+  id bigint [pk, note: 'Datenklasse: intern']
+  module_key text [not null, note: 'Datenklasse: intern. Modulschlüssel nach REGISTER-MODULE']
+  person_group person_group [not null, note: 'Datenklasse: intern']
+  indexes {
+    (module_key, person_group) [unique]
+  }
+  Note: 'Bereich: connect: Kontakte. Datenart: Systemkatalog.'
+}
+
+Table groups {
+  id uuid [pk, note: 'Datenklasse: intern']
+  group_type group_type [not null, note: 'Datenklasse: intern']
+  name text [not null, note: 'Datenklasse: intern']
+  valid_from date [note: 'Datenklasse: intern']
+  valid_until date [note: 'Datenklasse: intern. leer = offen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table memberships {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  group_id uuid [not null, ref: > groups.id, note: 'Datenklasse: personenbezogen']
+  membership_function_id uuid [ref: > membership_functions.id, note: 'Datenklasse: personenbezogen']
+  valid_from date [note: 'Datenklasse: personenbezogen']
+  valid_until date [note: 'Datenklasse: personenbezogen. leer = offen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table relationships {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  from_contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  to_contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  relationship_type relationship_type [not null, note: 'Datenklasse: personenbezogen']
+  valid_from date [note: 'Datenklasse: personenbezogen']
+  valid_until date [note: 'Datenklasse: personenbezogen. leer = offen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table external_identifiers {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  source_system_id uuid [not null, ref: > source_systems.id, note: 'Datenklasse: personenbezogen']
+  external_key text [not null, note: 'Datenklasse: personenbezogen. Nummer im Fremdsystem']
+  indexes {
+    (source_system_id, external_key) [unique]
+  }
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table contact_restrictions {
+  id uuid [pk, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  restriction_type restriction_type [not null, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  towards_contact_id uuid [ref: > contacts.id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). optional: Sperre gegenüber dieser Person']
+  valid_from date [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  valid_until date [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). leer = offen']
+  Note: 'Bereich: connect: Kontakte. Datenart: Stammdaten.'
+}
+
+Table membership_functions {
+  id uuid [pk, note: 'Datenklasse: intern']
+  group_type group_type [not null, note: 'Datenklasse: intern']
+  code text [not null, note: 'Datenklasse: intern']
+  label text [not null, note: 'Datenklasse: intern. Klassenlehrperson, Präsidium']
+  indexes {
+    (group_type, code) [unique]
+  }
+  Note: 'Bereich: connect: Kontakte. Datenart: Schulkatalog.'
+}
+
+Table legal_entity_types {
+  id uuid [pk, note: 'Datenklasse: intern']
+  code text [unique, not null, note: 'Datenklasse: intern']
+  label text [not null, note: 'Datenklasse: intern. Firma, Fachstelle, Schule, Behörde']
+  Note: 'Bereich: connect: Kontakte. Datenart: Schulkatalog.'
+}
+
+Table source_systems {
+  id uuid [pk, note: 'Datenklasse: intern']
+  code text [unique, not null, note: 'Datenklasse: intern']
+  label text [not null, note: 'Datenklasse: intern. führende Fremdsysteme']
+  Note: 'Bereich: connect: Kontakte. Datenart: Schulkatalog.'
+}
+
+Table person_details {
+  contact_id uuid [pk, ref: - persons.contact_id, note: 'Datenklasse: personenbezogen']
+  born_on date [note: 'Datenklasse: personenbezogen. Geburtsdatum']
+  place_of_birth text [note: 'Datenklasse: personenbezogen. Geburtsort']
+  gender gender [note: 'Datenklasse: personenbezogen']
+  nationality_country_id bigint [ref: > countries.id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  correspondence_language_id bigint [ref: > languages.id, note: 'Datenklasse: personenbezogen']
+  has_interpreter_need boolean [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  ahv_number text [unique, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  occupation text [note: 'Datenklasse: personenbezogen. Beruf, freiwillig']
+  civil_status civil_status [note: 'Datenklasse: personenbezogen']
+  civil_status_on date [note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table person_languages {
+  id bigint [pk, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  contact_id uuid [not null, ref: > persons.contact_id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  language_id bigint [not null, ref: > languages.id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  language_type language_type [not null, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  indexes {
+    (contact_id, language_id, language_type) [unique]
+  }
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table person_origins {
+  id bigint [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > persons.contact_id, note: 'Datenklasse: personenbezogen']
+  municipality_id bigint [not null, ref: > municipalities.id, note: 'Datenklasse: personenbezogen. Heimatort']
+  indexes {
+    (contact_id, municipality_id) [unique]
+  }
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table addresses {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  street text [note: 'Datenklasse: personenbezogen']
+  house_number text [note: 'Datenklasse: personenbezogen']
+  po_box text [note: 'Datenklasse: personenbezogen. Postfach']
+  locality_id bigint [not null, ref: > localities.id, note: 'Datenklasse: personenbezogen']
+  latitude decimal [note: 'Datenklasse: personenbezogen. für die Kartenansicht']
+  longitude decimal [note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table contact_addresses {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  address_id uuid [not null, ref: > addresses.id, note: 'Datenklasse: personenbezogen']
+  address_type address_type [not null, note: 'Datenklasse: personenbezogen']
+  care_of text [note: 'Datenklasse: personenbezogen. c/o-Zusatz']
+  valid_from date [note: 'Datenklasse: personenbezogen. auch künftige Adresse']
+  valid_until date [note: 'Datenklasse: personenbezogen. leer = offen']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table relationship_custody {
+  relationship_id uuid [pk, ref: - relationships.id, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag)']
+  has_custody boolean [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). Sorgerecht']
+  has_information_right boolean [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). Auskunftsrecht']
+  is_living_with boolean [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). wohnt bei']
+  is_pickup_allowed boolean [note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). abholberechtigt']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table emergency_contacts {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  sort_order integer [note: 'Datenklasse: personenbezogen. Reihenfolge']
+  person_name text [not null, note: 'Datenklasse: personenbezogen. wer erreichbar ist']
+  phone text [not null, note: 'Datenklasse: personenbezogen. Notfallnummer']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table contact_consents {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  consent_type consent_type [not null, note: 'Datenklasse: personenbezogen']
+  is_granted boolean [not null, note: 'Datenklasse: personenbezogen']
+  valid_from date [note: 'Datenklasse: personenbezogen']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Betriebsdaten.'
+}
+
+Table contact_notes {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  contact_person_group_id uuid [ref: > contact_person_groups.id, note: 'Datenklasse: personenbezogen. optional']
+  note text [not null, note: 'Datenklasse: personenbezogen, erhöhter Schutz (Vorschlag). Freitext; Risiko für heikle Inhalte']
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Betriebsdaten.'
+}
+
+Table custom_field_definitions {
+  id uuid [pk, note: 'Datenklasse: intern']
+  module_key text [not null, note: 'Datenklasse: intern. Modul, dem das Feld gehört']
+  code text [not null, note: 'Datenklasse: intern']
+  label text [not null, note: 'Datenklasse: intern']
+  field_type custom_field_type [not null, note: 'Datenklasse: intern']
+  person_group person_group [note: 'Datenklasse: intern. optional']
+  data_class data_class [not null, note: 'Datenklasse: intern. Datenklasse des Feldes nach B2']
+  indexes {
+    (module_key, code) [unique]
+  }
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Schulkatalog.'
+}
+
+Table custom_field_values {
+  id uuid [pk, note: 'Datenklasse: personenbezogen']
+  custom_field_definition_id uuid [not null, ref: > custom_field_definitions.id, note: 'Datenklasse: personenbezogen']
+  contact_id uuid [not null, ref: > contacts.id, note: 'Datenklasse: personenbezogen']
+  value text [note: 'Datenklasse: je Feld (data_class der Definition)']
+  indexes {
+    (custom_field_definition_id, contact_id) [unique]
+  }
+  Note: 'Bereich: connect: Stammdaten der Person. Datenart: Stammdaten.'
+}
+
+Table countries {
+  id bigint [pk, note: 'Datenklasse: öffentlich']
+  iso_code text [unique, not null, note: 'Datenklasse: öffentlich. Ländercode nach Norm']
+  name text [not null, note: 'Datenklasse: öffentlich']
+  nationality_name text [note: 'Datenklasse: öffentlich. Staatsangehörigkeit']
+  valid_until date [note: 'Datenklasse: öffentlich. leer = gültig']
+  entry_source entry_source [not null, note: 'Datenklasse: öffentlich. mitgeliefert oder eigener Eintrag der Schule']
+  is_active boolean [not null, note: 'Datenklasse: öffentlich. von der Schule aktiviert oder deaktiviert']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
+
+Table cantons {
+  id bigint [pk, note: 'Datenklasse: öffentlich']
+  code text [unique, not null, note: 'Datenklasse: öffentlich. Kantonskürzel']
+  name text [not null, note: 'Datenklasse: öffentlich']
+  country_id bigint [not null, ref: > countries.id, note: 'Datenklasse: öffentlich']
+  entry_source entry_source [not null, note: 'Datenklasse: öffentlich. mitgeliefert oder eigener Eintrag der Schule']
+  is_active boolean [not null, note: 'Datenklasse: öffentlich. von der Schule aktiviert oder deaktiviert']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
+
+Table languages {
+  id bigint [pk, note: 'Datenklasse: öffentlich']
+  iso_code text [unique, not null, note: 'Datenklasse: öffentlich. Sprachcode nach Norm']
+  name text [not null, note: 'Datenklasse: öffentlich']
+  entry_source entry_source [not null, note: 'Datenklasse: öffentlich. mitgeliefert oder eigener Eintrag der Schule']
+  is_active boolean [not null, note: 'Datenklasse: öffentlich. von der Schule aktiviert oder deaktiviert']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
+
+Table municipalities {
+  id bigint [pk, note: 'Datenklasse: öffentlich']
+  bfs_number text [unique, not null, note: 'Datenklasse: öffentlich. BFS-Gemeindenummer']
+  name text [not null, note: 'Datenklasse: öffentlich']
+  canton_id bigint [not null, ref: > cantons.id, note: 'Datenklasse: öffentlich']
+  valid_until date [note: 'Datenklasse: öffentlich. leer = gültig']
+  successor_id bigint [ref: > municipalities.id, note: 'Datenklasse: öffentlich. Nachfolger nach Fusion']
+  entry_source entry_source [not null, note: 'Datenklasse: öffentlich. mitgeliefert oder eigener Eintrag der Schule']
+  is_active boolean [not null, note: 'Datenklasse: öffentlich. von der Schule aktiviert oder deaktiviert']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
+
+Table localities {
+  id bigint [pk, note: 'Datenklasse: öffentlich']
+  postal_code text [not null, note: 'Datenklasse: öffentlich']
+  name text [not null, note: 'Datenklasse: öffentlich. Ort']
+  country_id bigint [not null, ref: > countries.id, note: 'Datenklasse: öffentlich']
+  municipality_id bigint [ref: > municipalities.id, note: 'Datenklasse: öffentlich. optional']
+  valid_until date [note: 'Datenklasse: öffentlich. leer = gültig']
+  entry_source entry_source [not null, note: 'Datenklasse: öffentlich. mitgeliefert oder eigener Eintrag der Schule']
+  is_active boolean [not null, note: 'Datenklasse: öffentlich. von der Schule aktiviert oder deaktiviert']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
+
+Table reference_releases {
+  id bigint [pk, note: 'Datenklasse: intern']
+  list_key text [not null, note: 'Datenklasse: intern. welche Liste']
+  source text [not null, note: 'Datenklasse: intern. Herkunft']
+  version text [not null, note: 'Datenklasse: intern. Stand der Quelle']
+  published_on date [note: 'Datenklasse: intern']
+  Note: 'Bereich: Referenzdaten (mitgeliefert). Datenart: Referenzdaten.'
+}
